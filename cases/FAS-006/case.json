@@ -9,7 +9,7 @@
     "C3_AUTHENTICATION_AUTHORIZATION"
   ],
   "difficulty": "L2_MULTI_FUNCTION",
-  "status": "VALIDATED",
+  "status": "IN_REVIEW",
   "scenario": "A sensitive function appears unguarded locally, but upstream middleware enforces authorization before entry.",
   "security_condition": "BLOCKED_BY_AUTHORIZATION",
   "attacker_model": "Unauthorized caller can reach the route but cannot satisfy upstream authorization.",
@@ -37,6 +37,7 @@
   "metadata": {
     "case_version": "0.1.0",
     "environment_version": "0.1.0",
-    "provenance": "SYNTHETIC"
+    "provenance": "SYNTHETIC",
+    "lifecycle_status": "IN_REVIEW"
   }
 }
