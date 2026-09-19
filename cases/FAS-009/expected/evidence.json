@@ -1,0 +1,21 @@
+{
+  "evidence_id": "EVD-009-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "TEST_RESULT",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic MCP oracle evidence.",
+  "location": {
+    "repository": "cases/FAS-009",
+    "commit": "phase3-initial",
+    "file": "repository/state.json",
+    "line_start": 1,
+    "line_end": 1,
+    "language": "json"
+  },
+  "related_claims": [
+    "CLM-009-001"
+  ],
+  "provenance": "VERIFIED"
+}
