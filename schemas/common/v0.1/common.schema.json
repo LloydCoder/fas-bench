@@ -557,6 +557,9 @@
         "metadata": {
           "type": "object",
           "additionalProperties": true
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
         }
       },
       "required": [
