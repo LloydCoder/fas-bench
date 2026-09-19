@@ -1,0 +1,33 @@
+{
+  "case_id": "FAS-013",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Revoked Secret",
+  "description": "A historical synthetic credential was exposed but deterministic revocation prevents current authentication.",
+  "category": "C7_SECRETS_SENSITIVE_DATA",
+  "categories": [
+    "C7_SECRETS_SENSITIVE_DATA"
+  ],
+  "difficulty": "L2_MULTI_FUNCTION",
+  "status": "VALIDATED",
+  "scenario": "A historical synthetic credential was exposed but deterministic revocation prevents current authentication.",
+  "security_condition": "REMEDIATION_BREAKS_PATH",
+  "attacker_model": "Attacker knows the historical synthetic credential but has no alternate credential.",
+  "environment": {
+    "validation_type": "STATIC",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-013/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0"
+  }
+}
