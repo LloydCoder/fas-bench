@@ -872,6 +872,88 @@
         "invalidity"
       ],
       "additionalProperties": false
+    },
+    "Remediation": {
+      "type": "object",
+      "properties": {
+        "remediation_id": {
+          "$ref": "#/$defs/RemediationId"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "target_claim_ids": {
+          "$ref": "#/$defs/ClaimRef"
+        },
+        "original_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "proposed_change": {
+          "type": "string",
+          "minLength": 1
+        },
+        "change_reference": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "control_added": {
+          "type": "string"
+        },
+        "original_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "revalidated_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "alternate_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "verification_status": {
+          "$ref": "#/$defs/RemediationStatus"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "final_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "baseline": {
+          "type": "string"
+        },
+        "change": {
+          "type": "string"
+        },
+        "current_state": {
+          "type": "string"
+        },
+        "affected_property": {
+          "type": "string"
+        },
+        "previous_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "current_verdict": {
+          "$ref": "#/$defs/Verdict"
+        }
+      },
+      "required": [
+        "remediation_id",
+        "benchmark_version",
+        "schema_version",
+        "target_claim_ids",
+        "original_verdict",
+        "proposed_change",
+        "original_path_ids",
+        "revalidated_path_ids",
+        "alternate_path_ids",
+        "verification_status",
+        "evidence_ids",
+        "final_verdict"
+      ],
+      "additionalProperties": false
     }
   }
 }
