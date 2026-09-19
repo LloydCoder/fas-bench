@@ -31,3 +31,8 @@ The initial corpus deliberately spans L1_LOCAL through L5_CROSS_SYSTEM. It is no
 ## Verdict coverage
 
 The corpus includes EXPLOITABLE, NOT_EXPLOITABLE, CONDITIONALLY_EXPLOITABLE, REMEDIATED, REMEDIATION_FAILED, and UNKNOWN. REGRESSED is not represented by the initial 20 cases; a future regression case should be added rather than overloading another verdict.
+
+
+## Oracle classes
+
+The initial gold cases use DYNAMIC security-property validation through loopback-only synthetic services. Other cases may remain STATIC where runtime execution is not required. A dynamic oracle must demonstrate the security property itself, not merely process success.
