@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-011-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "DEPENDENCY",
+  "statement": "Installing a local synthetic dependency executes its build hook with the application build identity.",
+  "subject": "synthetic dependency",
+  "predicate": "executes",
+  "object": "build hook",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-011-001"
+  ],
+  "provenance": "VERIFIED"
+}
