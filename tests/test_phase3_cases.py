@@ -1,12 +1,15 @@
 from fas_bench.cases import reproduce_all, run_oracle, validate_all
 
+
 def test_phase3_registry_and_packages_validate():
     result = validate_all()
     assert result["status"] == "PASS", result
 
+
 def test_phase3_oracles_match_ground_truth():
     result = reproduce_all()
     assert result["status"] == "PASS", result
+
 
 def test_gold_oracle_mutations_change_security_semantics():
     mutations = {
@@ -27,7 +30,10 @@ def test_gold_oracle_mutations_change_security_semantics():
         result = run_oracle(case_id, mutation=mutation)
         assert result["observed_verdict"] == expected[case_id], (case_id, result)
 
+
 def test_case_ids_are_exactly_the_initial_twenty():
     result = validate_all()
     assert result["case_count"] == 20
-    assert [r["case_id"] for r in result["results"]] == [f"FAS-{i:03d}" for i in range(1, 21)]
+    assert [r["case_id"] for r in result["results"]] == [
+        f"FAS-{i:03d}" for i in range(1, 21)
+    ]
