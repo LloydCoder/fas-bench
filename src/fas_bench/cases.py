@@ -138,7 +138,7 @@ def validate_all() -> dict[str, Any]:
     }
 
 
-def run_oracle(case_id: str, timeout: int = 30) -> dict[str, Any]:
+def run_oracle(case_id: str, timeout: int = 30, mutation: dict[str, Any] | None = None) -> dict[str, Any]:
     case_dir = CASES_ROOT / case_id
     oracle = case_dir / "oracle" / "oracle.py"
     if not oracle.is_file():
@@ -146,6 +146,8 @@ def run_oracle(case_id: str, timeout: int = 30) -> dict[str, Any]:
 
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
+    if mutation is not None:
+        env["FAS_BENCH_MUTATION_JSON"] = json.dumps(mutation, sort_keys=True)
     try:
         completed = subprocess.run(
             [sys.executable, str(oracle)],
