@@ -59,6 +59,4 @@ def test_normative_spec_has_phase_sections():
 
 def test_no_unfinished_placeholder_language_in_normative_spec():
     text = (ROOT / "docs/specification.md").read_text(encoding="utf-8").lower()
-    assert not any(
-        term in text for term in ("tbd", "todo", "fixme", "draft / research validation")
-    )
+    assert not any(term in text for term in ("tbd", "todo", "fixme", "draft / research validation"))
