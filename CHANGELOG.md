@@ -2,26 +2,21 @@
 
 All notable changes to FAS-Bench are documented here.
 
-## 0.1.0 — Phase 1: Specification & Benchmark Contract
+## Unreleased — Phase 2: Schema & Data Model
 
 ### Added
-
-- Normative FAS-Bench benchmark specification.
-- Canonical taxonomy, difficulty model, verdict semantics, claim/evidence model, attack graph model, effective security graph, remediation and regression semantics.
-- Initial 20-case design registry and five designated gold cases.
-- Explicit benchmark independence requirements.
-- Reproducibility, determinism, benchmark-security, contamination, and ground-truth isolation requirements.
-- Repository-contract validation tests.
-- Documentation consistency tests.
-- CI for formatting, linting, tests, package build/import, and repository-contract validation.
-- Development tooling metadata for Python 3.12 and 3.13.
+- JSON Schema Draft 2020-12 contracts for case, claim, evidence, attack graph, verdict, remediation, submission, and evaluation result.
+- Shared canonical definitions for IDs, enums, timestamps, confidence, severity, provenance, impact, graph objects, findings, verification, and score components.
+- Offline semantic validation with deterministic structured errors.
+- Valid/invalid contract fixtures and integrated FAS-001, FAS-002, FAS-006, FAS-016, and FAS-020 fixture coverage.
+- CLI validation command and CI schema/meta-validation gates.
+- Public case registry metadata.
 
 ### Clarifications
+- Benchmark version is 0.1.0; schema family version is 0.1.
+- Schema-valid, semantically-valid, and benchmark-correct are distinct states.
+- Public submissions contain system beliefs, not hidden expected verdicts.
+- Scoring arithmetic is structurally represented but remains provisional until Phase 8.
 
-- Scoring weights, evidence score, graph score, evidence-integrity threshold, and composite metric are explicitly provisional research hypotheses.
-- The initial case registry is not presented as a validated or statistically representative corpus.
-- Phase 1 does not implement the complete evaluator, schema engine, evidence engine, graph engine, scoring engine, or secure evaluation harness.
-
-## Unreleased
-
-Future changes will be recorded against the applicable benchmark specification version and phase. Normative semantic changes require specification review.
+## 0.1.0 — Phase 1: Specification & Benchmark Contract
+- Normative benchmark contract, canonical taxonomy, verdict semantics, evidence model, graph model, remediation/regression semantics, reproducibility, security, contamination, and FAS independence.
