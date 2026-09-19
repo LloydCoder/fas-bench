@@ -4,4 +4,4 @@ Attacker-controlled agent behavior can modify synthetic source-control state, tr
 
 All control-plane components are synthetic; no real GitHub, CI, cloud, or production system is contacted.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
