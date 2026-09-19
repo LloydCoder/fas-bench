@@ -21,9 +21,7 @@ def main(argv=None):
     )
 
     cases_parser = subparsers.add_parser("cases")
-    cases_subparsers = cases_parser.add_subparsers(
-        dest="cases_command", required=True
-    )
+    cases_subparsers = cases_parser.add_subparsers(dest="cases_command", required=True)
     validate_all_parser = cases_subparsers.add_parser("validate-all")
     validate_all_parser.add_argument("--reproduce", action="store_true")
     validate_gold_parser = cases_subparsers.add_parser("validate-gold")
@@ -64,10 +62,12 @@ def main(argv=None):
             else None
         )
         output = {
-            "status": "PASS"
-            if result["status"] == "PASS"
-            and (gold is None or gold["status"] == "PASS")
-            else "FAIL",
+            "status": (
+                "PASS"
+                if result["status"] == "PASS"
+                and (gold is None or gold["status"] == "PASS")
+                else "FAIL"
+            ),
             "corpus": result,
             "gold": gold,
         }
