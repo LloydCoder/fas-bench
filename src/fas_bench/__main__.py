@@ -1,4 +1,5 @@
 """fas-bench validation CLI."""
+
 import argparse
 import json
 import sys
@@ -10,23 +11,25 @@ from .validation import validate_file
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="fas-bench")
-    subs = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
-    validate_parser = subs.add_parser("validate")
+    validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("path", type=Path)
     validate_parser.add_argument("--schema", required=True)
     validate_parser.add_argument(
         "--semantic", action=argparse.BooleanOptionalAction, default=True
     )
 
-    cases = subs.add_parser("cases")
-    csub = cases.add_subparsers(dest="cases_command", required=True)
-    va = csub.add_parser("validate-all")
-    va.add_argument("--reproduce", action="store_true")
-    vg = csub.add_parser("validate-gold")
-    vg.add_argument("--reproduce")
-    rp = csub.add_parser("reproduce")
-    rp.add_argument("case_id")
+    cases_parser = subparsers.add_parser("cases")
+    cases_subparsers = cases_parser.add_subparsers(
+        dest="cases_command", required=True
+    )
+    validate_all_parser = cases_subparsers.add_parser("validate-all")
+    validate_all_parser.add_argument("--reproduce", action="store_true")
+    validate_gold_parser = cases_subparsers.add_parser("validate-gold")
+    validate_gold_parser.add_argument("--reproduce", action="store_true")
+    reproduce_parser = cases_subparsers.add_parser("reproduce")
+    reproduce_parser.add_argument("case_id")
 
     args = parser.parse_args(argv)
 
@@ -48,9 +51,8 @@ def main(argv=None):
         if args.reproduce:
             result["reproduction"] = reproduce_all()
         ok = result["status"] == "PASS"
-        ok = ok and (
-            not args.reproduce or result["reproduction"]["status"] == "PASS"
-        )
+        if args.reproduce:
+            ok = ok and result["reproduction"]["status"] == "PASS"
         print(json.dumps(result, indent=2))
         return 0 if ok else 2
 
