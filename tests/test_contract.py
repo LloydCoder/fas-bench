@@ -106,3 +106,23 @@ def test_fas_independence_is_explicit():
     text = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
     assert "FAS is one candidate evaluated system" in text
     assert "MUST NOT import, require, execute, or derive ground truth from FAS" in text
+
+
+def test_python_vocabulary_is_derived_from_common_schema():
+    import json
+
+    common = json.loads(
+        (ROOT / "schemas/common/v0.1/common.schema.json").read_text(encoding="utf-8")
+    )["$defs"]
+    from fas_bench.contract import CLAIM_TYPES, EDGE_TYPES, NODE_TYPES, REASON_CODES
+
+    assert CATEGORIES == tuple(common["Category"]["enum"])
+    assert VERDICTS == tuple(common["Verdict"]["enum"])
+    assert DIFFICULTY_LEVELS == tuple(common["Difficulty"]["enum"])
+    assert EVIDENCE_TYPES == tuple(common["EvidenceType"]["enum"])
+    assert EVIDENCE_ROLES == tuple(common["EvidenceRole"]["enum"])
+    assert EVIDENCE_STATES == tuple(common["EvidenceVerification"]["enum"])
+    assert CLAIM_TYPES == tuple(common["ClaimType"]["enum"])
+    assert REASON_CODES == tuple(common["ReasonCode"]["enum"])
+    assert NODE_TYPES == tuple(common["NodeType"]["enum"])
+    assert EDGE_TYPES == tuple(common["EdgeType"]["enum"])
