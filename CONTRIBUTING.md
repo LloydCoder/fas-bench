@@ -1,38 +1,57 @@
 # Contributing to FAS-Bench
 
-FAS-Bench is a security benchmark, so contributions must be reproducible, reviewable, and safe to execute.
+**Document role:** contribution workflow and governance.  
+**Authority:** docs/specification.md is the normative benchmark contract.
 
-## Before contributing a case
+FAS-Bench contributions must be reproducible, reviewable, independently defined, and safe to execute.
 
-Open an issue for substantial new cases or case families. Include:
+## Benchmark-design principles
 
-- security category
-- intended capability being evaluated
-- expected verdict
-- false-positive or false-negative trap
-- required evidence
-- attack-path expectation
-- remediation requirement
-- deterministic validation strategy
-- difficulty level
-- contamination considerations
+Contributors should preserve evidence-first evaluation, exploitability adjudication, effective security boundaries, alternate-path analysis, uncertainty, reproducibility, and independence from any evaluated system.
 
-## Case requirements
+## Case contributions
 
-A benchmark case should:
+For substantial cases or case families, open an issue describing:
 
-1. have a stable identifier;
-2. have explicit machine-readable ground truth;
-3. define the relevant environment and assumptions;
-4. identify required evidence;
-5. provide deterministic validation where feasible;
-6. avoid relying on prose-only grading;
-7. use synthetic credentials and attacker-controlled artifacts;
-8. avoid external network dependencies unless explicitly isolated;
-9. document licensing and provenance for third-party material.
+- stable case identifier or proposed identifier;
+- primary and secondary categories;
+- capability being evaluated;
+- security condition;
+- attacker/environment assumptions;
+- expected verdict;
+- false-positive or false-negative trap;
+- required evidence;
+- attack-path expectation;
+- remediation/regression behavior;
+- deterministic validation strategy;
+- difficulty level and structural justification;
+- contamination considerations;
+- provenance/licensing.
+
+A case MUST use synthetic credentials and MUST NOT target real external systems.
+
+## Ground truth
+
+Case ground truth must be independently established. Contributors MUST NOT derive benchmark truth from the output of a system being evaluated. Ground truth must distinguish observable evidence from interpretation.
+
+## Normative changes
+
+Contributors MUST NOT silently change scoring semantics, verdict meanings, taxonomy, difficulty definitions, or other normative rules while adding cases or implementation code.
+
+Normative changes require a specification review and an explicit benchmark-version decision.
+
+## Engineering requirements
+
+Changes should include appropriate tests and documentation. CI must remain green. Formatting, linting, tests, package build/import, and repository-contract validation are required for merge.
+
+## Independence requirement
+
+FAS-Bench MUST remain usable without FAS. Contributions MUST NOT add an import, runtime dependency, scoring dependency, or ground-truth dependency on FAS.
 
 ## Security
 
-Treat every benchmark case as untrusted input. Never execute case code directly on a development or evaluation host.
+Treat benchmark cases and dependencies as untrusted. Do not execute arbitrary case code on the host. Report infrastructure/evaluator vulnerabilities privately when public disclosure could compromise benchmark integrity.
 
-Report benchmark or evaluator security issues privately when disclosure could compromise the benchmark or evaluator.
+## Versioning
+
+Every evaluation-relevant change must identify the applicable benchmark, schema, evaluator, case-set, and submission-format versions. Changes to normative semantics require specification-version review.
