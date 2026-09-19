@@ -14,3 +14,6 @@ Treat benchmark inputs as untrusted. Do not execute case code on the host, use r
 
 ## CI
 Formatting, linting, tests, schema validation, build, package import, and repository consistency checks must remain green.
+
+## Phase 3 case contributions
+New or changed cases must include a falsifiable security hypothesis, explicit attacker model, synthetic credentials only, controlled environment, structured ground truth, deterministic oracle, limitations, and case version. Public cases are development data; do not commit hidden evaluation answers. Run `fas-bench cases validate-all` and the gold reproduction checks before opening a pull request.
