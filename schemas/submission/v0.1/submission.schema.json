@@ -64,7 +64,7 @@
       "additionalProperties": false
     },
     "verdict": {
-      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/VerdictObject"
     },
     "findings": {
       "type": "array",
