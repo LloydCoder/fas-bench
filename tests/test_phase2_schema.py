@@ -24,7 +24,7 @@ def test_valid_fixtures_pass():
         path = VALID / f"{family}.json"
         assert path.exists(), path
         result = validate(json.loads(path.read_text()), family, True, set(CASE_IDS))
-        assert result.status == "VALID", (family, result.errors)
+        if result.status != "VALID":\n            print(f"FIXTURE {family}: {result.errors}")\n        assert result.status == "VALID", (family, result.errors)
 
 
 def test_invalid_fixtures_fail():
