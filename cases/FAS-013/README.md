@@ -4,4 +4,4 @@ A historical synthetic credential was exposed but deterministic revocation preve
 
 Synthetic credential lifecycle: issued → active → revoked.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
