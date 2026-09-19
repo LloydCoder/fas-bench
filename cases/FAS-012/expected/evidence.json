@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-012-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "DEPENDENCY",
+  "role": "SUPPORTING",
+  "verification": "UNRESOLVED",
+  "description": "Dependency is present but call-path evidence is unresolved.",
+  "related_claims": [
+    "CLM-012-001"
+  ],
+  "provenance": "VERIFIED"
+}
