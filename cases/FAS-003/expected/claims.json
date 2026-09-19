@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-003-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "DATA_FLOW",
+  "statement": "User-controlled command arguments are passed through an argument boundary that prevents shell interpretation.",
+  "subject": "attacker input",
+  "predicate": "is constrained by",
+  "object": "argument boundary",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-003-001"
+  ],
+  "provenance": "VERIFIED"
+}
