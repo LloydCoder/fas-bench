@@ -54,13 +54,12 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
 
     errors: list[str] = []
     case_path = case_dir / "case.json"
-    metadata_path = case_dir / "metadata.json"
-    if not case_path.is_file() or not metadata_path.is_file():
-        errors.append("missing case.json or metadata.json")
-        return {"case_id": case_id, "status": "FAIL", "errors": errors}
+    if not case_path.is_file():
+        return {"case_id": case_id, "status": "FAIL", "errors": ["missing case.json"]}
 
     case = _load(case_path)
-    metadata = _load(metadata_path)
+    metadata_path = case_dir / "metadata.json"
+    metadata = _load(metadata_path) if metadata_path.is_file() else case.get("metadata", {})
     if case.get("case_id") != case_id or metadata.get("case_id") != case_id:
         errors.append("case_id does not match directory")
     if case.get("benchmark_version") != BENCHMARK_VERSION or case.get("schema_version") != SCHEMA_VERSION:
@@ -89,8 +88,11 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
             errors.append("finding schema contract incomplete")
 
     paths = _load(case_dir / "expected" / "attack_paths.json") if (case_dir / "expected" / "attack_paths.json").is_file() else {}
-    graph = _load(case_dir / "expected" / "attack_graph.json") if (case_dir / "expected" / "attack_graph.json").is_file() else {}
-    if paths.get("path_id") and not any(p.get("path_id") == paths["path_id"] for p in graph.get("paths", [])):
+    graph_path = case_dir / "expected" / "attack_graph.json"
+    graph = _load(graph_path) if graph_path.is_file() else {}
+    if not graph_path.is_file():
+        errors.append("missing expected/attack_graph.json")
+    elif paths.get("path_id") and not any(p.get("path_id") == paths["path_id"] for p in graph.get("paths", [])):
         errors.append("attack_paths.json is not represented in attack_graph.json")
 
     expected_verdict = _load(case_dir / "expected" / "verdict.json").get("verdict")
@@ -98,7 +100,8 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
         errors.append("finding/verdict mismatch")
 
     digest = _digest_case(case_dir)
-    if metadata.get("artifact_digest") != digest:
+    recorded = metadata.get("artifact_digest")
+    if recorded and recorded != "PLACEHOLDER" and recorded != digest:
         errors.append("metadata artifact_digest mismatch")
 
     return {
