@@ -4,7 +4,9 @@ from pathlib import Path
 
 state = json.loads((Path(__file__).parents[1] / "repository/state.json").read_text())
 state.update(json.loads(os.getenv("FAS_BENCH_MUTATION_JSON", "{}")))
-if state.get("path_viable") and state.get("agent_capability"):
+if state.get("prerequisite_satisfied"):
+    observed = "CONDITIONALLY_EXPLOITABLE"
+elif state.get("path_viable") and state.get("agent_capability"):
     observed = "EXPLOITABLE"
 else:
     observed = "NOT_EXPLOITABLE"
