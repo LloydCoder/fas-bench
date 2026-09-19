@@ -1,0 +1,18 @@
+{
+  "path_id": "P-007-001",
+  "node_ids": [
+    "N-007-input",
+    "N-007-control",
+    "N-007-impact"
+  ],
+  "edge_ids": [
+    "E-007-1",
+    "E-007-2"
+  ],
+  "entry_node": "N-007-input",
+  "impact_node": "N-007-impact",
+  "status": "VIABLE",
+  "evidence_ids": [
+    "EVD-007-001"
+  ]
+}
