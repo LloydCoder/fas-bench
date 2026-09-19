@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/ground-truth/v0.1/ground-truth.schema.json",
+  "title": "FAS-Bench Evaluator-Only Ground Truth v0.1",
+  "description": "Evaluator-only contract. Must never be accepted as a normal evaluated-system submission.",
+  "type": "object",
+  "properties": {
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "case_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/CaseId"
+    },
+    "expected_verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "expected_claims": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/Claim"
+      },
+      "uniqueItems": true
+    },
+    "expected_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/Evidence"
+      },
+      "uniqueItems": true
+    },
+    "attack_graph": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/AttackGraph"
+    },
+    "expected_attack_paths": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/AttackPath"
+      },
+      "uniqueItems": true
+    },
+    "remediation": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Remediation"
+    },
+    "regression": {
+      "type": "object",
+      "properties": {
+        "baseline": {
+          "type": "string"
+        },
+        "change": {
+          "type": "string"
+        },
+        "current_state": {
+          "type": "string"
+        },
+        "affected_property": {
+          "type": "string"
+        },
+        "previous_verdict": {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+        },
+        "current_verdict": {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+        },
+        "evidence_ids": {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRef"
+        }
+      },
+      "required": [
+        "baseline",
+        "change",
+        "current_state",
+        "affected_property",
+        "previous_verdict",
+        "current_verdict"
+      ],
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "benchmark_version",
+    "schema_version",
+    "case_id",
+    "expected_verdict"
+  ],
+  "additionalProperties": false
+}

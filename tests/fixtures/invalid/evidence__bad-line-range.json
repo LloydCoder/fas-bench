@@ -1,0 +1,21 @@
+{
+  "evidence_id": "EVD-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "SOURCE_LOCATION",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Observable source evidence.",
+  "location": {
+    "repository": "fixture-repo",
+    "commit": "abc123",
+    "file": "app.py",
+    "line_start": 20,
+    "line_end": 10,
+    "language": "python"
+  },
+  "related_claims": [
+    "CLM-001"
+  ],
+  "provenance": "OBSERVED"
+}

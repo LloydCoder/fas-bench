@@ -1,0 +1,145 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "submission_id": "SUB-FAS-001",
+  "case_id": "FAS-001",
+  "system": {
+    "system_name": "fixture-agent",
+    "system_version": "1.0",
+    "timestamp": "2026-09-19T18:00:00Z"
+  },
+  "verdict": {
+    "benchmark_version": "0.1.0",
+    "schema_version": "0.1",
+    "verdict": "NOT_EXPLOITABLE",
+    "reason_code": "BLOCKED_BY_NETWORK_POLICY",
+    "confidence": 0.93,
+    "rationale": "The effective allowlist blocks the sink transition.",
+    "claim_ids": [
+      "CLM-001"
+    ],
+    "evidence_ids": [
+      "EVD-999"
+    ],
+    "attack_path_ids": [
+      "P-1"
+    ]
+  },
+  "findings": [
+    {
+      "finding_id": "FIND-001",
+      "title": "SSRF signal",
+      "category": "C1_REACHABILITY",
+      "severity": "HIGH",
+      "description": "HTTP sink is blocked by an effective policy.",
+      "claim_ids": [
+        "CLM-001"
+      ],
+      "evidence_ids": [
+        "EVD-001"
+      ],
+      "verdict": "NOT_EXPLOITABLE",
+      "confidence": 0.93
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "CLM-001",
+      "benchmark_version": "0.1.0",
+      "schema_version": "0.1",
+      "claim_type": "REACHABILITY",
+      "statement": "Attacker-controlled input reaches the HTTP sink under the stated assumptions.",
+      "subject": "request",
+      "predicate": "reaches",
+      "object": "http_sink",
+      "confidence": 0.92,
+      "status": "ASSERTED",
+      "related_evidence": [
+        "EVD-001"
+      ],
+      "provenance": "DECLARED"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVD-001",
+      "benchmark_version": "0.1.0",
+      "schema_version": "0.1",
+      "type": "SOURCE_LOCATION",
+      "role": "DIRECT",
+      "verification": "VERIFIED",
+      "description": "Observable source evidence.",
+      "location": {
+        "repository": "fixture-repo",
+        "commit": "abc123",
+        "file": "app.py",
+        "line_start": 10,
+        "line_end": 12,
+        "language": "python"
+      },
+      "related_claims": [
+        "CLM-001"
+      ],
+      "provenance": "OBSERVED"
+    }
+  ],
+  "attack_paths": [
+    {
+      "path_id": "P-1",
+      "node_ids": [
+        "N-input",
+        "N-sink",
+        "N-impact"
+      ],
+      "edge_ids": [
+        "E-1",
+        "E-2"
+      ],
+      "entry_node": "N-input",
+      "impact_node": "N-impact",
+      "status": "BLOCKED",
+      "evidence_ids": [
+        "EVD-001"
+      ]
+    }
+  ],
+  "impact": {
+    "confidentiality": "MEDIUM",
+    "integrity": "NONE",
+    "availability": "LOW"
+  },
+  "remediation": {
+    "remediation_id": "REM-001",
+    "benchmark_version": "0.1.0",
+    "schema_version": "0.1",
+    "target_claim_ids": [
+      "CLM-001"
+    ],
+    "original_verdict": "EXPLOITABLE",
+    "proposed_change": "Restrict the endpoint and revalidate the path.",
+    "original_path_ids": [
+      "P-1"
+    ],
+    "revalidated_path_ids": [
+      "P-1"
+    ],
+    "alternate_path_ids": [],
+    "verification_status": "VERIFIED",
+    "evidence_ids": [
+      "EVD-001"
+    ],
+    "final_verdict": "REMEDIATED"
+  },
+  "verification": {
+    "verification_id": "VER-001",
+    "status": "VERIFIED",
+    "method": "Deterministic fixture verification",
+    "evidence_ids": [
+      "EVD-001"
+    ],
+    "timestamp": "2026-09-19T18:00:00Z"
+  },
+  "metadata": {
+    "fixture": true
+  }
+}

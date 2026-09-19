@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/verdict/v0.1/verdict.schema.json",
+  "title": "FAS-Bench Verdict v0.1",
+  "type": "object",
+  "properties": {
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "reason_code": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ReasonCode"
+    },
+    "confidence": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Confidence"
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimRef"
+    },
+    "evidence_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRef"
+    },
+    "attack_path_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/PathRef"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/Condition"
+      },
+      "minItems": 1
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "benchmark_version",
+    "schema_version",
+    "verdict",
+    "reason_code",
+    "confidence",
+    "rationale",
+    "claim_ids",
+    "evidence_ids",
+    "attack_path_ids"
+  ],
+  "additionalProperties": false
+}

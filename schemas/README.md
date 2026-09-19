@@ -1,33 +1,26 @@
 # Schemas
+**Role:** Phase 2 executable data-contract guidance.
+**Authority:** docs/specification.md.
 
-**Document role:** Phase 2 schema implementation guidance.  
-**Authority:** docs/specification.md defines the semantics that schemas must encode.
+## Draft and versioning
+All normative schemas use JSON Schema Draft 2020-12, stable $id values, and the https://fas-bench.dev/schemas namespace. Schema family version is 0.1 under v0.1 directories; benchmark specification remains 0.1.0.
 
-Phase 1 intentionally does not implement the complete machine-readable schema package.
+## Families
+case, claim, evidence, attack-graph, verdict, remediation, submission, evaluation-result, plus shared common definitions.
 
-## Planned schema families
+## Structural versus semantic validation
+JSON Schema validates type, required fields, enums, patterns, ranges, local structure, and closed-object fields. Python semantic validation validates references, graph/path integrity, version compatibility, conditional verdicts, remediation state, and evaluation arithmetic.
 
-- case
-- claim
-- evidence
-- attack-graph
-- verdict
-- submission
-- evaluation-result
-- provenance
+schema-valid != semantically-valid != benchmark-correct.
 
-Phase 2 MUST encode the canonical identifiers, enumerations, relationships, cardinalities, version fields, and compatibility rules defined by the Phase 1 specification.
+## Strictness
+Contract objects reject unknown properties. Extensibility is explicit through metadata/attributes objects.
 
-Schemas MUST be versioned independently from implementation code and validated in CI.
+## Offline operation
+All ordinary $ref resolution is local. The validator registers repository schema resources in memory and never fetches arbitrary remote URLs.
 
-## Phase 2 constraint
+## Compatibility
+Patch-compatible changes preserve existing valid instances and semantics. Additive compatible changes require explicit review. Breaking changes require a new schema directory.
 
-Schema implementation MUST NOT invent missing semantics. If the Phase 1 contract is ambiguous, the ambiguity must be resolved through a specification change before schema semantics are frozen.
-
-## Ground truth
-
-Expected results and hidden evaluation data MUST remain outside the evaluated-system input boundary. Public schemas must not accidentally package hidden ground truth.
-
-## Current status
-
-No claim is made in Phase 1 that the final schemas or schema engine exist.
+## Evaluator-only ground truth
+`schemas/ground-truth/v0.1/ground-truth.schema.json` defines the evaluator-only shape for expected verdicts and hidden evidence. It is never accepted as the public submission contract and does not contain the Phase 3 corpus.

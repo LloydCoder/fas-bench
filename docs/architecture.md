@@ -1,52 +1,21 @@
 # FAS-Bench Architecture
+**Role:** architecture and implementation model.
+**Authority:** docs/specification.md.
 
-**Document role:** architecture and implementation model.  
-**Authority:** docs/specification.md is normative; this document explains how implementation layers map to that contract.
+## Phase 2 validation flow
+Public Case Data → Schema Validation → Semantic Validation → Evaluation Pipeline → Scoring / Results.
 
-## Purpose
+## Submission
+Submission contains Claims, Evidence, Findings, Verdict, Attack Paths, Impact, Remediation, and Verification.
 
-FAS-Bench is an independent evaluation layer for security-analysis systems. Its architecture separates benchmark content, ground truth, system submissions, verification, scoring, and provenance so that no evaluated system becomes the benchmark reference implementation.
+## Trust boundaries
+Public benchmark inputs are distinct from evaluator-only ground truth. A submission cannot declare expected ground truth.
 
-## Architectural layers
+## Independence
+FAS-Bench remains independent of FAS. FAS is only a candidate evaluated system.
 
-1. **Case layer** — repository/application fixture, scenario, environment assumptions, tests, and provenance.
-2. **Ground-truth layer** — claims, evidence requirements, verdict, effective security graph, impact, remediation, and regression state.
-3. **Submission layer** — normalized result emitted by an evaluated system.
-4. **Verification layer** — deterministic checks against observable benchmark artifacts.
-5. **Scoring layer** — multidimensional metrics, calibration, and efficiency.
-6. **Provenance layer** — versions, hashes, environment, tools, and execution metadata.
-7. **Security boundary layer** — isolated execution and hidden-ground-truth protection.
+## Data-contract layers
+Schemas encode serialized structure. Semantic validators encode cross-object invariants. Later evaluator phases consume these stable objects without redefining their identity.
 
-## Primary flow
-
-case → analysis → structured submission → evidence verification → verdict evaluation → graph evaluation → remediation verification → regression evaluation → metrics/provenance
-
-## Effective security model
-
-The architecture must preserve the distinction between an apparent graph and an effective security graph. Source/configuration relationships are not sufficient to establish exploitability when authentication, authorization, IAM, resource policies, network policy, sandboxing, runtime restrictions, validation, or other controls block the path.
-
-## Independence boundary
-
-FAS-Bench MUST NOT import, require, execute, or derive ground truth from FAS. FAS is simply one candidate system that can submit results. The same benchmark contract must support other scanners, agents, and research systems.
-
-## Data-flow boundaries
-
-Public case material is an input to the evaluated system. Hidden ground truth and evaluator internals are inputs only to the evaluator. The evaluated system MUST NOT receive hidden ground truth.
-
-The future schema layer is the interface between case data and evaluation. Phase 1 defines that interface conceptually; Phase 2 encodes it.
-
-## Repository contract validation
-
-Phase 1 includes a small contract vocabulary module and semantic tests. These validate canonical versions, verdicts, categories, difficulty levels, case IDs, gold-case membership, roadmap, required documentation, and independence assertions. This is repository validation, not the Phase 2 schema engine.
-
-## Phase boundaries
-
-Phase 1 defines semantics. Phase 2 encodes schemas. Phase 3 validates gold cases. Phases 4–7 implement deterministic evaluation subsystems. Phase 8 validates scoring empirically. Phase 9 hardens execution/reproducibility. Phase 10 expands the corpus and release/contamination controls.
-
-## Security boundary
-
-Case repositories, prompts, dependencies, fixtures, and dynamic artifacts are untrusted. Dynamic execution belongs in isolated environments with default-deny networking and synthetic credentials. No Phase 1 implementation should execute arbitrary benchmark case code.
-
-## Implementation status
-
-Phase 1 establishes the architecture and contract only. Complete evaluator, evidence engine, graph engine, scoring engine, and secure harness implementation remain later-phase work.
+## Phase 2 to later phases
+Phase 3 can construct gold cases; Phase 4 can verify evidence; Phase 5 can adjudicate findings and verdicts; Phase 6 can normalize graphs; Phase 7 can evaluate remediation/regression; Phase 8 can consume evaluation-result metrics; Phase 9 can add secure execution; Phase 10 can publish the corpus.

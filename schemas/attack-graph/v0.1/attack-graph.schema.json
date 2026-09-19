@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/attack-graph/v0.1/attack-graph.schema.json",
+  "title": "FAS-Bench Attack Graph v0.1",
+  "type": "object",
+  "properties": {
+    "graph_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/GraphId"
+    },
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/GraphNode"
+      },
+      "uniqueItems": true
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/GraphEdge"
+      },
+      "uniqueItems": true
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/AttackPath"
+      },
+      "uniqueItems": true
+    },
+    "entry_points": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/NodeRef"
+    },
+    "trust_boundaries": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/TrustBoundary"
+      },
+      "uniqueItems": true
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "graph_id",
+    "benchmark_version",
+    "schema_version",
+    "nodes",
+    "edges",
+    "paths"
+  ],
+  "additionalProperties": false
+}

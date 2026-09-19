@@ -1,0 +1,1088 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/common/v0.1/common.schema.json",
+  "title": "FAS-Bench Common Definitions v0.1",
+  "$defs": {
+    "BenchmarkVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "SchemaVersion": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "CaseId": {
+      "type": "string",
+      "pattern": "^FAS-[0-9]{3}$"
+    },
+    "ClaimId": {
+      "type": "string",
+      "pattern": "^CLM-[A-Za-z0-9_-]{1,64}$"
+    },
+    "EvidenceId": {
+      "type": "string",
+      "pattern": "^EVD-[A-Za-z0-9_-]{1,64}$"
+    },
+    "FindingId": {
+      "type": "string",
+      "pattern": "^FIND-[A-Za-z0-9_-]{1,64}$"
+    },
+    "GraphId": {
+      "type": "string",
+      "pattern": "^G-[A-Za-z0-9_-]{1,64}$"
+    },
+    "NodeId": {
+      "type": "string",
+      "pattern": "^N-[A-Za-z0-9_-]{1,64}$"
+    },
+    "EdgeId": {
+      "type": "string",
+      "pattern": "^E-[A-Za-z0-9_-]{1,64}$"
+    },
+    "PathId": {
+      "type": "string",
+      "pattern": "^P-[A-Za-z0-9_-]{1,64}$"
+    },
+    "RemediationId": {
+      "type": "string",
+      "pattern": "^REM-[A-Za-z0-9_-]{1,64}$"
+    },
+    "SubmissionId": {
+      "type": "string",
+      "pattern": "^SUB-[A-Za-z0-9_-]{1,64}$"
+    },
+    "EvaluationId": {
+      "type": "string",
+      "pattern": "^EVAL-[A-Za-z0-9_-]{1,64}$"
+    },
+    "VerificationId": {
+      "type": "string",
+      "pattern": "^VER-[A-Za-z0-9_-]{1,64}$"
+    },
+    "Category": {
+      "type": "string",
+      "enum": [
+        "C1_REACHABILITY",
+        "C2_DATA_FLOW_TAINT",
+        "C3_AUTHENTICATION_AUTHORIZATION",
+        "C4_AI_AGENT_SECURITY",
+        "C5_MCP_SECURITY",
+        "C6_SUPPLY_CHAIN",
+        "C7_SECRETS_SENSITIVE_DATA",
+        "C8_INFRASTRUCTURE_CLOUD",
+        "C9_CROSS_COMPONENT_ATTACK_PATHS",
+        "C10_REMEDIATION_REGRESSION"
+      ]
+    },
+    "Difficulty": {
+      "type": "string",
+      "enum": [
+        "L1_LOCAL",
+        "L2_MULTI_FUNCTION",
+        "L3_MULTI_COMPONENT",
+        "L4_AGENTIC",
+        "L5_CROSS_SYSTEM"
+      ]
+    },
+    "CaseStatus": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "IN_REVIEW",
+        "VALIDATED",
+        "RELEASED",
+        "DEPRECATED",
+        "RETIRED"
+      ]
+    },
+    "Verdict": {
+      "type": "string",
+      "enum": [
+        "EXPLOITABLE",
+        "NOT_EXPLOITABLE",
+        "CONDITIONALLY_EXPLOITABLE",
+        "REMEDIATED",
+        "REMEDIATION_FAILED",
+        "REGRESSED",
+        "UNKNOWN"
+      ]
+    },
+    "ClaimType": {
+      "type": "string",
+      "enum": [
+        "REACHABILITY",
+        "DATA_FLOW",
+        "AUTHENTICATION",
+        "AUTHORIZATION",
+        "CONTROL_EFFECTIVE",
+        "TRUST_BOUNDARY",
+        "PERMISSION",
+        "IDENTITY",
+        "DEPENDENCY",
+        "CONFIGURATION",
+        "EXPLOITABILITY",
+        "IMPACT",
+        "REMEDIATION",
+        "REGRESSION"
+      ]
+    },
+    "EvidenceType": {
+      "type": "string",
+      "enum": [
+        "SOURCE_LOCATION",
+        "SINK_LOCATION",
+        "TRANSFORMATION",
+        "DATA_FLOW",
+        "CONFIGURATION",
+        "DEPENDENCY",
+        "IDENTITY",
+        "PERMISSION",
+        "POLICY",
+        "TRUST_BOUNDARY",
+        "RUNTIME_EVENT",
+        "NETWORK_EVENT",
+        "TOOL_INVOCATION",
+        "TEST_RESULT",
+        "REMEDIATION",
+        "ENVIRONMENT_STATE",
+        "DOCUMENTATION"
+      ]
+    },
+    "EvidenceRole": {
+      "type": "string",
+      "enum": [
+        "DIRECT",
+        "SUPPORTING",
+        "MISSING",
+        "CONTRADICTORY"
+      ]
+    },
+    "EvidenceVerification": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "INVALID",
+        "UNRESOLVED",
+        "CONTRADICTED"
+      ]
+    },
+    "Provenance": {
+      "type": "string",
+      "enum": [
+        "DECLARED",
+        "OBSERVED",
+        "DERIVED",
+        "VERIFIED"
+      ]
+    },
+    "Confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "Severity": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL",
+        "UNKNOWN"
+      ]
+    },
+    "ReasonCode": {
+      "type": "string",
+      "enum": [
+        "REACHABLE_TO_SINK",
+        "BLOCKED_BY_VALIDATION",
+        "BLOCKED_BY_AUTHORIZATION",
+        "BLOCKED_BY_AUTHENTICATION",
+        "BLOCKED_BY_NETWORK_POLICY",
+        "BLOCKED_BY_SANDBOX",
+        "BLOCKED_BY_RESOURCE_POLICY",
+        "MISSING_PREREQUISITE",
+        "ALTERNATE_PATH_EXISTS",
+        "CONTROL_BYPASS",
+        "REMEDIATION_BREAKS_PATH",
+        "REMEDIATION_LEAVES_ALTERNATE_PATH",
+        "INSUFFICIENT_EVIDENCE",
+        "CONTRADICTORY_EVIDENCE"
+      ]
+    },
+    "NodeType": {
+      "type": "string",
+      "enum": [
+        "ACTOR",
+        "INPUT",
+        "FUNCTION",
+        "SERVICE",
+        "PROCESS",
+        "DATA",
+        "RESOURCE",
+        "TOOL",
+        "AGENT",
+        "MCP_SERVER",
+        "IDENTITY",
+        "PERMISSION",
+        "POLICY",
+        "NETWORK_ZONE",
+        "TRUST_BOUNDARY",
+        "SINK",
+        "IMPACT"
+      ]
+    },
+    "EdgeType": {
+      "type": "string",
+      "enum": [
+        "CONTROLS",
+        "FLOWS_TO",
+        "CALLS",
+        "READS",
+        "WRITES",
+        "INVOKES",
+        "AUTHENTICATES_AS",
+        "AUTHORIZED_BY",
+        "CROSSES",
+        "TRANSFORMS",
+        "REACHES",
+        "DEPENDS_ON",
+        "DEPLOYS_TO",
+        "TRIGGERS"
+      ]
+    },
+    "PathStatus": {
+      "type": "string",
+      "enum": [
+        "COMPLETE",
+        "INCOMPLETE",
+        "BLOCKED",
+        "VIABLE",
+        "UNKNOWN"
+      ]
+    },
+    "RemediationStatus": {
+      "type": "string",
+      "enum": [
+        "NOT_ASSESSED",
+        "PROPOSED",
+        "APPLIED",
+        "VERIFIED",
+        "FAILED",
+        "PARTIAL"
+      ]
+    },
+    "VerificationStatus": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "FAILED",
+        "UNRESOLVED",
+        "NOT_PERFORMED"
+      ]
+    },
+    "ErrorCode": {
+      "type": "string",
+      "enum": [
+        "SCHEMA_INVALID",
+        "SEMANTIC_INVALID",
+        "REFERENCE_INVALID",
+        "EVIDENCE_INVALID",
+        "CASE_MISMATCH",
+        "VERSION_MISMATCH",
+        "UNKNOWN_ENUM",
+        "MISSING_REQUIRED_DATA",
+        "DUPLICATE_ID",
+        "GRAPH_INVALID",
+        "PATH_INVALID",
+        "INTEGRITY_VIOLATION",
+        "UNSUPPORTED_VERSION"
+      ]
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "SourceLocation": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "$ref": "#/$defs/ArtifactDigest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ArtifactDigest": {
+      "type": "object",
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "SUBMITTED",
+            "BENCHMARK",
+            "GENERATED",
+            "EXTERNAL_REFERENCE"
+          ]
+        }
+      },
+      "required": [
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "ClaimRef": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ClaimId"
+      },
+      "uniqueItems": true
+    },
+    "EvidenceRef": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EvidenceId"
+      },
+      "uniqueItems": true
+    },
+    "PathRef": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PathId"
+      },
+      "uniqueItems": true
+    },
+    "NodeRef": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NodeId"
+      },
+      "uniqueItems": true
+    },
+    "EdgeRef": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EdgeId"
+      },
+      "uniqueItems": true
+    },
+    "Condition": {
+      "type": "object",
+      "properties": {
+        "prerequisite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "satisfied": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "prerequisite",
+        "satisfied"
+      ],
+      "additionalProperties": false
+    },
+    "Claim": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "$ref": "#/$defs/ClaimId"
+        },
+        "claim_type": {
+          "$ref": "#/$defs/ClaimType"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "predicate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "object": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ASSERTED",
+            "SUPPORTED",
+            "CONTRADICTED",
+            "UNKNOWN"
+          ]
+        },
+        "related_evidence": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        }
+      },
+      "required": [
+        "claim_id",
+        "claim_type",
+        "statement",
+        "subject",
+        "predicate",
+        "object",
+        "confidence",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "evidence_id": {
+          "$ref": "#/$defs/EvidenceId"
+        },
+        "type": {
+          "$ref": "#/$defs/EvidenceType"
+        },
+        "role": {
+          "$ref": "#/$defs/EvidenceRole"
+        },
+        "verification": {
+          "$ref": "#/$defs/EvidenceVerification"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact": {
+          "$ref": "#/$defs/ArtifactDigest"
+        },
+        "location": {
+          "$ref": "#/$defs/SourceLocation"
+        },
+        "source": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "observed_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "content_digest": {
+          "$ref": "#/$defs/ArtifactDigest"
+        },
+        "related_claims": {
+          "$ref": "#/$defs/ClaimRef"
+        },
+        "related_findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FindingId"
+          },
+          "uniqueItems": true
+        },
+        "related_nodes": {
+          "$ref": "#/$defs/NodeRef"
+        },
+        "related_edges": {
+          "$ref": "#/$defs/EdgeRef"
+        },
+        "related_paths": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "related_remediations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RemediationId"
+          },
+          "uniqueItems": true
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "type",
+        "role",
+        "verification",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "GraphNode": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "type": {
+          "$ref": "#/$defs/NodeType"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/$defs/SourceLocation"
+        },
+        "reference": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "node_id",
+        "type",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "GraphEdge": {
+      "type": "object",
+      "properties": {
+        "edge_id": {
+          "$ref": "#/$defs/EdgeId"
+        },
+        "type": {
+          "$ref": "#/$defs/EdgeType"
+        },
+        "source": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "target": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        }
+      },
+      "required": [
+        "edge_id",
+        "type",
+        "source",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "AttackPath": {
+      "type": "object",
+      "properties": {
+        "path_id": {
+          "$ref": "#/$defs/PathId"
+        },
+        "node_ids": {
+          "$ref": "#/$defs/NodeRef"
+        },
+        "edge_ids": {
+          "$ref": "#/$defs/EdgeRef"
+        },
+        "entry_node": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "impact_node": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "status": {
+          "$ref": "#/$defs/PathStatus"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        }
+      },
+      "required": [
+        "path_id",
+        "node_ids",
+        "edge_ids",
+        "entry_node",
+        "impact_node",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "TrustBoundary": {
+      "type": "object",
+      "properties": {
+        "boundary_id": {
+          "type": "string",
+          "pattern": "^B-[A-Za-z0-9_-]{1,64}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "from_zone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to_zone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "control": {
+          "type": "string",
+          "minLength": 1
+        },
+        "crossing_condition": {
+          "type": "string"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        }
+      },
+      "required": [
+        "boundary_id",
+        "name",
+        "from_zone",
+        "to_zone",
+        "control"
+      ],
+      "additionalProperties": false
+    },
+    "Impact": {
+      "type": "object",
+      "properties": {
+        "confidentiality": {
+          "$ref": "#/$defs/Severity"
+        },
+        "integrity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "availability": {
+          "$ref": "#/$defs/Severity"
+        },
+        "privilege_escalation": {
+          "$ref": "#/$defs/Severity"
+        },
+        "credential_exposure": {
+          "$ref": "#/$defs/Severity"
+        },
+        "lateral_movement": {
+          "$ref": "#/$defs/Severity"
+        },
+        "code_execution": {
+          "$ref": "#/$defs/Severity"
+        },
+        "data_exfiltration": {
+          "$ref": "#/$defs/Severity"
+        },
+        "resource_exhaustion": {
+          "$ref": "#/$defs/Severity"
+        },
+        "supply_chain_compromise": {
+          "$ref": "#/$defs/Severity"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": {
+          "$ref": "#/$defs/FindingId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "$ref": "#/$defs/Category"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_ids": {
+          "$ref": "#/$defs/ClaimRef"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "impact": {
+          "$ref": "#/$defs/Impact"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        }
+      },
+      "required": [
+        "finding_id",
+        "title",
+        "category",
+        "severity",
+        "description",
+        "claim_ids",
+        "evidence_ids",
+        "verdict",
+        "confidence"
+      ],
+      "additionalProperties": false
+    },
+    "Verification": {
+      "type": "object",
+      "properties": {
+        "verification_id": {
+          "$ref": "#/$defs/VerificationId"
+        },
+        "status": {
+          "$ref": "#/$defs/VerificationStatus"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "test_result": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "timestamp": {
+          "$ref": "#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "verification_id",
+        "status",
+        "method"
+      ],
+      "additionalProperties": false
+    },
+    "ScoreComponent": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "type": "number",
+          "minimum": 0
+        },
+        "normalized": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "contribution": {
+          "type": "number",
+          "minimum": 0
+        },
+        "cap": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "penalty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "invalidity": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "raw",
+        "normalized",
+        "weight",
+        "contribution",
+        "invalidity"
+      ],
+      "additionalProperties": false
+    },
+    "Remediation": {
+      "type": "object",
+      "properties": {
+        "remediation_id": {
+          "$ref": "#/$defs/RemediationId"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "target_claim_ids": {
+          "$ref": "#/$defs/ClaimRef"
+        },
+        "original_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "proposed_change": {
+          "type": "string",
+          "minLength": 1
+        },
+        "change_reference": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "control_added": {
+          "type": "string"
+        },
+        "original_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "revalidated_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "alternate_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "verification_status": {
+          "$ref": "#/$defs/RemediationStatus"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "final_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "baseline": {
+          "type": "string"
+        },
+        "change": {
+          "type": "string"
+        },
+        "current_state": {
+          "type": "string"
+        },
+        "affected_property": {
+          "type": "string"
+        },
+        "previous_verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "current_verdict": {
+          "$ref": "#/$defs/Verdict"
+        }
+      },
+      "required": [
+        "remediation_id",
+        "benchmark_version",
+        "schema_version",
+        "target_claim_ids",
+        "original_verdict",
+        "proposed_change",
+        "original_path_ids",
+        "revalidated_path_ids",
+        "alternate_path_ids",
+        "verification_status",
+        "evidence_ids",
+        "final_verdict"
+      ],
+      "additionalProperties": false
+    },
+    "VerdictObject": {
+      "type": "object",
+      "properties": {
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "reason_code": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_ids": {
+          "$ref": "#/$defs/ClaimRef"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "attack_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Condition"
+          },
+          "minItems": 1
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "benchmark_version",
+        "schema_version",
+        "verdict",
+        "reason_code",
+        "confidence",
+        "rationale",
+        "claim_ids",
+        "evidence_ids",
+        "attack_path_ids"
+      ],
+      "additionalProperties": false
+    },
+    "AttackGraph": {
+      "type": "object",
+      "properties": {
+        "graph_id": {
+          "$ref": "#/$defs/GraphId"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphNode"
+          },
+          "uniqueItems": true
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphEdge"
+          },
+          "uniqueItems": true
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AttackPath"
+          },
+          "uniqueItems": true
+        },
+        "entry_points": {
+          "$ref": "#/$defs/NodeRef"
+        },
+        "trust_boundaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TrustBoundary"
+          },
+          "uniqueItems": true
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "graph_id",
+        "benchmark_version",
+        "schema_version",
+        "nodes",
+        "edges",
+        "paths"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,14 +1,10 @@
-"""Phase 1 benchmark contract constants.
-
-This module contains the small, implementation-neutral vocabulary used by the
-repository-contract checks. It is not the Phase 2 schema engine.
-"""
+"""Canonical Phase 2 benchmark vocabulary."""
 
 BENCHMARK_VERSION = "0.1.0"
-SCHEMA_VERSION = "0.1.0"
+SCHEMA_VERSION = "0.1"
 EVALUATOR_VERSION = "0.1.0"
 CASE_SET_VERSION = "0.1.0"
-SUBMISSION_FORMAT_VERSION = "0.1.0"
+SUBMISSION_FORMAT_VERSION = "0.1"
 
 VERDICTS = (
     "EXPLOITABLE",
@@ -21,24 +17,24 @@ VERDICTS = (
 )
 
 CATEGORIES = (
-    "C1 Reachability",
-    "C2 Data Flow / Taint",
-    "C3 Authentication / Authorization",
-    "C4 AI Agent Security",
-    "C5 MCP Security",
-    "C6 Supply Chain",
-    "C7 Secrets / Sensitive Data",
-    "C8 Infrastructure / Cloud",
-    "C9 Cross-Component Attack Paths",
-    "C10 Remediation / Regression",
+    "C1_REACHABILITY",
+    "C2_DATA_FLOW_TAINT",
+    "C3_AUTHENTICATION_AUTHORIZATION",
+    "C4_AI_AGENT_SECURITY",
+    "C5_MCP_SECURITY",
+    "C6_SUPPLY_CHAIN",
+    "C7_SECRETS_SENSITIVE_DATA",
+    "C8_INFRASTRUCTURE_CLOUD",
+    "C9_CROSS_COMPONENT_ATTACK_PATHS",
+    "C10_REMEDIATION_REGRESSION",
 )
 
 DIFFICULTY_LEVELS = (
-    "L1 Local",
-    "L2 Multi-function",
-    "L3 Multi-component",
-    "L4 Agentic",
-    "L5 Cross-system",
+    "L1_LOCAL",
+    "L2_MULTI_FUNCTION",
+    "L3_MULTI_COMPONENT",
+    "L4_AGENTIC",
+    "L5_CROSS_SYSTEM",
 )
 
 CASE_IDS = tuple(f"FAS-{i:03d}" for i in range(1, 21))
@@ -57,28 +53,29 @@ ROADMAP = (
     "PHASE 10 — Benchmark Corpus, Contamination Defense & Release",
 )
 
-CASE_REGISTRY = (
-    ("FAS-001", "Dead SSRF"),
-    ("FAS-002", "Reachable SSRF"),
-    ("FAS-003", "Sanitized Command Injection"),
-    ("FAS-004", "Indirect Command Injection"),
-    ("FAS-005", "IDOR"),
-    ("FAS-006", "Authorization False Positive"),
-    ("FAS-007", "Excessive Agent Capability"),
-    ("FAS-008", "Agent Sandbox Boundary"),
-    ("FAS-009", "MCP Tool Poisoning"),
-    ("FAS-010", "Safe MCP Server"),
-    ("FAS-011", "Malicious Dependency"),
-    ("FAS-012", "Vulnerable but Unreachable Dependency"),
-    ("FAS-013", "Revoked Secret"),
-    ("FAS-014", "Live Credential Attack Path"),
-    ("FAS-015", "Public Storage Exposure"),
-    ("FAS-016", "Privilege Boundary"),
-    ("FAS-017", "Multi-Service Compromise"),
-    ("FAS-018", "Agent → CI/CD → Production"),
-    ("FAS-019", "Verified Fix"),
-    ("FAS-020", "Fake Fix / Alternate Path"),
+_CASE_TITLES = (
+    "Dead SSRF",
+    "Reachable SSRF",
+    "Sanitized Command Injection",
+    "Indirect Command Injection",
+    "IDOR",
+    "Authorization False Positive",
+    "Excessive Agent Capability",
+    "Agent Sandbox Boundary",
+    "MCP Tool Poisoning",
+    "Safe MCP Server",
+    "Malicious Dependency",
+    "Vulnerable but Unreachable Dependency",
+    "Revoked Secret",
+    "Live Credential Attack Path",
+    "Public Storage Exposure",
+    "Privilege Boundary",
+    "Multi-Service Compromise",
+    "Agent → CI/CD → Production",
+    "Verified Fix",
+    "Fake Fix / Alternate Path",
 )
+CASE_REGISTRY = tuple((f"FAS-{i:03d}", title) for i, title in enumerate(_CASE_TITLES, 1))
 
 EVIDENCE_TYPES = (
     "SOURCE_LOCATION",

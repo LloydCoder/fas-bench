@@ -25,13 +25,12 @@ def test_markdown_local_links_resolve():
         for target in re.findall(r"\[[^\]]+\]\(([^)#]+)(?:#[^)]+)?\)", text):
             if "://" in target or target.startswith("mailto:"):
                 continue
-            target_path = (ROOT / name).parent / target
-            if not target_path.exists():
+            if not ((ROOT / name).parent / target).exists():
                 missing.append(f"{name} -> {target}")
-    assert not missing, "Broken local Markdown links: " + ", ".join(missing)
+    assert not missing, missing
 
 
-def test_normative_spec_has_required_sections():
+def test_normative_spec_has_phase_sections():
     text = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
     required = [
         "Scope",
@@ -53,12 +52,11 @@ def test_normative_spec_has_required_sections():
         "Submission contract",
         "Ten-phase roadmap",
         "Phase 1 exit criteria",
+        "Phase 2 exit criteria",
     ]
-    missing = [heading for heading in required if f"## {heading}" not in text]
-    assert not missing, f"Specification sections missing: {missing}"
+    assert not [heading for heading in required if f"## {heading}" not in text]
 
 
 def test_no_unfinished_placeholder_language_in_normative_spec():
     text = (ROOT / "docs/specification.md").read_text(encoding="utf-8").lower()
-    forbidden = ("tbd", "todo", "fixme", "draft / research validation")
-    assert not any(term in text for term in forbidden)
+    assert not any(term in text for term in ("tbd", "todo", "fixme", "draft / research validation"))

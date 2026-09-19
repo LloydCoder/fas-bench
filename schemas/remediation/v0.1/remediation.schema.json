@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/remediation/v0.1/remediation.schema.json",
+  "title": "FAS-Bench Remediation v0.1",
+  "type": "object",
+  "properties": {
+    "remediation_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/RemediationId"
+    },
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "target_claim_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimRef"
+    },
+    "original_verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "proposed_change": {
+      "type": "string",
+      "minLength": 1
+    },
+    "change_reference": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "control_added": {
+      "type": "string"
+    },
+    "original_path_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/PathRef"
+    },
+    "revalidated_path_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/PathRef"
+    },
+    "alternate_path_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/PathRef"
+    },
+    "verification_status": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/RemediationStatus"
+    },
+    "evidence_ids": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRef"
+    },
+    "final_verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "baseline": {
+      "type": "string"
+    },
+    "change": {
+      "type": "string"
+    },
+    "current_state": {
+      "type": "string"
+    },
+    "affected_property": {
+      "type": "string"
+    },
+    "previous_verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "current_verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    }
+  },
+  "required": [
+    "remediation_id",
+    "benchmark_version",
+    "schema_version",
+    "target_claim_ids",
+    "original_verdict",
+    "proposed_change",
+    "original_path_ids",
+    "revalidated_path_ids",
+    "alternate_path_ids",
+    "verification_status",
+    "evidence_ids",
+    "final_verdict"
+  ],
+  "additionalProperties": false
+}

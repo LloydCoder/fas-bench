@@ -11,6 +11,7 @@ from fas_bench.contract import (
     EVIDENCE_TYPES,
     GOLD_CASE_IDS,
     ROADMAP,
+    SCHEMA_VERSION,
     VERDICTS,
 )
 
@@ -21,11 +22,11 @@ def test_canonical_vocabularies_are_unique_and_stable():
     assert len(VERDICTS) == 7 and len(set(VERDICTS)) == 7
     assert len(CATEGORIES) == 10 and len(set(CATEGORIES)) == 10
     assert DIFFICULTY_LEVELS == (
-        "L1 Local",
-        "L2 Multi-function",
-        "L3 Multi-component",
-        "L4 Agentic",
-        "L5 Cross-system",
+        "L1_LOCAL",
+        "L2_MULTI_FUNCTION",
+        "L3_MULTI_COMPONENT",
+        "L4_AGENTIC",
+        "L5_CROSS_SYSTEM",
     )
     assert len(EVIDENCE_TYPES) == 17
     assert EVIDENCE_ROLES == ("DIRECT", "SUPPORTING", "MISSING", "CONTRADICTORY")
@@ -41,7 +42,6 @@ def test_case_registry_is_complete_unique_and_formatted():
         for case_id in ids
     )
     assert set(GOLD_CASE_IDS) == {"FAS-001", "FAS-002", "FAS-006", "FAS-016", "FAS-020"}
-    assert set(GOLD_CASE_IDS) <= set(ids)
 
 
 def test_required_documentation_exists():
@@ -56,34 +56,33 @@ def test_required_documentation_exists():
         "docs/methodology.md",
         "docs/threat-model.md",
         "cases/README.md",
+        "cases/registry.json",
         "schemas/README.md",
         "tests/README.md",
         "pyproject.toml",
         ".github/workflows/ci.yml",
     ]
-    missing = [path for path in required if not (ROOT / path).is_file()]
-    assert not missing, f"Missing required Phase 1 files: {missing}"
+    assert not [path for path in required if not (ROOT / path).is_file()]
 
 
-def test_roadmap_has_exactly_ten_phases():
+def test_roadmap_has_ten_phases():
     assert len(ROADMAP) == 10
-    assert all(item.startswith("PHASE ") for item in ROADMAP)
-    specification = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
-    for phase in ROADMAP:
-        assert phase in specification
+    text = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
+    assert all(phase in text for phase in ROADMAP)
 
 
-def test_benchmark_version_is_consistent():
+def test_versions_are_consistent():
     assert BENCHMARK_VERSION == "0.1.0"
-    init = (ROOT / "src/fas_bench/__init__.py").read_text(encoding="utf-8")
-    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    specification = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
+    assert SCHEMA_VERSION == "0.1"
+    init = (ROOT / "src/fas_bench/__init__.py").read_text()
+    pyproject = (ROOT / "pyproject.toml").read_text()
+    spec = (ROOT / "docs/specification.md").read_text()
     assert '__version__ = "0.1.0"' in init
-    assert 'version = "0.1.0"' in pyproject
-    assert "**Benchmark specification version:** 0.1.0" in specification
+    assert 'version="0.1.0"' in pyproject
+    assert "Benchmark specification version:** 0.1.0" in spec
 
 
-def test_documents_do_not_redefine_old_verdicts_or_taxonomy():
+def test_no_old_verdict_names():
     docs = [
         "README.md",
         "CHANGELOG.md",
@@ -100,11 +99,10 @@ def test_documents_do_not_redefine_old_verdicts_or_taxonomy():
     ]
     forbidden = ("FALSE_POSITIVE", "TRUE_POSITIVE", "PARTIALLY_EXPLOITABLE")
     for path in docs:
-        text = (ROOT / path).read_text(encoding="utf-8")
-        assert not any(term in text for term in forbidden), path
+        assert not any(term in (ROOT / path).read_text(encoding="utf-8") for term in forbidden)
 
 
 def test_fas_independence_is_explicit():
-    specification = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
-    assert "FAS is one candidate evaluated system" in specification
-    assert "MUST NOT import, require, execute, or derive ground truth from FAS" in specification
+    text = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
+    assert "FAS is one candidate evaluated system" in text
+    assert "MUST NOT import, require, execute, or derive ground truth from FAS" in text

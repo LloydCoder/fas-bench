@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/claim/v0.1/claim.schema.json",
+  "title": "FAS-Bench Claim v0.1",
+  "type": "object",
+  "properties": {
+    "claim_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimId"
+    },
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "claim_type": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimType"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "predicate": {
+      "type": "string",
+      "minLength": 1
+    },
+    "object": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "confidence": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Confidence"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ASSERTED",
+        "SUPPORTED",
+        "CONTRADICTED",
+        "UNKNOWN"
+      ]
+    },
+    "related_evidence": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRef"
+    },
+    "provenance": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Provenance"
+    }
+  },
+  "required": [
+    "claim_id",
+    "benchmark_version",
+    "schema_version",
+    "claim_type",
+    "statement",
+    "subject",
+    "predicate",
+    "object",
+    "confidence",
+    "status"
+  ],
+  "additionalProperties": false
+}

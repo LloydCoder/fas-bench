@@ -1,0 +1,74 @@
+import json
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+
+from fas_bench.contract import CASE_IDS
+from fas_bench.validation import FAMILY_PATHS, load_schema, validate
+
+ROOT = Path(__file__).parents[1]
+VALID = ROOT / "tests/fixtures/valid"
+INVALID = ROOT / "tests/fixtures/invalid"
+
+
+def test_schema_meta_validation():
+    for family in FAMILY_PATHS:
+        schema = load_schema(family)
+        assert schema["$schema"] == "https://json-schema.org/draft/2020-12/schema"
+        assert schema["$id"].startswith("https://fas-bench.dev/schemas/")
+        Draft202012Validator.check_schema(schema)
+
+
+def test_valid_fixtures_pass():
+    for family in FAMILY_PATHS:
+        path = VALID / f"{family}.json"
+        assert path.exists(), path
+        result = validate(json.loads(path.read_text()), family, True, set(CASE_IDS))
+        assert result.status == "VALID", (family, result.errors)
+
+
+def test_invalid_fixtures_fail():
+    for path in INVALID.glob("*.json"):
+        family = path.name.split("__", 1)[0]
+        assert validate(json.loads(path.read_text()), family, True, set(CASE_IDS)).status != "VALID"
+
+
+def test_graph_semantics():
+    document = json.loads((VALID / "attack-graph.json").read_text())
+    document["paths"][0]["edge_ids"] = ["E-missing"]
+    assert validate(document, "attack-graph").status == "SEMANTIC_INVALID"
+
+
+def test_submission_semantics():
+    document = json.loads((VALID / "submission.json").read_text())
+    document["verdict"]["evidence_ids"] = ["EVD-missing"]
+    assert validate(document, "submission").status == "SEMANTIC_INVALID"
+
+
+def test_evaluation_integrity():
+    document = json.loads((VALID / "evaluation-result.json").read_text())
+    document["final_score"] = 0.5
+    assert validate(document, "evaluation-result").status == "SEMANTIC_INVALID"
+
+
+def test_integrated_case_fixtures_pass_semantic_validation():
+    integrated = ROOT / "tests/fixtures/integrated"
+    expected = {"FAS-001", "FAS-002", "FAS-006", "FAS-016", "FAS-020"}
+    assert {path.stem for path in integrated.glob("*.json")} == expected
+    for path in sorted(integrated.glob("*.json")):
+        result = validate(json.loads(path.read_text()), "submission", True, set(CASE_IDS))
+        assert result.status == "VALID", (path.name, result.errors)
+
+
+def test_validation_family_wrappers():
+    from fas_bench.validation import validate_case, validate_claim, validate_evidence
+
+    assert validate_case(json.loads((VALID / "case.json").read_text())).status == "VALID"
+    assert validate_claim(json.loads((VALID / "claim.json").read_text())).status == "VALID"
+    assert validate_evidence(json.loads((VALID / "evidence.json").read_text())).status == "VALID"
+
+
+def test_score_component_contribution_integrity():
+    document = json.loads((VALID / "evaluation-result.json").read_text())
+    document["verdict_score"]["contribution"] = 0.1
+    assert validate(document, "evaluation-result").status == "SEMANTIC_INVALID"
