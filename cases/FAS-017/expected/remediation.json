@@ -1,0 +1,18 @@
+{
+  "remediation_id": "REM-017-001",
+  "target_claim_ids": [
+    "CLM-017-001"
+  ],
+  "original_verdict": "EXPLOITABLE",
+  "proposed_change": "No remediation asserted.",
+  "original_path_ids": [
+    "P-017-001"
+  ],
+  "revalidated_path_ids": [],
+  "alternate_path_ids": [],
+  "verification_status": "NOT_ASSESSED",
+  "evidence_ids": [
+    "EVD-017-001"
+  ],
+  "final_verdict": "EXPLOITABLE"
+}
