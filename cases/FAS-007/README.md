@@ -8,4 +8,4 @@ Synthetic Linux/Python 3.12 environment; no public network; synthetic credential
 
 The oracle derives observed state independently of the expected verdict. The structured expected artifacts are the machine-readable ground truth.
 
-Status: VALIDATED subject to corpus CI and release gates.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI and release gates.
