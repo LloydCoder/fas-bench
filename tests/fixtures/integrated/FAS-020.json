@@ -1,0 +1,146 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "submission_id": "SUB-FAS-020",
+  "case_id": "FAS-020",
+  "system": {
+    "system_name": "phase2-fixture-agent",
+    "system_version": "1.0",
+    "timestamp": "2026-09-19T18:00:00Z"
+  },
+  "verdict": {
+    "benchmark_version": "0.1.0",
+    "schema_version": "0.1",
+    "verdict": "REMEDIATION_FAILED",
+    "reason_code": "REMEDIATION_LEAVES_ALTERNATE_PATH",
+    "confidence": 0.9,
+    "rationale": "Fixture rationale for Fake fix / alternate path.",
+    "claim_ids": [
+      "CLM-020-001"
+    ],
+    "evidence_ids": [
+      "EVD-020-001"
+    ],
+    "attack_path_ids": [
+      "P-020-001"
+    ]
+  },
+  "findings": [
+    {
+      "finding_id": "FIND-020-001",
+      "title": "Fake fix / alternate path",
+      "category": "C10_REMEDIATION_REGRESSION",
+      "severity": "HIGH",
+      "description": "Structured contract fixture for Fake fix / alternate path.",
+      "claim_ids": [
+        "CLM-020-001"
+      ],
+      "evidence_ids": [
+        "EVD-020-001"
+      ],
+      "verdict": "REMEDIATION_FAILED",
+      "confidence": 0.9
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "CLM-020-001",
+      "benchmark_version": "0.1.0",
+      "schema_version": "0.1",
+      "claim_type": "REACHABILITY",
+      "statement": "Fake fix / alternate path condition is represented by the fixture.",
+      "subject": "attacker_input",
+      "predicate": "reaches",
+      "object": "security_boundary",
+      "confidence": 0.9,
+      "status": "ASSERTED",
+      "related_evidence": [
+        "EVD-020-001"
+      ],
+      "provenance": "DECLARED"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVD-020-001",
+      "benchmark_version": "0.1.0",
+      "schema_version": "0.1",
+      "type": "SOURCE_LOCATION",
+      "role": "DIRECT",
+      "verification": "VERIFIED",
+      "description": "Contract fixture evidence.",
+      "location": {
+        "repository": "fixture-repo",
+        "commit": "abc123",
+        "file": "app.py",
+        "line_start": 10,
+        "line_end": 12,
+        "language": "python"
+      },
+      "related_claims": [
+        "CLM-020-001"
+      ],
+      "provenance": "OBSERVED"
+    }
+  ],
+  "attack_paths": [
+    {
+      "path_id": "P-020-001",
+      "node_ids": [
+        "N-FAS-020-input",
+        "N-FAS-020-control",
+        "N-FAS-020-impact"
+      ],
+      "edge_ids": [
+        "E-FAS-020-1",
+        "E-FAS-020-2"
+      ],
+      "entry_node": "N-FAS-020-input",
+      "impact_node": "N-FAS-020-impact",
+      "status": "VIABLE",
+      "evidence_ids": [
+        "EVD-020-001"
+      ]
+    }
+  ],
+  "impact": {
+    "confidentiality": "MEDIUM",
+    "integrity": "MEDIUM",
+    "availability": "LOW"
+  },
+  "remediation": {
+    "remediation_id": "REM-020-001",
+    "benchmark_version": "0.1.0",
+    "schema_version": "0.1",
+    "target_claim_ids": [
+      "CLM-020-001"
+    ],
+    "original_verdict": "EXPLOITABLE",
+    "proposed_change": "Block the original endpoint.",
+    "original_path_ids": [
+      "P-020-001"
+    ],
+    "revalidated_path_ids": [],
+    "alternate_path_ids": [
+      "P-020-001"
+    ],
+    "verification_status": "FAILED",
+    "evidence_ids": [
+      "EVD-020-001"
+    ],
+    "final_verdict": "REMEDIATION_FAILED"
+  },
+  "verification": {
+    "verification_id": "VER-FAS-020",
+    "status": "VERIFIED",
+    "method": "Contract fixture verification",
+    "evidence_ids": [
+      "EVD-020-001"
+    ],
+    "timestamp": "2026-09-19T18:00:00Z"
+  },
+  "metadata": {
+    "fixture": true,
+    "difficulty": "L3_MULTI_COMPONENT"
+  }
+}
