@@ -13,3 +13,6 @@ Expected verdicts, hidden evidence, evaluator internals, and hidden tests remain
 
 ## Limits
 Phase 2 does not prove sandbox security, evaluator integrity, contamination resistance, or scientific validity. Those are later-phase empirical/security concerns.
+
+## Phase 3 case threats
+Case execution introduces risks from malicious benchmark artifacts, dependency confusion, network escape, host escape, secret leakage, oracle manipulation, and ground-truth leakage. The initial corpus therefore uses synthetic state, no uncontrolled network dependency, no real credentials or cloud accounts, and deterministic local oracles. Future dynamic cases must add stronger isolation before execution of arbitrary benchmark code.
