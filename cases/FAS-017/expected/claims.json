@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-017-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "TRUST_BOUNDARY",
+  "statement": "Attacker-controlled frontend data crosses API and worker trust boundaries into an internal administrative service.",
+  "subject": "frontend input",
+  "predicate": "crosses",
+  "object": "administrative service",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-017-001"
+  ],
+  "provenance": "VERIFIED"
+}
