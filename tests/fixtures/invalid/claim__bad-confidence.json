@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "REACHABILITY",
+  "statement": "Attacker-controlled input reaches the HTTP sink under the stated assumptions.",
+  "subject": "request",
+  "predicate": "reaches",
+  "object": "http_sink",
+  "confidence": 2,
+  "status": "ASSERTED",
+  "related_evidence": [
+    "EVD-001"
+  ],
+  "provenance": "DECLARED"
+}
