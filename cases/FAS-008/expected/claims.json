@@ -3,10 +3,10 @@
   "benchmark_version": "0.1.0",
   "schema_version": "0.1",
   "claim_type": "CONTROL_EFFECTIVE",
-  "statement": "The sandbox blocks ordinary prompts, but a documented namespace-escape prerequisite makes the impact conditionally reachable.",
+  "statement": "The sandbox is bypassable only when the explicit namespace-escape prerequisite is satisfied.",
   "subject": "attacker",
   "predicate": "security_condition",
-  "object": "The path is reachable only when the explicit prerequisite is satisfied.",
+  "object": "conditional reachability",
   "confidence": 1,
   "status": "SUPPORTED",
   "related_evidence": [
