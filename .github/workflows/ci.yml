@@ -22,8 +22,19 @@ jobs:
           cache: pip
       - name: Install
         run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Generate formatter output
+        run: |
+          mkdir -p /tmp/ruff
+          cp src/fas_bench/__main__.py /tmp/ruff/main-before.py
+          ruff format src/fas_bench/__main__.py
+          cp src/fas_bench/__main__.py /tmp/ruff/main-after.py
+      - name: Upload formatter output
+        uses: actions/upload-artifact@v4
+        with:
+          name: ruff-main-format
+          path: /tmp/ruff
       - name: Format source and tests
-        run: ruff format --check src/fas_bench/__main__.py
+        run: git diff --exit-code -- src/fas_bench/__main__.py
       - name: Format tests
         run: ruff format --check tests/test_phase3_cases.py
       - name: Format cases 001-005
