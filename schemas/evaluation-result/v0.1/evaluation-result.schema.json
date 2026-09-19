@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/evaluation-result/v0.1/evaluation-result.schema.json",
+  "title": "FAS-Bench Evaluation Result v0.1",
+  "type": "object",
+  "properties": {
+    "evaluation_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvaluationId"
+    },
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "submission_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SubmissionId"
+    },
+    "case_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/CaseId"
+    },
+    "validity": {
+      "type": "string",
+      "enum": [
+        "VALID",
+        "SCHEMA_INVALID",
+        "SEMANTIC_INVALID",
+        "BENCHMARK_INVALID"
+      ]
+    },
+    "finding_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "verdict_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "evidence_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "reachability_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "attack_path_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "impact_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "remediation_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "calibration_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "efficiency_score": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ScoreComponent"
+    },
+    "integrity": {
+      "type": "object",
+      "properties": {
+        "evidence_integrity_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "score_cap": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "penalty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "invalidity_reason": {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/ErrorCode"
+        }
+      },
+      "additionalProperties": false
+    },
+    "final_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "cap": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "penalty": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "../../common/v0.1/common.schema.json#/$defs/ErrorCode"
+          },
+          "path": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "schema_location": {
+            "type": "string"
+          },
+          "instance_location": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "path",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "evaluation_id",
+    "benchmark_version",
+    "schema_version",
+    "submission_id",
+    "case_id",
+    "validity",
+    "final_score",
+    "cap",
+    "penalty",
+    "errors",
+    "warnings"
+  ],
+  "additionalProperties": false
+}
