@@ -1,0 +1,34 @@
+{
+  "case_id": "FAS-014",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Live Credential Attack Path",
+  "description": "Attacker influence reaches a live synthetic credential through an over-permissive tool and then a privileged service.",
+  "category": "C7_SECRETS_SENSITIVE_DATA",
+  "categories": [
+    "C7_SECRETS_SENSITIVE_DATA",
+    "C4_AI_AGENT_SECURITY"
+  ],
+  "difficulty": "L4_AGENTIC",
+  "status": "VALIDATED",
+  "scenario": "Attacker influence reaches a live synthetic credential through an over-permissive tool and then a privileged service.",
+  "security_condition": "REACHABLE_TO_SINK",
+  "attacker_model": "Attacker can influence the agent/tool invocation; synthetic credential is active and authorized.",
+  "environment": {
+    "validation_type": "STATIC",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-014/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0"
+  }
+}
