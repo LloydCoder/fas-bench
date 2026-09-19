@@ -14,9 +14,7 @@ from .contract import BENCHMARK_VERSION, CASE_IDS, SCHEMA_VERSION
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parents[1]
-SCHEMA_ROOT = (
-    PACKAGE_ROOT / "schemas" if (PACKAGE_ROOT / "schemas").exists() else ROOT / "schemas"
-)
+SCHEMA_ROOT = PACKAGE_ROOT / "schemas" if (PACKAGE_ROOT / "schemas").exists() else ROOT / "schemas"
 FAMILY_PATHS = {
     name: SCHEMA_ROOT / f"{name}/v0.1/{name}.schema.json"
     for name in (
@@ -58,9 +56,7 @@ def _registry() -> Registry:
     paths = [SCHEMA_ROOT / "common/v0.1/common.schema.json", *FAMILY_PATHS.values()]
     for path in paths:
         document = json.loads(path.read_text(encoding="utf-8"))
-        registry = registry.with_resource(
-            document["$id"], Resource.from_contents(document)
-        )
+        registry = registry.with_resource(document["$id"], Resource.from_contents(document))
     return registry
 
 
@@ -130,9 +126,7 @@ def validate_semantics(
             _error("VERSION_MISMATCH", "benchmark_version", "unsupported benchmark version")
         )
     if document.get("schema_version") != SCHEMA_VERSION:
-        errors.append(
-            _error("VERSION_MISMATCH", "schema_version", "unsupported schema version")
-        )
+        errors.append(_error("VERSION_MISMATCH", "schema_version", "unsupported schema version"))
 
     if family == "case":
         return (
@@ -148,9 +142,7 @@ def validate_semantics(
             and location.get("line_end") is not None
             and location["line_end"] < location["line_start"]
         ):
-            errors.append(
-                _error("SEMANTIC_INVALID", "location", "line_end must be >= line_start")
-            )
+            errors.append(_error("SEMANTIC_INVALID", "location", "line_end must be >= line_start"))
 
     if family == "attack-graph":
         nodes, node_errors = _index(document.get("nodes", []), "node_id")
@@ -183,9 +175,7 @@ def validate_semantics(
             if any(edge not in edges for edge in path["edge_ids"]):
                 errors.append(_error("PATH_INVALID", path_id, "unknown path edge"))
             if path["entry_node"] not in nodes or path["impact_node"] not in nodes:
-                errors.append(
-                    _error("PATH_INVALID", path_id, "invalid entry/impact node")
-                )
+                errors.append(_error("PATH_INVALID", path_id, "invalid entry/impact node"))
 
             expected_edges = max(0, len(path["node_ids"]) - 1)
             if len(path["edge_ids"]) != expected_edges:
@@ -214,9 +204,7 @@ def validate_semantics(
                     )
 
     if family == "verdict":
-        if document["verdict"] == "CONDITIONALLY_EXPLOITABLE" and not document.get(
-            "conditions"
-        ):
+        if document["verdict"] == "CONDITIONALLY_EXPLOITABLE" and not document.get("conditions"):
             errors.append(
                 _error(
                     "MISSING_REQUIRED_DATA",
@@ -263,9 +251,7 @@ def validate_semantics(
 
     if family == "submission":
         if case_ids is not None and document["case_id"] not in case_ids:
-            errors.append(
-                _error("CASE_MISMATCH", "case_id", "case is not in benchmark registry")
-            )
+            errors.append(_error("CASE_MISMATCH", "case_id", "case is not in benchmark registry"))
 
         claims, claim_errors = _index(document["claims"], "claim_id")
         evidence, evidence_errors = _index(document["evidence"], "evidence_id")
@@ -372,10 +358,7 @@ def validate_semantics(
             "calibration_score",
             "efficiency_score",
         )
-        total = sum(
-            document.get(component, {}).get("contribution", 0)
-            for component in components
-        )
+        total = sum(document.get(component, {}).get("contribution", 0) for component in components)
         expected = max(0, min(document["cap"], total - document["penalty"]))
         if abs(expected - document["final_score"]) > 1e-9:
             errors.append(
