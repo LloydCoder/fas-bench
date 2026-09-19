@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "fas-bench"
-version = "0.1.0.dev0"
+version = "0.1.0"
 description = "Evidence-first benchmark for evaluating security analysis by AI agents, scanners, and security systems."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -18,7 +18,15 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Security"
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2,<2",
+  "pytest>=8.0,<9",
+  "ruff>=0.12,<1",
 ]
 
 [tool.hatch.build.targets.wheel]
