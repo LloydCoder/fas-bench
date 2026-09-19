@@ -19,3 +19,10 @@ Schemas encode serialized structure. Semantic validators encode cross-object inv
 
 ## Phase 2 to later phases
 Phase 3 can construct gold cases; Phase 4 can verify evidence; Phase 5 can adjudicate findings and verdicts; Phase 6 can normalize graphs; Phase 7 can evaluate remediation/regression; Phase 8 can consume evaluation-result metrics; Phase 9 can add secure execution; Phase 10 can publish the corpus.
+
+
+## Phase 3 case pipeline
+
+Case Definition → Schema Validation → Semantic Validation → Environment/State Construction → Oracle Execution → Ground-Truth Validation → Release Gate.
+
+The case corpus is independent of FAS and is designed to remain valid if FAS is removed.
