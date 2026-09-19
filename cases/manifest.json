@@ -31,7 +31,7 @@
       "primary_category": "C1_REACHABILITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -42,7 +42,7 @@
       "primary_category": "C1_REACHABILITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -53,7 +53,7 @@
       "primary_category": "C2_DATA_FLOW_TAINT",
       "secondary_categories": [],
       "difficulty": "L1_LOCAL",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -64,7 +64,7 @@
       "primary_category": "C2_DATA_FLOW_TAINT",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -75,7 +75,7 @@
       "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -86,7 +86,7 @@
       "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -97,7 +97,7 @@
       "primary_category": "C4_AI_AGENT_SECURITY",
       "secondary_categories": [],
       "difficulty": "L4_AGENTIC",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -108,7 +108,7 @@
       "primary_category": "C4_AI_AGENT_SECURITY",
       "secondary_categories": [],
       "difficulty": "L4_AGENTIC",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -119,7 +119,7 @@
       "primary_category": "C5_MCP_SECURITY",
       "secondary_categories": [],
       "difficulty": "L4_AGENTIC",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -130,7 +130,7 @@
       "primary_category": "C5_MCP_SECURITY",
       "secondary_categories": [],
       "difficulty": "L4_AGENTIC",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -141,7 +141,7 @@
       "primary_category": "C6_SUPPLY_CHAIN",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -152,7 +152,7 @@
       "primary_category": "C6_SUPPLY_CHAIN",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -163,7 +163,7 @@
       "primary_category": "C7_SECRETS_SENSITIVE_DATA",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -174,7 +174,7 @@
       "primary_category": "C7_SECRETS_SENSITIVE_DATA",
       "secondary_categories": [],
       "difficulty": "L4_AGENTIC",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -185,7 +185,7 @@
       "primary_category": "C8_INFRASTRUCTURE_CLOUD",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -196,7 +196,7 @@
       "primary_category": "C8_INFRASTRUCTURE_CLOUD",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -207,7 +207,7 @@
       "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -218,7 +218,7 @@
       "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
       "difficulty": "L5_CROSS_SYSTEM",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -229,7 +229,7 @@
       "primary_category": "C10_REMEDIATION_REGRESSION",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
@@ -240,7 +240,7 @@
       "primary_category": "C10_REMEDIATION_REGRESSION",
       "secondary_categories": [],
       "difficulty": "L3_MULTI_COMPONENT",
-      "lifecycle_status": "VALIDATED",
+      "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
       "artifact_digest": "COMPUTED_AT_VALIDATION"
