@@ -4,4 +4,4 @@ HTTP input is persisted and later consumed by a worker that interprets it as a c
 
 Synthetic multi-component command flow; no host command is executed by the benchmark harness.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
