@@ -378,7 +378,7 @@ A reproducible evaluation MUST record, where applicable:
 - container/image identity;
 - dataset/content digests.
 
-SWE-bench documents Docker-based evaluation and structured prediction/result artifacts, while SEC-bench documents reproducible Docker vulnerability instances and verification. FAS-Bench borrows this benchmark-engineering discipline, not their task semantics. citeturn0search0turn0search1turn0search2
+SWE-bench documents Docker-based evaluation and structured prediction/result artifacts, while SEC-bench documents reproducible Docker vulnerability instances and verification. FAS-Bench borrows this benchmark-engineering discipline, not their task semantics.
 
 ## Determinism
 
