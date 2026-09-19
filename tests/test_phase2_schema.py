@@ -23,7 +23,8 @@ def test_valid_fixtures_pass():
     for family in FAMILY_PATHS:
         path = VALID / f"{family}.json"
         assert path.exists(), path
-        assert validate(json.loads(path.read_text()), family, True, set(CASE_IDS)).status == "VALID"
+        result = validate(json.loads(path.read_text()), family, True, set(CASE_IDS))
+        assert result.status == "VALID", (family, result.errors)
 
 
 def test_invalid_fixtures_fail():
