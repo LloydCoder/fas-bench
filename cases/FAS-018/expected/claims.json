@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-018-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "TRUST_BOUNDARY",
+  "statement": "Attacker-controlled agent behavior can modify synthetic source-control state, trigger synthetic CI, and reach a production-like deployment identity.",
+  "subject": "agent input",
+  "predicate": "triggers",
+  "object": "production deployment identity",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-018-001"
+  ],
+  "provenance": "VERIFIED"
+}
