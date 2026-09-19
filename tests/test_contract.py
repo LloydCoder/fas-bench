@@ -80,7 +80,7 @@ def test_benchmark_version_is_consistent():
     specification = (ROOT / "docs/specification.md").read_text(encoding="utf-8")
     assert '__version__ = "0.1.0"' in init
     assert 'version = "0.1.0"' in pyproject
-    assert "**Benchmark specification version:** **0.1.0**" in specification
+    assert "**Benchmark specification version:** 0.1.0" in specification
 
 
 def test_documents_do_not_redefine_old_verdicts_or_taxonomy():
