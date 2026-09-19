@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-013-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "REMEDIATION",
+  "statement": "A historical synthetic credential was exposed but deterministic revocation prevents current authentication.",
+  "subject": "historical credential",
+  "predicate": "is",
+  "object": "revoked",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-013-001"
+  ],
+  "provenance": "VERIFIED"
+}
