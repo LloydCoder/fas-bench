@@ -62,8 +62,7 @@ def main(argv=None):
         output = {
             "status": (
                 "PASS"
-                if result["status"] == "PASS"
-                and (gold is None or gold["status"] == "PASS")
+                if result["status"] == "PASS" and (gold is None or gold["status"] == "PASS")
                 else "FAIL"
             ),
             "corpus": result,
