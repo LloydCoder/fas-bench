@@ -1,0 +1,43 @@
+{
+  "case_id": "FAS-002",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Reachable SSRF",
+  "description": "An attacker-controlled URL survives the transformation chain and reaches the controlled external target.",
+  "category": "C1_REACHABILITY",
+  "categories": [
+    "C1_REACHABILITY"
+  ],
+  "difficulty": "L2_MULTI_FUNCTION",
+  "status": "VALIDATED",
+  "scenario": "An attacker-controlled URL survives the transformation chain and reaches the controlled external target.",
+  "security_condition": "Observed viable attack path reaches impact.",
+  "attacker_model": "Unauthenticated public attacker may submit a URL and observe the local mock target.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none; all external services synthetic",
+    "credentials": "synthetic-only",
+    "resource_limits": {
+      "cpu": "1",
+      "memory": "256MiB",
+      "timeout_seconds": 30
+    }
+  },
+  "repository": {
+    "uri": "cases/FAS-002/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "environment_version": "0.1.0",
+    "lifecycle_status": "VALIDATED",
+    "provenance": "SYNTHETIC"
+  }
+}
