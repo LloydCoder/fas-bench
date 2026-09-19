@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-018-001",
+  "title": "Agent → CI/CD → Production",
+  "category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
+  "severity": "CRITICAL",
+  "description": "Attacker-controlled agent behavior can modify synthetic source-control state, trigger synthetic CI, and reach a production-like deployment identity.",
+  "claim_ids": [
+    "CLM-018-001"
+  ],
+  "evidence_ids": [
+    "EVD-018-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}
