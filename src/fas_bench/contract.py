@@ -75,9 +75,7 @@ _CASE_TITLES = (
     "Verified Fix",
     "Fake Fix / Alternate Path",
 )
-CASE_REGISTRY = tuple(
-    (f"FAS-{i:03d}", title) for i, title in enumerate(_CASE_TITLES, 1)
-)
+CASE_REGISTRY = tuple((f"FAS-{i:03d}", title) for i, title in enumerate(_CASE_TITLES, 1))
 
 EVIDENCE_TYPES = (
     "SOURCE_LOCATION",
