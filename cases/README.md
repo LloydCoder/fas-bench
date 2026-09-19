@@ -1,12 +1,33 @@
 # Benchmark Cases
-**Role:** case-authoring and corpus guidance.
-**Authority:** docs/specification.md.
 
-## Registry
-FAS-001 through FAS-020 remain the initial design registry. cases/registry.json is public metadata only and does not contain hidden exploitability truth.
+Phase 3 establishes the initial **public development corpus** FAS-001 through FAS-020.
 
-## Contract fixtures
-Phase 2 includes integrated schema fixtures for FAS-001, FAS-002, FAS-006, FAS-016, and FAS-020. They exercise contract semantics and are not final empirical gold ground truth.
+## Contract
+
+Each case contains a security hypothesis, explicit attacker model, controlled environment, machine-readable expected claims/evidence/finding/attack-path/verdict/remediation artifacts, and a deterministic oracle.
+
+Schema-valid, semantically-valid, reproducible, security-validated, and release-ready are distinct states.
+
+## Ground-truth boundary
+
+This repository intentionally exposes the development corpus and its ground truth. It is **not** a hidden evaluation set. Future evaluation must use held-out cases, undisclosed mutations, or private evaluation artifacts.
 
 ## Safety
-Use synthetic credentials, isolated fixtures, and controlled networking only. Dynamic execution belongs to later secure-evaluation phases.
+
+Cases use synthetic credentials and controlled local state. No case may require access to real cloud accounts, host credentials, Docker sockets, production systems, or uncontrolled Internet destinations.
+
+## Validation
+
+`fas-bench cases validate-all` validates the corpus package and cross-references.
+
+`fas-bench cases validate-gold` focuses the five gold cases: FAS-001, FAS-002, FAS-006, FAS-016, FAS-020.
+
+`fas-bench cases reproduce FAS-001` executes the deterministic case oracle and compares its observed state with the structured expected verdict.
+
+## Difficulty
+
+The initial corpus deliberately spans L1_LOCAL through L5_CROSS_SYSTEM. It is not statistically balanced.
+
+## Verdict coverage
+
+The corpus includes EXPLOITABLE, NOT_EXPLOITABLE, CONDITIONALLY_EXPLOITABLE, REMEDIATED, REMEDIATION_FAILED, and UNKNOWN. REGRESSED is not represented by the initial 20 cases; a future regression case should be added rather than overloading another verdict.
