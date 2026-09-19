@@ -14,9 +14,7 @@ def main(argv=None):
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("path", type=Path)
     validate_parser.add_argument("--schema", required=True)
-    validate_parser.add_argument(
-        "--semantic", action=argparse.BooleanOptionalAction, default=True
-    )
+    validate_parser.add_argument("--semantic", action=argparse.BooleanOptionalAction, default=True)
     args = parser.parse_args(argv)
 
     result = validate_file(args.path, args.schema, args.semantic)
