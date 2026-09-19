@@ -4,4 +4,4 @@ The conditional path is reachable only with the documented namespace-escape prer
 
 Synthetic controlled environment; no public network or real credentials.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
