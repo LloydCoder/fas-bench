@@ -1,0 +1,18 @@
+{
+  "path_id": "P-010-001",
+  "node_ids": [
+    "N-010-input",
+    "N-010-control",
+    "N-010-impact"
+  ],
+  "edge_ids": [
+    "E-010-1",
+    "E-010-2"
+  ],
+  "entry_node": "N-010-input",
+  "impact_node": "N-010-impact",
+  "status": "BLOCKED",
+  "evidence_ids": [
+    "EVD-010-001"
+  ]
+}
