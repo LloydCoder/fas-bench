@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-020-001",
+  "title": "Fake Fix / Alternate Path",
+  "category": "C10_REMEDIATION_REGRESSION",
+  "severity": "HIGH",
+  "description": "The obvious endpoint is protected, but an alternate endpoint still reaches the privileged backend without the control.",
+  "claim_ids": [
+    "CLM-020-001"
+  ],
+  "evidence_ids": [
+    "EVD-020-001"
+  ],
+  "verdict": "REMEDIATION_FAILED",
+  "confidence": 1
+}
