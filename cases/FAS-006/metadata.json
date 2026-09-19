@@ -4,8 +4,9 @@
   "schema_version": "0.1",
   "case_version": "0.1.0",
   "environment_version": "0.1.0",
-  "validation_type": "STATIC",
-  "lifecycle_status": "VALIDATED",
+  "validation_type": "DYNAMIC",
+  "lifecycle_status": "IN_REVIEW",
   "provenance": "SYNTHETIC",
-  "artifact_digest": "PLACEHOLDER"
+  "artifact_digest": "PLACEHOLDER",
+  "oracle_version": "0.3.0"
 }
