@@ -1,0 +1,21 @@
+{
+  "evidence_id": "EVD-006-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "TEST_RESULT",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Deterministic oracle evidence for FAS-006.",
+  "location": {
+    "repository": "cases/FAS-006",
+    "commit": "phase3-initial",
+    "file": "repository/state.json",
+    "line_start": 1,
+    "line_end": 1,
+    "language": "json"
+  },
+  "related_claims": [
+    "CLM-006-001"
+  ],
+  "provenance": "VERIFIED"
+}
