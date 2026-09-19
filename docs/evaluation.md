@@ -25,3 +25,8 @@ Given identical inputs, schema resources, validator version, and configuration, 
 
 ## Phase 3 case validation
 The initial corpus is public development data. Corpus validation checks registry consistency, Phase 2 schemas, semantic references, attack graphs, structured verdicts, remediation semantics, and deterministic oracle agreement. This is distinct from evaluating a system under test; expected truth is not exposed to the evaluated system in future hidden splits.
+
+
+## Phase 3 corpus gates
+
+Before a case is marked VALIDATED, the corpus validator checks the Phase 2 schema contract, semantic references, expected finding/verdict agreement, attack-path representation, registry consistency, and oracle agreement. Dynamic gold cases additionally require executable security-property checks and mutation sensitivity. ERROR and INCONCLUSIVE oracle outcomes are never converted into security verdicts.
