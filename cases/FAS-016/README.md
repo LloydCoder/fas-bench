@@ -4,4 +4,4 @@ A broad identity permission is overridden by an effective explicit deny boundary
 
 Synthetic IAM policy model; no real cloud account is contacted.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
