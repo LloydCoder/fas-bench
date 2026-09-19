@@ -23,17 +23,13 @@ def test_valid_fixtures_pass():
     for family in FAMILY_PATHS:
         path = VALID / f"{family}.json"
         assert path.exists(), path
-        assert validate(
-            json.loads(path.read_text()), family, True, set(CASE_IDS)
-        ).status == "VALID"
+        assert validate(json.loads(path.read_text()), family, True, set(CASE_IDS)).status == "VALID"
 
 
 def test_invalid_fixtures_fail():
     for path in INVALID.glob("*.json"):
         family = path.name.split("__", 1)[0]
-        assert validate(
-            json.loads(path.read_text()), family, True, set(CASE_IDS)
-        ).status != "VALID"
+        assert validate(json.loads(path.read_text()), family, True, set(CASE_IDS)).status != "VALID"
 
 
 def test_graph_semantics():
