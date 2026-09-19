@@ -1,0 +1,125 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "submission_id": "SUB-FAS-002",
+  "case_id": "FAS-002",
+  "system": {
+    "system_name": "phase2-fixture-agent",
+    "system_version": "1.0",
+    "timestamp": "2026-09-19T18:00:00Z"
+  },
+  "verdict": {
+    "benchmark_version": "0.1.0",
+    "schema_version": "0.1",
+    "verdict": "EXPLOITABLE",
+    "reason_code": "REACHABLE_TO_SINK",
+    "confidence": 0.9,
+    "rationale": "Fixture rationale for Reachable SSRF.",
+    "claim_ids": [
+      "CLM-002-001"
+    ],
+    "evidence_ids": [
+      "EVD-002-001"
+    ],
+    "attack_path_ids": [
+      "P-002-001"
+    ]
+  },
+  "findings": [
+    {
+      "finding_id": "FIND-002-001",
+      "title": "Reachable SSRF",
+      "category": "C1_REACHABILITY",
+      "severity": "HIGH",
+      "description": "Structured contract fixture for Reachable SSRF.",
+      "claim_ids": [
+        "CLM-002-001"
+      ],
+      "evidence_ids": [
+        "EVD-002-001"
+      ],
+      "verdict": "EXPLOITABLE",
+      "confidence": 0.9
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "CLM-002-001",
+      "benchmark_version": "0.1.0",
+      "schema_version": "0.1",
+      "claim_type": "REACHABILITY",
+      "statement": "Reachable SSRF condition is represented by the fixture.",
+      "subject": "attacker_input",
+      "predicate": "reaches",
+      "object": "security_boundary",
+      "confidence": 0.9,
+      "status": "ASSERTED",
+      "related_evidence": [
+        "EVD-002-001"
+      ],
+      "provenance": "DECLARED"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVD-002-001",
+      "benchmark_version": "0.1.0",
+      "schema_version": "0.1",
+      "type": "SOURCE_LOCATION",
+      "role": "DIRECT",
+      "verification": "VERIFIED",
+      "description": "Contract fixture evidence.",
+      "location": {
+        "repository": "fixture-repo",
+        "commit": "abc123",
+        "file": "app.py",
+        "line_start": 10,
+        "line_end": 12,
+        "language": "python"
+      },
+      "related_claims": [
+        "CLM-002-001"
+      ],
+      "provenance": "OBSERVED"
+    }
+  ],
+  "attack_paths": [
+    {
+      "path_id": "P-002-001",
+      "node_ids": [
+        "N-FAS-002-input",
+        "N-FAS-002-control",
+        "N-FAS-002-impact"
+      ],
+      "edge_ids": [
+        "E-FAS-002-1",
+        "E-FAS-002-2"
+      ],
+      "entry_node": "N-FAS-002-input",
+      "impact_node": "N-FAS-002-impact",
+      "status": "VIABLE",
+      "evidence_ids": [
+        "EVD-002-001"
+      ]
+    }
+  ],
+  "impact": {
+    "confidentiality": "MEDIUM",
+    "integrity": "MEDIUM",
+    "availability": "LOW"
+  },
+  "remediation": null,
+  "verification": {
+    "verification_id": "VER-FAS-002",
+    "status": "VERIFIED",
+    "method": "Contract fixture verification",
+    "evidence_ids": [
+      "EVD-002-001"
+    ],
+    "timestamp": "2026-09-19T18:00:00Z"
+  },
+  "metadata": {
+    "fixture": true,
+    "difficulty": "L2_MULTI_FUNCTION"
+  }
+}
