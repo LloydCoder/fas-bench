@@ -1025,6 +1025,64 @@
         "attack_path_ids"
       ],
       "additionalProperties": false
+    },
+    "AttackGraph": {
+      "type": "object",
+      "properties": {
+        "graph_id": {
+          "$ref": "#/$defs/GraphId"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphNode"
+          },
+          "uniqueItems": true
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphEdge"
+          },
+          "uniqueItems": true
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AttackPath"
+          },
+          "uniqueItems": true
+        },
+        "entry_points": {
+          "$ref": "#/$defs/NodeRef"
+        },
+        "trust_boundaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TrustBoundary"
+          },
+          "uniqueItems": true
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "graph_id",
+        "benchmark_version",
+        "schema_version",
+        "nodes",
+        "edges",
+        "paths"
+      ],
+      "additionalProperties": false
     }
   }
 }
