@@ -21,7 +21,11 @@ def test_canonical_vocabularies_are_unique_and_stable():
     assert len(VERDICTS) == 7 and len(set(VERDICTS)) == 7
     assert len(CATEGORIES) == 10 and len(set(CATEGORIES)) == 10
     assert DIFFICULTY_LEVELS == (
-        "L1 Local", "L2 Multi-function", "L3 Multi-component", "L4 Agentic", "L5 Cross-system"
+        "L1 Local",
+        "L2 Multi-function",
+        "L3 Multi-component",
+        "L4 Agentic",
+        "L5 Cross-system",
     )
     assert len(EVIDENCE_TYPES) == 18
     assert EVIDENCE_ROLES == ("DIRECT", "SUPPORTING", "MISSING", "CONTRADICTORY")
@@ -32,17 +36,29 @@ def test_case_registry_is_complete_unique_and_formatted():
     ids = [case_id for case_id, _ in CASE_REGISTRY]
     assert ids == list(CASE_IDS)
     assert len(ids) == len(set(ids))
-    assert all(case_id.startswith("FAS-") and len(case_id) == 7 and case_id[4:].isdigit() for case_id in ids)
+    assert all(
+        case_id.startswith("FAS-") and len(case_id) == 7 and case_id[4:].isdigit()
+        for case_id in ids
+    )
     assert set(GOLD_CASE_IDS) == {"FAS-001", "FAS-002", "FAS-006", "FAS-016", "FAS-020"}
     assert set(GOLD_CASE_IDS) <= set(ids)
 
 
 def test_required_documentation_exists():
     required = [
-        "README.md", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md",
-        "docs/specification.md", "docs/architecture.md", "docs/evaluation.md",
-        "docs/methodology.md", "docs/threat-model.md", "cases/README.md",
-        "schemas/README.md", "tests/README.md", "pyproject.toml",
+        "README.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "docs/specification.md",
+        "docs/architecture.md",
+        "docs/evaluation.md",
+        "docs/methodology.md",
+        "docs/threat-model.md",
+        "cases/README.md",
+        "schemas/README.md",
+        "tests/README.md",
+        "pyproject.toml",
         ".github/workflows/ci.yml",
     ]
     missing = [path for path in required if not (ROOT / path).is_file()]
@@ -69,10 +85,18 @@ def test_benchmark_version_is_consistent():
 
 def test_documents_do_not_redefine_old_verdicts_or_taxonomy():
     docs = [
-        "README.md", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md",
-        "docs/specification.md", "docs/architecture.md", "docs/evaluation.md",
-        "docs/methodology.md", "docs/threat-model.md", "cases/README.md",
-        "schemas/README.md", "tests/README.md",
+        "README.md",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "docs/specification.md",
+        "docs/architecture.md",
+        "docs/evaluation.md",
+        "docs/methodology.md",
+        "docs/threat-model.md",
+        "cases/README.md",
+        "schemas/README.md",
+        "tests/README.md",
     ]
     forbidden = ("FALSE_POSITIVE", "TRUE_POSITIVE", "PARTIALLY_EXPLOITABLE")
     for path in docs:
