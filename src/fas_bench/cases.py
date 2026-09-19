@@ -101,7 +101,13 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
 
     digest = _digest_case(case_dir)
     recorded = metadata.get("artifact_digest")
-    if recorded and recorded != "PLACEHOLDER" and recorded != digest:
+    lifecycle = metadata.get("lifecycle_status", case.get("status"))
+    if lifecycle == "RELEASED":
+        if not recorded or recorded in {"PLACEHOLDER", "CONTENT_DERIVED"}:
+            errors.append("released case requires immutable artifact_digest")
+        elif recorded != digest:
+            errors.append("metadata artifact_digest mismatch")
+    elif recorded not in {None, "PLACEHOLDER", "CONTENT_DERIVED"} and recorded != digest:
         errors.append("metadata artifact_digest mismatch")
 
     return {
