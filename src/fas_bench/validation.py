@@ -408,7 +408,6 @@ def validate(
     return validate_semantics(document, family, case_ids or set(CASE_IDS))
 
 
-
 def validate_case(document, **kwargs):
     return validate(document, "case", **kwargs)
 
