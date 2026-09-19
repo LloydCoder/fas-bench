@@ -9,7 +9,7 @@
     "C1_REACHABILITY"
   ],
   "difficulty": "L2_MULTI_FUNCTION",
-  "status": "VALIDATED",
+  "status": "IN_REVIEW",
   "scenario": "An attacker-controlled URL reaches the outbound HTTP client, but the effective destination allowlist blocks unauthorized destinations.",
   "security_condition": "Effective security control blocks the candidate path.",
   "attacker_model": "Unauthenticated public attacker may submit one URL; cannot alter server policy or access the host network directly.",
@@ -37,7 +37,7 @@
   "metadata": {
     "case_version": "0.1.0",
     "environment_version": "0.1.0",
-    "lifecycle_status": "VALIDATED",
+    "lifecycle_status": "IN_REVIEW",
     "provenance": "SYNTHETIC"
   }
 }
