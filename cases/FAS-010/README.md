@@ -4,4 +4,4 @@ The MCP server exposes powerful functionality but authentication, schema validat
 
 Synthetic MCP environment; no external network or credentials.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
