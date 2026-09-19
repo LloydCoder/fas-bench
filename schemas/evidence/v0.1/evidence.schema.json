@@ -71,6 +71,9 @@
     "metadata": {
       "type": "object",
       "additionalProperties": true
+    },
+    "provenance": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Provenance"
     }
   },
   "required": [
