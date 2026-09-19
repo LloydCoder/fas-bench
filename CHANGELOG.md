@@ -4,6 +4,8 @@ All notable changes to FAS-Bench are documented here.
 
 ## Unreleased — Phase 2: Schema & Data Model
 
+Verification pass: CI formatting repair completed; semantic and packaging gates remain required before merge.
+
 ### Added
 - JSON Schema Draft 2020-12 contracts for case, claim, evidence, attack graph, verdict, remediation, submission, and evaluation result.
 - Shared canonical definitions for IDs, enums, timestamps, confidence, severity, provenance, impact, graph objects, findings, verification, and score components.
