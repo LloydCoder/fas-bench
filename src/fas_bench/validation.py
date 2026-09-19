@@ -440,6 +440,7 @@ def validate_submission(document, **kwargs):
 def validate_evaluation_result(document, **kwargs):
     return validate(document, "evaluation-result", **kwargs)
 
+
 def validate_file(
     path: Path,
     family: str,
