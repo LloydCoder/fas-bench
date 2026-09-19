@@ -1,0 +1,71 @@
+{
+  "graph_id": "G-005-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "nodes": [
+    {
+      "node_id": "N-005-input",
+      "type": "ACTOR",
+      "name": "attacker",
+      "description": "Authenticated user has only their own-resource permission and knows a second object identifier."
+    },
+    {
+      "node_id": "N-005-control",
+      "type": "POLICY",
+      "name": "effective boundary",
+      "description": "Observed viable attack path reaches impact."
+    },
+    {
+      "node_id": "N-005-impact",
+      "type": "IMPACT",
+      "name": "security impact"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "E-005-1",
+      "type": "FLOWS_TO",
+      "source": "N-005-input",
+      "target": "N-005-control",
+      "evidence_ids": [
+        "EVD-005-001"
+      ]
+    },
+    {
+      "edge_id": "E-005-2",
+      "type": "REACHES",
+      "source": "N-005-control",
+      "target": "N-005-impact",
+      "evidence_ids": [
+        "EVD-005-001"
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "path_id": "P-005-001",
+      "node_ids": [
+        "N-005-input",
+        "N-005-control",
+        "N-005-impact"
+      ],
+      "edge_ids": [
+        "E-005-1",
+        "E-005-2"
+      ],
+      "entry_node": "N-005-input",
+      "impact_node": "N-005-impact",
+      "status": "VIABLE",
+      "evidence_ids": [
+        "EVD-005-001"
+      ]
+    }
+  ],
+  "entry_points": [
+    "N-005-input"
+  ],
+  "trust_boundaries": [],
+  "metadata": {
+    "case_id": "FAS-005"
+  }
+}
