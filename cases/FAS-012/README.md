@@ -4,4 +4,4 @@ The dependency contains vulnerable functionality, but execution-path evidence is
 
 UNKNOWN is an intentional evidence state, not an unfinished case.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
