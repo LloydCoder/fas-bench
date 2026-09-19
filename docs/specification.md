@@ -632,3 +632,28 @@ The evaluator-only schema at `schemas/ground-truth/v0.1/ground-truth.schema.json
 ## Phase 3 — Validated Case Corpus
 
 Phase 3 adds the public development corpus FAS-001 through FAS-020. Cases carry independent case versions, explicit attacker models, controlled environments, structured ground truth, deterministic oracles, and distinct validation states. Public ground truth is not a hidden evaluation set. See docs/phase3.md for the normative Phase 3 contract.
+
+
+## Phase 3 — Gold Cases & Ground Truth
+
+Phase 3 operationalizes the case registry into a public development corpus. The initial corpus contains FAS-001 through FAS-020. The corpus is explicitly public development data, not a hidden evaluation set.
+
+### Case lifecycle
+
+DRAFT → IN_REVIEW → VALIDATED → RELEASED. Schema validity, semantic validity, reproducibility, security validation, and release readiness are distinct gates. A case is not VALIDATED solely because its files validate.
+
+### Case contract
+
+Each case defines a falsifiable security hypothesis, attacker model, assets and boundaries, environment, security condition, structured ground truth, attack path, remediation state where applicable, oracle, provenance, limitations, and independent case version. Synthetic credentials and controlled local state are required for the initial corpus.
+
+### Oracle contract
+
+Oracles return machine-readable PASS/FAIL/ERROR/INCONCLUSIVE outcomes and independently exercise the security property. Dynamic cases use isolated local services and must not require public-network access. Remediation cases verify both baseline and post-change security state; alternate paths are evaluated independently.
+
+### Reproducibility and integrity
+
+Case validation records case-set/version metadata, environment version, oracle version, and content-derived artifact digests. Volatile execution timestamps are excluded from canonical case digests. Released cases require immutable content-derived digests.
+
+### Public and hidden corpus model
+
+The initial public corpus intentionally exposes ground truth. Future benchmark evaluation must use held-out cases, private ground truth, or undisclosed mutations. Public cases must never be described as contamination-resistant.
