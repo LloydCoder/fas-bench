@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-015-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "PERMISSION",
+  "statement": "Effective storage policy permits anonymous read access to the protected object.",
+  "subject": "anonymous principal",
+  "predicate": "reads",
+  "object": "protected object",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-015-001"
+  ],
+  "provenance": "VERIFIED"
+}
