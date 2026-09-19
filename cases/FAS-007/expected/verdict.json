@@ -1,0 +1,26 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "verdict": "EXPLOITABLE",
+  "reason_code": "CONTROL_BYPASS",
+  "confidence": 1,
+  "rationale": "Observed viable attack path reaches impact.",
+  "claim_ids": [
+    "CLM-007-001"
+  ],
+  "evidence_ids": [
+    "EVD-007-001"
+  ],
+  "attack_path_ids": [
+    "P-007-001"
+  ],
+  "conditions": [
+    {
+      "prerequisite": "Synthetic namespace-escape prerequisite",
+      "satisfied": true,
+      "evidence_ids": [
+        "EVD-007-001"
+      ]
+    }
+  ]
+}
