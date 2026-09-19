@@ -22,3 +22,6 @@ Benchmark version 0.1.0 and schema family version 0.1 are currently supported.
 
 ## Determinism
 Given identical inputs, schema resources, validator version, and configuration, validation produces deterministic results.
+
+## Phase 3 case validation
+The initial corpus is public development data. Corpus validation checks registry consistency, Phase 2 schemas, semantic references, attack graphs, structured verdicts, remediation semantics, and deterministic oracle agreement. This is distinct from evaluating a system under test; expected truth is not exposed to the evaluated system in future hidden splits.
