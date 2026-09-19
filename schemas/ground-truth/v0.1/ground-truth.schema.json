@@ -32,7 +32,7 @@
       "uniqueItems": true
     },
     "attack_graph": {
-      "$ref": "../../common/v0.1/common.schema.json#/$defs/GraphNode"
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/AttackGraph"
     },
     "expected_attack_paths": {
       "type": "array",
