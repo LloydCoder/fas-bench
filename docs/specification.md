@@ -212,7 +212,7 @@ Valid evidence MUST identify a benchmark-observable fact, location, artifact, re
 
 Evidence validity is independently scored. A correct final verdict does not receive full evidence credit when its supporting evidence is invalid or insufficient.
 
-## Canonical verdict semantics
+## Verdict semantics
 
 The only canonical benchmark verdicts are:
 
