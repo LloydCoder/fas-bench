@@ -1,0 +1,17 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "verdict": "EXPLOITABLE",
+  "reason_code": "REACHABLE_TO_SINK",
+  "confidence": 1,
+  "rationale": "Attacker-controlled URL reaches the controlled target.",
+  "claim_ids": [
+    "CLM-002-001"
+  ],
+  "evidence_ids": [
+    "EVD-002-001"
+  ],
+  "attack_path_ids": [
+    "P-002-001"
+  ]
+}
