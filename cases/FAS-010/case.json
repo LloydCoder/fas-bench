@@ -1,0 +1,33 @@
+{
+  "case_id": "FAS-010",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Safe MCP Server",
+  "description": "The MCP server exposes powerful functionality but authentication, schema validation, path allowlisting, and authorization constrain effective capability.",
+  "category": "C5_MCP_SECURITY",
+  "categories": [
+    "C5_MCP_SECURITY"
+  ],
+  "difficulty": "L4_AGENTIC",
+  "status": "VALIDATED",
+  "scenario": "The MCP server exposes powerful functionality but authentication, schema validation, path allowlisting, and authorization constrain effective capability.",
+  "security_condition": "BLOCKED_BY_AUTHORIZATION",
+  "attacker_model": "Attacker may control tool arguments but not server policy or credentials.",
+  "environment": {
+    "validation_type": "STATIC",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-010/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0"
+  }
+}
