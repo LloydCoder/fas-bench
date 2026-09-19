@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/evidence/v0.1/evidence.schema.json",
+  "title": "FAS-Bench Evidence v0.1",
+  "type": "object",
+  "properties": {
+    "evidence_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceId"
+    },
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "type": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceType"
+    },
+    "role": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRole"
+    },
+    "verification": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceVerification"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ArtifactDigest"
+    },
+    "location": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SourceLocation"
+    },
+    "source": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "observed_at": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Timestamp"
+    },
+    "content_digest": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ArtifactDigest"
+    },
+    "related_claims": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimRef"
+    },
+    "related_findings": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/FindingId"
+      },
+      "uniqueItems": true
+    },
+    "related_nodes": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/NodeRef"
+    },
+    "related_edges": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EdgeRef"
+    },
+    "related_paths": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/PathRef"
+    },
+    "related_remediations": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/RemediationId"
+      },
+      "uniqueItems": true
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "evidence_id",
+    "benchmark_version",
+    "schema_version",
+    "type",
+    "role",
+    "verification",
+    "description"
+  ],
+  "additionalProperties": false
+}
