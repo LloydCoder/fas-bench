@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
-s=json.loads((Path(__file__).parents[1]/"repository/state.json").read_text())
-v="EXPLOITABLE" if s.get("path_viable") and s.get("trust_boundary_crossing") else "NOT_EXPLOITABLE"
-print(json.dumps({"observed_verdict":v,"observed_security_state":s,"oracle_version":"0.1.0"}))
+
+state = json.loads((Path(__file__).parents[1] / "repository/state.json").read_text())
+observed = "EXPLOITABLE" if state.get("path_viable") and state.get("trust_boundary_crossing") else "NOT_EXPLOITABLE"
+print(json.dumps({"observed_verdict": observed, "observed_security_state": state, "oracle_version": "0.1.0"}, sort_keys=True))
