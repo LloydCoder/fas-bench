@@ -48,8 +48,16 @@ jobs:
         run: git diff --exit-code -- tests/test_phase3_cases.py
       - name: Format cases 001-005
         run: ruff format --check cases/FAS-001 cases/FAS-002 cases/FAS-003 cases/FAS-004 cases/FAS-005
-      - name: Format cases 006-010
-        run: ruff format --check cases/FAS-006 cases/FAS-007 cases/FAS-008 cases/FAS-009 cases/FAS-010
+      - name: Format case 006
+        run: ruff format --check cases/FAS-006
+      - name: Format case 007
+        run: ruff format --check cases/FAS-007
+      - name: Format case 008
+        run: ruff format --check cases/FAS-008
+      - name: Format case 009
+        run: ruff format --check cases/FAS-009
+      - name: Format case 010
+        run: ruff format --check cases/FAS-010
       - name: Format cases 011-015
         run: ruff format --check cases/FAS-011 cases/FAS-012 cases/FAS-013 cases/FAS-014 cases/FAS-015
       - name: Format cases 016-020
