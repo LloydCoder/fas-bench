@@ -161,7 +161,11 @@ def validate_all() -> dict[str, Any]:
         errors.append("registry does not contain exactly FAS-001..FAS-020 in order")
 
     results = [validate_case_package(case_id) for case_id in registry_ids]
-    errors.extend(f"{result['case_id']}: {error}" for result in results for error in result["errors"])
+    errors.extend(
+        f"{result['case_id']}: {error}"
+        for result in results
+        for error in result["errors"]
+    )
 
     manifest = _load(MANIFEST_PATH) if MANIFEST_PATH.is_file() else {}
     if manifest.get("case_ids") != registry_ids:
@@ -236,6 +240,10 @@ def reproduce_all(case_ids: list[str] | None = None) -> dict[str, Any]:
     ids = case_ids or list(CASE_IDS)
     results = [run_oracle(case_id) for case_id in ids]
     return {
-        "status": "PASS" if all(result.get("status") == "PASS" for result in results) else "FAIL",
+        "status": (
+            "PASS"
+            if all(result.get("status") == "PASS" for result in results)
+            else "FAIL"
+        ),
         "results": results,
     }
