@@ -17,3 +17,8 @@ Formatting, linting, tests, schema validation, build, package import, and reposi
 
 ## Phase 3 case contributions
 New or changed cases must include a falsifiable security hypothesis, explicit attacker model, synthetic credentials only, controlled environment, structured ground truth, deterministic oracle, limitations, and case version. Public cases are development data; do not commit hidden evaluation answers. Run `fas-bench cases validate-all` and the gold reproduction checks before opening a pull request.
+
+
+## Phase 3 validation states
+
+A case remains IN_REVIEW until schema, semantic, reproducibility, oracle, integrity, and security gates pass. Do not mark a case VALIDATED manually. Gold cases require mutation sensitivity. Dynamic cases must use controlled local targets and deterministic cleanup.
