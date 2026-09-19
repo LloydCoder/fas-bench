@@ -1,0 +1,18 @@
+{
+  "remediation_id": "REM-013-001",
+  "target_claim_ids": [
+    "CLM-013-001"
+  ],
+  "original_verdict": "EXPLOITABLE",
+  "proposed_change": "Revoke the historical credential.",
+  "original_path_ids": [
+    "P-013-001"
+  ],
+  "revalidated_path_ids": [],
+  "alternate_path_ids": [],
+  "verification_status": "VERIFIED",
+  "evidence_ids": [
+    "EVD-013-001"
+  ],
+  "final_verdict": "REMEDIATED"
+}
