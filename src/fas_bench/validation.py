@@ -7,7 +7,9 @@ from typing import Any
 from jsonschema import Draft202012Validator,FormatChecker
 from referencing import Registry,Resource
 from .contract import BENCHMARK_VERSION,SCHEMA_VERSION,CASE_IDS
-ROOT=Path(__file__).resolve().parents[2]; SCHEMA_ROOT=ROOT/"schemas"
+PACKAGE_ROOT=Path(__file__).resolve().parent
+ROOT=PACKAGE_ROOT.parents[1]
+SCHEMA_ROOT=PACKAGE_ROOT/"schemas" if (PACKAGE_ROOT/"schemas").exists() else ROOT/"schemas"
 FAMILY_PATHS={k:SCHEMA_ROOT/f"{k}/v0.1/{k}.schema.json" for k in ("case","claim","evidence","attack-graph","verdict","remediation","submission","evaluation-result")}
 @dataclass(frozen=True)
 class ValidationErrorDetail:
