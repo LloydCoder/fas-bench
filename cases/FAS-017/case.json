@@ -10,7 +10,7 @@
     "C3_AUTHENTICATION_AUTHORIZATION"
   ],
   "difficulty": "L3_MULTI_COMPONENT",
-  "status": "VALIDATED",
+  "status": "IN_REVIEW",
   "scenario": "Attacker-controlled frontend data crosses API and worker trust boundaries into an internal administrative service.",
   "security_condition": "REACHABLE_TO_SINK",
   "attacker_model": "Unauthenticated public attacker can submit the frontend request and trigger the worker.",
@@ -29,6 +29,7 @@
     }
   },
   "metadata": {
-    "case_version": "0.1.0"
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
   }
 }
