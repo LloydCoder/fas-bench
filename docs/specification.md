@@ -627,3 +627,8 @@ All required schema families, semantic validation, fixtures, documentation, pack
 
 ## Evaluator-only ground-truth schema
 The evaluator-only schema at `schemas/ground-truth/v0.1/ground-truth.schema.json` can represent expected verdicts, expected claims/evidence, attack paths, remediation, and regression. It is a data contract only; Phase 3 still owns the actual gold corpus and empirical ground-truth validation. It MUST NOT be used as the public submission schema.
+
+
+## Phase 3 — Validated Case Corpus
+
+Phase 3 adds the public development corpus FAS-001 through FAS-020. Cases carry independent case versions, explicit attacker models, controlled environments, structured ground truth, deterministic oracles, and distinct validation states. Public ground truth is not a hidden evaluation set. See docs/phase3.md for the normative Phase 3 contract.
