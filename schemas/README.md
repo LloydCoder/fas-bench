@@ -21,3 +21,6 @@ All ordinary $ref resolution is local. The validator registers repository schema
 
 ## Compatibility
 Patch-compatible changes preserve existing valid instances and semantics. Additive compatible changes require explicit review. Breaking changes require a new schema directory.
+
+## Evaluator-only ground truth
+`schemas/ground-truth/v0.1/ground-truth.schema.json` defines the evaluator-only shape for expected verdicts and hidden evidence. It is never accepted as the public submission contract and does not contain the Phase 3 corpus.
