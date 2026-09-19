@@ -4,4 +4,4 @@ Installing a local synthetic dependency executes its build hook with the applica
 
 Local synthetic dependency only; no public registry.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
