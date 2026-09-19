@@ -26,3 +26,10 @@ Phase 3 can construct gold cases; Phase 4 can verify evidence; Phase 5 can adjud
 Case Definition → Schema Validation → Semantic Validation → Environment/State Construction → Oracle Execution → Ground-Truth Validation → Release Gate.
 
 The case corpus is independent of FAS and is designed to remain valid if FAS is removed.
+
+
+## Phase 3 architecture
+
+Case Definition → Schema Validation → Semantic Validation → Environment Construction → Oracle Execution → Ground-Truth Validation → Integrity/Reproducibility Gate → Release Gate.
+
+Gold cases receive enhanced dynamic validation and mutation sensitivity checks. The case oracle is outside the evaluated-system observation boundary in future hidden evaluation.
