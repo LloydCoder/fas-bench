@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-019-001",
+  "title": "Verified Fix",
+  "category": "C10_REMEDIATION_REGRESSION",
+  "severity": "MEDIUM",
+  "description": "A webhook signature control blocks the previously viable privileged action while preserving valid signed requests.",
+  "claim_ids": [
+    "CLM-019-001"
+  ],
+  "evidence_ids": [
+    "EVD-019-001"
+  ],
+  "verdict": "REMEDIATED",
+  "confidence": 1
+}
