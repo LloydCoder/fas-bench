@@ -4,4 +4,4 @@ User-controlled command arguments are passed through an argument boundary that p
 
 Minimal local case; the oracle tests execution semantics rather than keyword presence.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
