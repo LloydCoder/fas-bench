@@ -58,3 +58,17 @@ def test_integrated_case_fixtures_pass_semantic_validation():
     for path in sorted(integrated.glob("*.json")):
         result = validate(json.loads(path.read_text()), "submission", True, set(CASE_IDS))
         assert result.status == "VALID", (path.name, result.errors)
+
+
+def test_validation_family_wrappers():
+    from fas_bench.validation import validate_case, validate_claim, validate_evidence
+
+    assert validate_case(json.loads((VALID / "case.json").read_text())).status == "VALID"
+    assert validate_claim(json.loads((VALID / "claim.json").read_text())).status == "VALID"
+    assert validate_evidence(json.loads((VALID / "evidence.json").read_text())).status == "VALID"
+
+
+def test_score_component_contribution_integrity():
+    document = json.loads((VALID / "evaluation-result.json").read_text())
+    document["verdict_score"]["contribution"] = 0.1
+    assert validate(document, "evaluation-result").status == "SEMANTIC_INVALID"
