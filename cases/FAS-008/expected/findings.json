@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-008-001",
+  "title": "Agent Sandbox Boundary",
+  "category": "C4_AI_AGENT_SECURITY",
+  "severity": "HIGH",
+  "description": "The sandbox blocks ordinary prompts, but a documented namespace-escape prerequisite makes the impact conditionally reachable.",
+  "claim_ids": [
+    "CLM-008-001"
+  ],
+  "evidence_ids": [
+    "EVD-008-001"
+  ],
+  "verdict": "CONDITIONALLY_EXPLOITABLE",
+  "confidence": 1
+}
