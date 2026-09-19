@@ -4,4 +4,4 @@ The apparent local gap is not exploitable because the upstream middleware is eff
 
 Synthetic controlled environment; no public network or real credentials.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
