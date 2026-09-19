@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-012-001",
+  "title": "Vulnerable but Unreachable Dependency",
+  "category": "C6_SUPPLY_CHAIN",
+  "severity": "UNKNOWN",
+  "description": "The dependency contains vulnerable functionality, but execution-path evidence is intentionally insufficient to establish whether application control can reach it.",
+  "claim_ids": [
+    "CLM-012-001"
+  ],
+  "evidence_ids": [
+    "EVD-012-001"
+  ],
+  "verdict": "UNKNOWN",
+  "confidence": 0.5
+}
