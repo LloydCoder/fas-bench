@@ -9,7 +9,7 @@
     "C8_INFRASTRUCTURE_CLOUD"
   ],
   "difficulty": "L3_MULTI_COMPONENT",
-  "status": "VALIDATED",
+  "status": "IN_REVIEW",
   "scenario": "Effective storage policy permits anonymous read access to the protected object.",
   "security_condition": "CONTROL_BYPASS",
   "attacker_model": "Unauthenticated network attacker may request the object but cannot modify IAM configuration.",
@@ -28,6 +28,7 @@
     }
   },
   "metadata": {
-    "case_version": "0.1.0"
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
   }
 }
