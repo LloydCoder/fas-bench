@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-011-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "DEPENDENCY",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Local dependency metadata and deterministic build-hook oracle.",
+  "related_claims": [
+    "CLM-011-001"
+  ],
+  "provenance": "VERIFIED"
+}
