@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-002-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "REACHABILITY",
+  "statement": "An attacker-controlled URL survives the transformation chain and reaches the controlled external target.",
+  "subject": "attacker",
+  "predicate": "security_condition",
+  "object": "Observed viable attack path reaches impact.",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-002-001"
+  ],
+  "provenance": "VERIFIED"
+}
