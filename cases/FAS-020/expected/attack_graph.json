@@ -1,0 +1,69 @@
+{
+  "graph_id": "G-020-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "nodes": [
+    {
+      "node_id": "N-020-input",
+      "type": "ACTOR",
+      "name": "attacker"
+    },
+    {
+      "node_id": "N-020-control",
+      "type": "POLICY",
+      "name": "remediation boundary"
+    },
+    {
+      "node_id": "N-020-impact",
+      "type": "IMPACT",
+      "name": "security impact"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "E-020-1",
+      "type": "FLOWS_TO",
+      "source": "N-020-input",
+      "target": "N-020-control",
+      "evidence_ids": [
+        "EVD-020-001"
+      ]
+    },
+    {
+      "edge_id": "E-020-2",
+      "type": "REACHES",
+      "source": "N-020-control",
+      "target": "N-020-impact",
+      "evidence_ids": [
+        "EVD-020-001"
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "path_id": "P-020-001",
+      "node_ids": [
+        "N-020-input",
+        "N-020-control",
+        "N-020-impact"
+      ],
+      "edge_ids": [
+        "E-020-1",
+        "E-020-2"
+      ],
+      "entry_node": "N-020-input",
+      "impact_node": "N-020-impact",
+      "status": "VIABLE",
+      "evidence_ids": [
+        "EVD-020-001"
+      ]
+    }
+  ],
+  "entry_points": [
+    "N-020-input"
+  ],
+  "trust_boundaries": [],
+  "metadata": {
+    "case_id": "FAS-020"
+  }
+}
