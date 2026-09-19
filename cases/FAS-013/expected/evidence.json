@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-013-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "TEST_RESULT",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic authentication oracle rejects revoked credential.",
+  "related_claims": [
+    "CLM-013-001"
+  ],
+  "provenance": "VERIFIED"
+}
