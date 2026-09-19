@@ -9,7 +9,7 @@
     "C7_SECRETS_SENSITIVE_DATA"
   ],
   "difficulty": "L2_MULTI_FUNCTION",
-  "status": "VALIDATED",
+  "status": "IN_REVIEW",
   "scenario": "A historical synthetic credential was exposed but deterministic revocation prevents current authentication.",
   "security_condition": "REMEDIATION_BREAKS_PATH",
   "attacker_model": "Attacker knows the historical synthetic credential but has no alternate credential.",
@@ -28,6 +28,7 @@
     }
   },
   "metadata": {
-    "case_version": "0.1.0"
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
   }
 }
