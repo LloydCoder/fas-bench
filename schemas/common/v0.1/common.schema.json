@@ -479,6 +479,12 @@
         },
         "provenance": {
           "$ref": "#/$defs/Provenance"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
         }
       },
       "required": [
@@ -560,6 +566,12 @@
         },
         "provenance": {
           "$ref": "#/$defs/Provenance"
+        },
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
         }
       },
       "required": [
@@ -955,6 +967,62 @@
         "verification_status",
         "evidence_ids",
         "final_verdict"
+      ],
+      "additionalProperties": false
+    },
+    "VerdictObject": {
+      "type": "object",
+      "properties": {
+        "benchmark_version": {
+          "$ref": "#/$defs/BenchmarkVersion"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "verdict": {
+          "$ref": "#/$defs/Verdict"
+        },
+        "reason_code": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_ids": {
+          "$ref": "#/$defs/ClaimRef"
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "attack_path_ids": {
+          "$ref": "#/$defs/PathRef"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Condition"
+          },
+          "minItems": 1
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "benchmark_version",
+        "schema_version",
+        "verdict",
+        "reason_code",
+        "confidence",
+        "rationale",
+        "claim_ids",
+        "evidence_ids",
+        "attack_path_ids"
       ],
       "additionalProperties": false
     }
