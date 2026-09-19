@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-003-001",
+  "title": "Sanitized Command Injection",
+  "category": "C2_DATA_FLOW_TAINT",
+  "severity": "MEDIUM",
+  "description": "User-controlled command arguments are passed through an argument boundary that prevents shell interpretation.",
+  "claim_ids": [
+    "CLM-003-001"
+  ],
+  "evidence_ids": [
+    "EVD-003-001"
+  ],
+  "verdict": "NOT_EXPLOITABLE",
+  "confidence": 1
+}
