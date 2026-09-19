@@ -22,4 +22,4 @@ jobs:
           ! grep -RInE '(AKIA[0-9A-Z]{16}|-----BEGIN (RSA|EC|OPENSSH) PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9_]{20,})' --exclude-dir=.git .
       - name: Dangerous Docker configuration audit
         run: |
-          ! grep -RInE -- '--privileged|/var/run/docker.sock|--network[[:space:]]+host' cases .github
+          ! grep -RInE -- '--privileged|/var/run/docker.sock|--network[[:space:]]+host' cases --exclude=security.yml .github
