@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-010-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "CONTROL_EFFECTIVE",
+  "statement": "The MCP server exposes powerful functionality but authentication, schema validation, path allowlisting, and authorization constrain effective capability.",
+  "subject": "MCP server",
+  "predicate": "enforces",
+  "object": "authorization",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-010-001"
+  ],
+  "provenance": "VERIFIED"
+}
