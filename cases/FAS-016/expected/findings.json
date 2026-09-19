@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-016-001",
+  "title": "Privilege Boundary",
+  "category": "C8_INFRASTRUCTURE_CLOUD",
+  "severity": "MEDIUM",
+  "description": "A broad identity permission is overridden by an effective explicit deny boundary that blocks privilege escalation.",
+  "claim_ids": [
+    "CLM-016-001"
+  ],
+  "evidence_ids": [
+    "EVD-016-001"
+  ],
+  "verdict": "NOT_EXPLOITABLE",
+  "confidence": 1
+}
