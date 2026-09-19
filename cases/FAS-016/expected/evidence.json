@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-016-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "POLICY",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Effective synthetic explicit deny blocks escalation.",
+  "related_claims": [
+    "CLM-016-001"
+  ],
+  "provenance": "VERIFIED"
+}
