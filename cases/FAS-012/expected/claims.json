@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-012-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "REACHABILITY",
+  "statement": "The dependency contains vulnerable functionality, but execution-path evidence is intentionally insufficient to establish whether application control can reach it.",
+  "subject": "dependency",
+  "predicate": "reachability",
+  "object": "insufficiently evidenced",
+  "confidence": 0.5,
+  "status": "UNKNOWN",
+  "related_evidence": [
+    "EVD-012-001"
+  ],
+  "provenance": "VERIFIED"
+}
