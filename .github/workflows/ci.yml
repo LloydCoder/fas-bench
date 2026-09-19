@@ -17,6 +17,8 @@ jobs:
         python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
+      - name: Git diff check
+        run: git diff --check
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
