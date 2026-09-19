@@ -358,7 +358,21 @@ def validate_semantics(
             "calibration_score",
             "efficiency_score",
         )
-        total = sum(document.get(component, {}).get("contribution", 0) for component in components)
+        total = 0.0
+        for component in components:
+            value = document.get(component, {})
+            contribution = value.get("contribution", 0)
+            normalized = value.get("normalized", 0)
+            weight = value.get("weight", 0)
+            if abs(contribution - normalized * weight) > 1e-9:
+                errors.append(
+                    _error(
+                        "INTEGRITY_VIOLATION",
+                        component,
+                        "contribution must equal normalized multiplied by weight",
+                    )
+                )
+            total += contribution
         expected = max(0, min(document["cap"], total - document["penalty"]))
         if abs(expected - document["final_score"]) > 1e-9:
             errors.append(
@@ -393,6 +407,38 @@ def validate(
         return structural
     return validate_semantics(document, family, case_ids or set(CASE_IDS))
 
+
+
+def validate_case(document, **kwargs):
+    return validate(document, "case", **kwargs)
+
+
+def validate_claim(document, **kwargs):
+    return validate(document, "claim", **kwargs)
+
+
+def validate_evidence(document, **kwargs):
+    return validate(document, "evidence", **kwargs)
+
+
+def validate_attack_graph(document, **kwargs):
+    return validate(document, "attack-graph", **kwargs)
+
+
+def validate_verdict(document, **kwargs):
+    return validate(document, "verdict", **kwargs)
+
+
+def validate_remediation(document, **kwargs):
+    return validate(document, "remediation", **kwargs)
+
+
+def validate_submission(document, **kwargs):
+    return validate(document, "submission", **kwargs)
+
+
+def validate_evaluation_result(document, **kwargs):
+    return validate(document, "evaluation-result", **kwargs)
 
 def validate_file(
     path: Path,
