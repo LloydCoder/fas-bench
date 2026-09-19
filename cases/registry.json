@@ -41,7 +41,7 @@
     {
       "case_id": "FAS-005",
       "title": "IDOR",
-      "primary_category": "C2_DATA_FLOW_TAINT",
+      "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -50,7 +50,7 @@
     {
       "case_id": "FAS-006",
       "title": "Authorization False Positive",
-      "primary_category": "C2_DATA_FLOW_TAINT",
+      "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -59,7 +59,7 @@
     {
       "case_id": "FAS-007",
       "title": "Excessive Agent Capability",
-      "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
+      "primary_category": "C4_AI_AGENT_SECURITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -68,7 +68,7 @@
     {
       "case_id": "FAS-008",
       "title": "Agent Sandbox Boundary",
-      "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
+      "primary_category": "C4_AI_AGENT_SECURITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -77,7 +77,7 @@
     {
       "case_id": "FAS-009",
       "title": "MCP Tool Poisoning",
-      "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
+      "primary_category": "C5_MCP_SECURITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -86,7 +86,7 @@
     {
       "case_id": "FAS-010",
       "title": "Safe MCP Server",
-      "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
+      "primary_category": "C5_MCP_SECURITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -95,7 +95,7 @@
     {
       "case_id": "FAS-011",
       "title": "Malicious Dependency",
-      "primary_category": "C4_AI_AGENT_SECURITY",
+      "primary_category": "C6_SUPPLY_CHAIN",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -104,7 +104,7 @@
     {
       "case_id": "FAS-012",
       "title": "Vulnerable but Unreachable Dependency",
-      "primary_category": "C4_AI_AGENT_SECURITY",
+      "primary_category": "C6_SUPPLY_CHAIN",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -113,7 +113,7 @@
     {
       "case_id": "FAS-013",
       "title": "Revoked Secret",
-      "primary_category": "C5_MCP_SECURITY",
+      "primary_category": "C7_SECRETS_SENSITIVE_DATA",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -122,7 +122,7 @@
     {
       "case_id": "FAS-014",
       "title": "Live Credential Attack Path",
-      "primary_category": "C5_MCP_SECURITY",
+      "primary_category": "C7_SECRETS_SENSITIVE_DATA",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -131,7 +131,7 @@
     {
       "case_id": "FAS-015",
       "title": "Public Storage Exposure",
-      "primary_category": "C6_SUPPLY_CHAIN",
+      "primary_category": "C8_INFRASTRUCTURE_CLOUD",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -140,7 +140,7 @@
     {
       "case_id": "FAS-016",
       "title": "Privilege Boundary",
-      "primary_category": "C6_SUPPLY_CHAIN",
+      "primary_category": "C8_INFRASTRUCTURE_CLOUD",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -149,7 +149,7 @@
     {
       "case_id": "FAS-017",
       "title": "Multi-Service Compromise",
-      "primary_category": "C8_INFRASTRUCTURE_CLOUD",
+      "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
@@ -158,7 +158,7 @@
     {
       "case_id": "FAS-018",
       "title": "Agent → CI/CD → Production",
-      "primary_category": "C8_INFRASTRUCTURE_CLOUD",
+      "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
       "lifecycle_status": "DRAFT",
