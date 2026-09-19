@@ -49,3 +49,12 @@ def test_evaluation_integrity():
     document = json.loads((VALID / "evaluation-result.json").read_text())
     document["final_score"] = 0.5
     assert validate(document, "evaluation-result").status == "SEMANTIC_INVALID"
+
+
+def test_integrated_case_fixtures_pass_semantic_validation():
+    integrated = ROOT / "tests/fixtures/integrated"
+    expected = {"FAS-001", "FAS-002", "FAS-006", "FAS-016", "FAS-020"}
+    assert {path.stem for path in integrated.glob("*.json")} == expected
+    for path in sorted(integrated.glob("*.json")):
+        result = validate(json.loads(path.read_text()), "submission", True, set(CASE_IDS))
+        assert result.status == "VALID", (path.name, result.errors)
