@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-013-001",
+  "title": "Revoked Secret",
+  "category": "C7_SECRETS_SENSITIVE_DATA",
+  "severity": "MEDIUM",
+  "description": "A historical synthetic credential was exposed but deterministic revocation prevents current authentication.",
+  "claim_ids": [
+    "CLM-013-001"
+  ],
+  "evidence_ids": [
+    "EVD-013-001"
+  ],
+  "verdict": "REMEDIATED",
+  "confidence": 1
+}
