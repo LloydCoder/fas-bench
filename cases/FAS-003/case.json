@@ -1,0 +1,33 @@
+{
+  "case_id": "FAS-003",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Sanitized Command Injection",
+  "description": "User-controlled command arguments are passed through an argument boundary that prevents shell interpretation.",
+  "category": "C2_DATA_FLOW_TAINT",
+  "categories": [
+    "C2_DATA_FLOW_TAINT"
+  ],
+  "difficulty": "L1_LOCAL",
+  "status": "VALIDATED",
+  "scenario": "User-controlled command arguments are passed through an argument boundary that prevents shell interpretation.",
+  "security_condition": "BLOCKED_BY_VALIDATION",
+  "attacker_model": "Unauthenticated attacker may provide a command-like argument but cannot alter execution policy.",
+  "environment": {
+    "validation_type": "STATIC",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-003/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0"
+  }
+}
