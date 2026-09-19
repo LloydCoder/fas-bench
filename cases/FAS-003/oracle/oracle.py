@@ -2,7 +2,10 @@ import json
 from pathlib import Path
 
 state = json.loads((Path(__file__).parents[1] / "repository/state.json").read_text())
-observed = "NOT_EXPLOITABLE" if state.get("sanitization") and not state.get("path_viable") else "EXPLOITABLE"
+if state.get("sanitization") and not state.get("path_viable"):
+    observed = "NOT_EXPLOITABLE"
+else:
+    observed = "EXPLOITABLE"
 print(
     json.dumps(
         {
