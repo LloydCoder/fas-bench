@@ -34,6 +34,4 @@ def test_gold_oracle_mutations_change_security_semantics():
 def test_case_ids_are_exactly_the_initial_twenty():
     result = validate_all()
     assert result["case_count"] == 20
-    assert [r["case_id"] for r in result["results"]] == [
-        f"FAS-{i:03d}" for i in range(1, 21)
-    ]
+    assert [r["case_id"] for r in result["results"]] == [f"FAS-{i:03d}" for i in range(1, 21)]
