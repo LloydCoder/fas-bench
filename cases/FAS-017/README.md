@@ -4,4 +4,4 @@ Attacker-controlled frontend data crosses API and worker trust boundaries into a
 
 Synthetic multi-service model; no real services are contacted.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
