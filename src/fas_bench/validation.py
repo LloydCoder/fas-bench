@@ -135,7 +135,7 @@ def validate_semantics(
         )
 
     if family == "case":
-        return ValidationResult("SEMANTIC_INVALID", tuple(errors)) if errors else ValidationResult("VALID")
+        return (\n            ValidationResult("SEMANTIC_INVALID", tuple(errors))\n            if errors\n            else ValidationResult("VALID")\n        )
 
     if family == "evidence":
         location = document.get("location", {})
