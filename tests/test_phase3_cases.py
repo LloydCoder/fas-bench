@@ -14,7 +14,7 @@ def test_gold_oracle_mutations_change_security_semantics():
         "FAS-002": {"allowlist": True, "path_viable": False},
         "FAS-006": {"authorization": False, "path_viable": True},
         "FAS-016": {"explicit_deny": False},
-        "FAS-020": {"alternate_path_viable": False},
+        "FAS-020": {"alternate_path_viable": False, "alternate_protected": True},
     }
     expected = {
         "FAS-001": "EXPLOITABLE",
