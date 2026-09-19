@@ -8,4 +8,4 @@ Synthetic local MCP environment; no external network or credentials.
 
 The oracle derives the observed security state independently from the expected verdict.
 
-Status: VALIDATED subject to corpus CI.
+Status: IN_REVIEW — corpus/reproducibility gates not yet completed. subject to corpus CI.
