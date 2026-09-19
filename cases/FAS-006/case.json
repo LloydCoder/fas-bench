@@ -1,0 +1,42 @@
+{
+  "case_id": "FAS-006",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Authorization False Positive",
+  "description": "A sensitive function appears unguarded locally, but upstream middleware enforces authorization before entry.",
+  "category": "C3_AUTHENTICATION_AUTHORIZATION",
+  "categories": [
+    "C3_AUTHENTICATION_AUTHORIZATION"
+  ],
+  "difficulty": "L2_MULTI_FUNCTION",
+  "status": "VALIDATED",
+  "scenario": "A sensitive function appears unguarded locally, but upstream middleware enforces authorization before entry.",
+  "security_condition": "BLOCKED_BY_AUTHORIZATION",
+  "attacker_model": "Unauthorized caller can reach the route but cannot satisfy upstream authorization.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none",
+    "credentials": "synthetic-only",
+    "resource_limits": {
+      "cpu": "1",
+      "memory": "256MiB",
+      "timeout_seconds": 30
+    }
+  },
+  "repository": {
+    "uri": "cases/FAS-006/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "environment_version": "0.1.0",
+    "provenance": "SYNTHETIC"
+  }
+}
