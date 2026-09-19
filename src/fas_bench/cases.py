@@ -26,8 +26,6 @@ EXPECTED_FILES = (
     ("attack_graph.json", "attack-graph"),
 )
 
-STATUS_ORDER = {"DRAFT": 0, "IN_REVIEW": 1, "VALIDATED": 2, "RELEASED": 3}
-
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -35,7 +33,12 @@ def _load(path: Path) -> dict[str, Any]:
 
 def _digest_case(case_dir: Path) -> str:
     digest = hashlib.sha256()
-    for path in sorted(p for p in case_dir.rglob("*") if p.is_file() and p.name != "manifest.json"):
+    files = sorted(
+        path
+        for path in case_dir.rglob("*")
+        if path.is_file() and path.name != "manifest.json"
+    )
+    for path in files:
         digest.update(path.relative_to(case_dir).as_posix().encode())
         digest.update(b"\0")
         digest.update(path.read_bytes())
@@ -50,7 +53,11 @@ def load_registry() -> dict[str, Any]:
 def validate_case_package(case_id: str) -> dict[str, Any]:
     case_dir = CASES_ROOT / case_id
     if not case_dir.is_dir():
-        return {"case_id": case_id, "status": "FAIL", "errors": ["missing case directory"]}
+        return {
+            "case_id": case_id,
+            "status": "FAIL",
+            "errors": ["missing case directory"],
+        }
 
     errors: list[str] = []
     case_path = case_dir / "case.json"
@@ -59,15 +66,21 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
 
     case = _load(case_path)
     metadata_path = case_dir / "metadata.json"
-    metadata = _load(metadata_path) if metadata_path.is_file() else case.get("metadata", {})
+    metadata = (
+        _load(metadata_path) if metadata_path.is_file() else case.get("metadata", {})
+    )
+
     if case.get("case_id") != case_id or metadata.get("case_id") != case_id:
         errors.append("case_id does not match directory")
-    if case.get("benchmark_version") != BENCHMARK_VERSION or case.get("schema_version") != SCHEMA_VERSION:
+    if (
+        case.get("benchmark_version") != BENCHMARK_VERSION
+        or case.get("schema_version") != SCHEMA_VERSION
+    ):
         errors.append("version mismatch")
 
     structural = validate(case, "case")
     if structural.status != "VALID":
-        errors.extend(f"schema: {e.message}" for e in structural.errors)
+        errors.extend(f"schema: {error.message}" for error in structural.errors)
 
     for name, family in EXPECTED_FILES:
         path = case_dir / "expected" / name
@@ -76,23 +89,38 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
             continue
         result = validate_file(path, family)
         if result.status != "VALID":
-            errors.extend(f"{name}: {e.message}" for e in result.errors)
+            errors.extend(f"{name}: {error.message}" for error in result.errors)
 
     findings = case_dir / "expected" / "findings.json"
     if not findings.is_file():
         errors.append("missing expected/findings.json")
+        finding = {}
     else:
         finding = _load(findings)
-        required = {"finding_id", "title", "category", "severity", "description", "claim_ids", "evidence_ids", "verdict", "confidence"}
+        required = {
+            "finding_id",
+            "title",
+            "category",
+            "severity",
+            "description",
+            "claim_ids",
+            "evidence_ids",
+            "verdict",
+            "confidence",
+        }
         if not required <= finding.keys():
             errors.append("finding schema contract incomplete")
 
-    paths = _load(case_dir / "expected" / "attack_paths.json") if (case_dir / "expected" / "attack_paths.json").is_file() else {}
+    paths_path = case_dir / "expected" / "attack_paths.json"
+    paths = _load(paths_path) if paths_path.is_file() else {}
     graph_path = case_dir / "expected" / "attack_graph.json"
     graph = _load(graph_path) if graph_path.is_file() else {}
+
     if not graph_path.is_file():
         errors.append("missing expected/attack_graph.json")
-    elif paths.get("path_id") and not any(p.get("path_id") == paths["path_id"] for p in graph.get("paths", [])):
+    elif paths.get("path_id") and not any(
+        path.get("path_id") == paths["path_id"] for path in graph.get("paths", [])
+    ):
         errors.append("attack_paths.json is not represented in attack_graph.json")
 
     expected_verdict = _load(case_dir / "expected" / "verdict.json").get("verdict")
@@ -107,7 +135,10 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
             errors.append("released case requires immutable artifact_digest")
         elif recorded != digest:
             errors.append("metadata artifact_digest mismatch")
-    elif recorded not in {None, "PLACEHOLDER", "CONTENT_DERIVED"} and recorded != digest:
+    elif (
+        recorded not in {None, "PLACEHOLDER", "CONTENT_DERIVED"}
+        and recorded != digest
+    ):
         errors.append("metadata artifact_digest mismatch")
 
     return {
@@ -118,6 +149,7 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
         "validation_type": metadata.get("validation_type"),
         "gold": case_id in GOLD_CASE_IDS,
         "artifact_digest": digest,
+        "lifecycle_status": lifecycle,
     }
 
 
@@ -129,7 +161,7 @@ def validate_all() -> dict[str, Any]:
         errors.append("registry does not contain exactly FAS-001..FAS-020 in order")
 
     results = [validate_case_package(case_id) for case_id in registry_ids]
-    errors.extend(f"{r['case_id']}: {e}" for r in results for e in r["errors"])
+    errors.extend(f"{result['case_id']}: {error}" for result in results for error in result["errors"])
 
     manifest = _load(MANIFEST_PATH) if MANIFEST_PATH.is_file() else {}
     if manifest.get("case_ids") != registry_ids:
@@ -138,13 +170,15 @@ def validate_all() -> dict[str, Any]:
     return {
         "status": "PASS" if not errors else "FAIL",
         "case_count": len(results),
-        "validated_count": sum(r["status"] == "PASS" for r in results),
+        "validated_count": sum(result["status"] == "PASS" for result in results),
         "errors": errors,
         "results": results,
     }
 
 
-def run_oracle(case_id: str, timeout: int = 30, mutation: dict[str, Any] | None = None) -> dict[str, Any]:
+def run_oracle(
+    case_id: str, timeout: int = 30, mutation: dict[str, Any] | None = None
+) -> dict[str, Any]:
     case_dir = CASES_ROOT / case_id
     oracle = case_dir / "oracle" / "oracle.py"
     if not oracle.is_file():
@@ -154,6 +188,7 @@ def run_oracle(case_id: str, timeout: int = 30, mutation: dict[str, Any] | None 
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     if mutation is not None:
         env["FAS_BENCH_MUTATION_JSON"] = json.dumps(mutation, sort_keys=True)
+
     try:
         completed = subprocess.run(
             [sys.executable, str(oracle)],
@@ -165,15 +200,27 @@ def run_oracle(case_id: str, timeout: int = 30, mutation: dict[str, Any] | None 
             check=False,
         )
     except subprocess.TimeoutExpired:
-        return {"case_id": case_id, "status": "INCONCLUSIVE", "message": "oracle timeout"}
+        return {
+            "case_id": case_id,
+            "status": "INCONCLUSIVE",
+            "message": "oracle timeout",
+        }
 
     if completed.returncode != 0:
-        return {"case_id": case_id, "status": "ERROR", "message": completed.stderr.strip()}
+        return {
+            "case_id": case_id,
+            "status": "ERROR",
+            "message": completed.stderr.strip(),
+        }
 
     try:
         result = json.loads(completed.stdout)
     except json.JSONDecodeError:
-        return {"case_id": case_id, "status": "ERROR", "message": "oracle emitted non-JSON output"}
+        return {
+            "case_id": case_id,
+            "status": "ERROR",
+            "message": "oracle emitted non-JSON output",
+        }
 
     expected = _load(case_dir / "expected" / "verdict.json")["verdict"]
     if result.get("observed_verdict") != expected:
@@ -189,6 +236,6 @@ def reproduce_all(case_ids: list[str] | None = None) -> dict[str, Any]:
     ids = case_ids or list(CASE_IDS)
     results = [run_oracle(case_id) for case_id in ids]
     return {
-        "status": "PASS" if all(r.get("status") == "PASS" for r in results) else "FAIL",
+        "status": "PASS" if all(result.get("status") == "PASS" for result in results) else "FAIL",
         "results": results,
     }
