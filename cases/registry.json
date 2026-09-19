@@ -1,6 +1,8 @@
 {
   "benchmark_version": "0.1.0",
+  "case_set_version": "0.1.0",
   "schema_version": "0.1",
+  "corpus_surface": "PUBLIC_DEVELOPMENT",
   "cases": [
     {
       "case_id": "FAS-001",
@@ -8,7 +10,8 @@
       "primary_category": "C1_REACHABILITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -17,7 +20,8 @@
       "primary_category": "C1_REACHABILITY",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -25,8 +29,9 @@
       "title": "Sanitized Command Injection",
       "primary_category": "C2_DATA_FLOW_TAINT",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L1_LOCAL",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -34,8 +39,9 @@
       "title": "Indirect Command Injection",
       "primary_category": "C2_DATA_FLOW_TAINT",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -44,7 +50,8 @@
       "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -53,7 +60,8 @@
       "primary_category": "C3_AUTHENTICATION_AUTHORIZATION",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -61,8 +69,9 @@
       "title": "Excessive Agent Capability",
       "primary_category": "C4_AI_AGENT_SECURITY",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L4_AGENTIC",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -70,8 +79,9 @@
       "title": "Agent Sandbox Boundary",
       "primary_category": "C4_AI_AGENT_SECURITY",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L4_AGENTIC",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -79,8 +89,9 @@
       "title": "MCP Tool Poisoning",
       "primary_category": "C5_MCP_SECURITY",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L4_AGENTIC",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -88,8 +99,9 @@
       "title": "Safe MCP Server",
       "primary_category": "C5_MCP_SECURITY",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L4_AGENTIC",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -97,8 +109,9 @@
       "title": "Malicious Dependency",
       "primary_category": "C6_SUPPLY_CHAIN",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -106,8 +119,9 @@
       "title": "Vulnerable but Unreachable Dependency",
       "primary_category": "C6_SUPPLY_CHAIN",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -116,7 +130,8 @@
       "primary_category": "C7_SECRETS_SENSITIVE_DATA",
       "secondary_categories": [],
       "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -124,8 +139,9 @@
       "title": "Live Credential Attack Path",
       "primary_category": "C7_SECRETS_SENSITIVE_DATA",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L4_AGENTIC",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -133,8 +149,9 @@
       "title": "Public Storage Exposure",
       "primary_category": "C8_INFRASTRUCTURE_CLOUD",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -142,8 +159,9 @@
       "title": "Privilege Boundary",
       "primary_category": "C8_INFRASTRUCTURE_CLOUD",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -151,8 +169,9 @@
       "title": "Multi-Service Compromise",
       "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -160,8 +179,9 @@
       "title": "Agent → CI/CD → Production",
       "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L5_CROSS_SYSTEM",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -169,8 +189,9 @@
       "title": "Verified Fix",
       "primary_category": "C10_REMEDIATION_REGRESSION",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     },
     {
@@ -178,8 +199,9 @@
       "title": "Fake Fix / Alternate Path",
       "primary_category": "C10_REMEDIATION_REGRESSION",
       "secondary_categories": [],
-      "difficulty": "L2_MULTI_FUNCTION",
-      "lifecycle_status": "DRAFT",
+      "difficulty": "L3_MULTI_COMPONENT",
+      "lifecycle_status": "VALIDATED",
+      "case_version": "0.1.0",
       "schema_version": "0.1"
     }
   ]
