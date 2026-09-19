@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-010-001",
+  "title": "Safe MCP Server",
+  "category": "C5_MCP_SECURITY",
+  "severity": "MEDIUM",
+  "description": "The MCP server exposes powerful functionality but authentication, schema validation, path allowlisting, and authorization constrain effective capability.",
+  "claim_ids": [
+    "CLM-010-001"
+  ],
+  "evidence_ids": [
+    "EVD-010-001"
+  ],
+  "verdict": "NOT_EXPLOITABLE",
+  "confidence": 1
+}
