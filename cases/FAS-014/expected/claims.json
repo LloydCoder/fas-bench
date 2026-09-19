@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-014-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "IDENTITY",
+  "statement": "Attacker influence reaches a live synthetic credential through an over-permissive tool and then a privileged service.",
+  "subject": "synthetic credential",
+  "predicate": "authenticates",
+  "object": "privileged service",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-014-001"
+  ],
+  "provenance": "VERIFIED"
+}
