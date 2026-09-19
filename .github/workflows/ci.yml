@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: ["main","phase-1-contract","phase-2-schema-data-model"]
+    branches: ["main"]
   pull_request:
 permissions:
   contents: read
