@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fas-bench.dev/schemas/submission/v0.1/submission.schema.json",
+  "title": "FAS-Bench Submission v0.1",
+  "type": "object",
+  "properties": {
+    "benchmark_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"
+    },
+    "schema_version": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SchemaVersion"
+    },
+    "submission_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/SubmissionId"
+    },
+    "case_id": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/CaseId"
+    },
+    "system": {
+      "type": "object",
+      "properties": {
+        "system_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "system_version": {
+          "type": "string"
+        },
+        "model_name": {
+          "type": "string"
+        },
+        "model_version": {
+          "type": "string"
+        },
+        "agent_version": {
+          "type": "string"
+        },
+        "configuration_digest": {
+          "type": "string"
+        },
+        "runtime": {
+          "type": "string"
+        },
+        "tooling": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "execution_environment": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "random_seed": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "system_name"
+      ],
+      "additionalProperties": false
+    },
+    "verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/Finding"
+      },
+      "uniqueItems": true
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/Claim"
+      },
+      "uniqueItems": true
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/Evidence"
+      },
+      "uniqueItems": true
+    },
+    "attack_paths": {
+      "type": "array",
+      "items": {
+        "$ref": "../../common/v0.1/common.schema.json#/$defs/AttackPath"
+      },
+      "uniqueItems": true
+    },
+    "impact": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Impact"
+    },
+    "remediation": {
+      "anyOf": [
+        {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/Remediation"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "verification": {
+      "anyOf": [
+        {
+          "$ref": "../../common/v0.1/common.schema.json#/$defs/Verification"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "benchmark_version",
+    "schema_version",
+    "submission_id",
+    "case_id",
+    "system",
+    "verdict",
+    "findings",
+    "claims",
+    "evidence",
+    "attack_paths",
+    "impact",
+    "remediation",
+    "verification"
+  ],
+  "additionalProperties": false
+}
