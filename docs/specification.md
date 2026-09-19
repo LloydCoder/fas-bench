@@ -624,3 +624,6 @@ Phase 1 properties are represented in this specification and were verified befor
 
 ## Phase 2 exit criteria
 All required schema families, semantic validation, fixtures, documentation, package integration, and CI checks must be green before Phase 2 is declared complete.
+
+## Evaluator-only ground-truth schema
+The evaluator-only schema at `schemas/ground-truth/v0.1/ground-truth.schema.json` can represent expected verdicts, expected claims/evidence, attack paths, remediation, and regression. It is a data contract only; Phase 3 still owns the actual gold corpus and empirical ground-truth validation. It MUST NOT be used as the public submission schema.
