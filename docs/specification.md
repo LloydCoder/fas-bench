@@ -560,3 +560,67 @@ Normative changes MUST be proposed as specification changes and reviewed as benc
 ## Conformance statement
 
 A Phase 1-conforming FAS-Bench repository is one in which this specification is the authoritative semantic contract, implementation artifacts do not contradict it, and downstream phases can encode and execute the contract without redefining its core concepts.
+
+
+## Scope
+FAS-Bench evaluates evidence-grounded security adjudication by AI agents, scanners, security tools, and hybrid systems.
+
+## Non-goals
+It is not a CVE/CVSS replacement, prose benchmark, production certification, or FAS-dependent benchmark.
+
+## Normative language
+MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY retain their conventional normative meanings.
+
+## Canonical taxonomy
+The ten machine-readable category values are C1_REACHABILITY through C10_REMEDIATION_REGRESSION as defined by the schema common definitions.
+
+## Difficulty model
+L1_LOCAL through L5_CROSS_SYSTEM encode structural reasoning complexity, not source-code size.
+
+## Verdict semantics
+The seven canonical verdicts are EXPLOITABLE, NOT_EXPLOITABLE, CONDITIONALLY_EXPLOITABLE, REMEDIATED, REMEDIATION_FAILED, REGRESSED, and UNKNOWN.
+
+## Claim model
+A claim is an explicit assertion. It is not evidence and is not a verdict.
+
+## Evidence model
+Evidence is a structured observation that can support or contradict a claim. Verification state is independent of the final verdict.
+
+## Attack graph model
+Graphs use stable node and edge IDs rather than recursive object nesting. Cycles are permitted in graphs.
+
+## Effective security graph
+Controls and boundaries can block an apparent path. Exploitability is determined from the effective graph, not source relationships alone.
+
+## Remediation model
+Remediation records the security-property change, affected claims and paths, verification status, and final verdict.
+
+## Regression model
+Regression records a previously secure property becoming insecure after a subsequent change and is distinct from remediation failure.
+
+## Reproducibility contract
+Benchmark, schema, case, submission, evaluator, system, environment, tooling, timestamp, seed, and content-digest metadata are recorded where available.
+
+## Benchmark security
+Case data is untrusted. Validation is data-only, offline, and must not execute artifacts or fetch attacker-controlled references.
+
+## Contamination resistance
+Public development cases, held-out cases, mutations, temporal splits, and leakage detection remain future empirical controls; Phase 2 does not claim they are solved.
+
+## Ground-truth isolation
+Expected security state and evaluator-only evidence are not part of ordinary system submissions.
+
+## Submission contract
+A submission contains system metadata, verdict, findings, claims, evidence, attack paths, impact, remediation, and verification. It expresses the evaluated system's belief and must not contain expected verdict fields.
+
+## Evaluation-result contract
+Evaluation results may contain validity, component metrics, normalized scores, contributions, caps, penalties, structured errors, warnings, and final score. Score semantics remain provisional until Phase 8.
+
+## Versioning and compatibility
+Benchmark version is 0.1.0; schema family version is 0.1. Breaking schema changes require a new version directory.
+
+## Phase 1 exit criteria
+Phase 1 properties are represented in this specification and were verified before the Phase 2 schema implementation. Phase 2 adds executable structure without introducing a dependency on FAS.
+
+## Phase 2 exit criteria
+All required schema families, semantic validation, fixtures, documentation, package integration, and CI checks must be green before Phase 2 is declared complete.
