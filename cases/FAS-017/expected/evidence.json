@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-017-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "TRUST_BOUNDARY",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic cross-service path state.",
+  "related_claims": [
+    "CLM-017-001"
+  ],
+  "provenance": "VERIFIED"
+}
