@@ -9,7 +9,7 @@
     "C5_MCP_SECURITY"
   ],
   "difficulty": "L4_AGENTIC",
-  "status": "VALIDATED",
+  "status": "IN_REVIEW",
   "scenario": "The MCP server exposes powerful functionality but authentication, schema validation, path allowlisting, and authorization constrain effective capability.",
   "security_condition": "BLOCKED_BY_AUTHORIZATION",
   "attacker_model": "Attacker may control tool arguments but not server policy or credentials.",
@@ -28,6 +28,7 @@
     }
   },
   "metadata": {
-    "case_version": "0.1.0"
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
   }
 }
