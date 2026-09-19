@@ -1,0 +1,19 @@
+{
+  "case_id": "BAD",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Dead SSRF",
+  "description": "SSRF-like signal blocked by an effective network policy.",
+  "category": "C1_REACHABILITY",
+  "categories": [
+    "C1_REACHABILITY"
+  ],
+  "difficulty": "L2_MULTI_FUNCTION",
+  "status": "IN_REVIEW",
+  "scenario": "Attacker supplies a URL.",
+  "security_condition": "HTTP sink appears reachable but effective policy blocks the target.",
+  "attacker_model": "Unauthenticated remote attacker",
+  "environment": {
+    "network_policy": "allowlist"
+  }
+}
