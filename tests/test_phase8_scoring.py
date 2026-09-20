@@ -15,13 +15,13 @@ def test_binary_metrics_known_values():
     m = binary_metrics(8, 2, 2)
     assert m["precision"] == 0.8
     assert m["recall"] == 0.8
-    assert m["f1"] == 0.8
+    assert m["f1"] == pytest.approx(0.8)
 
 
 def test_evidence_weighted_formula():
     assert evidence_score(
         1, 0.5, 0.5, 1, {"validity": 0.35, "relevance": 0.30, "coverage": 0.20, "specificity": 0.15}
-    ) == pytest.approx(0.8)
+    ) == pytest.approx(0.75)
 
 
 def test_brier_direction_and_extremes():
