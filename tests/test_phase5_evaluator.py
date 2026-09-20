@@ -216,11 +216,11 @@ def test_cross_case_evidence_cannot_verify():
     assert not result.verdict.verdict_supported
 
 
-def test_wrong_case_id_is_rejected():
+def test_wrong_case_id_cannot_override_authoritative_case():
     submission = _gold_submission("FAS-001")
     submission["case_id"] = "FAS-002"
-    with pytest.raises(EvaluatorCaseError):
-        evaluate_submission_document(submission, CASES)
+    result = evaluate_submission_document(submission, CASES)
+    assert not result.verdict.verdict_supported
 
 
 def test_confidence_nan_is_rejected():
