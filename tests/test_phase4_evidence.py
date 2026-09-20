@@ -156,7 +156,7 @@ def test_absolute_and_nul_paths_are_rejected(tmp_path: Path):
     with pytest.raises(CaseLoadError):
         safe_resolve(tmp_path, "/etc/passwd")
     with pytest.raises(CaseLoadError):
-        safe_resolve(tmp_path, "bad\\x00path")
+        safe_resolve(tmp_path, "bad\x00path")
 
 
 def test_symlink_escape_is_rejected(tmp_path: Path):
