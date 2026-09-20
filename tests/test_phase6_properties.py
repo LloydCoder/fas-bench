@@ -11,6 +11,9 @@ ROOT = Path(__file__).parents[1]
 
 
 def _graph():
+    return json.loads(
+        (ROOT / "cases/FAS-004/expected/attack_graph.json").read_text(encoding="utf-8")
+    )
     return json.loads((ROOT / "cases/FAS-004/expected/attack_graph.json").read_text(encoding="utf-8"))
 
 
