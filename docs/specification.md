@@ -709,7 +709,7 @@ Unsupported or contradictory submitted graph facts MUST remain distinguishable f
 
 ## Phase 7 normative definitions
 
-A verified remediation requires independent closure of the declared security condition, removal or effective blocking of all required original paths, consideration of equivalent-impact alternate paths, valid remediation evidence, required security tests, required functional behavior, and no benchmark-defined regression.
+A verified remediation requires independent closure of the declared security condition, removal or effective blocking of all required original paths, consideration of equivalent-impact alternate paths, valid remediation evidence, required security tests and required functional-preservation tests that PASS, and no benchmark-defined regression.
 
 A cosmetic change is not a remediation. A partial fix that leaves an equivalent-impact route is a remediation failure. Conditional remediation is reserved for explicitly declared benchmark conditions. UNKNOWN means the oracle cannot establish closure; evaluator failure and invalid benchmark state remain distinct.
 

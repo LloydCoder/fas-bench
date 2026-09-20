@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — Phase 7: Remediation & Regression Engine
+
+CI validation is required before merge; Phase 7 requires security-condition closure, required security/functional verification, alternate-path analysis, evidence integrity, and regression checks.
+
+### Added
+- Deterministic baseline/post-remediation security-state models and remediation/regression oracle.
+- Required PASS security and functional verification gates; missing required tests remain UNKNOWN.
+- Semantic path lifecycle classification, equivalent-impact alternate-path detection, control weakening detection, evidence-integrity gating, and reproducible evaluation provenance.
+
 ## Unreleased — Phase 5: Verdict & Finding Evaluator
 
 CI validation is required before merge; no scoring fields are manufactured by Phase 5.

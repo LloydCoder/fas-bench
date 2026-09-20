@@ -4,7 +4,7 @@
 > Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.
 
 ## Status
-**Phase 5 — Verdict & Finding Evaluator: CI-validated implementation candidate.**
+**Phase 7 — Remediation & Regression Engine: CI-validated implementation candidate.**
 
 FAS-Bench is an independent benchmark. FAS is one candidate evaluated system and is not a dependency, reference implementation, or source of ground truth.
 

@@ -69,4 +69,4 @@ Graph diffing reports added/removed/changed nodes and edges for remediation/regr
 
 The remediation result is multidimensional rather than a single opaque verdict. It exposes security-condition resolution, attack-path resolution, alternate-path resolution, control effectiveness, security-test success, functional preservation, regression resistance, and evidence integrity. The provisional score is the unweighted arithmetic mean of these raw dimensions and is explicitly versioned for later calibration.
 
-A test status of ERROR, TIMEOUT, or UNRESOLVED is not a security pass. Missing required security tests do not manufacture remediation credit. Candidate self-reports are never authoritative.
+A test status of ERROR, TIMEOUT, or UNRESOLVED is not a security pass. Required security and functional tests must be present and PASS before a remediation can receive REMEDIATED status; missing tests produce UNKNOWN rather than credit. Candidate self-reports are never authoritative.
