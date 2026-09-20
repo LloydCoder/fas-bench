@@ -14,8 +14,10 @@ class SecureRunner:
   started=datetime.now(timezone.utc); t0=time.monotonic(); root=Path(tempfile.mkdtemp(prefix="fas-bench-run-")); cleanup=True
   try:
    if not request.case_id or not request.submission_id or not request.command or any(not isinstance(x,str) or not x for x in request.command): return self._fail(started,t0,FailureCode.INVALID_REQUEST,request)
-   if not self._docker(["version","--format","{{.Server.Version}}"],5) or self._docker(["version","--format","{{.Server.Version}}"],5).returncode!=0: return self._fail(started,t0,FailureCode.ISOLATION_UNAVAILABLE,request)
-   if not self._docker(["image","inspect",self.policy.image],5) or self._docker(["image","inspect",self.policy.image],5).returncode!=0: return self._fail(started,t0,FailureCode.IMAGE_UNAVAILABLE,request)
+   version = self._docker(["version","--format","{{.Server.Version}}"],5)
+   if version is None or version.returncode != 0: return self._fail(started,t0,FailureCode.ISOLATION_UNAVAILABLE,request)
+   inspect = self._docker(["image","inspect",self.policy.image],5)
+   if inspect is None or inspect.returncode != 0: return self._fail(started,t0,FailureCode.IMAGE_UNAVAILABLE,request)
    inp=root/"input"; out=root/"output"; inp.mkdir(); out.mkdir()
    try: input_digest=write_inputs(inp,request.input_files,self.policy.workspace_bytes)
    except (ValueError,TypeError): return self._fail(started,t0,FailureCode.INPUT_INVALID,request)
