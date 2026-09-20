@@ -55,6 +55,7 @@ def test_required_documentation_exists():
         "docs/evaluation.md",
         "docs/methodology.md",
         "docs/threat-model.md",
+        "docs/evidence-engine.md",
         "cases/README.md",
         "cases/registry.json",
         "schemas/README.md",
