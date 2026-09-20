@@ -23,7 +23,7 @@ def make_state(case_id, status, graph, paths):
 
 
 def p(pid,status,impact="impact",entry="entry"):
-    return {"path_id":pid,"status":status,"impact_key":impact,"entry_key":entry,"security_condition_id":"target.condition"}
+    return {\n        "path_id": pid,\n        "status": status,\n        "impact_key": impact,\n        "entry_key": entry,\n        "security_condition_id": "target.condition",\n    }
 
 
 def test_equivalent_sink_replacement_survives_semantic_path_check():
@@ -34,7 +34,7 @@ def test_equivalent_sink_replacement_survives_semantic_path_check():
     after=make_state("FAS-002","VIABLE",post,[p("P-002-001","VIABLE")])
     result=evaluate_remediation(
         baseline,after,{"remediation_id":"REM-TEST","original_path_ids":["P-002-001"]},
-        security_tests=(TestResult("SEC","SECURITY_BYPASS","FAIL"),),evidence=({"verification":"VERIFIED"},)
+        security_tests=(TestResult("SEC", "SECURITY_BYPASS", "FAIL"),),\n        evidence=({"verification": "VERIFIED"},)
     )
     assert result.status=="REMEDIATION_FAILED"
 
@@ -66,5 +66,5 @@ def test_baseline_case_mismatch_is_benchmark_error():
     g=load("FAS-002")
     baseline=make_state("FAS-002","VIABLE",g,[p("P-002-001","VIABLE")])
     post=make_state("FAS-003","BLOCKED",g,[p("P-002-001","BLOCKED")])
-    result=evaluate_remediation(baseline,post,{"remediation_id":"REM-TEST","original_path_ids":["P-002-001"]})
+    result = evaluate_remediation(\n        baseline, post, {"remediation_id": "REM-TEST", "original_path_ids": ["P-002-001"]}\n    )
     assert result.status=="BENCHMARK_ERROR"
