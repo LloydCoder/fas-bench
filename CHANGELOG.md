@@ -2,6 +2,8 @@
 
 ## Unreleased — Phase 5: Verdict & Finding Evaluator
 
+CI validation is required before merge; no scoring fields are manufactured by Phase 5.
+
 ### Added
 - Deterministic finding, claim, security-condition, and verdict evaluation consuming the Phase 4 evidence engine.
 - Declarative verdict derivation from authoritative path state, effective controls, explicit conditions, and remediation state.
