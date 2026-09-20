@@ -215,7 +215,9 @@ def evaluate_remediation(
             path_id = item.get("path_id")
             if not path_id or path_id in seen_path_ids:
                 return _benchmark_error(
-                    remediation, baseline.case_id, f"{state_name} contains duplicate or missing path id"
+                    remediation,
+                    baseline.case_id,
+                    f"{state_name} contains duplicate or missing path id",
                 )
             seen_path_ids.add(path_id)
             condition_ref = item.get("security_condition_id", item.get("condition_id"))
