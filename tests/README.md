@@ -25,3 +25,8 @@ python -c "import fas_bench; print(fas_bench.__version__)"
 ## Phase 5 tests
 
 `tests/test_phase5_evaluator.py` covers 20-case gold self-evaluation, false-positive resistance, conditional and remediation semantics, evidence-to-verdict dependency, contradictory claims, cross-case contamination, confidence validation, tamper detection, deterministic fingerprints, and metamorphic invariants.
+
+
+## Phase 6 tests
+
+Tests/test_phase6_graph.py covers all 20 public graphs, graph self-consistency, empty/saturated submissions, fabricated and reversed edges, duplicates, dangling references, path continuity, cycles, traversal limits, semantic identifier variation, graph diffing, and minimal paths. Tests/test_phase6_properties.py covers canonicalization idempotence, permutation-invariant digests, identity diffs, and score reflexivity.
