@@ -178,8 +178,8 @@ def test_malformed_submission_is_rejected(tmp_path: Path):
         load_submission(path)
 
 
-def test_benchmark_package_has_no_evaluated-system_dependency():
-    source = "\\n".join(
+def test_benchmark_package_has_no_evaluated_system_dependency():
+    source = "\n".join(
         path.read_text(encoding="utf-8").lower()
         for path in (ROOT / "src" / "fas_bench" / "evidence").glob("*.py")
     )
