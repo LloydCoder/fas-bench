@@ -6,8 +6,8 @@ import hashlib
 import json
 from typing import Any
 
-from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION
-from ..graph import compare_graphs, diff_graphs, find_alternate_paths, graph_digest, validate_graph
+from ..contract import EVALUATOR_VERSION
+from ..graph import compare_graphs, diff_graphs, graph_digest, validate_graph
 from .models import AlternatePath, PathLifecycle, RemediationResult, SecurityState, TestResult
 
 REMEDIATION_ENGINE_VERSION = "0.1.0"
