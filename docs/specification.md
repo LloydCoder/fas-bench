@@ -1,7 +1,7 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Phase 1 contract; provisionally frozen for Phase 2 implementation.  
+**Status:** Normative contract; Phase 3 release candidate validated by CI.  
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (conceptual contract only; schemas are a Phase 2 deliverable)  
 **Evaluator version:** 0.1.0 (contract identifier; evaluator implementation is later)  
@@ -640,7 +640,7 @@ Phase 3 operationalizes the case registry into a public development corpus. The 
 
 ### Case lifecycle
 
-DRAFT → IN_REVIEW → VALIDATED → RELEASED. Schema validity, semantic validity, reproducibility, security validation, and release readiness are distinct gates. A case is not VALIDATED solely because its files validate.
+DRAFT → CONSTRUCTED → SELF-VALIDATED → INDEPENDENTLY_REVIEWED → REPRODUCIBLE → VALIDATED → RELEASE_CANDIDATE → RELEASED. Schema validity, semantic validity, reproducibility, security validation, and release readiness are distinct gates. A case is not VALIDATED solely because its files validate.
 
 ### Case contract
 
