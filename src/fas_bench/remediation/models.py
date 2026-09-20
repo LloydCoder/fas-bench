@@ -173,10 +173,18 @@ class RemediationResult:
             "graph_diff": self.graph_diff,
             "security_condition_diff": self.security_condition_diff,
             "security_controls": self.security_controls,
-            "security_tests": [\n                x.as_dict() for x in self.test_results if x.test_type.startswith("SECURITY")\n            ],
-            "functional_tests": [\n                x.as_dict() for x in self.test_results if x.test_type.startswith("FUNCTIONAL")\n            ],
-            "regression_tests": [\n                x.as_dict() for x in self.test_results if x.test_type.startswith("REGRESSION")\n            ],
-            "new_finding_tests": [\n                x.as_dict() for x in self.test_results if x.test_type.startswith("NEW_")\n            ],
+            "security_tests": [
+                x.as_dict() for x in self.test_results if x.test_type.startswith("SECURITY")
+            ],
+            "functional_tests": [
+                x.as_dict() for x in self.test_results if x.test_type.startswith("FUNCTIONAL")
+            ],
+            "regression_tests": [
+                x.as_dict() for x in self.test_results if x.test_type.startswith("REGRESSION")
+            ],
+            "new_finding_tests": [
+                x.as_dict() for x in self.test_results if x.test_type.startswith("NEW_")
+            ],
             "dimensions": self.dimensions,
             "diagnostics": list(self.diagnostics),
             "provenance": self.provenance,
