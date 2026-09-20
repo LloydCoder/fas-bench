@@ -6,10 +6,6 @@ from dataclasses import dataclass
 from typing import Any
 
 
-CLAIM_STATUSES = ("VERIFIED", "INVALID", "UNRESOLVED", "CONTRADICTED", "MISSING")
-PRECONDITION_STATUSES = ("SATISFIED", "UNSATISFIED", "CONDITIONAL", "UNKNOWN")
-
-
 @dataclass(frozen=True)
 class ClaimEvaluation:
     claim_id: str
