@@ -115,7 +115,9 @@ def _expected_claims_for_submission(
                     claim_id=claim["claim_id"],
                     status="CONTRADICTED",
                     reason_code="CLAIM_CONTRADICTED",
-                    details="claim structure matches an expected predicate but asserts a different object",
+                    details=(
+                        "claim structure matches an expected predicate but asserts a different object"
+                    ),
                 )
             )
         else:
