@@ -20,7 +20,8 @@ def load_config(path=None):
 def _gold(case_id, cases_root=None):
     root = Path(cases_root or CASES_ROOT) / case_id
     exp = root / "expected"
-    read = lambda n: json.loads((exp / n).read_text(encoding="utf-8"))
+    def read(name):
+        return json.loads((exp / name).read_text(encoding="utf-8"))
     case = json.loads((root / "case.json").read_text(encoding="utf-8"))
     return {
         "case": case,
@@ -196,7 +197,6 @@ def score_case(submission, evaluation, *, config=None, cases_root=None):
         if not efficiency["available"]
         else ()
     )
-    case_meta = gold["case"].get("metadata", {})
     return CaseScore(
         evaluation.case_id,
         BENCHMARK_VERSION,
@@ -259,7 +259,8 @@ def score_submission(submission_path, *, cases_root=None, config=None):
 
 def build_perfect_submission(case_id, cases_root=None):
     root = Path(cases_root or CASES_ROOT) / case_id / "expected"
-    read = lambda n: json.loads((root / n).read_text(encoding="utf-8"))
+    def read(name):
+        return json.loads((root / name).read_text(encoding="utf-8"))
     finding = read("findings.json")
     claim = read("claims.json")
     evidence = read("evidence.json")
