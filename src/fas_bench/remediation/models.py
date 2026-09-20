@@ -1,6 +1,6 @@
 """Phase 7 remediation and regression domain models."""
 
-from dataclasses import dataclass, field
+import dataclasses
 
 from typing import Any
 
@@ -18,7 +18,7 @@ REMEDIATION_STATUSES = {
 }
 
 
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class TestResult:
     test_id: str
     test_type: str
@@ -141,7 +141,7 @@ class RemediationResult:
     evidence_integrity: str
     path_lifecycles: tuple[PathLifecycle, ...] = ()
     alternate_paths: tuple[AlternatePath, ...] = ()
-    graph_diff: dict[str, Any] = field(default_factory=dict)
+    graph_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
     security_condition_diff: dict[str, Any] = field(default_factory=dict)
     security_controls: dict[str, Any] = field(default_factory=dict)
     test_results: tuple[TestResult, ...] = ()
