@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: E501,UP035,UP037
 import json
 from pathlib import Path
 
