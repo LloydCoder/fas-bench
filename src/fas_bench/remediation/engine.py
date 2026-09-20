@@ -244,8 +244,8 @@ def evaluate_remediation(
     alternate_closed = not any(
         x.classification in {"EQUIVALENT_IMPACT", "HIGHER_IMPACT"} for x in alternates
     )
-    security_ok = security_status == "PASS" or (not security_tests and condition_diff["closed"])
-    functional_ok = functional_status in {"PASS", "NOT_ASSESSED"}
+    security_ok = security_status == "PASS"
+    functional_ok = functional_status == "PASS"
     regression_ok = regression_status in {"PASS", "NOT_ASSESSED"}
     new_ok = new_status in {"PASS", "NOT_ASSESSED"}
     controls_ok = not controls["weakened"]
@@ -273,7 +273,8 @@ def evaluate_remediation(
     elif conditional:
         status = "CONDITIONALLY_REMEDIATED"
     elif (
-        path_closed
+        condition_diff["closed"]
+        and path_closed
         and alternate_closed
         and security_ok
         and functional_ok
