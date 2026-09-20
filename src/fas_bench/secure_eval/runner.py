@@ -65,6 +65,7 @@ class SecureRunner:
             out = root / "output"
             inp.mkdir()
             out.mkdir()
+            os.chmod(out, 0o777)
             try:
                 input_digest = write_inputs(inp, request.input_files, self.policy.workspace_bytes)
             except (ValueError, TypeError):
