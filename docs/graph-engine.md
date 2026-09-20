@@ -71,3 +71,7 @@ diff_graphs(before, after) reports added/removed/changed nodes and edges using c
 Graph correctness and verdict correctness remain separate dimensions. A system can reconstruct a graph accurately while choosing the wrong verdict, or guess a correct verdict while providing incomplete or unsupported graph reasoning.
 
 The public corpus is development data. It is not a hidden evaluation set; held-out or private cases are required for contamination-resistant benchmark evaluation.
+
+## Verification
+
+Phase 6 CI gates the graph engine through formatting, linting, tests, schema validation, corpus validation, package build/install, and security checks.
