@@ -1,6 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-
 EXPLICIT_DENY = True
 
 
