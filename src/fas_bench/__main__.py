@@ -201,6 +201,7 @@ def main(argv=None):
         try:
             if args.remediation_command == "validate":
                 from .validation import validate_file as _validate_file
+
                 result = _validate_file(args.remediation, "remediation")
                 print(
                     json.dumps(
@@ -213,6 +214,7 @@ def main(argv=None):
                 before = json.loads(args.before.read_text(encoding="utf-8"))
                 after = json.loads(args.after.read_text(encoding="utf-8"))
                 from .graph import diff_graphs
+
                 print(json.dumps(diff_graphs(before, after), indent=2, sort_keys=True))
                 return 0
             if args.remediation_command == "regression":
@@ -236,7 +238,9 @@ def main(argv=None):
             def _tests(prefix):
                 return tuple(TestResult(**item) for item in tests_doc.get(prefix, []))
             result = evaluate_remediation(
-                SecurityState(**baseline), SecurityState(**post), remediation,
+                SecurityState(**baseline),
+                SecurityState(**post),
+                remediation,
                 security_tests=_tests("security_tests"),
                 functional_tests=_tests("functional_tests"),
                 regression_tests=_tests("regression_tests"),
@@ -250,7 +254,7 @@ def main(argv=None):
                 return 3
             return 4
         except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
-            print(json.dumps({"status":"ERROR","error":str(exc)}, indent=2))
+            print(json.dumps({"status": "ERROR", "error": str(exc)}, indent=2))
             return 2
 
     if args.command == "validate":
