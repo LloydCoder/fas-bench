@@ -315,9 +315,8 @@ def main(argv=None):
                     "difficulty", case_doc.get("difficulty", "UNKNOWN")
                 )
                 rows.append(row)
-            configuration = json.loads(
-                (args.config or Path("configs/scoring/v0.1.json")).read_text(encoding="utf-8")
-            )
+            from .scoring.engine import DEFAULT_CONFIG_PATH
+            configuration = json.loads((args.config or DEFAULT_CONFIG_PATH).read_text(encoding="utf-8"))
             import hashlib
 
             run_id = (
