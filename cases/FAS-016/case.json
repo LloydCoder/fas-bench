@@ -9,7 +9,7 @@
     "C8_INFRASTRUCTURE_CLOUD"
   ],
   "difficulty": "L3_MULTI_COMPONENT",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "A broad identity permission is overridden by an effective explicit deny boundary that blocks privilege escalation.",
   "security_condition": "BLOCKED_BY_RESOURCE_POLICY",
   "attacker_model": "Attacker has the listed principal but cannot alter the deny boundary.",
@@ -29,6 +29,6 @@
   },
   "metadata": {
     "case_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
