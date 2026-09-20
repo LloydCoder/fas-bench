@@ -33,3 +33,8 @@ The case corpus is independent of FAS and is designed to remain valid if FAS is 
 Case Definition → Schema Validation → Semantic Validation → Environment Construction → Oracle Execution → Ground-Truth Validation → Integrity/Reproducibility Gate → Release Gate.
 
 Gold cases receive enhanced dynamic validation and mutation sensitivity checks. The Phase 3 oracle runner uses a pinned Python image, network isolation, read-only case mounts, dropped capabilities, resource limits, and deterministic cleanup. The public corpus remains development data; future hidden evaluation must use held-out cases or undisclosed mutations.
+
+
+## Phase 4 evidence pipeline
+
+Phase 4 establishes a deterministic evidence substrate: Case → Integrity Verification → Ground Truth Evidence → Submission Parsing → Canonical Normalization → Safe Resolution → Evidence Verification → Relationship/Duplicate Analysis → Coverage/Integrity Result. Phase 5 consumes these results for verdict evaluation; Phase 4 does not adjudicate exploitability.
