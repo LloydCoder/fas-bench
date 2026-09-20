@@ -29,3 +29,10 @@ The corpus is a controlled experimental set, not a statistical sample of real-wo
 ## Phase 4 methodology
 
 FAS-Bench separates observation, evidence, claim, security property, and verdict. Phase 4 verifies only the evidence layer. Canonicalization removes representation differences without erasing security-relevant distinctions. Evidence identity is content-derived, duplicate evidence is preserved for auditability but cannot inflate coverage, and missing evidence is not treated as invalid evidence. Later phases consume the structured result rather than reimplementing evidence resolution.
+
+
+## Phase 5 adjudication methodology
+
+FAS-Bench separates detection from adjudication. A scanner can correctly detect a suspicious source/sink, dependency, tool, or function while the security condition is blocked by an effective boundary. Phase 5 therefore matches findings by structured category and claims, verifies evidence through Phase 4, resolves reachability/control/precondition state from declarative case data, and only then evaluates the submitted verdict.
+
+UNKNOWN means the authoritative condition cannot be concluded. CONDITIONAL requires explicit case-defined conditions. Remediation verdicts are based on security-property state, not the presence of a patch string. Correct verdict and evidence support remain separate dimensions for later scoring.
