@@ -9,8 +9,8 @@ Phase 9 is the execution trust boundary for hostile candidate workloads. It is d
 - All Linux capabilities are dropped and no-new-privileges is enabled.
 - Candidate processes run as a non-root numeric UID/GID.
 - PID, CPU, memory, workspace/tmpfs, timeout, and captured-output limits are mandatory.
-- Candidate code receives no repository secrets, GitHub token, Docker socket, host workspace, or arbitrary host path.
-- Candidate input is copied into a read-only /input; writable /workspace and /output are ephemeral tmpfs filesystems.
+- Candidate code receives no repository secrets, GitHub token, Docker socket, or arbitrary host path. The harness uses only benchmark-managed ephemeral input/output transport directories.
+- Candidate input is exposed through a benchmark-managed read-only /input bind mount; /workspace is an ephemeral tmpfs and /output is a benchmark-managed ephemeral output transport directory.
 - Candidate commands are passed as argv without a shell and replace the image entrypoint.
 - Each run receives a content-derived run identifier and UTC/C locale environment.
 - Output artifacts are hashed before cleanup and a canonical manifest digest is recorded.
