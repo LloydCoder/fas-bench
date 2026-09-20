@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import dataclasses
-from typing import Any
+import typing
 
 
 TEST_STATUSES = {"PASS", "FAIL", "ERROR", "TIMEOUT", "NOT_APPLICABLE", "UNRESOLVED"}
@@ -33,7 +33,7 @@ class TestResult:
         if self.status not in TEST_STATUSES:
             raise ValueError(f"unsupported test status: {self.status}")
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self) -> dict[str, typing.Any]:
         value = {
             "test_id": self.test_id,
             "test_type": self.test_type,
@@ -62,7 +62,7 @@ class PathLifecycle:
         if self.lifecycle not in PATH_LIFECYCLES:
             raise ValueError(f"unsupported path lifecycle: {self.lifecycle}")
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self) -> dict[str, typing.Any]:
         return {
             "path_id": self.path_id,
             "lifecycle": self.lifecycle,
@@ -85,7 +85,7 @@ class AlternatePath:
         if self.classification not in ALTERNATE_CLASSES:
             raise ValueError(f"unsupported alternate-path classification: {self.classification}")
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self) -> dict[str, typing.Any]:
         return {
             "path_id": self.path_id,
             "classification": self.classification,
@@ -101,16 +101,16 @@ class SecurityState:
     case_id: str
     condition_id: str
     condition_status: str
-    graph: dict[str, Any]
-    paths: tuple[dict[str, Any], ...] = ()
-    controls: tuple[dict[str, Any], ...] = ()
+    graph: dict[str, typing.Any]
+    paths: tuple[dict[str, typing.Any], ...] = ()
+    controls: tuple[dict[str, typing.Any], ...] = ()
     repository_digest: str | None = None
     environment_digest: str | None = None
     evidence_digest: str | None = None
     benchmark_version: str = "0.1.0"
     case_version: str = "0.1.0"
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self) -> dict[str, typing.Any]:
         return {
             "state_id": self.state_id,
             "case_id": self.case_id,
@@ -142,9 +142,9 @@ class RemediationResult:
     evidence_integrity: str
     path_lifecycles: tuple[PathLifecycle, ...] = ()
     alternate_paths: tuple[AlternatePath, ...] = ()
-    graph_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
-    security_condition_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
-    security_controls: dict[str, Any] = dataclasses.field(default_factory=dict)
+    graph_diff: dict[str, typing.Any] = dataclasses.field(default_factory=dict)
+    security_condition_diff: dict[str, typing.Any] = dataclasses.field(default_factory=dict)
+    security_controls: dict[str, typing.Any] = dataclasses.field(default_factory=dict)
     test_results: tuple[TestResult, ...] = ()
     dimensions: dict[str, float] = dataclasses.field(default_factory=dict)
     score: float | None = None
@@ -155,7 +155,7 @@ class RemediationResult:
         if self.status not in REMEDIATION_STATUSES:
             raise ValueError(f"unsupported remediation status: {self.status}")
 
-    def as_dict(self) -> dict[str, Any]:
+    def as_dict(self) -> dict[str, typing.Any]:
         value = {
             "remediation_id": self.remediation_id,
             "case_id": self.case_id,
