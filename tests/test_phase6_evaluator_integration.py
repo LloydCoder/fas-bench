@@ -52,9 +52,7 @@ def test_graph_evidence_linkage_is_score_relevant():
         "findings": [json.loads((expected / "findings.json").read_text(encoding="utf-8"))],
         "claims": [json.loads((expected / "claims.json").read_text(encoding="utf-8"))],
         "evidence": [json.loads((expected / "evidence.json").read_text(encoding="utf-8"))],
-        "attack_paths": json.loads((expected / "attack_paths.json").read_text(encoding="utf-8"))[
-            "paths"
-        ],
+        "attack_paths": [json.loads((expected / "attack_paths.json").read_text(encoding="utf-8"))],
         "attack_graph": json.loads((expected / "attack_graph.json").read_text(encoding="utf-8")),
         "impact": {},
         "remediation": json.loads((expected / "remediation.json").read_text(encoding="utf-8")),
