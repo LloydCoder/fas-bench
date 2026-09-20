@@ -5,7 +5,7 @@
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (conceptual contract only; schemas are a Phase 2 deliverable)  
 **Evaluator version:** 0.1.0 (contract identifier; evaluator implementation is later)  
-**Case-set version:** 0.1.0 (initial design registry, not validated corpus)  
+**Case-set version:** 0.1.0 (validated public development corpus)  
 **Submission format version:** 0.1.0 (conceptual contract; machine schema is Phase 2)
 
 Other project documents may explain, summarize, or operationalize this contract. They MUST NOT redefine normative semantics. When a conflict exists, this specification controls.
@@ -131,7 +131,7 @@ Case IDs are stable identifiers in the form FAS-NNN. IDs MUST be unique and MUST
 | FAS-019 | Verified Fix |
 | FAS-020 | Fake Fix / Alternate Path |
 
-These are design-registry cases, not a scientifically validated corpus. No claim of statistical representativeness or validated ground truth is made in Phase 1.
+These are the Phase 3 public development cases. They are not a statistically representative sample, but their structured ground truth, integrity records, and reproducibility gates are validated by the Phase 3 CI contract.
 
 ### Initial gold cases
 
