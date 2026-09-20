@@ -219,7 +219,7 @@ def validate_all() -> dict[str, Any]:
     for result in results:
         item = manifest_by_id.get(result["case_id"], {})
         reg = registry_by_id.get(result["case_id"], {})
-        if item.get("artifact_digest") != result["artifact_digest"]:
+        if item.get("artifact_digest") != result.get("artifact_digest"):
             errors.append(f"{result['case_id']}: manifest artifact digest mismatch")
         for key in (
             "title",
