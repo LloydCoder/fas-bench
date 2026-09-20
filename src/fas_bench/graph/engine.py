@@ -386,10 +386,23 @@ def calculate_graph_metrics(
         + weights[2] * path_complete
         + weights[3] * boundary.f1
     )
+    if not submitted.get("nodes") and not submitted.get("edges") and not submitted.get("paths"):
+        score = 0.0 if expected.get("nodes") or expected.get("edges") or expected.get("paths") else 1.0
     if unsupported:
         score = min(score, max(0.0, score - 0.05 * len(unsupported)))
     if contradictory:
         score = min(score, max(0.0, score - 0.10 * len(contradictory)))
+    if (
+        node_metric.f1 == 1.0
+        and edge_metric.f1 == 1.0
+        and path_complete == 1.0
+        and boundary.f1 == 1.0
+        and not unsupported
+        and not contradictory
+    ):
+        score = 1.0
+    else:
+        score = round(max(0.0, min(1.0, score)), 12)
     return GraphMetrics(
         node_metric,
         edge_metric,
