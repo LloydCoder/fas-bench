@@ -9,7 +9,7 @@
     "C2_DATA_FLOW_TAINT"
   ],
   "difficulty": "L1_LOCAL",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "User-controlled command arguments are passed through an argument boundary that prevents shell interpretation.",
   "security_condition": "BLOCKED_BY_VALIDATION",
   "attacker_model": "Unauthenticated attacker may provide a command-like argument but cannot alter execution policy.",
@@ -29,6 +29,6 @@
   },
   "metadata": {
     "case_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
