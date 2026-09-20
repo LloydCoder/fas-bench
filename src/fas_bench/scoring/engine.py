@@ -1,11 +1,13 @@
 """Phase 8 scoring over authoritative Phase 4-7 outputs."""
 
 from __future__ import annotations
+
 import json
 from pathlib import Path
-from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
+
 from ..cases import CASES_ROOT
-from .metrics import binary_metrics, evidence_score, brier_score, expected_calibration_error
+from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
+from .metrics import binary_metrics, brier_score, evidence_score, expected_calibration_error
 from .models import CaseScore, ScoreComponent, ScoringConfig
 
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[3] / "configs/scoring/v0.1.json"
