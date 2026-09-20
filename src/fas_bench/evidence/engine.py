@@ -37,7 +37,8 @@ def _load_json(path: Path) -> dict[str, Any]:
 def load_case(case_id: str, cases_root: Path | None = None) -> dict[str, Any]:
     root = _cases_root(cases_root)
     case_root = safe_resolve(root, case_id)
-    result = validate_case_package(case_id)
+    package_root = root.parent
+    result = validate_case_package(case_id) if package_root == root.parent else validate_case_package(case_id)
     if result["status"] != "PASS":
         raise CaseIntegrityError(f"case integrity failed for {case_id}: {result['errors']}")
     case = _load_json(case_root / "case.json")
@@ -70,8 +71,6 @@ def _fact_matches(case_root: Path, evidence: dict[str, Any], expected: dict[str,
         return False, "EVIDENCE_UNRESOLVED"
     if expected_fact.get("operator", "EQUALS") != "EQUALS":
         return False, "EVIDENCE_UNRESOLVED"
-    if actual != expected_fact.get("value"):
-        return False, "EVIDENCE_VALUE_MISMATCH"
     if actual != expected_fact.get("value"):
         return False, "EVIDENCE_VALUE_MISMATCH"
     return True, "EVIDENCE_VERIFIED"
@@ -119,9 +118,11 @@ def verify_evidence(case: dict[str, Any], submitted: list[dict[str, Any]]) -> Ev
         identities[identity] = evidence_id
         expected_item = expected_by_id.get(evidence_id)
         if expected_item is None:
-            items.append(EvidenceItemResult(evidence_id, "INVALID", "EVIDENCE_VALUE_MISMATCH", details="unknown evidence id"))
+            items.append(EvidenceItemResult(evidence_id, "INVALID", "EVIDENCE_UNKNOWN_ID", details="unknown evidence id"))
             continue
         status, reason = _item_match(case["root"], evidence, expected_item)
+        if expected_item.get("role") == "CONTRADICTORY" and status == "VERIFIED":
+            status, reason = "CONTRADICTED", "EVIDENCE_CONTRADICTED"
         matched = (evidence_id,) if status == "VERIFIED" else ()
         if status == "VERIFIED":
             verified_expected.add(evidence_id)
