@@ -69,7 +69,7 @@ def main(argv=None):
     graph_compare.add_argument("--json", action="store_true")
 
     remediation_parser = subparsers.add_parser("remediation")
-    remediation_subparsers = remediation_parser.add_subparsers(dest="remediation_command", required=True)
+    remediation_subparsers = remediation_parser.add_subparsers(\n        dest="remediation_command", required=True\n    )
     remediation_validate = remediation_subparsers.add_parser("validate")
     remediation_validate.add_argument("remediation", type=Path)
     remediation_validate.add_argument("--json", action="store_true")
@@ -198,7 +198,7 @@ def main(argv=None):
             if args.remediation_command == "validate":
                 from .validation import validate_file as _validate_file
                 result = _validate_file(args.remediation, "remediation")
-                print(json.dumps({"status": result.status, "errors": [e.__dict__ for e in result.errors]}, indent=2))
+                print(\n                    json.dumps(\n                        {"status": result.status, "errors": [e.__dict__ for e in result.errors]},\n                        indent=2,\n                    )\n                )
                 return 0 if result.status == "VALID" else 2
             if args.remediation_command == "diff":
                 before = json.loads(args.before.read_text(encoding="utf-8"))
@@ -219,17 +219,17 @@ def main(argv=None):
             post = json.loads(args.post.read_text(encoding="utf-8"))
             remediation = json.loads(args.remediation.read_text(encoding="utf-8"))
             tests_doc = json.loads(args.tests.read_text(encoding="utf-8")) if args.tests else {}
-            evidence = tuple(json.loads(args.evidence.read_text(encoding="utf-8")) if args.evidence else [])
+            evidence = (\n                tuple(json.loads(args.evidence.read_text(encoding="utf-8")))\n                if args.evidence\n                else ()\n            )
             def _tests(prefix):
                 return tuple(TestResult(**item) for item in tests_doc.get(prefix, []))
             result = evaluate_remediation(
                 SecurityState(**baseline), SecurityState(**post), remediation,
-                security_tests=_tests("security_tests"), functional_tests=_tests("functional_tests"),
-                regression_tests=_tests("regression_tests"), new_finding_tests=_tests("new_finding_tests"),
+                security_tests=_tests("security_tests"),\n                functional_tests=_tests("functional_tests"),
+                regression_tests=_tests("regression_tests"),\n                new_finding_tests=_tests("new_finding_tests"),
                 evidence=evidence,
             )
             print(json.dumps(result.as_dict(), indent=2, sort_keys=True))
-            return 0 if result.status in {"REMEDIATED", "CONDITIONALLY_REMEDIATED"} else 3 if result.status == "REMEDIATION_FAILED" else 4
+            if result.status in {"REMEDIATED", "CONDITIONALLY_REMEDIATED"}:\n                return 0\n            if result.status == "REMEDIATION_FAILED":\n                return 3\n            return 4
         except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
             print(json.dumps({"status":"ERROR","error":str(exc)}, indent=2))
             return 2
