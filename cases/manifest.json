@@ -34,7 +34,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "68fb9adf059be6c4ac64a873e83e35a7357eb8beeacb44fe141ba080058d1b52"
+      "artifact_digest": "5ffad0f5eede8b90bd9346ec95bcf01f24bb91945cbbf16f3a1cc876b96396f7"
     },
     {
       "case_id": "FAS-002",
@@ -45,7 +45,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "57e6125cd0c02481e9522c2eaea408657c0ba018bc4ce049bb273ec178c01ba6"
+      "artifact_digest": "c8e434c26d95bb2ee82f1c967cfe1cd0a5db6ed8bbb2051e9cfb68282383dba4"
     },
     {
       "case_id": "FAS-003",
@@ -56,7 +56,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "9ad2b62462511674e5e40d5083a9f38d9d9e834700a5a904b2419db991ddf82e"
+      "artifact_digest": "196170889231dc08d78083af6b43d77e43d1fbd7e39e5c6b65cd12d02437cf20"
     },
     {
       "case_id": "FAS-004",
@@ -67,7 +67,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "2edae64e3c209cce0614414c6292ec81b2581aa89ba4524133dbd8d584930e6f"
+      "artifact_digest": "49faa8a667d0b103b3f83165808946dc21454264b88ac3212f07ce54fcdee28f"
     },
     {
       "case_id": "FAS-005",
@@ -78,7 +78,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "d33ea6479e283352a38f29cf9794824de929024a89f0356f740abeebf7ce9869"
+      "artifact_digest": "26a9a1ffeca1532f590ec4c0ce3413f2909da2c66b6965b5ce630a4035ebcb8e"
     },
     {
       "case_id": "FAS-006",
@@ -89,7 +89,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "5b43b318103f5e9a05799d9e36726186c77f27120e5ac1d0601f0b5229eba975"
+      "artifact_digest": "57e6f99c701419e4b2c4edf52c2aaeef5104ff38f52c92ea9d1162c8d2cc339b"
     },
     {
       "case_id": "FAS-007",
@@ -100,7 +100,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "af5190aea2bc9b8e59c6a1f8450981c0d2143d936bda6553fec9d9e4f85b400e"
+      "artifact_digest": "4c9cbc2cc283a2cbab2f77b33d333e25edb3c5b0005b6b59cdb044ec9174c36f"
     },
     {
       "case_id": "FAS-008",
@@ -111,7 +111,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "3bfba0d568cc1cf9bb2914522f6bdec29577ed989e27828821d55af9e28ea9f2"
+      "artifact_digest": "047725f85b0ca9be1be948f94cb47dee72fba176daa7dad2843a3a4d43ca9a13"
     },
     {
       "case_id": "FAS-009",
@@ -122,7 +122,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "2ee17d04cc682340d56ec451f737bddd2c24df5ff0c79af256978b2809a646e8"
+      "artifact_digest": "943f8539377c56c9b997080b8c58b97173c2e4b06e7ad3d33da683ce4ae369ff"
     },
     {
       "case_id": "FAS-010",
@@ -133,7 +133,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "93a0a133e74e8fd4f161a477db4afa2a46480ba988c66d0ac9578732dd6e0f48"
+      "artifact_digest": "9c0fa7ba1ea9b9e171ad6379575e70020f0e230b000df58f73e59009a4ac1142"
     },
     {
       "case_id": "FAS-011",
@@ -144,7 +144,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "994ee584999d3dfe851ea9f47f2ad86dcd3661a0f9c3a48b2d607a9eee0d64a9"
+      "artifact_digest": "4200823e09f1f46b2d886f3cf58eef5915e0a6dc79f6e7d7f5ff057c5ca87f68"
     },
     {
       "case_id": "FAS-012",
@@ -155,7 +155,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "8f2911904dab47cdb774394ffdcbc41609bfbbaa2e612ac151c4945e90ed41f8"
+      "artifact_digest": "d886ecc3b171f94679a5a71e3a0f12e84c89b5e6cac9f56459561e4534956a4b"
     },
     {
       "case_id": "FAS-013",
@@ -166,7 +166,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "4af139436004fbb27f828cbb9fd2a935104083ad0ef0bca2d880f38286c5c4a9"
+      "artifact_digest": "ca490a8fa163053a4796f0d61aad7a89973214144df75d04064db7a46150adb6"
     },
     {
       "case_id": "FAS-014",
@@ -177,7 +177,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "6088d33a68aacc41458d1ad5728825fd9e5351f22c0e2a9afac30ceb992c68c9"
+      "artifact_digest": "417b360cc5fe0dba545f2f41136c0b3f57656c35e816c447a2d7e71bd68754db"
     },
     {
       "case_id": "FAS-015",
@@ -188,7 +188,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "13041962b97d37b003e321d4b65ec50dcd3c3e1de267b764ee339395303ffcd1"
+      "artifact_digest": "cf7837a4456e2046add50c4a630cda98254e265a28ddf5b1b31d4c5ba080a5d1"
     },
     {
       "case_id": "FAS-016",
@@ -199,7 +199,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "b210a9e6d86c624748b20fe14a49e87de6d693db0f951c4e9745f3df48ddc6f6"
+      "artifact_digest": "dee5d88cec9e9cebfb41ebfa80286bee3dc4ae597d2d1d06337b1421da2e8bfa"
     },
     {
       "case_id": "FAS-017",
@@ -210,18 +210,18 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "66d048db967b205d76054827a2cc6d3012b660da3a96cf2d497e670fa2ba4c12"
+      "artifact_digest": "a86e050fd6607a5d70de49c62058844a665d5eb54e1bd897265eb0d64a60345c"
     },
     {
       "case_id": "FAS-018",
-      "title": "Agent → CI/CD → Production",
+      "title": "Agent \u2192 CI/CD \u2192 Production",
       "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
       "difficulty": "L5_CROSS_SYSTEM",
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "c325435367f5a4f398ab6fc7d99d5b1440657c0ca23363632d28c5a5e509f2ad"
+      "artifact_digest": "91645e2c2763e461fe1b8bed11778ca3711dce60a8ed91b707b5c61299b44ec7"
     },
     {
       "case_id": "FAS-019",
@@ -232,7 +232,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "fff0c7e425842bb5c30f8250e5a791cd27e45ce30a51f616b14f820e897ed7b1"
+      "artifact_digest": "0976b90376c87b8dd33aa641dbab82073c97e2bdeb0c0df9b6f56061cafa12c3"
     },
     {
       "case_id": "FAS-020",
@@ -243,7 +243,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "919bf7ab48e73e9f957e5e1a492e29361d4d95bf618c58d9456d835eae949101"
+      "artifact_digest": "3cd826c2ef2687d2e596f7e2cfd449485a3615e3d1f09ed68aae3b04f1397c48"
     }
   ],
   "hidden_ground_truth": false,
