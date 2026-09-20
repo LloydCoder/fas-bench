@@ -51,3 +51,8 @@ Every public case can be evaluated with a synthetic gold submission through the 
 ## Phase 6 graph contract
 
 Each public case's expected attack graph is validated through the generic graph engine. No evaluator branch is keyed to a case identifier. Phase 6 treats case graph data as declarative ground truth and evaluates submissions through the shared node/edge/path semantics.
+
+
+## Phase 7 case contract
+
+The existing twenty public remediation artifacts remain authoritative declarations. Cases without an asserted fix retain `NOT_ASSESSED`; remediation-enabled cases such as FAS-013, FAS-019, and FAS-020 are consumed as declarative data. The evaluator never branches on a case identifier.
