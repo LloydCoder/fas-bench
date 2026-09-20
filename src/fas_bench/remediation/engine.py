@@ -209,7 +209,12 @@ def evaluate_remediation(
         return _benchmark_error(
             remediation, baseline.case_id, "invalid baseline or post-remediation graph"
         )
-    for state_name, state in (("baseline", baseline), ("post-remediation", post)):
+    baseline_conditions: dict[str, str] = {}
+    post_conditions: dict[str, str] = {}
+    for state_name, state, condition_map in (
+        ("baseline", baseline, baseline_conditions),
+        ("post-remediation", post, post_conditions),
+    ):
         seen_path_ids: set[str] = set()
         for item in state.paths:
             path_id = item.get("path_id")
@@ -221,12 +226,15 @@ def evaluate_remediation(
                 )
             seen_path_ids.add(path_id)
             condition_ref = item.get("security_condition_id", item.get("condition_id"))
-            if condition_ref is not None and condition_ref != state.condition_id:
-                return _benchmark_error(
-                    remediation,
-                    baseline.case_id,
-                    f"{state_name} path {path_id} references a different security condition",
-                )
+            if condition_ref is not None:
+                condition_map[path_id] = str(condition_ref)
+    for path_id in sorted(set(baseline_conditions) & set(post_conditions)):
+        if baseline_conditions[path_id] != post_conditions[path_id]:
+            return _benchmark_error(
+                remediation,
+                baseline.case_id,
+                f"path {path_id} changes security-condition identity",
+            )
     original_ids = set(remediation.get("original_path_ids", []))
     if not original_ids:
         return _benchmark_error(
