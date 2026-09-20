@@ -45,3 +45,18 @@ All notable changes to FAS-Bench are documented here.
 - Added structured case ground truth, deterministic case oracles, corpus registry and manifest.
 - Added corpus validation, immutable artifact digests, isolated oracle execution, and gold-case mutation gates.
 - The corpus is not statistically representative and is not a hidden evaluation set.
+
+## Unreleased — Phase 6: Attack-Path & Security-Graph Engine
+
+### Added
+- Deterministic graph domain API for validation, canonicalization, SHA-256 graph identity, path extraction, minimal security paths, alternate-path discovery, semantic comparison, metrics, and graph diffs.
+- Security-graph schema extensions for abstraction levels, security relevance, aliases, graph evidence references, security semantics, trust-boundary references, and identity transitions.
+- Finite graph/path/traversal limits and structured diagnostics for hostile submissions.
+- Graph CLI commands for validation, normalization, digesting, path extraction, diffing, and comparison.
+- All-20-case graph validation and self-consistency tests plus adversarial, metamorphic, determinism, and property tests.
+- Evaluation-result graph contract for later composite scoring integration.
+
+### Methodology
+- Node/edge/path/boundary dimensions remain separate from verdict correctness.
+- Graph scoring weights are explicit and versioned methodology configuration; they are not scientifically validated constants.
+- Unsupported fabricated edges and contradictory security transitions cannot manufacture graph credit.
