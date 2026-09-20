@@ -5,17 +5,19 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+from fas_bench.validation import load_schema, validate
+
 ROOT = Path(__file__).parents[1]
 SCHEMA = ROOT / "schemas/remediation-evaluation/v0.1/remediation-evaluation.schema.json"
 
 
 def test_phase7_schema_is_valid():
-    document = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    document = load_schema("remediation-evaluation")
     Draft202012Validator.check_schema(document)
 
 
 def test_phase7_result_shape_validates():
-    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    schema = load_schema("remediation-evaluation")
     payload = {
         "remediation_id": "REM-TEST",
         "case_id": "FAS-002",
@@ -37,4 +39,4 @@ def test_phase7_result_shape_validates():
         "diagnostics": [],
         "provenance": {},
     }
-    Draft202012Validator(schema).validate(payload)
+    assert validate(payload, "remediation-evaluation").status == "VALID"
