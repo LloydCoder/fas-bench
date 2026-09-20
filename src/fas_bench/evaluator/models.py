@@ -138,11 +138,13 @@ class FindingEvaluationResult:
 
     def as_dict(self) -> dict[str, Any]:
         return {
+            "evaluation_phase": "PHASE_5_VERDICT",
             "evaluation_id": self.evaluation_id,
             "case_id": self.case_id,
             "submission_id": self.submission_id,
             "benchmark_version": self.benchmark_version,
             "schema_version": self.schema_version,
+            "validity": "VALID",
             "expected_verdict": self.expected_verdict,
             "finding_evaluation": self.finding.as_dict(),
             "claim_evaluations": [claim.as_dict() for claim in self.claims],
@@ -152,4 +154,5 @@ class FindingEvaluationResult:
             "fingerprint": self.fingerprint,
             "errors": list(self.errors),
             "warnings": list(self.warnings),
+            "metadata": {"scoring_deferred_to_phase_8": True},
         }
