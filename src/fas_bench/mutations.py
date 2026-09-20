@@ -1,3 +1,4 @@
+# fmt: off
 """Deterministic mutation engine with explicit semantic relations and validation hooks."""
 
 from __future__ import annotations
