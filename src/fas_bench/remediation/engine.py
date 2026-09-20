@@ -142,7 +142,7 @@ def _control_diff(before: SecurityState, after: SecurityState) -> dict[str, Any]
     a = {str(x.get("control_id", x.get("name", i))): x for i, x in enumerate(after.controls)}
     removed = sorted(set(b) - set(a))
     added = sorted(set(a) - set(b))
-    weakened: list[str] = []
+    weakened: list[str] = [key for key in removed if b[key].get("effective") is True]
     strengthened: list[str] = []
     for key in sorted(set(b) & set(a)):
         old = b[key].get("effective")
@@ -189,6 +189,14 @@ def evaluate_remediation(
     diagnostics: list[str] = []
     if baseline.case_id != post.case_id:
         return _benchmark_error(remediation, baseline.case_id, "baseline/post case mismatch")
+    if baseline.case_version != post.case_version:
+        return _benchmark_error(remediation, baseline.case_id, "case version mismatch")
+    if (
+        baseline.environment_digest is not None
+        and post.environment_digest is not None
+        and baseline.environment_digest != post.environment_digest
+    ):
+        return _benchmark_error(remediation, baseline.case_id, "baseline/post environment mismatch")
     if baseline.condition_id != post.condition_id:
         return _benchmark_error(
             remediation, baseline.case_id, "security-condition identity mismatch"
@@ -201,6 +209,22 @@ def evaluate_remediation(
         return _benchmark_error(
             remediation, baseline.case_id, "invalid baseline or post-remediation graph"
         )
+    for state_name, state in (("baseline", baseline), ("post-remediation", post)):
+        seen_path_ids: set[str] = set()
+        for item in state.paths:
+            path_id = item.get("path_id")
+            if not path_id or path_id in seen_path_ids:
+                return _benchmark_error(
+                    remediation, baseline.case_id, f"{state_name} contains duplicate or missing path id"
+                )
+            seen_path_ids.add(path_id)
+            condition_ref = item.get("security_condition_id", item.get("condition_id"))
+            if condition_ref is not None and condition_ref != state.condition_id:
+                return _benchmark_error(
+                    remediation,
+                    baseline.case_id,
+                    f"{state_name} path {path_id} references a different security condition",
+                )
     original_ids = set(remediation.get("original_path_ids", []))
     if not original_ids:
         return _benchmark_error(
