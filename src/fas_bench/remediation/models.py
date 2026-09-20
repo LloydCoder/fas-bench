@@ -1,5 +1,7 @@
 """Phase 7 remediation and regression domain models."""
 
+from __future__ import annotations
+
 import dataclasses
 
 
