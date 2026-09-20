@@ -499,6 +499,9 @@
         "provenance": {
           "$ref": "#/$defs/Provenance"
         },
+        "fact": {
+          "$ref": "#/$defs/EvidenceFact"
+        },
         "benchmark_version": {
           "$ref": "#/$defs/BenchmarkVersion"
         },
