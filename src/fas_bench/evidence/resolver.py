@@ -1,0 +1,118 @@
+"""Safe resolution of case artifacts and structured facts."""
+
+from __future__ import annotations
+
+import ast
+import json
+from pathlib import Path
+from typing import Any
+
+from .errors import CaseLoadError
+
+def safe_resolve(root: Path, relative: str) -> Path:
+    if not relative or "\x00" in relative:
+        raise CaseLoadError("EVIDENCE_INVALID_PATH: empty or NUL-containing path")
+    candidate = Path(relative)
+    if candidate.is_absolute() or candidate.anchor:
+        raise CaseLoadError("EVIDENCE_INVALID_PATH: absolute path is forbidden")
+    resolved_root = root.resolve()
+    resolved = (resolved_root / candidate).resolve()
+    try:
+        resolved.relative_to(resolved_root)
+    except ValueError as exc:
+        raise CaseLoadError("EVIDENCE_INVALID_PATH: path escapes case root") from exc
+    return resolved
+
+def resolve_artifact_path(case_root: Path, evidence: dict[str, Any]) -> Path | None:
+    location = evidence.get("location") or {}
+    file_name = location.get("file")
+    if file_name:
+        return safe_resolve(case_root, file_name)
+    fact = (evidence.get("fact") or {})
+    artifact_path = fact.get("artifact_path")
+    if artifact_path:
+        return safe_resolve(case_root, artifact_path)
+    return None
+
+def _read_json_value(document: Any, key_path: str) -> Any:
+    current = document
+    if not key_path:
+        return current
+    for part in key_path.split("."):
+        if isinstance(current, dict) and part in current:
+            current = current[part]
+        else:
+            raise KeyError(key_path)
+    return current
+
+def read_fact(case_root: Path, evidence: dict[str, Any]) -> tuple[bool, Any, str]:
+    fact = evidence.get("fact")
+    if not isinstance(fact, dict):
+        return False, None, "no structured fact supplied"
+    artifact_path = fact.get("artifact_path")
+    key = fact.get("key")
+    if not isinstance(artifact_path, str) or not isinstance(key, str):
+        return False, None, "fact requires artifact_path and key"
+    path = safe_resolve(case_root, artifact_path)
+    if not path.is_file():
+        return False, None, f"artifact does not exist: {artifact_path}"
+    if path.suffix.lower() == ".json":
+        try:
+            document = json.loads(path.read_text(encoding="utf-8"))
+            return True, _read_json_value(document, key), ""
+        except (OSError, json.JSONDecodeError, KeyError) as exc:
+            return False, None, f"cannot read structured fact: {exc}"
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return False, None, f"cannot read artifact: {exc}"
+    if key == "content":
+        return True, text, ""
+    return False, None, "non-JSON facts require key=content"
+
+def verify_location(case_root: Path, location: dict[str, Any]) -> tuple[str, str]:
+    file_name = location.get("file")
+    if not file_name:
+        return "INVALID", "EVIDENCE_INVALID_PATH"
+    try:
+        path = safe_resolve(case_root, file_name)
+    except CaseLoadError:
+        return "INVALID", "EVIDENCE_INVALID_PATH"
+    if not path.is_file():
+        return "INVALID", "EVIDENCE_INVALID_PATH"
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except (OSError, UnicodeDecodeError):
+        return "UNRESOLVED", "EVIDENCE_UNRESOLVED"
+    start = location.get("line_start")
+    end = location.get("line_end", start)
+    if not isinstance(start, int) or start < 1:
+        return "INVALID", "EVIDENCE_INVALID_LINE"
+    if not isinstance(end, int) or end < start or end > len(lines):
+        return "INVALID", "EVIDENCE_INVALID_LINE"
+    for key in ("column_start", "column_end"):
+        value = location.get(key)
+        if value is not None and (not isinstance(value, int) or value < 1):
+            return "INVALID", "EVIDENCE_INVALID_COLUMN"
+    symbol = location.get("symbol")
+    if symbol:
+        if path.suffix == ".py":
+            try:
+                tree = ast.parse(path.read_text(encoding="utf-8"))
+            except SyntaxError:
+                return "UNRESOLVED", "EVIDENCE_UNRESOLVED"
+            names = {
+                node.name
+                for node in ast.walk(tree)
+                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+            }
+            if symbol not in names:
+                return "INVALID", "EVIDENCE_INVALID_SYMBOL"
+        else:
+            return "UNRESOLVED", "EVIDENCE_UNRESOLVED"
+    snippet = location.get("snippet")
+    if snippet is not None:
+        actual = "\n".join(lines[start - 1:end])
+        if actual != snippet.replace("\r\n", "\n").replace("\r", "\n"):
+            return "INVALID", "EVIDENCE_SNIPPET_MISMATCH"
+    return "VERIFIED", "EVIDENCE_VERIFIED"
