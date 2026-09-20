@@ -9,7 +9,7 @@
     "C1_REACHABILITY"
   ],
   "difficulty": "L2_MULTI_FUNCTION",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "An attacker-controlled URL survives the transformation chain and reaches the controlled external target.",
   "security_condition": "Observed viable attack path reaches impact.",
   "attacker_model": "Unauthenticated public attacker may submit a URL and observe the local mock target.",
@@ -37,7 +37,7 @@
   "metadata": {
     "case_version": "0.1.0",
     "environment_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW",
+    "lifecycle_status": "VALIDATED",
     "provenance": "SYNTHETIC"
   }
 }
