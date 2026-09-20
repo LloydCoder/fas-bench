@@ -105,7 +105,11 @@ def _path_lifecycles(baseline: SecurityState, post: SecurityState, original_ids:
         else:
             result.append(
                 PathLifecycle(
-                    pid, "UNKNOWN", bs, ass, reason="path transition is not deterministically classified"
+                    pid,
+                    "UNKNOWN",
+                    bs,
+                    ass,
+                    reason="path transition is not deterministically classified",
                 )
             )
     return tuple(result)
