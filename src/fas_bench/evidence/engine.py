@@ -53,6 +53,9 @@ def load_case(case_id: str, cases_root: Path | None = None) -> dict[str, Any]:
         raise CaseIntegrityError("case version is incompatible")
     if not expected.get("evidence_id"):
         raise CaseIntegrityError("expected evidence is malformed")
+    gold_status, gold_reason = _item_match(case_root, expected, expected)
+    if gold_status != "VERIFIED":
+        raise CaseIntegrityError(f"gold evidence does not self-verify: {gold_reason}")
     return {"case_id": case_id, "root": case_root, "case": case, "expected_evidence": [expected]}
 
 
