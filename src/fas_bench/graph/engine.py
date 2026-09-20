@@ -4,11 +4,12 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import defaultdict, deque
-from dataclasses import replace
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
+
 from .errors import GraphDiagnostic, GraphLimits
 from .models import GraphEvaluation, GraphMetrics, GraphValidationResult, MetricSet
-from .normalization import canonical_json, canonicalize_graph, node_key, normalize_identity
+from .normalization import canonical_json, node_key, normalize_identity
 
 GRAPH_SCHEMA_VERSION = "0.1"
 GRAPH_ENGINE_VERSION = "0.1.0"
@@ -287,7 +288,6 @@ def _edge_key(e, node_map=None):
 
 
 def _match_edges(expected, submitted, node_matches):
-    inverse = {v: k for k, v in node_matches.items()}
     matched = {}
     used = set()
     for ee in sorted(expected, key=lambda e: e.get("edge_id", "")):
