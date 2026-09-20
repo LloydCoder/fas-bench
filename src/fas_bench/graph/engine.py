@@ -153,7 +153,7 @@ def calculate_graph_metrics(expected: dict[str,Any], submitted: dict[str,Any], *
     em=_match_edges(expected.get("edges",[]),submitted.get("edges",[]),nm)
     node_metric=_metric(len(nm),len(submitted.get("nodes",[])),len(expected.get("nodes",[])))
     edge_metric=_metric(len(em),len(submitted.get("edges",[])),len(expected.get("edges",[])))
-    path_complete, matched_paths, missing=_compare_paths(expected,submitted,nm,em) if False else compare_paths(expected,submitted,nm,em)
+    path_complete, matched_paths, missing = compare_paths(expected, submitted, nm, em)
     boundary=_boundary_metrics(expected,submitted)
     unsupported=[]; contradictory=[]
     expected_edge_keys={_edge_key(e) for e in expected.get("edges",[])}
