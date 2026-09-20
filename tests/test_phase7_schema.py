@@ -5,7 +5,6 @@ from jsonschema import Draft202012Validator
 from fas_bench.validation import load_schema, validate
 
 
-
 def test_phase7_schema_is_valid():
     document = load_schema("remediation-evaluation")
     Draft202012Validator.check_schema(document)
