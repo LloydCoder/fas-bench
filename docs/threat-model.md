@@ -48,3 +48,12 @@ The remediation evaluator treats candidate-produced state and evidence as hostil
 ## Phase 8 scoring trust boundary
 
 Phase 8 treats candidate submissions as untrusted structured data. Candidate-provided aggregate scores, weights, gold data, or result digests are never authoritative. The scorer performs deterministic calculations without executing candidate code or loading candidate modules. Resource, path, serialization, and hidden-gold controls remain part of the benchmark security boundary.
+
+
+## Phase 10 benchmark-integrity threats
+
+Phase 10 extends the threat model to direct and derivative memorization, identifier/template recognition, documentation and Git-history leakage, Docker/package/CI artifact leakage, cache poisoning, cross-run leakage, network acquisition, evaluator probing, malicious contributors, compromised dependencies, oracle compromise, and release tampering.
+
+Controls include content-addressed manifests, deterministic leakage scans, public/hidden surface metadata, explicit eligibility states, pinned workflow actions, release verification, and preserved Phase 9 isolation. These controls reduce repository-level leakage; they do not prove absence of model-training contamination.
+
+The benchmark must never report CONTAMINATION_STATUS=CLEAN unless the evidence supports that statement. Unknown external exposure remains UNKNOWN or NOT_ASSESSED.
