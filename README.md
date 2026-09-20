@@ -4,7 +4,7 @@
 > Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.
 
 ## Status
-**Phase 8 — Scoring, Calibration & Benchmark Analytics: implementation in progress on the Phase 8 branch.**
+**Phase 10 — Corpus, Contamination Defense, Mutation & Release: implementation on the Phase 10 branch.**
 
 FAS-Bench is an independent benchmark. FAS is one candidate evaluated system and is not a dependency, reference implementation, or source of ground truth.
 
@@ -103,3 +103,29 @@ CLI:
 
 ## Phase 9 — Secure Evaluation Harness & Reproducibility
 Phase 9 provides the fail-closed execution boundary for hostile candidate workloads. The v0.1 harness requires an immutable container image digest, network isolation, dropped Linux capabilities, no-new-privileges, non-root execution, read-only root, bounded CPU/memory/PIDs/time/output, ephemeral workspaces, deterministic run identity, artifact hashing, and explicit infrastructure failure states. It never falls back to host execution.
+
+
+## Phase 10 — Corpus, contamination, mutation and release
+
+Phase 10 wraps the existing evidence, verdict, graph, remediation, scoring, and secure-execution layers in a content-addressed corpus and release contract. The initial FAS-001 through FAS-020 set remains **public development data**; it is not a hidden official evaluation set.
+
+New commands:
+
+- `fas-bench cases validate FAS-001`
+- `fas-bench cases verify FAS-020`
+- `fas-bench corpus validate`
+- `fas-bench corpus stats`
+- `fas-bench benchmark doctor`
+- `fas-bench benchmark release --version 0.1.0-phase10-dev`
+- `fas-bench release verify <manifest.json>`
+- `fas-bench contamination scan`
+- `fas-bench contamination independence`
+- `fas-bench health`
+
+Release identity is content-derived rather than timestamp-derived. Case, fixture, oracle, component, and manifest digests are verified before release validation succeeds.
+
+The mutation layer currently provides real, validated identifier and formatting-preserving Python transformations plus deterministic JSON canonicalization. Security-changing mutation classes are represented in the schema but are not claimed as implemented until they have an authoritative oracle-backed validation path.
+
+Phase 10 does **not** claim statistical representativeness, universal reproducibility across every platform, model-training contamination freedom, or scientific validation. Those require empirical evidence beyond the repository's current public corpus.
+
+See `docs/phase10-corpus-release.md`, `docs/phase10-mutation.md`, `docs/phase10-contamination.md`, `docs/phase10-release.md`, and `docs/phase10-governance.md`.
