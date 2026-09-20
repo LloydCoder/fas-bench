@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from .analytics import aggregate_cases, bootstrap, leave_one_out
 from .cases import reproduce_all, validate_all
 from .evaluator import evaluate_submission as evaluate_finding_submission
 from .evaluator.errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
@@ -298,8 +299,8 @@ def main(argv=None):
         try:
             cfg = load_config(args.config) if args.config else load_config()
             rows = []
-            from .contract import CASE_IDS
             from .cases import CASES_ROOT
+            from .contract import CASE_IDS
 
             for case_id in CASE_IDS:
                 row = score_submission_document_for_selftest(
