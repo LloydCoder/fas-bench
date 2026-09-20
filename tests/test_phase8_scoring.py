@@ -3,8 +3,8 @@
 import pytest
 from fas_bench.scoring.metrics import (
     binary_metrics,
-    evidence_score,
     brier_score,
+    evidence_score,
     expected_calibration_error,
     multiclass_brier,
 )
