@@ -1,4 +1,8 @@
 # FAS-Bench Methodology
+
+## Phase 8 measurement
+
+Phase 8 calculates decomposable case metrics and aggregate statistics from deterministic Phase 4–7 outputs. Evidence, verdict, graph, remediation, calibration, and integrity remain separately inspectable. Brier and ECE are reported as lower-is-better diagnostics and explicitly transformed before contributing to the provisional composite. Bootstrap intervals record seed, resample count, confidence level, and method. The initial 20 public development cases are not statistically representative; small-sample results must retain n and uncertainty.
 **Role:** research methodology.
 **Authority:** docs/specification.md.
 

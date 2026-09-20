@@ -10,6 +10,10 @@
 
 Other project documents may explain, summarize, or operationalize this contract. They MUST NOT redefine normative semantics. When a conflict exists, this specification controls.
 
+## Phase 8 measurement contract
+
+Phase 8 is the authoritative measurement layer above Phase 4–7 outputs. Normalized metrics are in [0,1]. It MUST preserve decomposition, missing-data semantics, evaluator errors, integrity caps, calibration diagnostics, uncertainty metadata, and versioned scoring configuration. Composite weights are provisional and research-configurable. Candidate-provided aggregate scores are non-authoritative. Benchmark results MUST NOT be presented as generalized real-world security effectiveness.
+
 ## Phase 4 evidence contract
 
 Phase 4 defines deterministic evidence verification as a separate layer between benchmark ground truth and later verdict evaluation. Evidence MUST be normalized using only representation-level transformations, bound to case identity, resolved against authoritative case artifacts, and classified as VERIFIED, INVALID, UNRESOLVED, or CONTRADICTED without using an LLM oracle. Evidence identity MUST exclude presentation-only descriptions, evaluator verification labels, and evaluation timestamps. A verified evidence item establishes an underlying fact only; exploitability remains a later-phase conclusion.

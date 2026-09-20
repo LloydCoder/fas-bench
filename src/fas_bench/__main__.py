@@ -19,7 +19,15 @@ from .graph import (
 )
 from .remediation import SecurityState, TestResult, evaluate_regression, evaluate_remediation
 from .validation import validate_file
+from .scoring import build_perfect_submission, score_submission, load_config
+from .analytics import aggregate_cases, bootstrap, leave_one_out
+from .reporting import build_report, write_report
 
+
+def score_submission_document_for_selftest(submission, config):
+    from .evaluator import evaluate_submission_document
+    from .scoring.engine import score_case
+    return score_case(submission,evaluate_submission_document(submission),config=config)
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="fas-bench")
@@ -89,6 +97,21 @@ def main(argv=None):
     remediation_regression.add_argument("--current", type=Path, required=True)
     remediation_report = remediation_subparsers.add_parser("report")
     remediation_report.add_argument("result", type=Path)
+
+    phase8_parser = subparsers.add_parser("score")
+    phase8_parser.add_argument("submission", type=Path)
+    phase8_parser.add_argument("--output", type=Path)
+    phase8_parser.add_argument("--config", type=Path)
+    selftest_parser = subparsers.add_parser("self-test")
+    selftest_parser.add_argument("--output", type=Path)
+    selftest_parser.add_argument("--config", type=Path)
+    analyze_parser = subparsers.add_parser("analyze")
+    analyze_parser.add_argument("results", type=Path)
+    analyze_parser.add_argument("--bootstrap", type=int, default=2000)
+    analyze_parser.add_argument("--seed", type=int, default=0)
+    report_parser = subparsers.add_parser("report")
+    report_parser.add_argument("results", type=Path)
+    report_parser.add_argument("--output", type=Path, required=True)
 
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("path", type=Path)
@@ -254,6 +277,51 @@ def main(argv=None):
         except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
             print(json.dumps({"status": "ERROR", "error": str(exc)}, indent=2))
             return 2
+
+    if args.command == "score":
+        try:
+            result = score_submission(args.submission, config=load_config(args.config) if args.config else None)
+            rendered = json.dumps(result.as_dict(), indent=2, sort_keys=True)
+            if args.output: args.output.write_text(rendered + "\n", encoding="utf-8")
+            print(rendered); return 0
+        except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+            print(json.dumps({"status":"ERROR","error":str(exc)}, indent=2)); return 2
+
+    if args.command == "self-test":
+        try:
+            cfg=load_config(args.config) if args.config else load_config(); rows=[]
+            from .contract import CASE_IDS
+            from .cases import CASES_ROOT
+            for case_id in CASE_IDS:
+                row=score_submission_document_for_selftest(build_perfect_submission(case_id),cfg).as_dict()
+                case_doc=json.loads((CASES_ROOT/case_id/"case.json").read_text(encoding="utf-8"))
+                row["category"]=case_doc.get("metadata",{}).get("primary_category", case_doc.get("primary_category","UNKNOWN"))
+                row["difficulty"]=case_doc.get("metadata",{}).get("difficulty", case_doc.get("difficulty","UNKNOWN"))
+                rows.append(row)
+            configuration=json.loads((args.config or Path("configs/scoring/v0.1.json")).read_text(encoding="utf-8"))
+            import hashlib
+            run_id="SELFTEST-"+hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(",",":")).encode()).hexdigest()[:16]
+            report=build_report(rows,benchmark_version=rows[0]["benchmark_version"],evaluator_version=rows[0]["evaluator_version"],scoring_version=cfg.scoring_version,run_id=run_id,configuration=configuration)
+            if args.output: write_report(report,args.output)
+            print(json.dumps({"status":"PASS","cases":len(rows),"aggregate":report["aggregate_metrics"],"result_digest":report["result_digest"]},indent=2,sort_keys=True)); return 0
+        except Exception as exc:
+            print(json.dumps({"status":"ERROR","error":str(exc)},indent=2)); return 4
+
+    if args.command == "analyze":
+        try:
+            document=json.loads(args.results.read_text(encoding="utf-8")); rows=document["case_results"] if isinstance(document,dict) else document
+            scores=[r["case_score"] for r in rows]; output=aggregate_cases(rows)
+            output["uncertainty"]=bootstrap(scores,n_resamples=args.bootstrap,seed=args.seed) if scores else None; output["leave_one_out"]=leave_one_out(rows)
+            print(json.dumps(output,indent=2,sort_keys=True)); return 0
+        except (OSError,ValueError,TypeError,json.JSONDecodeError) as exc:
+            print(json.dumps({"status":"ERROR","error":str(exc)},indent=2)); return 2
+
+    if args.command == "report":
+        try:
+            document=json.loads(args.results.read_text(encoding="utf-8")); write_report(document,args.output)
+            print(json.dumps({"status":"PASS","output":str(args.output),"result_digest":document.get("result_digest")},indent=2)); return 0
+        except (OSError,ValueError,TypeError,json.JSONDecodeError) as exc:
+            print(json.dumps({"status":"ERROR","error":str(exc)},indent=2)); return 2
 
     if args.command == "validate":
         result = validate_file(args.path, args.schema, args.semantic)

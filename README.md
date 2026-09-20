@@ -4,7 +4,7 @@
 > Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.
 
 ## Status
-**Phase 7 — Remediation & Regression Engine: CI-validated.**
+**Phase 8 — Scoring, Calibration & Benchmark Analytics: implementation in progress on the Phase 8 branch.**
 
 FAS-Bench is an independent benchmark. FAS is one candidate evaluated system and is not a dependency, reference implementation, or source of ground truth.
 
@@ -60,6 +60,12 @@ pytest
 python -m build
 python -m pip install --force-reinstall dist/*.whl
 python -c "import fas_bench; print(fas_bench.__version__)"
+
+## Phase 8 — Scoring, Calibration & Benchmark Analytics
+
+Phase 8 adds deterministic decomposable measurement, evidence-integrity caps, verdict/finding metrics, Phase 6 graph-score consumption, Phase 7 remediation measurement, confidence calibration, bootstrap uncertainty, stratification, leave-one-out diagnostics, canonical JSON reporting, and versioned scoring configuration. Results are benchmark-specific and do not establish real-world security effectiveness.
+
+CLI: `fas-bench score <submission>`, `fas-bench self-test`, `fas-bench analyze <results.json>`, `fas-bench report <results.json> --output <dir>`.
 
 ## Roadmap
 1. Specification & Benchmark Contract

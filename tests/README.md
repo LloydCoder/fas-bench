@@ -1,4 +1,6 @@
 # Tests
+
+Phase 8 tests cover known-value scoring formulas, confidence boundaries, multiclass probability validation, bootstrap determinism, aggregation, stratification, leave-one-out analysis, canonical serialization, and score decomposition. The Phase 8 self-test exercises the released FAS-001..FAS-020 public development corpus.
 **Role:** test architecture and Phase 2 verification guidance.
 
 ## Test levels
