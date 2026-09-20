@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Any
 import dataclasses
+
+from typing import Any
 
 
 TEST_STATUSES = {"PASS", "FAIL", "ERROR", "TIMEOUT", "NOT_APPLICABLE", "UNRESOLVED"}
