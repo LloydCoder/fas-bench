@@ -331,10 +331,6 @@ def reproduce_all(case_ids: list[str] | None = None) -> dict[str, Any]:
     ids = case_ids or list(CASE_IDS)
     results = [run_oracle(case_id) for case_id in ids]
     return {
-        "status": (
-            "PASS"
-            if all(result.get("status") == "PASS" for result in results)
-            else "FAIL"
-        ),
+        "status": ("PASS" if all(result.get("status") == "PASS" for result in results) else "FAIL"),
         "results": results,
     }
