@@ -29,7 +29,7 @@
     "uri": "cases/FAS-006/repository",
     "commit": "phase3-initial",
     "artifact_digest": {
-      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sha256": "6c439a6f284db90a8a29f68990967cd0581cbca20a77d1a6883ae30d607c6d34",
       "media_type": "application/json",
       "origin": "BENCHMARK"
     }
