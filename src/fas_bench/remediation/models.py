@@ -1,7 +1,6 @@
 """Phase 7 remediation and regression domain models."""
 
 import dataclasses
-
 from typing import Any
 
 
