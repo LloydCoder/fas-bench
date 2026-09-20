@@ -53,6 +53,8 @@ def evidence_score(validity, relevance, coverage, specificity, weights):
 def brier_score(confidences: Sequence[float], outcomes: Sequence[bool | int | float]):
     if len(confidences) != len(outcomes) or not confidences:
         raise ValueError("confidence/outcome length mismatch")
+    if any(not math.isfinite(float(c)) or not 0 <= float(c) <= 1 for c in confidences):
+        raise ValueError("confidence must be finite in [0,1]")
     return sum(
         (float(c) - (1.0 if bool(o) else 0.0)) ** 2
         for c, o in zip(confidences, outcomes, strict=True)
