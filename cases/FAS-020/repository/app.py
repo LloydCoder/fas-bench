@@ -1,6 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-
 PRIMARY_PROTECTED = True
 ALTERNATE_PROTECTED = False
 
