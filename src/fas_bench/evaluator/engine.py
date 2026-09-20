@@ -286,7 +286,7 @@ def _reason_for_verdict(condition: SecurityCondition, verdict: str) -> str:
     return "UNKNOWN_INSUFFICIENT_EVIDENCE"
 
 
-def evaluate_finding(
+def _evaluate_finding_impl(
     finding: dict[str, Any],
     expected_finding: dict[str, Any],
     claim_evaluations: tuple[ClaimEvaluation, ...],
@@ -328,10 +328,6 @@ def _expected_support(
     verified_evidence = {item.evidence_id for item in evidence_result.items if item.status == "VERIFIED"}
     verified_claims = {claim.expected_claim_id for claim in claim_evaluations if claim.status == "VERIFIED"}
     expected_claim_ids = {claim["claim_id"] for claim in ground_truth["claims"]}
-    expected_evidence_ids = {
-        item["evidence_id"] for item in _as_list(ground_truth["verdict"].get("evidence_ids", []))
-    }
-    # verdict.evidence_ids is an array of strings, so _as_list is not suitable here; use the raw list.
     expected_evidence_ids = set(ground_truth["verdict"].get("evidence_ids", []))
     required_conditions = set(condition.required_conditions)
     satisfied_conditions = set(condition.satisfied_conditions)
@@ -522,7 +518,9 @@ def evaluate_finding(
     evidence_result: Any,
     expected_verdict: str,
 ) -> FindingEvaluation:
-    return evaluate_finding(finding, expected_finding, claim_evaluations, evidence_result, expected_verdict)
+    return _evaluate_finding_impl(
+        finding, expected_finding, claim_evaluations, evidence_result, expected_verdict
+    )
 
 
 def evaluate_submission(submission_path: Path, cases_root: Path | None = None) -> FindingEvaluationResult:
