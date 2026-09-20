@@ -22,7 +22,7 @@ Cases use synthetic credentials and controlled local state. No case may require 
 
 `fas-bench cases validate-gold` focuses the five gold cases: FAS-001, FAS-002, FAS-006, FAS-016, FAS-020.
 
-`fas-bench cases reproduce FAS-001` executes the deterministic case oracle and compares its observed state with the structured expected verdict.
+`fas-bench cases reproduce FAS-001` executes the deterministic case oracle and compares its observed state with the structured expected verdict.\n\n`cases/coverage.json` records truthful category, difficulty, and verdict coverage for the public development corpus and is checked against the registry by corpus validation.
 
 ## Difficulty
 
