@@ -49,3 +49,12 @@ Submission → Finding Parser → Claim Resolver → Verified Evidence → Secur
 Finding identity is structured rather than title-based. Claim matching uses structured claim properties. Security-condition state is derived from declarative case path status, explicit conditions, and remediation state. The evaluator derives the authoritative verdict from those facts and checks the submission's verdict independently. No LLM, FAS runtime, scanner output, or case-ID branch is authoritative.
 
 Phase 5 exposes finding correctness, claim status, evidence support/integrity, verdict correctness/support, security-condition facts, and a deterministic fingerprint. Final composite scoring is deferred to Phase 8.
+
+
+## Phase 6 graph architecture
+
+Phase 6 inserts a first-class graph substrate after evidence/claim adjudication:
+
+Case → Evidence → Claims → Security Graph → Effective Security Graph → Attack Paths → Boundary/Control Analysis → Verdict/Scoring → Remediation/Regression
+
+The graph engine owns canonical graph representation, deterministic validation, identity, traversal limits, path analysis, graph matching, and graph diffing. Phase 4 remains the sole evidence-verification authority; Phase 5 remains the verdict/finding adjudication layer. Phase 6 does not hard-code individual case identifiers.
