@@ -60,8 +60,8 @@ def render_markdown(result):
     lines += [
         "",
         "## Limitations",
-        "- Results describe performance on the evaluated benchmark case set, not generalized real-world "
-        "security effectiveness.",
+        "- Results describe benchmark-case performance; they do not establish generalized "
+        "real-world security effectiveness.",
         "- The initial public corpus is small and may contain correlated or authoring-related "
         "cases.",
         "- Scoring weights are provisional methodology configuration.",
