@@ -247,7 +247,22 @@
         "VERDICT_VERIFIED",
         "VERDICT_UNSUPPORTED_EVIDENCE",
         "VERDICT_INCORRECT",
-        "EVALUATOR_ERROR"
+        "EVALUATOR_ERROR",
+        "INVALID_SUBMISSION",
+        "INVALID_SCHEMA",
+        "INVALID_GRAPH",
+        "DANGLING_REFERENCE",
+        "DUPLICATE_NODE",
+        "DUPLICATE_EDGE",
+        "UNSUPPORTED_NODE",
+        "UNSUPPORTED_EDGE",
+        "INVALID_PATH",
+        "DISCONNECTED_PATH",
+        "UNSUPPORTED_EVIDENCE",
+        "CONTRADICTORY_EVIDENCE",
+        "CROSS_CASE_REFERENCE",
+        "GRAPH_LIMIT_EXCEEDED",
+        "PATH_LIMIT_EXCEEDED"
       ]
     },
     "NodeType": {
@@ -681,6 +696,25 @@
         "attributes": {
           "type": "object",
           "additionalProperties": true
+        },
+        "abstraction": {
+          "type": "string",
+          "enum": ["SYSTEM","SERVICE","COMPONENT","MODULE","FUNCTION","SYMBOL","STATEMENT","RUNTIME_EVENT"]
+        },
+        "security_relevance": {
+          "type": "string",
+          "enum": ["SECURITY_CRITICAL","SECURITY_RELEVANT","CONTEXTUAL"]
+        },
+        "evidence_ids": {
+          "$ref": "#/$defs/EvidenceRef"
+        },
+        "parent_node_id": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
         }
       },
       "required": [
@@ -710,6 +744,18 @@
         },
         "evidence_ids": {
           "$ref": "#/$defs/EvidenceRef"
+        },
+        "abstraction": {
+          "type": "string",
+          "enum": ["SYSTEM","SERVICE","COMPONENT","MODULE","FUNCTION","SYMBOL","STATEMENT","RUNTIME_EVENT"]
+        },
+        "security_semantics": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
         }
       },
       "required": [
@@ -743,6 +789,20 @@
         },
         "evidence_ids": {
           "$ref": "#/$defs/EvidenceRef"
+        },
+        "trust_boundary_ids": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^B-[A-Za-z0-9_-]{1,64}$"},
+          "uniqueItems": true
+        },
+        "control_edge_ids": {
+          "$ref": "#/$defs/EdgeRef"
+        },
+        "identity_transition_node_ids": {
+          "$ref": "#/$defs/NodeRef"
+        },
+        "security_relevant": {
+          "type": "boolean"
         }
       },
       "required": [
