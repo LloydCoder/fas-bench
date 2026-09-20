@@ -143,8 +143,6 @@ class RemediationResult:
     regression_status: str
     new_findings_status: str
     evidence_integrity: str
-    benchmark_version: str = "0.1.0"
-    schema_version: str = "0.1"
     path_lifecycles: tuple[PathLifecycle, ...] = ()
     alternate_paths: tuple[AlternatePath, ...] = ()
     graph_diff: dict[str, object] = dataclasses.field(default_factory=dict)
@@ -155,6 +153,8 @@ class RemediationResult:
     score: float | None = None
     diagnostics: tuple[str, ...] = ()
     provenance: dict[str, str] = dataclasses.field(default_factory=dict)
+    benchmark_version: str = "0.1.0"
+    schema_version: str = "0.1"
 
     def __post_init__(self) -> None:
         if self.status not in REMEDIATION_STATUSES:
