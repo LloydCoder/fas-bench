@@ -147,6 +147,49 @@ def test_overblocking_requires_functional_preservation():
     assert result.status == "REMEDIATION_FAILED"
 
 
+def test_missing_required_security_test_cannot_create_remediation_credit():
+    g = graph("FAS-019")
+    baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
+    post = state("FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")])
+    result = evaluate_remediation(
+        baseline,
+        post,
+        remediation("FAS-019"),
+        functional_tests=(TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),),
+        evidence=({"verification": "VERIFIED"},),
+    )
+    assert result.status == "UNKNOWN"
+
+
+def test_missing_required_functional_test_cannot_create_remediation_credit():
+    g = graph("FAS-019")
+    baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
+    post = state("FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")])
+    result = evaluate_remediation(
+        baseline,
+        post,
+        remediation("FAS-019"),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
+        evidence=({"verification": "VERIFIED"},),
+    )
+    assert result.status == "UNKNOWN"
+
+
+def test_security_condition_must_be_closed_for_remediation():
+    g = graph("FAS-019")
+    baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
+    post = state("FAS-019", "VIABLE", g, [path("P-019-001", "BLOCKED")])
+    result = evaluate_remediation(
+        baseline,
+        post,
+        remediation("FAS-019"),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
+        functional_tests=(TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),),
+        evidence=({"verification": "VERIFIED"},),
+    )
+    assert result.status == "UNKNOWN"
+
+
 def test_unknown_is_not_remediated():
     g = graph("FAS-019")
     baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
