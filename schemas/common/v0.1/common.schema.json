@@ -336,7 +336,13 @@
         "GRAPH_INVALID",
         "PATH_INVALID",
         "INTEGRITY_VIOLATION",
-        "UNSUPPORTED_VERSION"
+        "UNSUPPORTED_VERSION",
+        "CASE_INTEGRITY_ERROR",
+        "SUBMISSION_ERROR",
+        "EVIDENCE_ERROR",
+        "CLAIM_ERROR",
+        "VERDICT_UNRESOLVED",
+        "EVALUATOR_ERROR"
       ]
     },
     "Timestamp": {
