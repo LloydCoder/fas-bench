@@ -174,8 +174,7 @@ def main(argv=None):
                 payload = canonicalize_graph(document)
                 if args.output:
                     args.output.write_text(
-                        json.dumps(payload, indent=2, sort_keys=True) + "
-", encoding="utf-8"
+                        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
                     )
                     return 0
             elif args.graph_command == "digest":
