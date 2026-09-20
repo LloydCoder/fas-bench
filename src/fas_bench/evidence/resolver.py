@@ -9,6 +9,7 @@ from typing import Any
 
 from .errors import CaseLoadError
 
+
 def safe_resolve(root: Path, relative: str) -> Path:
     if not relative or "\x00" in relative:
         raise CaseLoadError("EVIDENCE_INVALID_PATH: empty or NUL-containing path")
@@ -23,16 +24,18 @@ def safe_resolve(root: Path, relative: str) -> Path:
         raise CaseLoadError("EVIDENCE_INVALID_PATH: path escapes case root") from exc
     return resolved
 
+
 def resolve_artifact_path(case_root: Path, evidence: dict[str, Any]) -> Path | None:
     location = evidence.get("location") or {}
     file_name = location.get("file")
     if file_name:
         return safe_resolve(case_root, file_name)
-    fact = (evidence.get("fact") or {})
+    fact = evidence.get("fact") or {}
     artifact_path = fact.get("artifact_path")
     if artifact_path:
         return safe_resolve(case_root, artifact_path)
     return None
+
 
 def _read_json_value(document: Any, key_path: str) -> Any:
     current = document
@@ -44,6 +47,7 @@ def _read_json_value(document: Any, key_path: str) -> Any:
         else:
             raise KeyError(key_path)
     return current
+
 
 def read_fact(case_root: Path, evidence: dict[str, Any]) -> tuple[bool, Any, str]:
     fact = evidence.get("fact")
@@ -69,6 +73,7 @@ def read_fact(case_root: Path, evidence: dict[str, Any]) -> tuple[bool, Any, str
     if key == "content":
         return True, text, ""
     return False, None, "non-JSON facts require key=content"
+
 
 def verify_location(case_root: Path, location: dict[str, Any]) -> tuple[str, str]:
     file_name = location.get("file")
@@ -112,7 +117,7 @@ def verify_location(case_root: Path, location: dict[str, Any]) -> tuple[str, str
             return "UNRESOLVED", "EVIDENCE_UNRESOLVED"
     snippet = location.get("snippet")
     if snippet is not None:
-        actual = "\n".join(lines[start - 1:end])
+        actual = "\n".join(lines[start - 1 : end])
         if actual != snippet.replace("\r\n", "\n").replace("\r", "\n"):
             return "INVALID", "EVIDENCE_SNIPPET_MISMATCH"
     return "VERIFIED", "EVIDENCE_VERIFIED"

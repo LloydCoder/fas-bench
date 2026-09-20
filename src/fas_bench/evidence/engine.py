@@ -17,6 +17,7 @@ from .resolver import read_fact, safe_resolve, verify_location
 from .coverage import calculate_coverage
 from .integrity import calculate_integrity
 
+
 def _cases_root(cases_root: Path | None) -> Path:
     if cases_root is not None:
         return cases_root.resolve()
@@ -24,6 +25,7 @@ def _cases_root(cases_root: Path | None) -> Path:
         if (candidate / "cases").is_dir():
             return (candidate / "cases").resolve()
     raise CaseLoadError("cases root not found")
+
 
 def _load_json(path: Path) -> dict[str, Any]:
     try:
@@ -34,6 +36,7 @@ def _load_json(path: Path) -> dict[str, Any]:
         raise CaseLoadError(f"expected object: {path}")
     return value
 
+
 def load_case(case_id: str, cases_root: Path | None = None) -> dict[str, Any]:
     root = _cases_root(cases_root)
     case_root = safe_resolve(root, case_id)
@@ -42,11 +45,15 @@ def load_case(case_id: str, cases_root: Path | None = None) -> dict[str, Any]:
         raise CaseIntegrityError(f"case integrity failed for {case_id}: {result['errors']}")
     case = _load_json(case_root / "case.json")
     expected = _load_json(case_root / "expected/evidence.json")
-    if case.get("benchmark_version") != BENCHMARK_VERSION or case.get("schema_version") != SCHEMA_VERSION:
+    if (
+        case.get("benchmark_version") != BENCHMARK_VERSION
+        or case.get("schema_version") != SCHEMA_VERSION
+    ):
         raise CaseIntegrityError("case version is incompatible")
     if not expected.get("evidence_id"):
         raise CaseIntegrityError("expected evidence is malformed")
     return {"case_id": case_id, "root": case_root, "case": case, "expected_evidence": [expected]}
+
 
 def load_submission(path: Path) -> dict[str, Any]:
     try:
@@ -58,12 +65,17 @@ def load_submission(path: Path) -> dict[str, Any]:
         raise SubmissionError(f"submission validation failed: {[e.message for e in result.errors]}")
     return document
 
-def _fact_matches(case_root: Path, evidence: dict[str, Any], expected: dict[str, Any]) -> tuple[bool, str]:
+
+def _fact_matches(
+    case_root: Path, evidence: dict[str, Any], expected: dict[str, Any]
+) -> tuple[bool, str]:
     fact = evidence.get("fact")
     expected_fact = expected.get("fact")
     if not isinstance(fact, dict) or not isinstance(expected_fact, dict):
         return False, "EVIDENCE_UNRESOLVED"
-    if fact.get("artifact_path") != expected_fact.get("artifact_path") or fact.get("key") != expected_fact.get("key"):
+    if fact.get("artifact_path") != expected_fact.get("artifact_path") or fact.get(
+        "key"
+    ) != expected_fact.get("key"):
         return False, "EVIDENCE_VALUE_MISMATCH"
     found, actual, detail = read_fact(case_root, evidence)
     if not found:
@@ -74,7 +86,10 @@ def _fact_matches(case_root: Path, evidence: dict[str, Any], expected: dict[str,
         return False, "EVIDENCE_VALUE_MISMATCH"
     return True, "EVIDENCE_VERIFIED"
 
-def _item_match(case_root: Path, evidence: dict[str, Any], expected: dict[str, Any]) -> tuple[str, str]:
+
+def _item_match(
+    case_root: Path, evidence: dict[str, Any], expected: dict[str, Any]
+) -> tuple[str, str]:
     if evidence.get("case_id") and evidence["case_id"] != expected.get("case_id"):
         return "INVALID", "EVIDENCE_CASE_MISMATCH"
     if evidence.get("benchmark_version") != expected.get("benchmark_version"):
@@ -100,24 +115,37 @@ def _item_match(case_root: Path, evidence: dict[str, Any], expected: dict[str, A
         return "INVALID", "EVIDENCE_VALUE_MISMATCH"
     return "VERIFIED", "EVIDENCE_VERIFIED"
 
-def verify_evidence(case: dict[str, Any], submitted: list[dict[str, Any]]) -> EvidenceVerificationResult:
+
+def verify_evidence(
+    case: dict[str, Any], submitted: list[dict[str, Any]]
+) -> EvidenceVerificationResult:
     expected = case["expected_evidence"]
     expected_by_id = {item["evidence_id"]: item for item in expected}
     items: list[EvidenceItemResult] = []
     identities: dict[str, str] = {}
     verified_expected: set[str] = set()
     duplicate_count = 0
-    for evidence in sorted((normalize_evidence(item) for item in submitted), key=lambda item: item["evidence_id"]):
+    for evidence in sorted(
+        (normalize_evidence(item) for item in submitted), key=lambda item: item["evidence_id"]
+    ):
         evidence_id = evidence["evidence_id"]
         identity = evidence_identity(evidence)
         if identity in identities:
             duplicate_count += 1
-            items.append(EvidenceItemResult(evidence_id, "INVALID", "EVIDENCE_DUPLICATE", duplicate_of=identities[identity]))
+            items.append(
+                EvidenceItemResult(
+                    evidence_id, "INVALID", "EVIDENCE_DUPLICATE", duplicate_of=identities[identity]
+                )
+            )
             continue
         identities[identity] = evidence_id
         expected_item = expected_by_id.get(evidence_id)
         if expected_item is None:
-            items.append(EvidenceItemResult(evidence_id, "INVALID", "EVIDENCE_UNKNOWN_ID", details="unknown evidence id"))
+            items.append(
+                EvidenceItemResult(
+                    evidence_id, "INVALID", "EVIDENCE_UNKNOWN_ID", details="unknown evidence id"
+                )
+            )
             continue
         status, reason = _item_match(case["root"], evidence, expected_item)
         if expected_item.get("role") == "CONTRADICTORY" and status == "VERIFIED":
@@ -159,6 +187,7 @@ def verify_evidence(case: dict[str, Any], submitted: list[dict[str, Any]]) -> Ev
         evidence_hallucination_rate=float(integrity["evidence_hallucination_rate"]),
         result_hash=result_hash,
     )
+
 
 def evaluate_submission(submission_path: Path, cases_root: Path | None = None) -> dict[str, Any]:
     submission = load_submission(submission_path)

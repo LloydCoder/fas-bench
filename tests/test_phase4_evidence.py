@@ -129,11 +129,7 @@ def test_coverage_requires_expected_evidence():
 @pytest.mark.parametrize("number", range(1, 21))
 def test_expected_fact_is_real_case_state(number: int):
     case_id = f"FAS-{number:03d}"
-    evidence = json.loads(
-        (CASES / case_id / "expected/evidence.json").read_text(encoding="utf-8")
-    )
+    evidence = json.loads((CASES / case_id / "expected/evidence.json").read_text(encoding="utf-8"))
     fact = evidence["fact"]
-    state = json.loads(
-        (CASES / case_id / fact["artifact_path"]).read_text(encoding="utf-8")
-    )
+    state = json.loads((CASES / case_id / fact["artifact_path"]).read_text(encoding="utf-8"))
     assert state[fact["key"]] == fact["value"]

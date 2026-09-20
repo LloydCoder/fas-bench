@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+
 @dataclass(frozen=True)
 class EvidenceItemResult:
     evidence_id: str
@@ -26,6 +27,7 @@ class EvidenceItemResult:
         if self.details is not None:
             result["details"] = self.details
         return result
+
 
 @dataclass(frozen=True)
 class EvidenceVerificationResult:

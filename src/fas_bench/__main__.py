@@ -53,7 +53,9 @@ def main(argv=None):
         if args.json or not args.output:
             print(payload)
         else:
-            print(f"Evidence verification: case={result['case_id']} coverage={result['coverage']:.3f} integrity={result['evidence_hallucination_rate']:.3f}")
+            print(
+                f"Evidence verification: case={result['case_id']} coverage={result['coverage']:.3f} integrity={result['evidence_hallucination_rate']:.3f}"
+            )
         return 0
 
     if args.command == "validate":
