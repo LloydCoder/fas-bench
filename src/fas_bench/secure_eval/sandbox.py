@@ -16,7 +16,7 @@ class SandboxLayout:
     metadata: Path
 
     @classmethod
-    def create(cls, root: Path) -> "SandboxLayout":
+    def create(cls, root: Path) -> SandboxLayout:
         root = Path(root)
         layout = cls(root, root / "input", root / "output", root / "workspace", root / "logs", root / "metadata")
         for path in (layout.input, layout.output, layout.workspace, layout.logs, layout.metadata):
