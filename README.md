@@ -80,3 +80,17 @@ Phase 6 adds deterministic graph validation, canonicalization, graph identity, p
 The current public development corpus remains FAS-001 through FAS-020. Their graphs are machine-validated and self-comparison is deterministic. The graph score is provisional methodology configuration and is not presented as scientifically validated.
 
 See docs/graph-engine.md for the implementation contract and limits.
+
+
+## Phase 7 — Remediation & Regression Engine
+
+Phase 7 adds a deterministic remediation/regression oracle over immutable baseline and post-remediation security states. It evaluates security-condition closure, original-path lifecycle, equivalent-impact alternate paths, control weakening, security/functional/regression test outcomes, evidence integrity, and reproducibility metadata. Remediation scoring is provisional and exposes raw dimensions for later Phase 8 calibration.
+
+The engine does not execute candidate code. Candidate execution, patch application, sandboxing, network isolation, and hidden-verifier protection belong to the secure evaluation harness in Phase 9. Phase 7 consumes clean, already-produced security states and treats submitted JSON as untrusted data.
+
+CLI:
+- `fas-bench remediation validate <remediation.json>`
+- `fas-bench remediation evaluate --baseline <state.json> --post <state.json> --remediation <remediation.json>`
+- `fas-bench remediation diff --before <graph.json> --after <graph.json>`
+- `fas-bench remediation regression --previous <state.json> --current <state.json>`
+- `fas-bench remediation report <result.json>`
