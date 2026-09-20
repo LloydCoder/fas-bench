@@ -65,7 +65,7 @@
       "evidence_id": "EVD-001-001",
       "benchmark_version": "0.1.0",
       "schema_version": "0.1",
-      "type": "SOURCE_LOCATION",
+      "type": "TEST_RESULT",
       "role": "DIRECT",
       "verification": "VERIFIED",
       "description": "Contract fixture evidence.",
