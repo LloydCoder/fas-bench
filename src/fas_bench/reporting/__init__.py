@@ -1,8 +1,9 @@
 """Phase 8 canonical result and report serialization."""
 
 from __future__ import annotations
-import hashlib, json
-from pathlib import Path
+
+import hashlib
+import json
 
 
 def canonical_json(value):
@@ -59,8 +60,10 @@ def render_markdown(result):
     lines += [
         "",
         "## Limitations",
-        "- Results describe performance on the evaluated benchmark case set, not generalized real-world security effectiveness.",
-        "- The initial public corpus is small and may contain correlated or authoring-related cases.",
+        "- Results describe performance on the evaluated benchmark case set, not generalized real-world "
+        "security effectiveness.",
+        "- The initial public corpus is small and may contain correlated or authoring-related "
+        "cases.",
         "- Scoring weights are provisional methodology configuration.",
     ]
     return "\n".join(lines) + "\n"
