@@ -226,7 +226,6 @@
     }
   },
   "required": [
-    "evaluation_phase",
     "evaluation_id",
     "benchmark_version",
     "schema_version",
