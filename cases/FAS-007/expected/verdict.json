@@ -13,14 +13,5 @@
   ],
   "attack_path_ids": [
     "P-007-001"
-  ],
-  "conditions": [
-    {
-      "prerequisite": "Synthetic namespace-escape prerequisite",
-      "satisfied": true,
-      "evidence_ids": [
-        "EVD-007-001"
-      ]
-    }
   ]
 }
