@@ -13,7 +13,12 @@ def normalize_path(value: str) -> str:
     if not isinstance(value, str) or not value:
         return value
     value = value.replace("\\", "/")
-    return posixpath.normpath(value).lstrip("./")
+    normalized = posixpath.normpath(value)
+    if normalized == ".":
+        return ""
+    if normalized.startswith("./"):
+        return normalized[2:]
+    return normalized
 
 
 def _normalize(value: Any, key: str | None = None) -> Any:
@@ -53,7 +58,8 @@ def canonical_evidence(evidence: dict[str, Any]) -> bytes:
 def evidence_identity(evidence: dict[str, Any]) -> str:
     """Stable SHA-256 identity over canonical evidence semantics, excluding presentation IDs."""
     normalized = normalize_evidence(evidence)
-    normalized.pop("evidence_id", None)
+    for field in ("evidence_id", "description", "verification", "observed_at"):
+        normalized.pop(field, None)
     return hashlib.sha256(
         json.dumps(
             normalized, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False
