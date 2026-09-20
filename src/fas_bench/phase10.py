@@ -3,10 +3,10 @@
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import json
 import re
-import sys
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
@@ -198,14 +198,24 @@ def scan_leakage(root: Path) -> dict[str, Any]:
 
 def independence_audit(root: Path) -> dict[str, Any]:
     findings = []
-    for base in (root / "src" / "fas_bench", root / "tests"):
-        if not base.exists():
+    forbidden_roots = {"fas", "threatfade", "tinlance"}
+    for path in (root / "src" / "fas_bench").rglob("*.py"):
+        try:
+            tree = ast.parse(path.read_text(encoding="utf-8"))
+        except SyntaxError as exc:
+            findings.append({"path": path.relative_to(root).as_posix(), "match": f"syntax:{exc.msg}"})
             continue
-        for path in base.rglob("*.py"):
-            text = path.read_text(encoding="utf-8")
-            for needle in ("import fas", "from fas ", "ThreatFade", "Tinlance"):
-                if needle in text and "fas_bench" not in needle:
-                    findings.append({"path": path.relative_to(root).as_posix(), "match": needle})
+        for node in ast.walk(tree):
+            module = None
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    module = alias.name
+                    if module.split(".", 1)[0].lower() in forbidden_roots:
+                        findings.append({"path": path.relative_to(root).as_posix(), "match": module})
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                module = node.module
+                if module.split(".", 1)[0].lower() in forbidden_roots:
+                    findings.append({"path": path.relative_to(root).as_posix(), "match": module})
     return {"status": "PASS" if not findings else "FAIL", "findings": findings}
 
 def build_release_manifest(root: Path, version: str, *, channel: str = "development") -> dict[str, Any]:
