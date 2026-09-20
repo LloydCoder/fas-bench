@@ -6,7 +6,9 @@ import sys
 from pathlib import Path
 
 from .cases import reproduce_all, validate_all
-from .evidence import evaluate_submission
+from .evidence import evaluate_submission as evaluate_evidence_submission
+from .evaluator import evaluate_submission as evaluate_finding_submission
+from .evaluator.errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .validation import validate_file
 
 
@@ -22,6 +24,16 @@ def main(argv=None):
     evidence_validate.add_argument("--cases-root", type=Path)
     evidence_validate.add_argument("--output", type=Path)
     evidence_validate.add_argument("--json", action="store_true")
+
+    evaluate_parser = subparsers.add_parser("evaluate")
+    evaluate_subparsers = evaluate_parser.add_subparsers(dest="evaluate_command", required=True)
+    finding_parser = evaluate_subparsers.add_parser("finding")
+    finding_parser.add_argument("--case", dest="case_id", required=True)
+    finding_parser.add_argument("--submission", type=Path, required=True)
+    finding_parser.add_argument("--cases-root", type=Path)
+    finding_parser.add_argument("--output", type=Path)
+    finding_parser.add_argument("--json", action="store_true")
+    finding_parser.add_argument("--strict", action="store_true")
 
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("path", type=Path)
@@ -41,7 +53,7 @@ def main(argv=None):
 
     if args.command == "evidence" and args.evidence_command == "validate":
         try:
-            result = evaluate_submission(args.submission, args.cases_root)
+            result = evaluate_evidence_submission(args.submission, args.cases_root)
             if args.case_id and result["case_id"] != args.case_id:
                 raise ValueError("submission case_id does not match --case")
         except Exception as exc:
@@ -59,6 +71,39 @@ def main(argv=None):
                 f"integrity={result['evidence_hallucination_rate']:.3f}"
             )
         return 0
+
+    if args.command == "evaluate" and args.evaluate_command == "finding":
+        try:
+            result = evaluate_finding_submission(args.submission, args.cases_root)
+            payload = result.as_dict()
+            if args.case_id != payload["case_id"]:
+                raise EvaluatorSubmissionError("SUBMISSION_ERROR: submission case_id does not match --case")
+            rendered = json.dumps(payload, indent=2, sort_keys=True)
+            if args.output:
+                args.output.write_text(rendered + "\\n", encoding="utf-8")
+            if args.json or not args.output:
+                print(rendered)
+            else:
+                verdict = payload["verdict_evaluation"]
+                print(
+                    f"Finding evaluation: case={payload['case_id']} "
+                    f"verdict={verdict['submitted']} "
+                    f"correct={verdict['verdict_correct']} "
+                    f"supported={verdict['verdict_supported']}"
+                )
+            if args.strict and not (
+                payload["verdict_evaluation"]["verdict_correct"]
+                and payload["verdict_evaluation"]["verdict_supported"]
+                and payload["finding_evaluation"]["matched"]
+            ):
+                return 3
+            return 0
+        except (EvaluatorCaseError, EvaluatorSubmissionError) as exc:
+            print(json.dumps({"status": "ERROR", "error": str(exc)}, indent=2))
+            return 2
+        except EvaluatorInternalError as exc:
+            print(json.dumps({"status": "EVALUATOR_ERROR", "error": str(exc)}, indent=2))
+            return 4
 
     if args.command == "validate":
         result = validate_file(args.path, args.schema, args.semantic)
