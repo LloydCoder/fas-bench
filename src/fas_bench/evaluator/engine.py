@@ -273,6 +273,8 @@ def _derive_authoritative_verdict(
         return "REMEDIATED"
     if remediation.get("verification_status") == "FAILED":
         return "REMEDIATION_FAILED"
+    if any(claim.get("status") == "UNKNOWN" for claim in ground_truth["claims"]):
+        return "UNKNOWN"
     if condition.required_conditions:
         return "CONDITIONALLY_EXPLOITABLE"
     if condition.path_status in {"VIABLE", "COMPLETE"}:
