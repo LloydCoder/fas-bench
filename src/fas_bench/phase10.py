@@ -326,7 +326,15 @@ def benchmark_health(root: Path) -> dict[str, Any]:
     leakage = scan_leakage(root / "cases")
     independence = independence_audit(root)
     stats = corpus_stats()
+    status = (
+        "PASS"
+        if corpus["status"] == "PASS"
+        and leakage["status"] == "PASS"
+        and independence["status"] == "PASS"
+        else "FAIL"
+    )
     return {
+        "status": status,
         "corpus_validity": corpus["status"],
         "oracle_validity": "NOT_ASSESSED",
         "mutation_validity": "NOT_ASSESSED",
