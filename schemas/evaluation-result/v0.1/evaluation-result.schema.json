@@ -232,13 +232,6 @@
     "submission_id",
     "case_id",
     "validity",
-    "expected_verdict",
-    "finding_evaluation",
-    "claim_evaluations",
-    "security_condition",
-    "verdict_evaluation",
-    "evidence",
-    "fingerprint",
     "errors",
     "warnings"
   ],
