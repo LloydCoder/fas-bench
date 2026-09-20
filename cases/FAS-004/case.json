@@ -10,7 +10,7 @@
     "C9_CROSS_COMPONENT_ATTACK_PATHS"
   ],
   "difficulty": "L3_MULTI_COMPONENT",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "HTTP input is persisted and later consumed by a worker that interprets it as a command.",
   "security_condition": "REACHABLE_TO_SINK",
   "attacker_model": "Unauthenticated attacker may submit persistent data and trigger the worker.",
@@ -30,6 +30,6 @@
   },
   "metadata": {
     "case_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
