@@ -35,3 +35,12 @@ The Phase 9 boundary requires an immutable image digest, network denial, private
 The harness rejects symlinks and special output files, never inherits the host environment, never mounts the Docker socket or host credential directories, and computes artifact hashes itself.
 
 Container isolation is not claimed to be escape-proof. The host kernel, container runtime, hardware, and Docker daemon remain trusted-computing-base assumptions. Physical host compromise and unknown kernel/runtime vulnerabilities are outside the supported boundary.
+
+
+## Phase 10 benchmark-integrity boundary
+
+Phase 10 treats the corpus and release system as security-sensitive. Release manifests are content-addressed; case, fixture, oracle, and component digests are verified. The contamination scanner checks forbidden paths and credential/private-key patterns, while the independence audit checks the core package for unintended FAS/ThreatFade/Tinlance runtime references.
+
+The initial twenty cases are public development data. The repository does not claim that public-case execution is equivalent to a hidden official evaluation. Future held-out corpora must be maintained outside the public artifact boundary.
+
+Report benchmark-integrity issues involving hidden-data leakage, oracle compromise, malicious fixtures, cache poisoning, release tampering, or sandbox escapes through the repository's normal security-reporting channel. Never include live credentials in a report.
