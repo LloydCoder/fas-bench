@@ -16,7 +16,7 @@ Phase 5 deterministically evaluates findings, claims, verified evidence, securit
 
 Finding evaluation command:
 
-`fas-bench evaluate finding --case FAS-002 --submission tests/fixtures/integrated/FAS-002.json --json`
+`fas-bench evaluate finding --case FAS-002 --submission tests/fixtures/integrated/FAS-001-gold.json --json`
 
 Evidence validation command:
 
