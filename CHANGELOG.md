@@ -89,3 +89,6 @@ All notable changes to FAS-Bench are documented here.
 - Added remediation evaluation schema and CLI commands.
 - Added adversarial, overblocking, cosmetic-fix, evidence-fabrication, alternate-path, regression, and all-20 remediation-artifact tests.
 - Phase 7 does not execute candidate code; secure patch execution and isolation remain Phase 9 responsibilities.
+
+## Unreleased — Phase 9: Secure Evaluation Harness & Reproducibility
+- Added fail-closed Docker-backed candidate execution with immutable image requirement, network isolation, capability dropping, no-new-privileges, non-root execution, resource limits, ephemeral workspaces, deterministic run IDs, artifact hashing, and structured failure states.
