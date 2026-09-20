@@ -71,12 +71,8 @@ def test_complete_fix_requires_verified_evidence_and_functional_preservation():
         baseline,
         post,
         remediation("FAS-019"),
-        security_tests=(
-            TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),
-        ),
-        functional_tests=(
-            TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),
-        ),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
+        functional_tests=(TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),),
         evidence=({"verification": "VERIFIED"},),
     )
     assert result.status == "REMEDIATED"
@@ -110,19 +106,13 @@ def test_fas020_alternate_path_invalidates_known_path_fix():
         baseline,
         post_state,
         remediation("FAS-020"),
-        security_tests=(
-            TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),
-        ),
-        functional_tests=(
-            TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),
-        ),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
+        functional_tests=(TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),),
         evidence=({"verification": "VERIFIED"},),
     )
     assert result.status == "REMEDIATION_FAILED"
     assert result.alternate_path_status == "REMAINS"
-    assert any(
-        x.classification == "EQUIVALENT_IMPACT" for x in result.alternate_paths
-    )
+    assert any(x.classification == "EQUIVALENT_IMPACT" for x in result.alternate_paths)
 
 
 def test_cosmetic_fix_is_not_remediation():
@@ -130,16 +120,12 @@ def test_cosmetic_fix_is_not_remediation():
     baseline = state("FAS-002", "VIABLE", g, [path("P-002-001", "VIABLE")])
     post = copy.deepcopy(g)
     post["metadata"] = {"case_id": "FAS-002", "change": "variable rename"}
-    post_state = state(
-        "FAS-002", "VIABLE", post, [path("P-002-001", "VIABLE")]
-    )
+    post_state = state("FAS-002", "VIABLE", post, [path("P-002-001", "VIABLE")])
     result = evaluate_remediation(
         baseline,
         post_state,
         remediation("FAS-002"),
-        security_tests=(
-            TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "FAIL"),
-        ),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "FAIL"),),
         evidence=({"verification": "VERIFIED"},),
     )
     assert result.status == "REMEDIATION_FAILED"
@@ -154,12 +140,8 @@ def test_overblocking_requires_functional_preservation():
         baseline,
         post,
         remediation("FAS-019"),
-        security_tests=(
-            TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),
-        ),
-        functional_tests=(
-            TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "FAIL"),
-        ),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
+        functional_tests=(TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "FAIL"),),
         evidence=({"verification": "VERIFIED"},),
     )
     assert result.status == "REMEDIATION_FAILED"
@@ -173,9 +155,7 @@ def test_unknown_is_not_remediated():
         baseline,
         post,
         remediation("FAS-019"),
-        security_tests=(
-            TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "UNRESOLVED"),
-        ),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "UNRESOLVED"),),
         evidence=({"verification": "UNRESOLVED"},),
     )
     assert result.status == "UNKNOWN"
