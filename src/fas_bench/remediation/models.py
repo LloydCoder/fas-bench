@@ -6,7 +6,6 @@ from dataclasses import dataclass, field
 from typing import Any
 
 
-
 TEST_STATUSES = {"PASS", "FAIL", "ERROR", "TIMEOUT", "NOT_APPLICABLE", "UNRESOLVED"}
 PATH_LIFECYCLES = {"PRESENT", "REMOVED", "PERSISTING", "REPLACED", "REINTRODUCED", "UNKNOWN"}
 ALTERNATE_CLASSES = {"EQUIVALENT_IMPACT", "LOWER_IMPACT", "HIGHER_IMPACT", "UNRELATED", "UNKNOWN"}
@@ -20,7 +19,7 @@ REMEDIATION_STATUSES = {
 }
 
 
-@dataclasses.dataclasses.dataclass(frozen=True)
+@dataclass(frozen=True)
 class TestResult:
     test_id: str
     test_type: str
@@ -143,9 +142,9 @@ class RemediationResult:
     evidence_integrity: str
     path_lifecycles: tuple[PathLifecycle, ...] = ()
     alternate_paths: tuple[AlternatePath, ...] = ()
-    graph_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
-    security_condition_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
-    security_controls: dict[str, Any] = dataclasses.field(default_factory=dict)
+    graph_diff: dict[str, Any] = field(default_factory=dict)
+    security_condition_diff: dict[str, Any] = field(default_factory=dict)
+    security_controls: dict[str, Any] = field(default_factory=dict)
     test_results: tuple[TestResult, ...] = ()
     dimensions: dict[str, float] = dataclasses.field(default_factory=dict)
     score: float | None = None
