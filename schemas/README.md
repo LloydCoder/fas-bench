@@ -34,3 +34,8 @@ Evidence objects may carry a structured `fact` containing an artifact path, a st
 ## Phase 5 evaluation-result contract
 
 The evaluation-result schema now represents Phase 5 finding evaluation, per-claim status, security-condition state, verdict correctness/support, evidence integrity, reason codes, and a deterministic fingerprint. Composite score fields remain optional before Phase 8; Phase 5 explicitly marks scoring as deferred rather than manufacturing a score.
+
+
+## Phase 6 graph extensions
+
+The attack-graph family remains authoritative. Phase 6 extends the shared GraphNode, GraphEdge, AttackPath, and TrustBoundary definitions with optional abstraction, security-relevance, alias, evidence, control, identity-transition, and security-semantic fields. Existing Phase 1–5 graph documents remain schema-valid.
