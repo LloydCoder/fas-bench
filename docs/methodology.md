@@ -18,7 +18,7 @@ JSON Schema handles local structure. Semantic validation handles relationships t
 Scoring weights, evidence-integrity thresholds, generalization, taxonomy completeness, and contamination resistance remain provisional research questions.
 
 ## Phase 3 corpus methodology
-The initial cases prioritize causal clarity and reproducibility over codebase size. Synthetic cases make effective security boundaries observable and deterministic. Ground truth is triangulated from structured claims/evidence, attack-path representation, and an oracle-derived observed state. The public development corpus does not remove contamination risk; future evaluation requires held-out cases or undisclosed mutations.
+The validated initial cases prioritize causal clarity and reproducibility over codebase size. Synthetic cases make effective security boundaries observable and deterministic. Ground truth is triangulated from structured claims/evidence, attack-path representation, and an oracle-derived observed state. The public development corpus does not remove contamination risk; future evaluation requires held-out cases or undisclosed mutations.
 
 
 ## Phase 3 validation methodology
