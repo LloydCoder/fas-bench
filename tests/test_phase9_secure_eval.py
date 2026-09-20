@@ -1,3 +1,4 @@
+# fmt: off
 import pytest
 
 from fas_bench.secure_eval.archive import safe_relative_path, write_inputs
