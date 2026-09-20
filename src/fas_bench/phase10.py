@@ -256,6 +256,29 @@ def build_release_manifest(root: Path, version: str, *, channel: str = "developm
     manifest["release_digest"] = sha256_json({k: v for k, v in manifest.items() if k != "release_digest"})
     return manifest
 
+def scan_release_surface(root: Path) -> dict[str, Any]:
+    findings = []
+    surface = (
+        "cases",
+        "schemas",
+        "src/fas_bench",
+        "docs",
+        "README.md",
+        "SECURITY.md",
+        "CONTRIBUTING.md",
+        "CHANGELOG.md",
+        "pyproject.toml",
+    )
+    for item in surface:
+        path = root / item
+        if not path.exists():
+            findings.append({"type": "MISSING_RELEASE_SURFACE", "path": item})
+            continue
+        result = scan_leakage(path)
+        findings.extend(result["findings"])
+    return {"status": "PASS" if not findings else "FAIL", "findings": findings}
+
+
 def validate_release_manifest(root: Path, manifest: dict[str, Any]) -> dict[str, Any]:
     errors = []
     if manifest.get("benchmark_version") != BENCHMARK_VERSION:
@@ -268,7 +291,7 @@ def validate_release_manifest(root: Path, manifest: dict[str, Any]) -> dict[str,
             errors.append(f"{case_id}: invalid case")
         if manifest.get("case_digests", {}).get(case_id) != expected.get("case_digest"):
             errors.append(f"{case_id}: case digest mismatch")
-    leak = scan_leakage(root)
+    leak = scan_release_surface(root)
     if leak["status"] != "PASS":
         errors.append("release leakage scan failed")
     if manifest.get("validation_status") != "VALIDATED":
