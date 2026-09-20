@@ -10,7 +10,7 @@ from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
 from .metrics import binary_metrics, brier_score, evidence_score, expected_calibration_error
 from .models import CaseScore, ScoreComponent, ScoringConfig
 
-DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[3] / "configs/scoring/v0.1.json"
+DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent / "config/v0.1.json"
 
 
 def load_config(path=None):
