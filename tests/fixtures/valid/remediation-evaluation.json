@@ -1,0 +1,30 @@
+{
+  "remediation_id": "REM-TEST",
+  "case_id": "FAS-002",
+  "status": "REMEDIATION_FAILED",
+  "original_condition_status": "VIABLE",
+  "path_status": "PERSISTING",
+  "alternate_path_status": "CLOSED",
+  "security_test_status": "FAIL",
+  "functional_test_status": "NOT_ASSESSED",
+  "regression_status": "NOT_ASSESSED",
+  "new_findings_status": "NOT_ASSESSED",
+  "evidence_integrity": "VERIFIED",
+  "path_lifecycles": [],
+  "alternate_paths": [],
+  "graph_diff": {},
+  "security_condition_diff": {},
+  "security_controls": {},
+  "dimensions": {
+    "security_condition_resolution": 0,
+    "attack_path_resolution": 0,
+    "alternate_path_resolution": 1,
+    "control_effectiveness": 1,
+    "security_test_success": 0,
+    "functional_preservation": 1,
+    "regression_resistance": 1,
+    "evidence_integrity": 1
+  },
+  "diagnostics": [],
+  "provenance": {}
+}
