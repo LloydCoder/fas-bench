@@ -253,8 +253,7 @@ def test_phase5_output_is_deterministic_and_scoring_is_deferred():
 
 
 def test_benchmark_package_has_no_fas_dependency():
-    source = "
-".join(
+    source = "\n".join(
         path.read_text(encoding="utf-8").lower()
         for path in (ROOT / "src" / "fas_bench" / "evaluator").glob("*.py")
     )
