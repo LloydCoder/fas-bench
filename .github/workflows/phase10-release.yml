@@ -1,5 +1,6 @@
 name: Phase 10 Release Gate
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
       release_version:
@@ -39,7 +40,7 @@ jobs:
       - name: Independence audit
         run: fas-bench contamination independence
       - name: Build release manifest
-        run: fas-bench benchmark release --version "${{ inputs.release_version }}" --channel "${{ inputs.channel }}" > release-manifest.json
+        run: fas-bench benchmark release --version "${{ inputs.release_version || '0.1.0-phase10-rc1' }}" --channel "${{ inputs.channel || 'release-candidate' }}" > release-manifest.json
       - name: Verify release manifest
         run: fas-bench release verify release-manifest.json
       - name: Build package
