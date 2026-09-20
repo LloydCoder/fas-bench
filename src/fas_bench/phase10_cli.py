@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: E501,F401
 """Phase 10 command surface. All outputs are deterministic JSON unless noted."""
 
 from __future__ import annotations
