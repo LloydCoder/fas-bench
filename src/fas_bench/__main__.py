@@ -316,7 +316,10 @@ def main(argv=None):
                 )
                 rows.append(row)
             from .scoring.engine import DEFAULT_CONFIG_PATH
-            configuration = json.loads((args.config or DEFAULT_CONFIG_PATH).read_text(encoding="utf-8"))
+
+            configuration = json.loads(
+                (args.config or DEFAULT_CONFIG_PATH).read_text(encoding="utf-8")
+            )
             import hashlib
 
             run_id = (
