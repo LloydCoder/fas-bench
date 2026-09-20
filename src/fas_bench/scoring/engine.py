@@ -272,6 +272,7 @@ def build_perfect_submission(case_id, cases_root=None):
     evidence = read("evidence.json")
     verdict = read("verdict.json")
     graph = read("attack_graph.json")
+    remediation = read("remediation.json")
     return {
         "benchmark_version": BENCHMARK_VERSION,
         "schema_version": SCHEMA_VERSION,
@@ -293,7 +294,7 @@ def build_perfect_submission(case_id, cases_root=None):
             if isinstance(read("remediation.json"), dict)
             else None
         ),
-        "remediation": None,
+        "remediation": remediation,
         "verification": {
             "verification_id": f"VER-SELF-{case_id}",
             "status": "VERIFIED",
