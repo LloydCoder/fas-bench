@@ -9,7 +9,7 @@
     "C4_AI_AGENT_SECURITY"
   ],
   "difficulty": "L4_AGENTIC",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "Attacker-influenced agent behavior can invoke shell, filesystem, and network capabilities sufficient to reach protected impact.",
   "security_condition": "CONTROL_BYPASS",
   "attacker_model": "Attacker can influence input; agent identity has the listed capabilities.",
@@ -38,6 +38,6 @@
     "case_version": "0.1.0",
     "environment_version": "0.1.0",
     "provenance": "SYNTHETIC",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
