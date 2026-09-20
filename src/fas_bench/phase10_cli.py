@@ -77,17 +77,19 @@ def main(argv=None):
     if args.command == "cases":
         if args.sub in {"validate", "verify"}:
             result = validate_case_phase10(args.case_id)
+            ok = result.get("status") == "PASS"
         else:
             result = generate_identifier_mutation(
                 args.case_id, args.file.read_text(encoding="utf-8")
             ).__dict__
+            ok = result.get("validation_status") == "VALIDATED"
         _dump(result)
-        return 0 if result.get("status", "VALIDATED") in {"PASS", "VALIDATED"} else 1
+        return 0 if ok else 1
 
     if args.command == "corpus":
         result = validate_corpus() if args.sub == "validate" else corpus_stats()
         _dump(result)
-        return 0 if result.get("status", "PASS") == "PASS" else 1
+        return 0 if args.sub == "stats" or result.get("status") == "PASS" else 1
 
     if args.command == "benchmark":
         if args.sub == "doctor":
@@ -102,7 +104,6 @@ def main(argv=None):
                 return 1
         else:
             manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
-            from .phase10 import validate_release_manifest
             result = validate_release_manifest(root, manifest)
         _dump(result)
         return 0 if result.get("status") in {"PASS", "VALIDATED"} or "release_digest" in result else 1
