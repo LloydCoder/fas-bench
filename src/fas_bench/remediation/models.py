@@ -1,10 +1,10 @@
-"""Phase 7 remediation and regression domain models."""
+"""Small domain models used by the deterministic evidence engine."""
 
 from __future__ import annotations
 
-import dataclasses
-
+from dataclasses import dataclass, field
 from typing import Any
+
 
 
 TEST_STATUSES = {"PASS", "FAIL", "ERROR", "TIMEOUT", "NOT_APPLICABLE", "UNRESOLVED"}
