@@ -286,7 +286,7 @@ def build_perfect_submission(case_id, cases_root=None):
         "verdict": verdict,
         "findings": [finding],
         "claims": [claim],
-        "evidence": evidence,
+        "evidence": [evidence],
         "attack_paths": graph.get("paths", []),
         "attack_graph": graph,
         "impact": (
@@ -299,7 +299,7 @@ def build_perfect_submission(case_id, cases_root=None):
             "verification_id": f"VER-SELF-{case_id}",
             "status": "VERIFIED",
             "method": "deterministic self-test",
-            "evidence_ids": [e["evidence_id"] for e in evidence],
+            "evidence_ids": [evidence["evidence_id"]],
         },
         "metadata": {"self_test": True},
     }
