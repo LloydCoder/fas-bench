@@ -1,9 +1,11 @@
 """End-to-end Phase 8 self-evaluation over the released public corpus."""
+
 from fas_bench.cases import CASES_ROOT
 from fas_bench.contract import CASE_IDS
 from fas_bench.evaluator import evaluate_submission_document
 from fas_bench.scoring import build_perfect_submission, load_config
 from fas_bench.scoring.engine import score_case
+
 
 def test_full_20_case_self_evaluation():
     config = load_config()
