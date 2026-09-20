@@ -4,7 +4,7 @@
 Contributions must preserve evidence-first evaluation, exploitability semantics, effective security boundaries, alternate-path analysis, reproducibility, and independence from evaluated systems.
 
 ## Phase 2 contract
-Schema changes require tests, fixtures, documentation, and compatibility review. New semantics must be proposed as specification changes. JSON Schema remains the serialized contract; semantic invariants belong in the validator.
+Schema changes require tests, fixtures, documentation, and compatibility review. New semantics must be proposed as specification changes.
 
 ## Independence
 FAS-Bench MUST NOT import, require, execute, or derive ground truth from FAS.
@@ -16,23 +16,22 @@ Treat benchmark inputs as untrusted. Do not execute case code on the host, use r
 Formatting, linting, tests, schema validation, build, package import, and repository consistency checks must remain green.
 
 ## Phase 3 case contributions
-New or changed cases must include a falsifiable security hypothesis, explicit attacker model, synthetic credentials only, controlled environment, structured ground truth, deterministic oracle, limitations, and case version. Public cases are development data; do not commit hidden evaluation answers. Run `fas-bench cases validate-all` and the gold reproduction checks before opening a pull request.
-
-
-## Phase 3 validation states
-
-A case remains IN_REVIEW until schema, semantic, reproducibility, oracle, integrity, and security gates pass. Do not mark a case VALIDATED manually. Gold cases require mutation sensitivity. Dynamic cases must use controlled local targets and deterministic cleanup.
+New or changed cases must include a falsifiable security hypothesis, explicit attacker model, synthetic credentials only, controlled environment, structured ground truth, deterministic oracle, limitations, and case version. Public cases are development data; do not commit hidden evaluation answers.
 
 ## Phase 4 evidence contributions
-
-Evidence changes must remain deterministic and benchmark-independent. New expected evidence must identify an authoritative case artifact and structured fact where the fact can be deterministically observed. Add positive, negative, boundary, duplicate, contradiction, missing, tampering, and ordering-invariance tests as appropriate. Never execute submission evidence fields. Run the complete case validation and evidence test suite before opening a pull request.
-
+Evidence changes must remain deterministic and benchmark-independent. New expected evidence must identify an authoritative case artifact and structured fact where the fact can be deterministically observed. Never execute submission evidence fields.
 
 ## Phase 5 evaluator contributions
-
-Finding and verdict semantics must remain deterministic and case-independent. Core evaluator code MUST NOT branch on individual case IDs. Case-specific truth belongs in case artifacts, claims, evidence, attack paths, controls, conditions, and remediation metadata. Changes must include positive, negative, contradiction, missing-evidence, cross-case, metamorphic, and tamper tests where applicable. The evaluator must consume Phase 4 evidence results rather than reimplement evidence verification. Final benchmark scoring remains deferred to Phase 8.
-
+Finding and verdict semantics must remain deterministic and case-independent. Core evaluator code MUST NOT branch on individual case IDs. Changes must include positive, negative, contradiction, missing-evidence, cross-case, metamorphic, and tamper tests where applicable.
 
 ## Phase 6 graph contributions
+Graph changes must preserve deterministic canonicalization, finite traversal limits, semantic edge direction, evidence linkage, and FAS independence.
 
-Graph changes must preserve deterministic canonicalization, finite traversal limits, semantic edge direction, evidence linkage, and FAS independence. Add adversarial and ordering-invariance tests for score-affecting graph changes. Do not add case-ID branches to evaluator code.
+## Phase 9 harness contributions
+Never run malicious benchmark cases or candidate code directly on the host. Use the secure evaluation harness and a pinned immutable image.
+
+Phase 9 changes must preserve fail-closed behavior. Do not add host execution fallbacks, unrestricted network access, privileged containers, Docker-socket mounts, inherited host environments, real credentials, or mutable image tags.
+
+Security-sensitive changes should include isolation, resource, artifact-integrity, cache-identity, timeout, cleanup, and reproducibility tests. Docker-backed tests must run only in a disposable CI/local environment intended for the harness.
+
+Before opening a PR, run the complete test suite, formatting and lint checks, package build/install, corpus validation, and the Docker-backed Phase 9 checks available in CI.
