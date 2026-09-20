@@ -1,3 +1,4 @@
+# fmt: off
 """Phase 10 corpus integrity, contamination, mutation/release primitives, and governance."""
 
 from __future__ import annotations
