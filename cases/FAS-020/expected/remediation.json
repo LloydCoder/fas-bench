@@ -16,5 +16,7 @@
   "evidence_ids": [
     "EVD-020-001"
   ],
-  "final_verdict": "REMEDIATION_FAILED"
+  "final_verdict": "REMEDIATION_FAILED",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1"
 }
