@@ -12,7 +12,10 @@ from fas_bench.secure_eval.models import (
     ExecutionResult,
     FailureCode,
 )
+from fas_bench.secure_eval.network import NetworkPolicy, NetworkRule
+from fas_bench.secure_eval.resources import CaseResourceRequest, ResourceLimits, effective_resources
 from fas_bench.secure_eval.runner import SecureRunner
+from fas_bench.secure_eval.scheduler import ResourceScheduler
 from fas_bench.secure_eval.verification import IntegrityError, verify_result
 
 PINNED = "ghcr.io/example/fas-bench@sha256:" + "a" * 64
@@ -129,3 +132,31 @@ def test_result_verifier_rejects_bad_artifact_path():
     )
     with pytest.raises(IntegrityError):
         verify_result(forged)
+
+
+def test_resource_request_is_bounded():
+    request = CaseResourceRequest(cpus=2, memory_bytes=1024 * 1024 * 1024)
+    assert effective_resources(request, ResourceLimits()).memory_bytes == request.memory_bytes
+    with pytest.raises(ValueError):
+        effective_resources(
+            CaseResourceRequest(memory_bytes=3 * 1024**3),
+            ResourceLimits(),
+        )
+
+
+def test_scheduler_admission_is_resource_aware():
+    scheduler = ResourceScheduler(max_workers=2, total_cpus=2, total_memory_bytes=1024)
+    assert scheduler.admit(1, 512)
+    assert not scheduler.admit(1.5, 512)
+    scheduler.release(1, 512)
+    assert scheduler.admit(2, 1024)
+
+
+def test_network_policy_is_deny_by_default():
+    policy = NetworkPolicy()
+    assert policy.docker_network_mode() == "none"
+    with pytest.raises(ValueError):
+        NetworkPolicy(
+            mode="deny",
+            allowlist=(NetworkRule("example.test", "tcp", 443, "test"),),
+        ).validate()
