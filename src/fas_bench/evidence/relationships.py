@@ -13,6 +13,7 @@ _REFERENCE_FIELDS = (
     "related_remediations",
 )
 
+
 def relationship_errors(
     evidence: dict[str, Any],
     expected: dict[str, Any] | None = None,
