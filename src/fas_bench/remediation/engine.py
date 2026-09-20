@@ -244,18 +244,19 @@ def evaluate_remediation(
     alternate_closed = not any(
         x.classification in {"EQUIVALENT_IMPACT", "HIGHER_IMPACT"} for x in alternates
     )
-    security_ok = security_status == "PASS" or (
-        not security_tests and condition_diff["closed"]
-    )
+    security_ok = security_status == "PASS" or (not security_tests and condition_diff["closed"])
     functional_ok = functional_status in {"PASS", "NOT_ASSESSED"}
     regression_ok = regression_status in {"PASS", "NOT_ASSESSED"}
     new_ok = new_status in {"PASS", "NOT_ASSESSED"}
     controls_ok = not controls["weakened"]
     conditional = bool(remediation.get("conditions")) or post.condition_status == "CONDITIONAL"
-    unknown = any(
-        status == "UNRESOLVED"
-        for status in (security_status, functional_status, regression_status, new_status)
-    ) or evidence_status == "UNRESOLVED"
+    unknown = (
+        any(
+            status == "UNRESOLVED"
+            for status in (security_status, functional_status, regression_status, new_status)
+        )
+        or evidence_status == "UNRESOLVED"
+    )
     failed = (
         any(x.lifecycle in {"PERSISTING", "REINTRODUCED"} for x in lifecycles)
         or not alternate_closed
@@ -316,9 +317,12 @@ def evaluate_remediation(
         "environment_digest": baseline.environment_digest,
         "evaluator_version": EVALUATOR_VERSION,
     }
-    provenance["evaluation_run_id"] = "EVAL-" + hashlib.sha256(
-        json.dumps(run_material, sort_keys=True, separators=(",", ":")).encode()
-    ).hexdigest()[:24]
+    provenance["evaluation_run_id"] = (
+        "EVAL-"
+        + hashlib.sha256(
+            json.dumps(run_material, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()[:24]
+    )
     return RemediationResult(
         remediation_id=remediation["remediation_id"],
         case_id=baseline.case_id,
