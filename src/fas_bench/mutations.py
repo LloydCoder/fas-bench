@@ -9,8 +9,7 @@ import io
 import json
 import tokenize
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Callable
+from collections.abc import Callable
 
 SEMANTIC_CLASSES = (
     "SEMANTICALLY_EQUIVALENT",
