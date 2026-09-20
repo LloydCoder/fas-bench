@@ -14,6 +14,8 @@ def test_phase7_result_shape_validates():
     payload = {
         "remediation_id": "REM-TEST",
         "case_id": "FAS-002",
+        "benchmark_version": "0.1.0",
+        "schema_version": "0.1",
         "status": "REMEDIATION_FAILED",
         "original_condition_status": "VIABLE",
         "path_status": "PERSISTING",
