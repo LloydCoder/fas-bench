@@ -22,8 +22,10 @@ def load_config(path=None):
 def _gold(case_id, cases_root=None):
     root = Path(cases_root or CASES_ROOT) / case_id
     exp = root / "expected"
+
     def read(name):
         return json.loads((exp / name).read_text(encoding="utf-8"))
+
     case = json.loads((root / "case.json").read_text(encoding="utf-8"))
     return {
         "case": case,
@@ -261,8 +263,10 @@ def score_submission(submission_path, *, cases_root=None, config=None):
 
 def build_perfect_submission(case_id, cases_root=None):
     root = Path(cases_root or CASES_ROOT) / case_id / "expected"
+
     def read(name):
         return json.loads((root / name).read_text(encoding="utf-8"))
+
     finding = read("findings.json")
     claim = read("claims.json")
     evidence = read("evidence.json")

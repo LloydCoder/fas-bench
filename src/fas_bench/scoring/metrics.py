@@ -127,5 +127,6 @@ def confusion_matrix(predicted: Iterable[str], actual: Iterable[str]):
         raise ValueError("length mismatch")
     labels = sorted(set(p) | set(a))
     return {
-        g: {c: sum(1 for x, y in zip(p, a, strict=True) if x == c and y == g) for c in labels} for g in labels
+        g: {c: sum(1 for x, y in zip(p, a, strict=True) if x == c and y == g) for c in labels}
+        for g in labels
     }
