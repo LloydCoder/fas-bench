@@ -10,7 +10,7 @@
     "C3_AUTHENTICATION_AUTHORIZATION"
   ],
   "difficulty": "L3_MULTI_COMPONENT",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "A webhook signature control blocks the previously viable privileged action while preserving valid signed requests.",
   "security_condition": "REMEDIATION_BREAKS_PATH",
   "attacker_model": "Attacker can send unsigned requests; only the synthetic signer can produce a valid signature.",
@@ -30,6 +30,6 @@
   },
   "metadata": {
     "case_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
