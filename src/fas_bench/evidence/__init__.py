@@ -4,6 +4,7 @@ from .engine import evaluate_submission, load_case, load_submission, verify_evid
 from .coverage import calculate_coverage
 from .integrity import calculate_integrity
 from .normalization import canonical_evidence, evidence_identity, normalize_evidence
+from .relationships import relationship_errors
 
 __all__ = [
     "calculate_coverage",
@@ -14,5 +15,6 @@ __all__ = [
     "load_case",
     "load_submission",
     "normalize_evidence",
+    "relationship_errors",
     "verify_evidence",
 ]
