@@ -122,7 +122,9 @@ def _item_match(
 
 
 def verify_evidence(
-    case: dict[str, Any], submitted: list[dict[str, Any]]
+    case: dict[str, Any],
+    submitted: list[dict[str, Any]],
+    submission: dict[str, Any] | None = None,
 ) -> EvidenceVerificationResult:
     expected = case["expected_evidence"]
     expected_by_id = {item["evidence_id"]: item for item in expected}
