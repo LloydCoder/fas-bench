@@ -220,6 +220,26 @@
         "type": "string"
       }
     },
+    "graph": {
+      "type": "object",
+      "properties": {
+        "valid": {"type": "boolean"},
+        "graph_digest": {"type": "string", "pattern": "^[A-Fa-f0-9]{64}$"},
+        "expected_graph_digest": {"type": "string", "pattern": "^[A-Fa-f0-9]{64}$"},
+        "node_metrics": {"type": "object", "additionalProperties": true},
+        "edge_metrics": {"type": "object", "additionalProperties": true},
+        "path_completeness": {"type": "number", "minimum": 0, "maximum": 1},
+        "boundary_crossing_metrics": {"type": "object", "additionalProperties": true},
+        "graph_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "unsupported_edges": {"type": "array", "items": {"type": "string"}},
+        "contradictory_edges": {"type": "array", "items": {"type": "string"}},
+        "missing_transitions": {"type": "array", "items": {"type": "string"}},
+        "matched_paths": {"type": "array", "items": {"type": "string"}},
+        "versions": {"type": "object", "additionalProperties": {"type": "string"}}
+      },
+      "required": ["valid", "graph_digest", "expected_graph_digest", "node_metrics", "edge_metrics", "path_completeness", "boundary_crossing_metrics", "graph_score", "unsupported_edges", "contradictory_edges", "missing_transitions", "matched_paths", "versions"],
+      "additionalProperties": false
+    },
     "metadata": {
       "type": "object",
       "additionalProperties": true
