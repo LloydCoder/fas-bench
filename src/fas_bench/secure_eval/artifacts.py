@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import hashlib
-import os
 import stat
 from dataclasses import asdict, dataclass
 from pathlib import Path, PurePosixPath
-from typing import Iterable
+from collections.abc import Iterable
 
 
 @dataclass(frozen=True)
