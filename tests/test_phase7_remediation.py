@@ -149,7 +149,10 @@ def test_regression_detects_reopened_condition_and_weakened_control():
 
 def test_secure_refactor_is_not_regression():
     g = graph("FAS-019")
-    secure = state("FAS-019", "BLOCKED", g, [path("P-019-001","BLOCKED")], [{"control_id":"sig","effective":True}])
+    secure = state(
+        "FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")],
+        [{"control_id": "sig", "effective": True}],
+    )
     refactored = copy.deepcopy(g)
     refactored["nodes"][0]["name"] = "external-caller"
     current = state(
