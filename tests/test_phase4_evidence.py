@@ -14,7 +14,7 @@ from fas_bench.evidence import (
     normalize_evidence,
     verify_evidence,
 )
-from fas_bench.evidence.errors import CaseLoadError
+from fas_bench.evidence.errors import CaseLoadError, SubmissionError
 
 ROOT = Path(__file__).parents[1]
 CASES = ROOT / "cases"
@@ -175,7 +175,7 @@ def test_symlink_escape_is_rejected(tmp_path: Path):
 def test_malformed_submission_is_rejected(tmp_path: Path):
     path = tmp_path / "submission.json"
     path.write_text("{not-json", encoding="utf-8")
-    with pytest.raises(Exception):
+    with pytest.raises(SubmissionError):
         load_submission(path)
 
 
