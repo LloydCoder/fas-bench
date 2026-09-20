@@ -49,9 +49,9 @@ def _gold_submission(case_id: str) -> dict:
 def test_every_gold_case_self_evaluates(number: int):
     case_id = f"FAS-{number:03d}"
     result = evaluate_submission_document(_gold_submission(case_id), CASES)
-    expected = json.loads(
-        (CASES / case_id / "expected/verdict.json").read_text(encoding="utf-8")
-    )["verdict"]
+    expected = json.loads((CASES / case_id / "expected/verdict.json").read_text(encoding="utf-8"))[
+        "verdict"
+    ]
     assert result.verdict.expected == expected
     assert result.verdict.verdict_correct
     assert result.verdict.verdict_supported
