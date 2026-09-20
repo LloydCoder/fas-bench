@@ -11,6 +11,7 @@ from typing import Any
 from .contract import BENCHMARK_VERSION, CASE_IDS, GOLD_CASE_IDS, SCHEMA_VERSION
 from .validation import validate, validate_file
 
+
 def _find_root() -> Path:
     for candidate in (Path.cwd(), *Path.cwd().parents, Path(__file__).resolve().parents[2]):
         if (candidate / "cases").is_dir() and (candidate / "pyproject.toml").is_file():
