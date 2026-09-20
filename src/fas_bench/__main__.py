@@ -116,8 +116,7 @@ def main(argv=None):
             return 2
         payload = json.dumps(result, indent=2, sort_keys=True)
         if args.output:
-            args.output.write_text(payload + "\
-", encoding="utf-8")
+            args.output.write_text(payload + "\n", encoding="utf-8")
         if args.json or not args.output:
             print(payload)
         else:
@@ -138,8 +137,7 @@ def main(argv=None):
                 )
             rendered = json.dumps(payload, indent=2, sort_keys=True)
             if args.output:
-                args.output.write_text(rendered + "\
-", encoding="utf-8")
+                args.output.write_text(rendered + "\n", encoding="utf-8")
             if args.json or not args.output:
                 print(rendered)
             else:
