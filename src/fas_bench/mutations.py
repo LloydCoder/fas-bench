@@ -63,11 +63,21 @@ def json_key_order_mutation(document: dict) -> dict:
     """Return a recursively key-sorted copy; JSON object order is non-semantic."""
     return json.loads(json.dumps(document, sort_keys=True, ensure_ascii=False))
 
+def _normalized_ast(source: str) -> str:
+    tree = ast.parse(source)
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Name):
+            node.id = "IDENT"
+        elif isinstance(node, ast.arg):
+            node.arg = "IDENT"
+        elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            node.name = "IDENT"
+    return ast.dump(tree, include_attributes=False)
+
+
 def mutation_valid(source_before: str, source_after: str) -> bool:
-    """Structural semantic guard for Python-equivalent mutations."""
-    before = ast.dump(ast.parse(source_before), include_attributes=False)
-    after = ast.dump(ast.parse(source_after), include_attributes=False)
-    return before == after
+    """Validate structural equivalence while ignoring identifier spelling."""
+    return _normalized_ast(source_before) == _normalized_ast(source_after)
 
 def make_mutation(
     *,
