@@ -453,6 +453,7 @@ def _fingerprint_payload(
                 "result_hash",
             )
         },
+        "graph": graph,
     }
 
 
