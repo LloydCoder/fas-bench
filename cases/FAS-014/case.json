@@ -10,7 +10,7 @@
     "C4_AI_AGENT_SECURITY"
   ],
   "difficulty": "L4_AGENTIC",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "Attacker influence reaches a live synthetic credential through an over-permissive tool and then a privileged service.",
   "security_condition": "REACHABLE_TO_SINK",
   "attacker_model": "Attacker can influence the agent/tool invocation; synthetic credential is active and authorized.",
@@ -30,6 +30,6 @@
   },
   "metadata": {
     "case_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
