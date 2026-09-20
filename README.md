@@ -4,13 +4,19 @@
 > Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.
 
 ## Status
-**Phase 4 — Deterministic Evidence Engine: CI-validated implementation candidate.**
+**Phase 5 — Verdict & Finding Evaluator: CI-validated implementation candidate.**
 
 FAS-Bench is an independent benchmark. FAS is one candidate evaluated system and is not a dependency, reference implementation, or source of ground truth.
 
-## Phase 4 evidence engine
+## Phase 5 verdict & finding evaluator
 
 The deterministic evidence engine verifies submitted evidence against authoritative case artifacts. It canonicalizes evidence, computes stable content-derived identities, safely resolves case-relative artifacts, verifies structured facts and source locations, detects duplicates and relationship mismatches, and reports verified/invalid/unresolved/contradicted/missing evidence with raw coverage and integrity statistics. A verified evidence item establishes an underlying fact; it does not by itself establish exploitability or the final security verdict.
+
+Phase 5 deterministically evaluates findings, claims, verified evidence, security-condition state, effective controls, preconditions, remediation seams, and the submitted verdict. Verdict correctness and evidence support remain separate outputs; Phase 5 does not assign the final benchmark score.
+
+Finding evaluation command:
+
+`fas-bench evaluate finding --case FAS-002 --submission tests/fixtures/integrated/FAS-002.json --json`
 
 Evidence validation command:
 
