@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: E501,UP035,UP037
 """Phase 10 corpus integrity, contamination, mutation/release primitives, and governance."""
 
 from __future__ import annotations
