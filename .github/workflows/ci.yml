@@ -56,6 +56,44 @@ jobs:
           assert any(a.path == "proof.txt" and a.size == 9 for a in result.artifacts), result.as_dict()
           assert result.run_id and result.input_digest and result.manifest_sha256
           PY
+      - name: Phase 9 adversarial isolation integration
+        run: |
+          python - <<'PY'
+          from fas_bench.secure_eval import ExecutionPolicy, ExecutionRequest, SecureRunner
+          image = "python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+          code = r"""
+          import os
+          import pathlib
+          import socket
+          import re
+          assert os.getuid() != 0
+          assert not pathlib.Path("/var/run/docker.sock").exists()
+          assert pathlib.Path("/etc").is_dir()
+          try:
+              pathlib.Path("/etc/fas-bench-write-test").write_text("x")
+          except (PermissionError, OSError):
+              pass
+          else:
+              raise AssertionError("root filesystem is writable")
+          status = pathlib.Path("/proc/self/status").read_text()
+          cap = re.search(r"^CapEff:\s*([0-9a-fA-F]+)$", status, re.MULTILINE)
+          assert cap and int(cap.group(1), 16) == 0
+          nnp = re.search(r"^NoNewPrivs:\s*(\d+)$", status, re.MULTILINE)
+          assert nnp and nnp.group(1) == "1"
+          try:
+              socket.create_connection(("1.1.1.1", 443), timeout=1)
+          except OSError:
+              pass
+          else:
+              raise AssertionError("network isolation failed")
+          pathlib.Path("/output/isolation-proof.txt").write_text("isolated")
+          """
+          result = SecureRunner(ExecutionPolicy(image=image)).execute(
+              ExecutionRequest("FAS-001", "CI-SECURITY-BOUNDARY", ("/usr/local/bin/python", "-c", code))
+          )
+          assert result.status == "SUCCESS", result.as_dict()
+          assert any(a.path == "isolation-proof.txt" for a in result.artifacts)
+          PY
       - name: Corpus validation
         run: fas-bench cases validate-all
       - name: Evidence engine CLI smoke test
