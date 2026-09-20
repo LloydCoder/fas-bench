@@ -34,4 +34,4 @@ Tests/test_phase6_graph.py covers all 20 public graphs, graph self-consistency, 
 
 ## Phase 7 tests
 
-Tests cover complete remediation, alternate-path failure, cosmetic fixes, overblocking, UNKNOWN, regression, secure refactoring, evidence fabrication, test removal/absence, case mismatch, schema validation, and all twenty remediation artifacts.
+Tests cover complete remediation, alternate-path failure, cosmetic fixes, overblocking, UNKNOWN, regression, secure refactoring, evidence fabrication, test removal/absence, state/version identity, schema validation, versioned fixtures, and all twenty remediation artifacts.

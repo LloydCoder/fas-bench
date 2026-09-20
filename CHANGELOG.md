@@ -8,6 +8,7 @@ CI validation is required before merge; Phase 7 requires security-condition clos
 - Deterministic baseline/post-remediation security-state models and remediation/regression oracle.
 - Required PASS security and functional verification gates; missing required tests remain UNKNOWN.
 - Semantic path lifecycle classification, equivalent-impact alternate-path detection, control weakening detection, evidence-integrity gating, and reproducible evaluation provenance.
+- Versioned remediation-evaluation outputs, local schema-resolution tests, and the canonical valid remediation-evaluation fixture.
 
 ## Unreleased — Phase 5: Verdict & Finding Evaluator
 

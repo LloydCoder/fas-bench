@@ -43,4 +43,4 @@ The attack-graph family remains authoritative. Phase 6 extends the shared GraphN
 
 ## Phase 7 schemas
 
-`schemas/remediation/v0.1` remains the authoritative case-remediation declaration. `schemas/remediation-evaluation/v0.1` defines the deterministic output contract of the Phase 7 oracle. The latter is referenced by the evaluation-result schema and registered with offline schema validation.
+`schemas/remediation/v0.1` remains the authoritative case-remediation declaration. `schemas/remediation-evaluation/v0.1` defines the deterministic output contract of the Phase 7 oracle, including required benchmark and schema version metadata. The latter is referenced by the evaluation-result schema and registered with offline schema validation.
