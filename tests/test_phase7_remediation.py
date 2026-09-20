@@ -233,12 +233,13 @@ def test_case_version_mismatch_is_benchmark_error():
     assert result.status == "BENCHMARK_ERROR"
 
 
-def test_path_condition_mismatch_is_benchmark_error():
+def test_path_condition_change_is_benchmark_error():
     g = graph("FAS-019")
-    bad_path = path("P-019-001", "VIABLE")
-    bad_path["security_condition_id"] = "condition.other"
-    baseline = state("FAS-019", "VIABLE", g, [bad_path])
-    post = state("FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")])
+    baseline_path = path("P-019-001", "VIABLE")
+    post_path = path("P-019-001", "BLOCKED")
+    post_path["security_condition_id"] = "condition.other"
+    baseline = state("FAS-019", "VIABLE", g, [baseline_path])
+    post = state("FAS-019", "BLOCKED", g, [post_path])
     result = evaluate_remediation(baseline, post, remediation("FAS-019"))
     assert result.status == "BENCHMARK_ERROR"
 
