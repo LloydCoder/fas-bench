@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import math
-from typing import Iterable, Sequence
+from collections.abc import Iterable, Sequence
 
 
 def normalize_score(value: float, *, lower_is_better=False) -> float:
@@ -127,5 +127,5 @@ def confusion_matrix(predicted: Iterable[str], actual: Iterable[str]):
         raise ValueError("length mismatch")
     labels = sorted(set(p) | set(a))
     return {
-        g: {c: sum(1 for x, y in zip(p, a) if x == c and y == g) for c in labels} for g in labels
+        g: {c: sum(1 for x, y in zip(p, a, strict=True) if x == c and y == g) for c in labels} for g in labels
     }
