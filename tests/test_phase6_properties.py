@@ -14,7 +14,9 @@ def _graph():
     return json.loads(
         (ROOT / "cases/FAS-004/expected/attack_graph.json").read_text(encoding="utf-8")
     )
-    return json.loads((ROOT / "cases/FAS-004/expected/attack_graph.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (ROOT / "cases/FAS-004/expected/attack_graph.json").read_text(encoding="utf-8")
+    )
 
 
 def test_canonicalization_idempotence_property():

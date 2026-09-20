@@ -52,20 +52,24 @@ def test_graph_evidence_linkage_is_score_relevant():
         "findings": [json.loads((expected / "findings.json").read_text(encoding="utf-8"))],
         "claims": [json.loads((expected / "claims.json").read_text(encoding="utf-8"))],
         "evidence": [json.loads((expected / "evidence.json").read_text(encoding="utf-8"))],
-        "attack_paths": json.loads((expected / "attack_paths.json").read_text(encoding="utf-8"))["paths"],
+        "attack_paths": json.loads((expected / "attack_paths.json").read_text(encoding="utf-8"))[
+            "paths"
+        ],
         "attack_graph": json.loads((expected / "attack_graph.json").read_text(encoding="utf-8")),
         "impact": {},
         "remediation": json.loads((expected / "remediation.json").read_text(encoding="utf-8")),
         "verification": None,
     }
     submission["attack_graph"] = copy.deepcopy(submission["attack_graph"])
-    submission["attack_graph"]["edges"].append({
-        "edge_id": "E-002-FABRICATED",
-        "type": "AUTHENTICATES_AS",
-        "source": "N-002-input",
-        "target": "N-002-impact",
-        "evidence_ids": ["EVD-002-001"],
-    })
+    submission["attack_graph"]["edges"].append(
+        {
+            "edge_id": "E-002-FABRICATED",
+            "type": "AUTHENTICATES_AS",
+            "source": "N-002-input",
+            "target": "N-002-impact",
+            "evidence_ids": ["EVD-002-001"],
+        }
+    )
     result = evaluate_submission_document(submission, CASES)
     assert "E-002-FABRICATED" in result.graph["unsupported_edges"]
     assert result.graph["graph_score"] < 1.0

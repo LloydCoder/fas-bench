@@ -9,7 +9,14 @@ from .cases import reproduce_all, validate_all
 from .evaluator import evaluate_submission as evaluate_finding_submission
 from .evaluator.errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .evidence import evaluate_submission as evaluate_evidence_submission
-from .graph import canonicalize_graph, compare_graphs, diff_graphs, extract_paths, graph_digest, validate_graph
+from .graph import (
+    canonicalize_graph,
+    compare_graphs,
+    diff_graphs,
+    extract_paths,
+    graph_digest,
+    validate_graph,
+)
 from .validation import validate_file
 
 
@@ -141,7 +148,9 @@ def main(argv=None):
             elif args.graph_command == "normalize":
                 payload = canonicalize_graph(document)
                 if args.output:
-                    args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                    args.output.write_text(
+                        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+                    )
                     return 0
             elif args.graph_command == "digest":
                 payload = {"graph_digest": graph_digest(document)}

@@ -530,7 +530,13 @@ def evaluate_submission_document(
             evidence_ids={item.evidence_id for item in evidence_result.items},
         ).as_dict()
     payload = _fingerprint_payload(
-        submission["case_id"], finding_evaluation, claims, condition, verdict_evaluation, evidence, graph_result
+        submission["case_id"],
+        finding_evaluation,
+        claims,
+        condition,
+        verdict_evaluation,
+        evidence,
+        graph_result,
     )
     fingerprint = hashlib.sha256(
         json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()

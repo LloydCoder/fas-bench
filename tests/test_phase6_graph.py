@@ -22,7 +22,9 @@ CASES = ROOT / "cases"
 
 
 def load_graph(case_id: str) -> dict:
-    return json.loads((CASES / case_id / "expected" / "attack_graph.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (CASES / case_id / "expected" / "attack_graph.json").read_text(encoding="utf-8")
+    )
 
 
 @pytest.mark.parametrize("number", range(1, 21))
@@ -85,12 +87,14 @@ def test_fabricated_privileged_identity_is_detected_as_unsupported():
     expected = load_graph("FAS-002")
     submission = copy.deepcopy(expected)
     submission["nodes"].append({"node_id": "N-002-admin", "type": "IDENTITY", "name": "admin"})
-    submission["edges"].append({
-        "edge_id": "E-002-admin",
-        "type": "AUTHENTICATES_AS",
-        "source": "N-002-input",
-        "target": "N-002-admin",
-    })
+    submission["edges"].append(
+        {
+            "edge_id": "E-002-admin",
+            "type": "AUTHENTICATES_AS",
+            "source": "N-002-input",
+            "target": "N-002-admin",
+        }
+    )
     result = compare_graphs(expected, submission, case_id="FAS-002")
     assert "E-002-admin" in result.metrics.unsupported_edges
 
@@ -110,12 +114,14 @@ def test_duplicate_and_dangling_edges_are_rejected():
     graph = load_graph("FAS-002")
     graph["edges"].append(copy.deepcopy(graph["edges"][0]))
     graph["edges"][-1]["edge_id"] = graph["edges"][0]["edge_id"]
-    graph["edges"].append({
-        "edge_id": "E-002-DANGLING",
-        "type": "CALLS",
-        "source": "N-002-input",
-        "target": "N-NOT-REAL",
-    })
+    graph["edges"].append(
+        {
+            "edge_id": "E-002-DANGLING",
+            "type": "CALLS",
+            "source": "N-002-input",
+            "target": "N-NOT-REAL",
+        }
+    )
     result = validate_graph(graph, case_id="FAS-002")
     codes = {d.code for d in result.diagnostics}
     assert "DUPLICATE_EDGE" in codes
@@ -159,8 +165,18 @@ def test_path_explosion_is_bounded():
         edges.append({"edge_id": f"E-{i}", "type": "CALLS", "source": "N-0", "target": f"N-{i}"})
     nodes.append({"node_id": "N-impact", "type": "IMPACT", "name": "impact"})
     for i in range(1, 30):
-        edges.append({"edge_id": f"E-i-{i}", "type": "REACHES", "source": f"N-{i}", "target": "N-impact"})
-    graph = {"graph_id": "G-WIDE", "benchmark_version": "0.1.0", "schema_version": "0.1", "nodes": nodes, "edges": edges, "paths": [], "entry_points": ["N-0"]}
+        edges.append(
+            {"edge_id": f"E-i-{i}", "type": "REACHES", "source": f"N-{i}", "target": "N-impact"}
+        )
+    graph = {
+        "graph_id": "G-WIDE",
+        "benchmark_version": "0.1.0",
+        "schema_version": "0.1",
+        "nodes": nodes,
+        "edges": edges,
+        "paths": [],
+        "entry_points": ["N-0"],
+    }
     paths = extract_paths(graph, limits=GraphLimits(max_paths=5))
     assert len(paths) <= 5
 
@@ -175,8 +191,13 @@ def test_limits_reject_oversized_submission():
 def test_diff_is_empty_for_identical_graphs():
     graph = load_graph("FAS-020")
     assert diff_graphs(graph, graph) == {
-        "added_nodes": [], "removed_nodes": [], "added_edges": [], "removed_edges": [],
-        "changed_nodes": [], "changed_edges": [], "node_identity_changes": []
+        "added_nodes": [],
+        "removed_nodes": [],
+        "added_edges": [],
+        "removed_edges": [],
+        "changed_nodes": [],
+        "changed_edges": [],
+        "node_identity_changes": [],
     }
 
 
@@ -193,7 +214,10 @@ def test_diff_ignores_ordering_but_reports_security_edge_change():
 def test_missing_security_transition_reduces_completeness():
     expected = load_graph("FAS-002")
     submission = copy.deepcopy(expected)
-    submission["paths"][0]["node_ids"] = [expected["nodes"][0]["node_id"], expected["nodes"][2]["node_id"]]
+    submission["paths"][0]["node_ids"] = [
+        expected["nodes"][0]["node_id"],
+        expected["nodes"][2]["node_id"],
+    ]
     submission["paths"][0]["edge_ids"] = [expected["edges"][1]["edge_id"]]
     result = compare_graphs(expected, submission, case_id="FAS-002")
     assert result.metrics.path_completeness < 1.0
@@ -222,7 +246,9 @@ def test_graph_saturation_is_not_maximum():
     expected = load_graph("FAS-002")
     submission = copy.deepcopy(expected)
     for i in range(20):
-        submission["nodes"].append({"node_id": f"N-extra-{i}", "type": "SERVICE", "name": f"extra-{i}"})
+        submission["nodes"].append(
+            {"node_id": f"N-extra-{i}", "type": "SERVICE", "name": f"extra-{i}"}
+        )
     result = compare_graphs(expected, submission, case_id="FAS-002")
     assert result.metrics.graph_score < 1.0
 
