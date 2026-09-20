@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from ..cases import _digest_case, validate_case_package
+from ..cases import validate_case_package
 from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
 from ..validation import validate
 from .errors import CaseIntegrityError, CaseLoadError, SubmissionError
