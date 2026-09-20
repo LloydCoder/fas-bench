@@ -190,6 +190,59 @@ def test_security_condition_must_be_closed_for_remediation():
     assert result.status == "UNKNOWN"
 
 
+def test_removing_an_effective_control_is_a_weakened_control():
+    g = graph("FAS-019")
+    baseline = state(
+        "FAS-019",
+        "VIABLE",
+        g,
+        [path("P-019-001", "VIABLE")],
+        [{"control_id": "sig", "effective": True}],
+    )
+    post = state("FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")])
+    result = evaluate_remediation(
+        baseline,
+        post,
+        remediation("FAS-019"),
+        security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
+        functional_tests=(TestResult("FUN-1", "FUNCTIONAL_LEGITIMATE_BEHAVIOR", "PASS"),),
+        evidence=({"verification": "VERIFIED"},),
+    )
+    assert result.status == "REMEDIATION_FAILED"
+    assert "sig" in result.security_controls["weakened"]
+
+
+def test_case_version_mismatch_is_benchmark_error():
+    g = graph("FAS-019")
+    baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
+    post = SecurityState(
+        state_id="FAS-019-BLOCKED",
+        case_id="FAS-019",
+        condition_id="condition.FAS-019",
+        condition_status="BLOCKED",
+        graph=g,
+        paths=(path("P-019-001", "BLOCKED"),),
+        benchmark_version="0.1.0",
+        case_version="0.2.0",
+    )
+    result = evaluate_remediation(
+        baseline,
+        post,
+        remediation("FAS-019"),
+    )
+    assert result.status == "BENCHMARK_ERROR"
+
+
+def test_path_condition_mismatch_is_benchmark_error():
+    g = graph("FAS-019")
+    bad_path = path("P-019-001", "VIABLE")
+    bad_path["security_condition_id"] = "condition.other"
+    baseline = state("FAS-019", "VIABLE", g, [bad_path])
+    post = state("FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")])
+    result = evaluate_remediation(baseline, post, remediation("FAS-019"))
+    assert result.status == "BENCHMARK_ERROR"
+
+
 def test_unknown_is_not_remediated():
     g = graph("FAS-019")
     baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
