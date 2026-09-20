@@ -1,7 +1,9 @@
 """Deterministic graph snapshot diffing."""
 
 from __future__ import annotations
+
 from typing import Any
+
 from .normalization import canonicalize_graph, node_key
 
 
