@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from tempfile import TemporaryDirectory
-from typing import Callable
 
 from .lifecycle import LifecycleState, RunLifecycle
 from .runner import SecureRunner
