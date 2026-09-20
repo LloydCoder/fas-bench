@@ -10,8 +10,8 @@ from typing import Any
 from ..cases import validate_case_package
 from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
 from ..validation import validate
-from .errors import CaseIntegrityError, CaseLoadError, SubmissionError
 from .coverage import calculate_coverage
+from .errors import CaseIntegrityError, CaseLoadError, SubmissionError
 from .integrity import calculate_integrity
 from .models import EvidenceItemResult, EvidenceVerificationResult
 from .normalization import evidence_identity, normalize_evidence
