@@ -52,3 +52,7 @@ Phase 6 therefore evaluates semantic nodes, typed directed edges, ordered attack
 ## Phase 7 methodology
 
 Patch presence is not evidence of remediation. The evaluator compares security state, not source-text appearance. Path lifecycle is derived from semantic path status; alternate routes are classified by impact identity; security-critical control weakening is independently exposed; functional tests prevent trivial overblocking from receiving a complete remediation result. All raw dimensions remain available so Phase 8 can calibrate thresholds and weighting without rewriting the oracle.
+
+
+## Phase 9 reproducibility and execution security
+Dynamic execution is treated as an experimental measurement boundary. Run identity is content-derived from the case, submission, input digest, and execution policy. Candidate code is isolated from evaluator secrets and host state. Results preserve the exact policy, immutable image reference, execution status, timing, exit code, output limits, artifact hashes, and input digest. The harness fails closed rather than converting missing isolation into a benchmark result.

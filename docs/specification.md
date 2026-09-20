@@ -720,3 +720,7 @@ A cosmetic change is not a remediation. A partial fix that leaves an equivalent-
 Regression is semantic: a previously blocked condition or effective control becomes materially weaker or exploitable after a later state. Textual diffs alone are not sufficient.
 
 Case-specific truth remains declarative. Evaluator code must not branch on case identifiers.
+
+
+## Phase 9 normative execution contract
+Phase 9 is the sole benchmark execution trust boundary. Candidate workloads MUST execute only through a validated isolation backend. The v0.1 backend is Docker and MUST use an immutable image digest, network disabled, read-only root filesystem, all capabilities dropped, no-new-privileges, non-root UID/GID, bounded CPU/memory/PIDs/time/output, and ephemeral writable workspaces. The harness MUST fail closed when isolation or the immutable image is unavailable. Host execution, Docker-socket mounts, arbitrary host paths, repository credentials, and candidate-controlled aggregate results are prohibited. Infrastructure failures MUST remain distinct from security verdicts.

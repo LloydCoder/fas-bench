@@ -69,3 +69,7 @@ The graph engine owns canonical graph representation, deterministic validation, 
 Baseline security state → post-remediation security state → graph/path diff → alternate-path analysis → security-condition diff → security/functional/regression tests → evidence-integrity gate → remediation verdict.
 
 Phase 4 owns evidence verification; Phase 5 owns finding/verdict adjudication; Phase 6 owns graph semantics; Phase 7 owns remediation/regression adjudication; Phase 9 will own untrusted candidate execution and sandboxing. Phase 7 never imports or executes FAS.
+
+
+## Phase 9 architecture
+Execution Request → Input Integrity/Path Validation → Isolation Availability Check → Immutable Container Image Check → Hardened Container Execution → Timeout/Resource Enforcement → Artifact Hashing/Manifest → Cleanup → Structured Execution Result. Phase 9 is downstream of Phases 4–8 and does not redefine evidence, verdict, graph, remediation, or scoring semantics.

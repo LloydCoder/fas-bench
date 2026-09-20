@@ -100,3 +100,6 @@ CLI:
 - `fas-bench remediation diff --before <graph.json> --after <graph.json>`
 - `fas-bench remediation regression --previous <state.json> --current <state.json>`
 - `fas-bench remediation report <result.json>`
+
+## Phase 9 — Secure Evaluation Harness & Reproducibility
+Phase 9 provides the fail-closed execution boundary for hostile candidate workloads. The v0.1 harness requires an immutable container image digest, network isolation, dropped Linux capabilities, no-new-privileges, non-root execution, read-only root, bounded CPU/memory/PIDs/time/output, ephemeral workspaces, deterministic run identity, artifact hashing, and explicit infrastructure failure states. It never falls back to host execution.
