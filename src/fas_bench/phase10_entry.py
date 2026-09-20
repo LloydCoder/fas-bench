@@ -1,3 +1,4 @@
+# fmt: off
 """Unified console entrypoint preserving the pre-Phase-10 CLI."""
 
 from __future__ import annotations
