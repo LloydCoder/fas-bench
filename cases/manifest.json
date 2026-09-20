@@ -34,7 +34,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "6d4c4a2c36ee1c5979fe28a7095bbe82d030b2c39d1947e0c5ae0b9c0ff3fefd"
     },
     {
       "case_id": "FAS-002",
@@ -45,7 +45,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "0f7deec2d44b4a116b9a57252b8b570c9eb068872b0195967ca043e5e0d18011"
     },
     {
       "case_id": "FAS-003",
@@ -56,7 +56,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "18ebda97994942aa6f528f58245f87925d585d8209e2e7d1ca093c12398463fb"
     },
     {
       "case_id": "FAS-004",
@@ -67,7 +67,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "eabfeab9150bbcd85c225194c4afd7b82b56faec369c283a90d0f9cc4b9e59ba"
     },
     {
       "case_id": "FAS-005",
@@ -78,7 +78,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "cbf7a7441d500c9d0312b68b8b63258d6933a9f7c7919d02e1ebbcc031ff71b6"
     },
     {
       "case_id": "FAS-006",
@@ -89,7 +89,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "aa9dc577cbcedac22784d32d574bc7e61ee58f3f44d10f8aa79546f93bb28eb3"
     },
     {
       "case_id": "FAS-007",
@@ -100,7 +100,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "6fe5c203c7639227492adb5eff4db8a861e7a8b824f90bb3f97ccb2d0a83adc5"
     },
     {
       "case_id": "FAS-008",
@@ -111,7 +111,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "790e4627876cea745c3ac00fdf83e77b8c35a47addae6f8f36b9f477d8ec4a99"
     },
     {
       "case_id": "FAS-009",
@@ -122,7 +122,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "2d1eae8597afb0d57e6bd26164302e39feb7ca4dbc3bed684dfd9a2fce61eefa"
     },
     {
       "case_id": "FAS-010",
@@ -133,7 +133,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "ce30a8067a3f8ef7a1726833e83bebcd526434c347711066e1045d692343b6d8"
     },
     {
       "case_id": "FAS-011",
@@ -144,7 +144,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "3c987747c2b680fbd97931b7e42e6ba1a7e92b4f75d480875d6a25898468033d"
     },
     {
       "case_id": "FAS-012",
@@ -155,7 +155,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "2dc53b4d95e49f402af8e4d41d84a5de476c251bd00821cf9abf69e1c2f17bf3"
     },
     {
       "case_id": "FAS-013",
@@ -166,7 +166,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "492a9195db122dd792869265df2f7262d3f8014abdaa49325adb3f913589b55a"
     },
     {
       "case_id": "FAS-014",
@@ -177,7 +177,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "abf35032ee962ab0a4be32f1ce1238c59b84ff18212d813e549cae06e2aaa899"
     },
     {
       "case_id": "FAS-015",
@@ -188,7 +188,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "26d0e105b90714cd6188807c35b82194c89c2d742509a19a73d1d565788c5a75"
     },
     {
       "case_id": "FAS-016",
@@ -199,7 +199,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "13d67c3b2eb704aa880000fbfc29f693f2b6b19d5ee9a12b973ea0314cf9ffee"
     },
     {
       "case_id": "FAS-017",
@@ -210,7 +210,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "f949ac16f08202b1bd01ce0de9f9456c93a7fb19790b072dd8e6fca018755fd3"
     },
     {
       "case_id": "FAS-018",
@@ -221,7 +221,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "7ffe34af3f68397ff15900068f874da8cfb85343b3f2e72254709b2f1cae1d02"
     },
     {
       "case_id": "FAS-019",
@@ -232,7 +232,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "5894552c9748fd5471e7f031d93d8e4607a23baebd8f289c7ae23bd1f59edced"
     },
     {
       "case_id": "FAS-020",
@@ -243,7 +243,7 @@
       "lifecycle_status": "IN_REVIEW",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "COMPUTED_AT_VALIDATION"
+      "artifact_digest": "c2c4439e0312d1326f3c703ebe3a5b862556fde1d7328adf46a656c1a26f7885"
     }
   ],
   "hidden_ground_truth": false,
