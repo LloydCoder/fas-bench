@@ -60,3 +60,12 @@ All notable changes to FAS-Bench are documented here.
 - Node/edge/path/boundary dimensions remain separate from verdict correctness.
 - Graph scoring weights are explicit and versioned methodology configuration; they are not scientifically validated constants.
 - Unsupported fabricated edges and contradictory security transitions cannot manufacture graph credit.
+
+
+## Unreleased — Phase 7: Remediation & Regression Engine
+
+- Added deterministic baseline/post-remediation security-state models and remediation oracle.
+- Added semantic path lifecycle classification, equivalent-impact alternate-path detection, control weakening detection, functional-preservation checks, regression evaluation, evidence-integrity gating, content-derived run identity, and provisional raw remediation dimensions.
+- Added remediation evaluation schema and CLI commands.
+- Added adversarial, overblocking, cosmetic-fix, evidence-fabrication, alternate-path, regression, and all-20 remediation-artifact tests.
+- Phase 7 does not execute candidate code; secure patch execution and isolation remain Phase 9 responsibilities.
