@@ -9,8 +9,8 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12"
       - name: Install
@@ -23,3 +23,7 @@ jobs:
       - name: Dangerous Docker configuration audit
         run: |
           ! grep -RInE -- '--privileged|/var/run/docker.sock|--network[[:space:]]+host' cases --exclude=security.yml .github
+      - name: Phase 10 independence audit
+        run: fas-bench contamination independence
+      - name: Phase 10 release schema audit
+        run: python -c "from pathlib import Path; from jsonschema import Draft202012Validator; import json; [Draft202012Validator.check_schema(json.loads(p.read_text())) for p in Path('schemas').rglob('*.schema.json')]"
