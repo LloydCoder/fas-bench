@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .cases import reproduce_all, validate_all
 from .mutations import generate_identifier_mutation
 from .phase10 import (
     benchmark_health,
@@ -34,10 +35,16 @@ def main(argv=None):
 
     cases = subs.add_parser("cases")
     cs = cases.add_subparsers(dest="sub", required=True)
-    v = cs.add_parser("validate")
-    v.add_argument("case_id")
+    validate = cs.add_parser("validate")
+    validate.add_argument("case_id")
     verify = cs.add_parser("verify")
     verify.add_argument("case_id")
+    validate_all_parser = cs.add_parser("validate-all")
+    validate_all_parser.add_argument("--reproduce", action="store_true")
+    validate_gold = cs.add_parser("validate-gold")
+    validate_gold.add_argument("--reproduce", action="store_true")
+    reproduce = cs.add_parser("reproduce")
+    reproduce.add_argument("case_id")
     mutate = cs.add_parser("mutate")
     mutate.add_argument("case_id")
     mutate.add_argument("--file", type=Path, required=True)
@@ -54,8 +61,8 @@ def main(argv=None):
     release = bo.add_parser("release")
     release.add_argument("--version", required=True)
     release.add_argument("--channel", default="development")
-    reproduce = bo.add_parser("reproduce")
-    reproduce.add_argument("manifest", type=Path)
+    reproduce_release = bo.add_parser("reproduce")
+    reproduce_release.add_argument("manifest", type=Path)
 
     rel = subs.add_parser("release")
     ro = rel.add_subparsers(dest="sub", required=True)
@@ -78,6 +85,27 @@ def main(argv=None):
         if args.sub in {"validate", "verify"}:
             result = validate_case_phase10(args.case_id)
             ok = result.get("status") == "PASS"
+        elif args.sub == "validate-all":
+            result = validate_corpus() if not args.reproduce else {
+                "phase10": validate_corpus(),
+                "legacy_reproduction": reproduce_all(),
+            }
+            ok = result.get("status") == "PASS" if not args.reproduce else (
+                result["phase10"]["status"] == "PASS"
+                and result["legacy_reproduction"]["status"] == "PASS"
+            )
+        elif args.sub == "validate-gold":
+            result = validate_corpus()
+            gold = ["FAS-001", "FAS-002", "FAS-006", "FAS-016", "FAS-020"]
+            result["gold"] = [validate_case_phase10(case_id) for case_id in gold]
+            if args.reproduce:
+                result["gold_reproduction"] = reproduce_all(gold)
+            ok = result["status"] == "PASS" and all(
+                item["status"] == "PASS" for item in result["gold"]
+            ) and (not args.reproduce or result["gold_reproduction"]["status"] == "PASS")
+        elif args.sub == "reproduce":
+            result = reproduce_all([args.case_id])
+            ok = result["status"] == "PASS"
         else:
             result = generate_identifier_mutation(
                 args.case_id, args.file.read_text(encoding="utf-8")
