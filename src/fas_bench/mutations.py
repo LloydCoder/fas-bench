@@ -8,8 +8,8 @@ import hashlib
 import io
 import json
 import tokenize
-from dataclasses import dataclass
 from collections.abc import Callable
+from dataclasses import dataclass
 
 SEMANTIC_CLASSES = (
     "SEMANTICALLY_EQUIVALENT",
