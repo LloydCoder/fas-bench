@@ -45,6 +45,16 @@ class SecureRunner:
                 or any(not isinstance(x, str) or not x for x in request.command)
             ):
                 return self._fail(started, t0, FailureCode.INVALID_REQUEST, request)
+            for key in request.environment:
+                if (
+                    not key
+                    or key.startswith("GITHUB_")
+                    or any(
+                        marker in key.upper()
+                        for marker in ("SECRET", "TOKEN", "PASSWORD", "PRIVATE_KEY")
+                    )
+                ):
+                    return self._fail(started, t0, FailureCode.INVALID_REQUEST, request)
             version = self._docker(["version", "--format", "{{.Server.Version}}"], 5)
             if version is None or version.returncode != 0:
                 return self._fail(started, t0, FailureCode.ISOLATION_UNAVAILABLE, request)
