@@ -15,7 +15,9 @@ ROOT = Path(__file__).resolve().parents[2]
 CASES_ROOT = ROOT / "cases"
 REGISTRY_PATH = CASES_ROOT / "registry.json"
 MANIFEST_PATH = CASES_ROOT / "manifest.json"
-DOCKER_IMAGE = "python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+DOCKER_IMAGE = (
+    "python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+)
 EXPECTED_FILES = (
     ("claims.json", "claim"),
     ("evidence.json", "evidence"),
@@ -204,16 +206,10 @@ def validate_all() -> dict[str, Any]:
 
     results = [validate_case_package(case_id) for case_id in registry_ids]
     errors.extend(
-        f"{result['case_id']}: {error}"
-        for result in results
-        for error in result["errors"]
+        f"{result['case_id']}: {error}" for result in results for error in result["errors"]
     )
-    manifest_by_id = {
-        item.get("case_id"): item for item in manifest.get("cases", [])
-    }
-    registry_by_id = {
-        item.get("case_id"): item for item in registry.get("cases", [])
-    }
+    manifest_by_id = {item.get("case_id"): item for item in manifest.get("cases", [])}
+    registry_by_id = {item.get("case_id"): item for item in registry.get("cases", [])}
     for result in results:
         item = manifest_by_id.get(result["case_id"], {})
         reg = registry_by_id.get(result["case_id"], {})
@@ -318,9 +314,7 @@ def run_oracle(
             "stdout": completed.stdout,
         }
     expected = _load(case_dir / "expected" / "verdict.json")["verdict"]
-    result["status"] = (
-        "PASS" if result.get("observed_verdict") == expected else "FAIL"
-    )
+    result["status"] = "PASS" if result.get("observed_verdict") == expected else "FAIL"
     if result["status"] == "FAIL":
         result["message"] = "oracle result disagrees with ground truth"
     result["case_id"] = case_id
