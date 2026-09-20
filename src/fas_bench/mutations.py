@@ -53,7 +53,9 @@ def formatting_mutation(source: str) -> str:
     """Whitespace-only mutation validated by AST equivalence."""
     tree = ast.parse(source)
     mutated = ast.unparse(tree) + "\n"
-    if ast.dump(tree, include_attributes=False) != ast.dump(ast.parse(mutated), include_attributes=False):
+    if ast.dump(tree, include_attributes=False) != ast.dump(
+        ast.parse(mutated), include_attributes=False
+    ):
         raise ValueError("formatting mutation changed the AST")
     return mutated
 
