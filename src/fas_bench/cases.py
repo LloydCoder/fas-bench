@@ -64,9 +64,7 @@ def _digest_paths(paths: list[Path], root: Path) -> str:
 
 def _digest_case(case_dir: Path) -> str:
     files = [
-        path
-        for path in case_dir.rglob("*")
-        if path.is_file() and path.name != "manifest.json"
+        path for path in case_dir.rglob("*") if path.is_file() and path.name != "manifest.json"
     ]
     return _digest_paths(files, case_dir)
 
@@ -118,9 +116,7 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
         errors.append("version mismatch")
     if metadata.get("case_version") != case.get("metadata", {}).get("case_version"):
         errors.append("case/metadata case_version mismatch")
-    if metadata.get("lifecycle_status") != case.get("metadata", {}).get(
-        "lifecycle_status"
-    ):
+    if metadata.get("lifecycle_status") != case.get("metadata", {}).get("lifecycle_status"):
         errors.append("case/metadata lifecycle mismatch")
 
     structural = validate(case, "case")
@@ -193,9 +189,7 @@ def validate_all() -> dict[str, Any]:
         errors.append("registry does not contain exactly FAS-001..FAS-020 in order")
 
     actual_dirs = sorted(
-        path.name
-        for path in CASES_ROOT.iterdir()
-        if path.is_dir() and path.name.startswith("FAS-")
+        path.name for path in CASES_ROOT.iterdir() if path.is_dir() and path.name.startswith("FAS-")
     )
     if actual_dirs != sorted(CASE_IDS):
         errors.append("case directories do not exactly match the registry")
@@ -325,10 +319,6 @@ def reproduce_all(case_ids: list[str] | None = None) -> dict[str, Any]:
     ids = case_ids or list(CASE_IDS)
     results = [run_oracle(case_id) for case_id in ids]
     return {
-        "status": (
-            "PASS"
-            if all(result.get("status") == "PASS" for result in results)
-            else "FAIL"
-        ),
+        "status": ("PASS" if all(result.get("status") == "PASS" for result in results) else "FAIL"),
         "results": results,
     }
