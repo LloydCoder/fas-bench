@@ -32,6 +32,9 @@
     "location": {
       "$ref": "../../common/v0.1/common.schema.json#/$defs/SourceLocation"
     },
+    "fact": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceFact"
+    },
     "source": {
       "type": "string",
       "format": "uri-reference"
