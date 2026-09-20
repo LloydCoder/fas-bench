@@ -21,6 +21,7 @@ from .graph import (
 from .remediation import SecurityState, TestResult, evaluate_regression, evaluate_remediation
 from .reporting import build_report, write_report
 from .scoring import build_perfect_submission, load_config, score_submission
+from .secure_eval import ExecutionPolicy, ExecutionRequest, SecureRunner
 from .validation import validate_file
 
 
@@ -114,6 +115,14 @@ def main(argv=None):
     report_parser = subparsers.add_parser("report")
     report_parser.add_argument("results", type=Path)
     report_parser.add_argument("--output", type=Path, required=True)
+
+    secure_parser = subparsers.add_parser("secure-eval")
+    secure_parser.add_argument("--case", required=True)
+    secure_parser.add_argument("--submission-id", required=True)
+    secure_parser.add_argument("--image", required=True)
+    secure_parser.add_argument("--command", nargs="+", required=True)
+    secure_parser.add_argument("--input", type=Path)
+    secure_parser.add_argument("--output", type=Path)
 
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("path", type=Path)
@@ -367,6 +376,30 @@ def main(argv=None):
             output["leave_one_out"] = leave_one_out(rows)
             print(json.dumps(output, indent=2, sort_keys=True))
             return 0
+        except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+            print(json.dumps({"status": "ERROR", "error": str(exc)}, indent=2))
+            return 2
+
+    if args.command == "secure-eval":
+        try:
+            input_files = {}
+            if args.input:
+                if not args.input.is_dir():
+                    raise ValueError("--input must be a directory")
+                for path in sorted(p for p in args.input.rglob("*") if p.is_file()):
+                    input_files[path.relative_to(args.input).as_posix()] = path.read_bytes()
+            runner = SecureRunner(ExecutionPolicy(image=args.image))
+            result = runner.execute(ExecutionRequest(
+                case_id=args.case,
+                submission_id=args.submission_id,
+                command=tuple(args.command),
+                input_files=input_files,
+            ))
+            rendered = json.dumps(result.as_dict(), indent=2, sort_keys=True)
+            if args.output:
+                args.output.write_text(rendered + "\n", encoding="utf-8")
+            print(rendered)
+            return 0 if result.status == "SUCCESS" else 3
         except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
             print(json.dumps({"status": "ERROR", "error": str(exc)}, indent=2))
             return 2
