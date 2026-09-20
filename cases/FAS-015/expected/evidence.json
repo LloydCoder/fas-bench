@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-015-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "POLICY",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Effective synthetic storage policy permits anonymous read.",
+  "related_claims": [
+    "CLM-015-001"
+  ],
+  "provenance": "VERIFIED"
+}

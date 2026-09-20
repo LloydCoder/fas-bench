@@ -1,0 +1,20 @@
+{
+  "remediation_id": "REM-011-001",
+  "target_claim_ids": [
+    "CLM-011-001"
+  ],
+  "original_verdict": "EXPLOITABLE",
+  "proposed_change": "No remediation asserted.",
+  "original_path_ids": [
+    "P-011-001"
+  ],
+  "revalidated_path_ids": [],
+  "alternate_path_ids": [],
+  "verification_status": "NOT_ASSESSED",
+  "evidence_ids": [
+    "EVD-011-001"
+  ],
+  "final_verdict": "EXPLOITABLE",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1"
+}

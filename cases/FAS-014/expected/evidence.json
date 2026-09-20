@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-014-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "IDENTITY",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic active credential and deterministic authorization state.",
+  "related_claims": [
+    "CLM-014-001"
+  ],
+  "provenance": "VERIFIED"
+}

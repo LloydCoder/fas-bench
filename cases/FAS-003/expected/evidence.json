@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-003-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "TEST_RESULT",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic command argument boundary blocks shell interpretation.",
+  "related_claims": [
+    "CLM-003-001"
+  ],
+  "provenance": "VERIFIED"
+}

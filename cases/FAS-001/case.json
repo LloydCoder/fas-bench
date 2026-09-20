@@ -1,0 +1,43 @@
+{
+  "case_id": "FAS-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Dead SSRF",
+  "description": "An attacker-controlled URL reaches the outbound HTTP client, but the effective destination allowlist blocks unauthorized destinations.",
+  "category": "C1_REACHABILITY",
+  "categories": [
+    "C1_REACHABILITY"
+  ],
+  "difficulty": "L2_MULTI_FUNCTION",
+  "status": "VALIDATED",
+  "scenario": "An attacker-controlled URL reaches the outbound HTTP client, but the effective destination allowlist blocks unauthorized destinations.",
+  "security_condition": "Effective security control blocks the candidate path.",
+  "attacker_model": "Unauthenticated public attacker may submit one URL; cannot alter server policy or access the host network directly.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none; all external services synthetic",
+    "credentials": "synthetic-only",
+    "resource_limits": {
+      "cpu": "1",
+      "memory": "256MiB",
+      "timeout_seconds": 30
+    }
+  },
+  "repository": {
+    "uri": "cases/FAS-001/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "dcf63cfe389c6c70dbc9995ecc451ea4ed7917fab78ef91586df9de65d8d8d43",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "environment_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW",
+    "provenance": "SYNTHETIC"
+  }
+}

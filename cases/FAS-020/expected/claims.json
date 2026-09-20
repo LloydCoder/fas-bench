@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-020-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "REMEDIATION",
+  "statement": "The obvious endpoint is protected, but an alternate endpoint still reaches the privileged backend without the control.",
+  "subject": "patched endpoint",
+  "predicate": "leaves",
+  "object": "alternate attack path",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-020-001"
+  ],
+  "provenance": "VERIFIED"
+}

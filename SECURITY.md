@@ -14,3 +14,6 @@ Oversized objects, pathological nesting, duplicate IDs, reference explosions, pa
 
 ## Ground truth
 Hidden truth and evaluator-only material must not be exposed through public fixtures or normal submissions.
+
+## Benchmark case isolation
+Intentionally vulnerable semantics are confined to synthetic case state. Cases must not access host credentials, Docker sockets, real cloud accounts, production systems, or uncontrolled Internet destinations. Case oracles emit structured machine-readable results and must not expose hidden evaluation truth. Report infrastructure vulnerabilities separately from intentionally vulnerable benchmark semantics.

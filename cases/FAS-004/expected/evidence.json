@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-004-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "DATA_FLOW",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic persisted-data-to-worker path.",
+  "related_claims": [
+    "CLM-004-001"
+  ],
+  "provenance": "VERIFIED"
+}

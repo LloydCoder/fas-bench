@@ -1,0 +1,17 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "verdict": "NOT_EXPLOITABLE",
+  "reason_code": "BLOCKED_BY_AUTHORIZATION",
+  "confidence": 1,
+  "rationale": "Upstream authorization blocks entry to the sensitive function.",
+  "claim_ids": [
+    "CLM-006-001"
+  ],
+  "evidence_ids": [
+    "EVD-006-001"
+  ],
+  "attack_path_ids": [
+    "P-006-001"
+  ]
+}

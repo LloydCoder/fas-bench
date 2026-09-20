@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-008-001",
+  "title": "Agent Sandbox Boundary",
+  "category": "C4_AI_AGENT_SECURITY",
+  "severity": "HIGH",
+  "description": "Conditional sandbox escape.",
+  "claim_ids": [
+    "CLM-008-001"
+  ],
+  "evidence_ids": [
+    "EVD-008-001"
+  ],
+  "verdict": "CONDITIONALLY_EXPLOITABLE",
+  "confidence": 1
+}

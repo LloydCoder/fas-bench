@@ -1,0 +1,17 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "verdict": "EXPLOITABLE",
+  "reason_code": "REACHABLE_TO_SINK",
+  "confidence": 1,
+  "rationale": "Cross-component attack path is viable.",
+  "claim_ids": [
+    "CLM-017-001"
+  ],
+  "evidence_ids": [
+    "EVD-017-001"
+  ],
+  "attack_path_ids": [
+    "P-017-001"
+  ]
+}

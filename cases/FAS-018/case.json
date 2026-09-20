@@ -1,0 +1,44 @@
+{
+  "case_id": "FAS-018",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Agent → CI/CD → Production",
+  "description": "Attacker-controlled agent behavior can modify synthetic source-control state, trigger synthetic CI, and reach a production-like deployment identity.",
+  "category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
+  "categories": [
+    "C9_CROSS_COMPONENT_ATTACK_PATHS",
+    "C4_AI_AGENT_SECURITY",
+    "C10_REMEDIATION_REGRESSION"
+  ],
+  "difficulty": "L5_CROSS_SYSTEM",
+  "status": "VALIDATED",
+  "scenario": "Attacker-controlled agent behavior can modify synthetic source-control state, trigger synthetic CI, and reach a production-like deployment identity.",
+  "security_condition": "CONTROL_BYPASS",
+  "attacker_model": "Attacker can influence the agent prompt and synthetic tool state; no real GitHub or cloud credentials exist.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none",
+    "credentials": "synthetic-only",
+    "systems": [
+      "synthetic-agent",
+      "synthetic-source-control",
+      "synthetic-ci",
+      "synthetic-production"
+    ]
+  },
+  "repository": {
+    "uri": "cases/FAS-018/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "366ab1af3b9b0ba21c8f807781916df477c0f379754cfe1a272f7b4baef56326",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
+  }
+}

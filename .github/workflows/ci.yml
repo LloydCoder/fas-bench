@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: ["main","phase-1-contract","phase-2-schema-data-model"]
+    branches: ["main"]
   pull_request:
 permissions:
   contents: read
@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.12","3.13"]
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Git diff check
@@ -22,7 +22,7 @@ jobs:
           cache: pip
       - name: Install
         run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
-      - name: Format
+      - name: Format check
         run: ruff format --check .
       - name: Lint
         run: ruff check .
@@ -38,5 +38,11 @@ jobs:
         run: python -m pip install --force-reinstall dist/*.whl
       - name: Package import
         run: python -c "import fas_bench; assert fas_bench.__version__ == '0.1.0'"
+      - name: Pull pinned oracle image
+        run: docker pull python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
+      - name: Corpus validation
+        run: fas-bench cases validate-all
+      - name: Gold reproduction
+        run: fas-bench cases validate-gold --reproduce
       - name: Repository contract
-        run: pytest tests/test_contract.py tests/test_docs.py
+        run: pytest tests/test_contract.py tests/test_docs.py tests/test_phase3_cases.py

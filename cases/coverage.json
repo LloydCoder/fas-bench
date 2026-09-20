@@ -1,0 +1,81 @@
+{
+  "benchmark_version": "0.1.0",
+  "case_set_version": "0.1.0",
+  "surface": "PUBLIC_DEVELOPMENT",
+  "balanced": false,
+  "dimensions": [
+    "primary_category",
+    "difficulty",
+    "verdict"
+  ],
+  "category_counts": {
+    "C1_REACHABILITY": 2,
+    "C2_DATA_FLOW_TAINT": 2,
+    "C3_AUTHENTICATION_AUTHORIZATION": 2,
+    "C4_AI_AGENT_SECURITY": 2,
+    "C5_MCP_SECURITY": 2,
+    "C6_SUPPLY_CHAIN": 2,
+    "C7_SECRETS_SENSITIVE_DATA": 2,
+    "C8_INFRASTRUCTURE_CLOUD": 2,
+    "C9_CROSS_COMPONENT_ATTACK_PATHS": 2,
+    "C10_REMEDIATION_REGRESSION": 2
+  },
+  "difficulty_counts": {
+    "L1_LOCAL": 1,
+    "L2_MULTI_FUNCTION": 5,
+    "L3_MULTI_COMPONENT": 8,
+    "L4_AGENTIC": 5,
+    "L5_CROSS_SYSTEM": 1
+  },
+  "verdict_counts": {
+    "EXPLOITABLE": 10,
+    "NOT_EXPLOITABLE": 5,
+    "CONDITIONALLY_EXPLOITABLE": 1,
+    "REMEDIATED": 2,
+    "REMEDIATION_FAILED": 1,
+    "UNKNOWN": 1,
+    "REGRESSED": 0
+  },
+  "category_difficulty": {
+    "C1_REACHABILITY|L2_MULTI_FUNCTION": 2,
+    "C2_DATA_FLOW_TAINT|L1_LOCAL": 1,
+    "C2_DATA_FLOW_TAINT|L3_MULTI_COMPONENT": 1,
+    "C3_AUTHENTICATION_AUTHORIZATION|L2_MULTI_FUNCTION": 2,
+    "C4_AI_AGENT_SECURITY|L4_AGENTIC": 2,
+    "C5_MCP_SECURITY|L4_AGENTIC": 2,
+    "C6_SUPPLY_CHAIN|L3_MULTI_COMPONENT": 2,
+    "C7_SECRETS_SENSITIVE_DATA|L2_MULTI_FUNCTION": 1,
+    "C7_SECRETS_SENSITIVE_DATA|L4_AGENTIC": 1,
+    "C8_INFRASTRUCTURE_CLOUD|L3_MULTI_COMPONENT": 2,
+    "C9_CROSS_COMPONENT_ATTACK_PATHS|L3_MULTI_COMPONENT": 1,
+    "C9_CROSS_COMPONENT_ATTACK_PATHS|L5_CROSS_SYSTEM": 1,
+    "C10_REMEDIATION_REGRESSION|L3_MULTI_COMPONENT": 2
+  },
+  "case_ids": [
+    "FAS-001",
+    "FAS-002",
+    "FAS-003",
+    "FAS-004",
+    "FAS-005",
+    "FAS-006",
+    "FAS-007",
+    "FAS-008",
+    "FAS-009",
+    "FAS-010",
+    "FAS-011",
+    "FAS-012",
+    "FAS-013",
+    "FAS-014",
+    "FAS-015",
+    "FAS-016",
+    "FAS-017",
+    "FAS-018",
+    "FAS-019",
+    "FAS-020"
+  ],
+  "notes": [
+    "Counts describe the initial public development corpus and are not a claim of statistical balance.",
+    "REGRESSED is intentionally absent from the initial 20-case corpus.",
+    "Future held-out and mutation splits must publish their coverage separately without exposing hidden verdicts."
+  ]
+}

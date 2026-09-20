@@ -20,3 +20,9 @@ All notable changes to FAS-Bench are documented here.
 
 ## 0.1.0 — Phase 1: Specification & Benchmark Contract
 - Normative benchmark contract, canonical taxonomy, verdict semantics, evidence model, graph model, remediation/regression semantics, reproducibility, security, contamination, and FAS independence.
+
+## Phase 3 — Release Candidate
+- Added the initial FAS-001 through FAS-020 public development corpus.
+- Added structured case ground truth, deterministic case oracles, corpus registry and manifest.
+- Added corpus validation, immutable artifact digests, isolated oracle execution, and gold-case mutation gates.
+- The corpus is not statistically representative and is not a hidden evaluation set.

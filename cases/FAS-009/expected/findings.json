@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-009-001",
+  "title": "MCP Tool Poisoning",
+  "category": "C5_MCP_SECURITY",
+  "severity": "HIGH",
+  "description": "Untrusted tool metadata induces an agent invocation that reaches a sensitive local resource without effective authorization.",
+  "claim_ids": [
+    "CLM-009-001"
+  ],
+  "evidence_ids": [
+    "EVD-009-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

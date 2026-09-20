@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-019-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "REMEDIATION",
+  "statement": "A webhook signature control blocks the previously viable privileged action while preserving valid signed requests.",
+  "subject": "webhook",
+  "predicate": "requires",
+  "object": "valid signature",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-019-001"
+  ],
+  "provenance": "VERIFIED"
+}

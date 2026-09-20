@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-002-001",
+  "title": "Reachable SSRF",
+  "category": "C1_REACHABILITY",
+  "severity": "HIGH",
+  "description": "An attacker-controlled URL survives the transformation chain and reaches the controlled external target.",
+  "claim_ids": [
+    "CLM-002-001"
+  ],
+  "evidence_ids": [
+    "EVD-002-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

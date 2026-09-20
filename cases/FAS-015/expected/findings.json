@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-015-001",
+  "title": "Public Storage Exposure",
+  "category": "C8_INFRASTRUCTURE_CLOUD",
+  "severity": "HIGH",
+  "description": "Effective storage policy permits anonymous read access to the protected object.",
+  "claim_ids": [
+    "CLM-015-001"
+  ],
+  "evidence_ids": [
+    "EVD-015-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

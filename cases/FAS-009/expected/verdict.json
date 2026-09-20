@@ -1,0 +1,17 @@
+{
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "verdict": "EXPLOITABLE",
+  "reason_code": "CONTROL_BYPASS",
+  "confidence": 1,
+  "rationale": "Observed viable MCP path.",
+  "claim_ids": [
+    "CLM-009-001"
+  ],
+  "evidence_ids": [
+    "EVD-009-001"
+  ],
+  "attack_path_ids": [
+    "P-009-001"
+  ]
+}

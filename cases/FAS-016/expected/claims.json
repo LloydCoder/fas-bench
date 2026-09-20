@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-016-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "PERMISSION",
+  "statement": "A broad identity permission is overridden by an effective explicit deny boundary that blocks privilege escalation.",
+  "subject": "attacker principal",
+  "predicate": "is_blocked_by",
+  "object": "explicit deny boundary",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-016-001"
+  ],
+  "provenance": "VERIFIED"
+}

@@ -1,0 +1,20 @@
+{
+  "remediation_id": "REM-019-001",
+  "target_claim_ids": [
+    "CLM-019-001"
+  ],
+  "original_verdict": "EXPLOITABLE",
+  "proposed_change": "Require cryptographic webhook signature.",
+  "original_path_ids": [
+    "P-019-001"
+  ],
+  "revalidated_path_ids": [],
+  "alternate_path_ids": [],
+  "verification_status": "VERIFIED",
+  "evidence_ids": [
+    "EVD-019-001"
+  ],
+  "final_verdict": "REMEDIATED",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1"
+}

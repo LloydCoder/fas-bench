@@ -16,3 +16,11 @@ JSON Schema handles local structure. Semantic validation handles relationships t
 
 ## Scientific validity
 Scoring weights, evidence-integrity thresholds, generalization, taxonomy completeness, and contamination resistance remain provisional research questions.
+
+## Phase 3 corpus methodology
+The validated initial cases prioritize causal clarity and reproducibility over codebase size. Synthetic cases make effective security boundaries observable and deterministic. Ground truth is triangulated from structured claims/evidence, attack-path representation, and an oracle-derived observed state. The public development corpus does not remove contamination risk; future evaluation requires held-out cases or undisclosed mutations.
+
+
+## Phase 3 validation methodology
+
+The corpus is a controlled experimental set, not a statistical sample of real-world vulnerabilities. Gold cases combine structured security-model evidence with executable security-property tests. Dynamic oracles exercise local synthetic targets; mutation tests verify oracle sensitivity to security-semantic changes. Public ground truth is deliberately acknowledged as a contamination risk, so later evaluation must use held-out or undisclosed variants.

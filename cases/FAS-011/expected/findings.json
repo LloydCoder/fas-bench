@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-011-001",
+  "title": "Malicious Dependency",
+  "category": "C6_SUPPLY_CHAIN",
+  "severity": "HIGH",
+  "description": "Installing a local synthetic dependency executes its build hook with the application build identity.",
+  "claim_ids": [
+    "CLM-011-001"
+  ],
+  "evidence_ids": [
+    "EVD-011-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

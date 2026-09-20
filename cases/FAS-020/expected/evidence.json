@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-020-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "REMEDIATION",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Primary path is blocked while alternate path remains viable.",
+  "related_claims": [
+    "CLM-020-001"
+  ],
+  "provenance": "VERIFIED"
+}

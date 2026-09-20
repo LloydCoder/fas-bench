@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-005-001",
+  "title": "IDOR",
+  "category": "C3_AUTHENTICATION_AUTHORIZATION",
+  "severity": "HIGH",
+  "description": "An authenticated low-privilege user can retrieve another user's object because authorization is based on a caller-supplied object identifier.",
+  "claim_ids": [
+    "CLM-005-001"
+  ],
+  "evidence_ids": [
+    "EVD-005-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

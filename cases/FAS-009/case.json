@@ -1,0 +1,37 @@
+{
+  "case_id": "FAS-009",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "MCP Tool Poisoning",
+  "description": "Untrusted tool metadata induces an agent invocation that reaches a sensitive local resource without effective authorization.",
+  "category": "C5_MCP_SECURITY",
+  "categories": [
+    "C5_MCP_SECURITY",
+    "C4_AI_AGENT_SECURITY"
+  ],
+  "difficulty": "L4_AGENTIC",
+  "status": "VALIDATED",
+  "scenario": "Untrusted tool metadata induces an agent invocation that reaches a sensitive local resource without effective authorization.",
+  "security_condition": "CONTROL_BYPASS",
+  "attacker_model": "Attacker can publish synthetic tool metadata and influence the agent's next action.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-009/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "b058a59cc94b92fab0559de04ef3fff82cc0e98565783b27bad4aa4cadb96209",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
+  }
+}

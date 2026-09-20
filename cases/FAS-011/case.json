@@ -1,0 +1,34 @@
+{
+  "case_id": "FAS-011",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Malicious Dependency",
+  "description": "Installing a local synthetic dependency executes its build hook with the application build identity.",
+  "category": "C6_SUPPLY_CHAIN",
+  "categories": [
+    "C6_SUPPLY_CHAIN"
+  ],
+  "difficulty": "L3_MULTI_COMPONENT",
+  "status": "VALIDATED",
+  "scenario": "Installing a local synthetic dependency executes its build hook with the application build identity.",
+  "security_condition": "REACHABLE_TO_SINK",
+  "attacker_model": "Attacker controls only the synthetic dependency artifact; no public registry is used.",
+  "environment": {
+    "validation_type": "STATIC",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-011/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "5c11d52c5360f1cb99131797f67028bec6d848d9b2e10ee7e3a192d10ddb154a",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-004-001",
+  "title": "Indirect Command Injection",
+  "category": "C2_DATA_FLOW_TAINT",
+  "severity": "HIGH",
+  "description": "HTTP input is persisted and later consumed by a worker that interprets it as a command.",
+  "claim_ids": [
+    "CLM-004-001"
+  ],
+  "evidence_ids": [
+    "EVD-004-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

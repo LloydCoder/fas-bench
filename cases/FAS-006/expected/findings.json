@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-006-001",
+  "title": "Authorization False Positive",
+  "category": "C3_AUTHENTICATION_AUTHORIZATION",
+  "severity": "MEDIUM",
+  "description": "A sensitive function appears unguarded locally, but upstream middleware enforces authorization before entry.",
+  "claim_ids": [
+    "CLM-006-001"
+  ],
+  "evidence_ids": [
+    "EVD-006-001"
+  ],
+  "verdict": "NOT_EXPLOITABLE",
+  "confidence": 1
+}

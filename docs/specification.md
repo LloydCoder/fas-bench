@@ -1,11 +1,11 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Phase 1 contract; provisionally frozen for Phase 2 implementation.  
+**Status:** Normative contract; Phase 3 release candidate validated by CI.  
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (conceptual contract only; schemas are a Phase 2 deliverable)  
 **Evaluator version:** 0.1.0 (contract identifier; evaluator implementation is later)  
-**Case-set version:** 0.1.0 (initial design registry, not validated corpus)  
+**Case-set version:** 0.1.0 (validated public development corpus)  
 **Submission format version:** 0.1.0 (conceptual contract; machine schema is Phase 2)
 
 Other project documents may explain, summarize, or operationalize this contract. They MUST NOT redefine normative semantics. When a conflict exists, this specification controls.
@@ -131,7 +131,7 @@ Case IDs are stable identifiers in the form FAS-NNN. IDs MUST be unique and MUST
 | FAS-019 | Verified Fix |
 | FAS-020 | Fake Fix / Alternate Path |
 
-These are design-registry cases, not a scientifically validated corpus. No claim of statistical representativeness or validated ground truth is made in Phase 1.
+These are the Phase 3 public development cases. They are not a statistically representative sample, but their structured ground truth, integrity records, and reproducibility gates are validated by the Phase 3 CI contract.
 
 ### Initial gold cases
 
@@ -627,3 +627,33 @@ All required schema families, semantic validation, fixtures, documentation, pack
 
 ## Evaluator-only ground-truth schema
 The evaluator-only schema at `schemas/ground-truth/v0.1/ground-truth.schema.json` can represent expected verdicts, expected claims/evidence, attack paths, remediation, and regression. It is a data contract only; Phase 3 still owns the actual gold corpus and empirical ground-truth validation. It MUST NOT be used as the public submission schema.
+
+
+## Phase 3 — Validated Case Corpus
+
+Phase 3 adds the public development corpus FAS-001 through FAS-020. Cases carry independent case versions, explicit attacker models, controlled environments, structured ground truth, deterministic oracles, and distinct validation states. Public ground truth is not a hidden evaluation set. See docs/phase3.md for the normative Phase 3 contract.
+
+
+## Phase 3 — Gold Cases & Ground Truth
+
+Phase 3 operationalizes the case registry into a public development corpus. The initial corpus contains FAS-001 through FAS-020. The corpus is explicitly public development data, not a hidden evaluation set.
+
+### Case lifecycle
+
+DRAFT → CONSTRUCTED → SELF-VALIDATED → INDEPENDENTLY_REVIEWED → REPRODUCIBLE → VALIDATED → RELEASE_CANDIDATE → RELEASED. Schema validity, semantic validity, reproducibility, security validation, and release readiness are distinct gates. A case is not VALIDATED solely because its files validate.
+
+### Case contract
+
+Each case defines a falsifiable security hypothesis, attacker model, assets and boundaries, environment, security condition, structured ground truth, attack path, remediation state where applicable, oracle, provenance, limitations, and independent case version. Synthetic credentials and controlled local state are required for the initial corpus.
+
+### Oracle contract
+
+Oracles return machine-readable PASS/FAIL/ERROR/INCONCLUSIVE outcomes and independently exercise the security property. Dynamic cases use isolated local services and must not require public-network access. Remediation cases verify both baseline and post-change security state; alternate paths are evaluated independently.
+
+### Reproducibility and integrity
+
+Case validation records case-set/version metadata, environment version, oracle version, and content-derived artifact digests. Volatile execution timestamps are excluded from canonical case digests. Released cases require immutable content-derived digests.
+
+### Public and hidden corpus model
+
+The initial public corpus intentionally exposes ground truth. Future benchmark evaluation must use held-out cases, private ground truth, or undisclosed mutations. Public cases must never be described as contamination-resistant.

@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-005-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "AUTHORIZATION",
+  "statement": "An authenticated low-privilege user can retrieve another user's object because authorization is based on a caller-supplied object identifier.",
+  "subject": "attacker",
+  "predicate": "security_condition",
+  "object": "Observed viable attack path reaches impact.",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-005-001"
+  ],
+  "provenance": "VERIFIED"
+}

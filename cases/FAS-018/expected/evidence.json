@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-018-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "TRUST_BOUNDARY",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Synthetic cross-system control-plane state.",
+  "related_claims": [
+    "CLM-018-001"
+  ],
+  "provenance": "VERIFIED"
+}

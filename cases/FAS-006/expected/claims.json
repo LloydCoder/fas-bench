@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-006-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "claim_type": "AUTHORIZATION",
+  "statement": "A sensitive function appears unguarded locally, but upstream middleware enforces authorization before entry.",
+  "subject": "attacker",
+  "predicate": "security_condition",
+  "object": "Effective security control blocks the candidate path.",
+  "confidence": 1,
+  "status": "SUPPORTED",
+  "related_evidence": [
+    "EVD-006-001"
+  ],
+  "provenance": "VERIFIED"
+}

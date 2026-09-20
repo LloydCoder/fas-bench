@@ -1,0 +1,43 @@
+{
+  "case_id": "FAS-007",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Excessive Agent Capability",
+  "description": "Attacker-influenced agent behavior can invoke shell, filesystem, and network capabilities sufficient to reach protected impact.",
+  "category": "C4_AI_AGENT_SECURITY",
+  "categories": [
+    "C4_AI_AGENT_SECURITY"
+  ],
+  "difficulty": "L4_AGENTIC",
+  "status": "VALIDATED",
+  "scenario": "Attacker-influenced agent behavior can invoke shell, filesystem, and network capabilities sufficient to reach protected impact.",
+  "security_condition": "CONTROL_BYPASS",
+  "attacker_model": "Attacker can influence input; agent identity has the listed capabilities.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none",
+    "credentials": "synthetic-only",
+    "resource_limits": {
+      "cpu": "1",
+      "memory": "256MiB",
+      "timeout_seconds": 30
+    }
+  },
+  "repository": {
+    "uri": "cases/FAS-007/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "49a4d114b849bac809f5b13537e43e643ac8f7b57407411f4d0b42177ac2f212",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "environment_version": "0.1.0",
+    "provenance": "SYNTHETIC",
+    "lifecycle_status": "IN_REVIEW"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-001-001",
+  "title": "Dead SSRF",
+  "category": "C1_REACHABILITY",
+  "severity": "MEDIUM",
+  "description": "An attacker-controlled URL reaches the outbound HTTP client, but the effective destination allowlist blocks unauthorized destinations.",
+  "claim_ids": [
+    "CLM-001-001"
+  ],
+  "evidence_ids": [
+    "EVD-001-001"
+  ],
+  "verdict": "NOT_EXPLOITABLE",
+  "confidence": 1
+}

@@ -4,9 +4,21 @@
 > Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.
 
 ## Status
-**Phase 2 — Schema & Data Model: implementation in progress until CI verification and merge.**
+**Phase 3 — Gold Cases & Ground Truth: release candidate; CI-validated.**
 
 FAS-Bench is an independent benchmark. FAS is one candidate evaluated system and is not a dependency, reference implementation, or source of ground truth.
+
+## Phase 3 corpus
+
+The CI-validated initial public development corpus contains FAS-001 through FAS-020. Each case defines a security hypothesis, attacker model, controlled environment, structured expected claims/evidence/finding/attack path/verdict/remediation, and a deterministic oracle. The public corpus is intentionally not treated as a hidden evaluation set; future evaluation requires held-out or mutated cases.
+
+Case commands:
+
+`fas-bench cases validate-all`
+
+`fas-bench cases validate-gold`
+
+`fas-bench cases reproduce FAS-001`
 
 ## Phase 2 contract
 The Phase 1 conceptual contract is now encoded as JSON Schema Draft 2020-12 families under schemas/. Shared definitions centralize canonical IDs and enums. Python semantic validation handles cross-object references, graph/path integrity, version compatibility, remediation consistency, conditional verdicts, and evaluation-result arithmetic.

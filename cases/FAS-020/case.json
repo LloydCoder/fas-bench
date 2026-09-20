@@ -1,0 +1,35 @@
+{
+  "case_id": "FAS-020",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Fake Fix / Alternate Path",
+  "description": "The obvious endpoint is protected, but an alternate endpoint still reaches the privileged backend without the control.",
+  "category": "C10_REMEDIATION_REGRESSION",
+  "categories": [
+    "C10_REMEDIATION_REGRESSION",
+    "C9_CROSS_COMPONENT_ATTACK_PATHS"
+  ],
+  "difficulty": "L3_MULTI_COMPONENT",
+  "status": "VALIDATED",
+  "scenario": "The obvious endpoint is protected, but an alternate endpoint still reaches the privileged backend without the control.",
+  "security_condition": "REMEDIATION_LEAVES_ALTERNATE_PATH",
+  "attacker_model": "Attacker can reach either public endpoint; no privileged credential is required.",
+  "environment": {
+    "validation_type": "STATIC",
+    "network": "none",
+    "credentials": "synthetic-only"
+  },
+  "repository": {
+    "uri": "cases/FAS-020/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "c7f1942ab0d8173484978205c5a6b083d8d7d4587fabeb392226bdb71a01643d",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "lifecycle_status": "IN_REVIEW"
+  }
+}

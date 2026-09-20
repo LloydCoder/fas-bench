@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-007-001",
+  "title": "Excessive Agent Capability",
+  "category": "C4_AI_AGENT_SECURITY",
+  "severity": "HIGH",
+  "description": "Attacker-influenced agent behavior can invoke shell, filesystem, and network capabilities sufficient to reach protected impact.",
+  "claim_ids": [
+    "CLM-007-001"
+  ],
+  "evidence_ids": [
+    "EVD-007-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}

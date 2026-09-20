@@ -1,0 +1,13 @@
+{
+  "evidence_id": "EVD-019-001",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "type": "REMEDIATION",
+  "role": "DIRECT",
+  "verification": "VERIFIED",
+  "description": "Before/after synthetic webhook oracle establishes path break.",
+  "related_claims": [
+    "CLM-019-001"
+  ],
+  "provenance": "VERIFIED"
+}

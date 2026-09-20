@@ -1,0 +1,43 @@
+{
+  "case_id": "FAS-008",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "title": "Agent Sandbox Boundary",
+  "description": "The sandbox blocks ordinary prompts, but a documented namespace-escape prerequisite makes the impact conditionally reachable.",
+  "category": "C4_AI_AGENT_SECURITY",
+  "categories": [
+    "C4_AI_AGENT_SECURITY"
+  ],
+  "difficulty": "L4_AGENTIC",
+  "status": "VALIDATED",
+  "scenario": "The sandbox blocks ordinary prompts, but a documented namespace-escape prerequisite makes the impact conditionally reachable.",
+  "security_condition": "MISSING_PREREQUISITE",
+  "attacker_model": "The case explicitly supplies the namespace-escape prerequisite; without it the path is blocked.",
+  "environment": {
+    "validation_type": "STATIC",
+    "os": "linux",
+    "runtime": "python3.12",
+    "network": "none",
+    "credentials": "synthetic-only",
+    "resource_limits": {
+      "cpu": "1",
+      "memory": "256MiB",
+      "timeout_seconds": 30
+    }
+  },
+  "repository": {
+    "uri": "cases/FAS-008/repository",
+    "commit": "phase3-initial",
+    "artifact_digest": {
+      "sha256": "9fc9e173738fd4b244c74d3a008869415eab87823804dcbec868d8192b69db5d",
+      "media_type": "application/json",
+      "origin": "BENCHMARK"
+    }
+  },
+  "metadata": {
+    "case_version": "0.1.0",
+    "environment_version": "0.1.0",
+    "provenance": "SYNTHETIC",
+    "lifecycle_status": "IN_REVIEW"
+  }
+}

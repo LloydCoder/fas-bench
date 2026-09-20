@@ -17,3 +17,6 @@ pytest
 python -m build
 python -m pip install --force-reinstall dist/*.whl
 python -c "import fas_bench; print(fas_bench.__version__)"
+
+## Phase 3
+`test_phase3_cases.py` validates the complete case registry, package contracts, deterministic oracle agreement, and gold-case mutation sensitivity.

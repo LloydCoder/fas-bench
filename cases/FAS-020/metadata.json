@@ -1,0 +1,12 @@
+{
+  "case_id": "FAS-020",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1",
+  "case_version": "0.1.0",
+  "environment_version": "0.1.0",
+  "validation_type": "DYNAMIC",
+  "lifecycle_status": "IN_REVIEW",
+  "provenance": "SYNTHETIC",
+  "artifact_digest": "919bf7ab48e73e9f957e5e1a492e29361d4d95bf618c58d9456d835eae949101",
+  "oracle_version": "0.3.0"
+}

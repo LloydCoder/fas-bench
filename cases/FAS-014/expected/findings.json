@@ -1,0 +1,15 @@
+{
+  "finding_id": "FIND-014-001",
+  "title": "Live Credential Attack Path",
+  "category": "C7_SECRETS_SENSITIVE_DATA",
+  "severity": "CRITICAL",
+  "description": "Attacker influence reaches a live synthetic credential through an over-permissive tool and then a privileged service.",
+  "claim_ids": [
+    "CLM-014-001"
+  ],
+  "evidence_ids": [
+    "EVD-014-001"
+  ],
+  "verdict": "EXPLOITABLE",
+  "confidence": 1
+}
