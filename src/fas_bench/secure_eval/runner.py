@@ -149,7 +149,6 @@ class SecureRunner:
                 truncated = len(stdout) < len(proc.stdout or "") or len(stderr) < len(
                     proc.stderr or ""
                 )
-                self._docker(["cp", f"{name}:/output/.", str(out)], 10)
                 status = (
                     "SUCCESS"
                     if proc.returncode == 0 and not truncated
