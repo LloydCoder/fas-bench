@@ -1,5 +1,7 @@
 from __future__ import annotations
-import hashlib, os
+
+import hashlib
+import os
 from pathlib import Path, PurePosixPath
 
 MAX_FILES = 4096

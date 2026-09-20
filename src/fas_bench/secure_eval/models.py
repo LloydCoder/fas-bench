@@ -1,9 +1,10 @@
 from __future__ import annotations
+
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 
 
-class FailureCode(str, Enum):
+class FailureCode(StrEnum):
     INVALID_REQUEST = "INVALID_REQUEST"
     UNSUPPORTED_PLATFORM = "UNSUPPORTED_PLATFORM"
     ISOLATION_UNAVAILABLE = "ISOLATION_UNAVAILABLE"

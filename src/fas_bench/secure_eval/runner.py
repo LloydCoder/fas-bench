@@ -1,7 +1,14 @@
 from __future__ import annotations
-import hashlib, json, os, shutil, subprocess, tempfile, time
-from datetime import datetime, timezone
+
+import hashlib
+import json
+import shutil
+import subprocess
+import tempfile
+import time
+from datetime import UTC, datetime
 from pathlib import Path
+
 from .archive import hash_tree, write_inputs
 from .models import Artifact, ExecutionPolicy, ExecutionRequest, ExecutionResult, FailureCode
 
@@ -17,8 +24,7 @@ class SecureRunner:
             return subprocess.run(
                 [self.docker_binary, *args],
                 stdin=subprocess.DEVNULL,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                capture_output=True,
                 text=True,
                 timeout=timeout,
                 check=False,
@@ -27,7 +33,7 @@ class SecureRunner:
             return None
 
     def execute(self, request: ExecutionRequest) -> ExecutionResult:
-        started = datetime.now(timezone.utc)
+        started = datetime.now(UTC)
         t0 = time.monotonic()
         root = Path(tempfile.mkdtemp(prefix="fas-bench-run-"))
         cleanup = True
@@ -87,7 +93,7 @@ class SecureRunner:
                 "--user",
                 f"{self.policy.run_as_uid}:{self.policy.run_as_gid}",
                 "--tmpfs",
-                f"/tmp:rw,nosuid,nodev,noexec,size=67108864",
+                "/tmp:rw,nosuid,nodev,noexec,size=67108864",
                 "--tmpfs",
                 f"/workspace:rw,nosuid,nodev,noexec,size={self.policy.workspace_bytes}",
                 "--tmpfs",
@@ -121,8 +127,7 @@ class SecureRunner:
                 proc = subprocess.run(
                     cmd,
                     stdin=subprocess.DEVNULL,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
+                    capture_output=True,
                     text=True,
                     timeout=self.policy.timeout_seconds,
                     check=False,
@@ -132,7 +137,7 @@ class SecureRunner:
                 truncated = len(stdout) < len(proc.stdout or "") or len(stderr) < len(
                     proc.stderr or ""
                 )
-                cp = self._docker(["cp", f"{name}:/output/.", str(out)], 10)
+                self._docker(["cp", f"{name}:/output/.", str(out)], 10)
                 status = (
                     "SUCCESS"
                     if proc.returncode == 0 and not truncated
@@ -155,7 +160,6 @@ class SecureRunner:
                 code = FailureCode.TIMEOUT.value
                 proc = None
                 truncated = False
-                cp = None
             finally:
                 rm = self._docker(["rm", "-f", name], 10)
                 if rm is None or rm.returncode not in (0, 1):
@@ -178,7 +182,7 @@ class SecureRunner:
                 code,
                 proc.returncode if proc else None,
                 started.isoformat(),
-                datetime.now(timezone.utc).isoformat(),
+                datetime.now(UTC).isoformat(),
                 time.monotonic() - t0,
                 stdout,
                 stderr,
@@ -218,7 +222,7 @@ class SecureRunner:
             code.value,
             None,
             started.isoformat(),
-            datetime.now(timezone.utc).isoformat(),
+            datetime.now(UTC).isoformat(),
             time.monotonic() - t0,
             "",
             "",
