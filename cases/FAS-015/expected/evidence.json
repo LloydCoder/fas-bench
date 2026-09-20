@@ -9,5 +9,11 @@
   "related_claims": [
     "CLM-015-001"
   ],
-  "provenance": "VERIFIED"
+  "provenance": "VERIFIED",
+  "fact": {
+    "artifact_path": "repository/state.json",
+    "key": "public_access",
+    "operator": "EQUALS",
+    "value": true
+  }
 }
