@@ -11,7 +11,7 @@ from fas_bench.evaluator import (
     evaluate_submission_document,
     resolve_security_condition,
 )
-from fas_bench.evaluator.errors import EvaluatorCaseError, EvaluatorSubmissionError
+from fas_bench.evaluator.errors import EvaluatorSubmissionError
 from fas_bench.evidence import load_case
 from fas_bench.validation import validate
 
