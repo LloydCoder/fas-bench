@@ -6,7 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from fas_bench.remediation import (\n    SecurityState,\n    TestResult,\n    evaluate_regression,\n    evaluate_remediation,\n)
+from fas_bench.remediation import (
+    SecurityState,
+    TestResult,
+    evaluate_regression,
+    evaluate_remediation,
+)
 from fas_bench.graph import graph_digest
 
 ROOT = Path(__file__).parents[1]
@@ -21,7 +26,9 @@ def remediation(case_id: str) -> dict:
     return json.loads((CASES / case_id / "expected" / "remediation.json").read_text())
 
 
-def state(\n    case_id: str, status: str, graph_doc: dict, paths: list[dict], controls=None\n) -> SecurityState:
+def state(
+    case_id: str, status: str, graph_doc: dict, paths: list[dict], controls=None
+) -> SecurityState:
     return SecurityState(
         state_id=f"{case_id}-{status}",
         case_id=case_id,
@@ -49,7 +56,10 @@ def path(pid: str, status: str, impact: str = "impact", entry: str = "attacker")
 def test_complete_fix_requires_verified_evidence_and_functional_preservation():
     g = graph("FAS-019")
     baseline = state("FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")])
-    post = state(\n        "FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")],\n        [{"control_id": "sig", "effective": True}],\n    )
+    post = state(
+        "FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")],
+        [{"control_id": "sig", "effective": True}],
+    )
     result = evaluate_remediation(
         baseline, post, remediation("FAS-019"),
         security_tests=(TestResult("SEC-1", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
@@ -125,8 +135,14 @@ def test_unknown_is_not_remediated():
 
 def test_regression_detects_reopened_condition_and_weakened_control():
     g = graph("FAS-019")
-    secure = state(\n        "FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")],\n        [{"control_id": "sig", "effective": True}],\n    )
-    regressed = state(\n        "FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")],\n        [{"control_id": "sig", "effective": False}],\n    )
+    secure = state(
+        "FAS-019", "BLOCKED", g, [path("P-019-001", "BLOCKED")],
+        [{"control_id": "sig", "effective": True}],
+    )
+    regressed = state(
+        "FAS-019", "VIABLE", g, [path("P-019-001", "VIABLE")],
+        [{"control_id": "sig", "effective": False}],
+    )
     result = evaluate_regression(secure, regressed)
     assert result["status"] == "REGRESSED"
 
@@ -136,7 +152,10 @@ def test_secure_refactor_is_not_regression():
     secure = state("FAS-019", "BLOCKED", g, [path("P-019-001","BLOCKED")], [{"control_id":"sig","effective":True}])
     refactored = copy.deepcopy(g)
     refactored["nodes"][0]["name"] = "external-caller"
-    current = state(\n        "FAS-019", "BLOCKED", refactored, [path("P-019-001", "BLOCKED")],\n        [{"control_id": "sig", "effective": True}],\n    )
+    current = state(
+        "FAS-019", "BLOCKED", refactored, [path("P-019-001", "BLOCKED")],
+        [{"control_id": "sig", "effective": True}],
+    )
     result = evaluate_regression(secure, current)
     assert result["status"] == "NOT_REGRESSED"
 
@@ -155,4 +174,6 @@ def test_all_twenty_remediation_artifacts_are_loadable(number: int):
     data=remediation(case_id)
     assert data["remediation_id"].startswith("REM-")
     assert data["original_path_ids"]
-    assert data["verification_status"] in {\n        "NOT_ASSESSED", "PROPOSED", "APPLIED", "VERIFIED", "FAILED", "PARTIAL"\n    }
+    assert data["verification_status"] in {
+        "NOT_ASSESSED", "PROPOSED", "APPLIED", "VERIFIED", "FAILED", "PARTIAL"
+    }
