@@ -6,9 +6,9 @@ import sys
 from pathlib import Path
 
 from .cases import reproduce_all, validate_all
-from .evidence import evaluate_submission as evaluate_evidence_submission
 from .evaluator import evaluate_submission as evaluate_finding_submission
 from .evaluator.errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
+from .evidence import evaluate_submission as evaluate_evidence_submission
 from .validation import validate_file
 
 
