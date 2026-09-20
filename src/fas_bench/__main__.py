@@ -77,7 +77,9 @@ def main(argv=None):
             result = evaluate_finding_submission(args.submission, args.cases_root)
             payload = result.as_dict()
             if args.case_id != payload["case_id"]:
-                raise EvaluatorSubmissionError("SUBMISSION_ERROR: submission case_id does not match --case")
+                raise EvaluatorSubmissionError(
+                    "SUBMISSION_ERROR: submission case_id does not match --case"
+                )
             rendered = json.dumps(payload, indent=2, sort_keys=True)
             if args.output:
                 args.output.write_text(rendered + "\\n", encoding="utf-8")
