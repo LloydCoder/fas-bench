@@ -201,7 +201,7 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
     }
 
 
-def validate_all() -> dict[str, Any]:
+\ndef _count_by(items: list[dict[str, Any]], key: str) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for item in items:\n        value = item.get(key)\n        counts[value] = counts.get(value, 0) + 1\n    return counts\n\ndef validate_all() -> dict[str, Any]:
     registry = load_registry()
     registry_ids = [item["case_id"] for item in registry.get("cases", [])]
     errors: list[str] = []
