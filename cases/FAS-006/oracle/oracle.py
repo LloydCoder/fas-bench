@@ -19,12 +19,10 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
-server = HTTPServer(("127.0.0.1", 0), Handler)
+server = HTTPServer(("127.0.0.1", 0), Target) if False else HTTPServer(("127.0.0.1", 0), Handler)
 threading.Thread(target=server.serve_forever, daemon=True).start()
 try:
-    code = urllib.request.urlopen(
-        f"http://127.0.0.1:{server.server_port}/admin", timeout=2
-    ).status
+    code = urllib.request.urlopen(f"http://127.0.0.1:{server.server_port}/admin", timeout=2).status
 except urllib.error.HTTPError as exc:
     code = exc.code
 finally:
