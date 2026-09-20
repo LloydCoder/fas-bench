@@ -49,7 +49,7 @@ class TestResult:
         return value
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclass(frozen=True)
 class PathLifecycle:
     path_id: str
     lifecycle: str
@@ -73,7 +73,7 @@ class PathLifecycle:
         }
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclass(frozen=True)
 class AlternatePath:
     path_id: str
     classification: str
@@ -95,7 +95,7 @@ class AlternatePath:
         }
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclass(frozen=True)
 class SecurityState:
     state_id: str
     case_id: str
@@ -127,7 +127,7 @@ class SecurityState:
         }
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclass(frozen=True)
 class RemediationResult:
     remediation_id: str
     case_id: str
@@ -146,10 +146,10 @@ class RemediationResult:
     security_condition_diff: dict[str, Any] = field(default_factory=dict)
     security_controls: dict[str, Any] = field(default_factory=dict)
     test_results: tuple[TestResult, ...] = ()
-    dimensions: dict[str, float] = dataclasses.field(default_factory=dict)
+    dimensions: dict[str, float] = field(default_factory=dict)
     score: float | None = None
     diagnostics: tuple[str, ...] = ()
-    provenance: dict[str, str] = dataclasses.field(default_factory=dict)
+    provenance: dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.status not in REMEDIATION_STATUSES:
