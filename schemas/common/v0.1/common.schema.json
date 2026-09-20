@@ -207,7 +207,22 @@
         "REMEDIATION_BREAKS_PATH",
         "REMEDIATION_LEAVES_ALTERNATE_PATH",
         "INSUFFICIENT_EVIDENCE",
-        "CONTRADICTORY_EVIDENCE"
+        "CONTRADICTORY_EVIDENCE",
+        "EVIDENCE_VERIFIED",
+        "EVIDENCE_INVALID_PATH",
+        "EVIDENCE_INVALID_LINE",
+        "EVIDENCE_INVALID_COLUMN",
+        "EVIDENCE_INVALID_SYMBOL",
+        "EVIDENCE_SNIPPET_MISMATCH",
+        "EVIDENCE_VALUE_MISMATCH",
+        "EVIDENCE_RELATIONSHIP_MISMATCH",
+        "EVIDENCE_UNRESOLVED",
+        "EVIDENCE_CONTRADICTED",
+        "EVIDENCE_DUPLICATE",
+        "EVIDENCE_MISSING",
+        "EVIDENCE_PROVENANCE_INVALID",
+        "EVIDENCE_CASE_MISMATCH",
+        "EVIDENCE_SCHEMA_INVALID"
       ]
     },
     "NodeType": {
@@ -344,6 +359,9 @@
         },
         "digest": {
           "$ref": "#/$defs/ArtifactDigest"
+        },
+        "snippet": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -497,6 +515,26 @@
         "confidence",
         "status"
       ],
+      "additionalProperties": false
+    },
+    "EvidenceFact": {
+      "type": "object",
+      "properties": {
+        "artifact_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operator": {
+          "type": "string",
+          "enum": ["EQUALS"]
+        },
+        "value": {}
+      },
+      "required": ["artifact_path", "key", "operator", "value"],
       "additionalProperties": false
     },
     "Evidence": {
