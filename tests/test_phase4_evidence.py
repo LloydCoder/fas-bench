@@ -50,6 +50,10 @@ def test_evidence_identity_is_order_and_key_order_invariant():
         "location": {"line_end": 2, "line_start": 2, "file": "repository/app.py"},
     }
     assert evidence_identity(first) == evidence_identity(second)
+    first["description"] = "different prose"
+    first["verification"] = "INVALID"
+    first["observed_at"] = "2026-09-20T00:00:00Z"
+    assert evidence_identity(first) == evidence_identity(second)
     assert normalize_evidence(first)["location"]["file"] == "repository/app.py"
 
 
