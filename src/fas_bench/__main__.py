@@ -54,7 +54,9 @@ def main(argv=None):
             print(payload)
         else:
             print(
-                f"Evidence verification: case={result['case_id']} coverage={result['coverage']:.3f} integrity={result['evidence_hallucination_rate']:.3f}"
+                f"Evidence verification: case={result['case_id']} "
+                f"coverage={result['coverage']:.3f} "
+                f"integrity={result['evidence_hallucination_rate']:.3f}"
             )
         return 0
 
