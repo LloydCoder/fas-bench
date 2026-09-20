@@ -104,12 +104,8 @@ def test_run_identity_changes_with_policy_and_submission():
         environment_digest="f",
         execution_policy_digest="g",
     )
-    assert run_identity(**base) != run_identity(
-        **{**base, "submission_digest": "changed"}
-    )
-    assert run_identity(**base) != run_identity(
-        **{**base, "execution_policy_digest": "changed"}
-    )
+    assert run_identity(**base) != run_identity(**{**base, "submission_digest": "changed"})
+    assert run_identity(**base) != run_identity(**{**base, "execution_policy_digest": "changed"})
 
 
 def test_lifecycle_rejects_illegal_transition():
