@@ -14,5 +14,7 @@
   "evidence_ids": [
     "EVD-009-001"
   ],
-  "final_verdict": "EXPLOITABLE"
+  "final_verdict": "EXPLOITABLE",
+  "benchmark_version": "0.1.0",
+  "schema_version": "0.1"
 }
