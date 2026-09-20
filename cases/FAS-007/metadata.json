@@ -7,6 +7,6 @@
   "validation_type": "STATIC",
   "lifecycle_status": "VALIDATED",
   "provenance": "SYNTHETIC",
-  "artifact_digest": "4c9cbc2cc283a2cbab2f77b33d333e25edb3c5b0005b6b59cdb044ec9174c36f",
+  "artifact_digest": "881c6c2099cff8cd20096d1e6d064bc9892adc4f46bdd9dbf247ad59eb0e57d4",
   "oracle_version": "0.1.0"
 }

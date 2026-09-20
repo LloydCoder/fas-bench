@@ -34,7 +34,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "5ffad0f5eede8b90bd9346ec95bcf01f24bb91945cbbf16f3a1cc876b96396f7"
+      "artifact_digest": "73fe9562cfc91143a3a0adb5d74b13df82e15c5cda582f93607e94e2b1eae24f"
     },
     {
       "case_id": "FAS-002",
@@ -45,7 +45,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "c8e434c26d95bb2ee82f1c967cfe1cd0a5db6ed8bbb2051e9cfb68282383dba4"
+      "artifact_digest": "d1945646a848d68ccdb431939e2f9e85400b55e03d658472bbe2d6c86b7edbce"
     },
     {
       "case_id": "FAS-003",
@@ -56,7 +56,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "196170889231dc08d78083af6b43d77e43d1fbd7e39e5c6b65cd12d02437cf20"
+      "artifact_digest": "5aed03d82ec0cd5b05149da42087efda158ab280bf4318196f2aea069e7ea259"
     },
     {
       "case_id": "FAS-004",
@@ -67,7 +67,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "49faa8a667d0b103b3f83165808946dc21454264b88ac3212f07ce54fcdee28f"
+      "artifact_digest": "fb623723397db17c39062c39abd3cfee8f82a183f3e7634e0987c8374cfd83a5"
     },
     {
       "case_id": "FAS-005",
@@ -78,7 +78,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "26a9a1ffeca1532f590ec4c0ce3413f2909da2c66b6965b5ce630a4035ebcb8e"
+      "artifact_digest": "c60bb1812946010351e3fe8bebd32ba1939d81bf857108f148e616beea60639a"
     },
     {
       "case_id": "FAS-006",
@@ -89,7 +89,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "57e6f99c701419e4b2c4edf52c2aaeef5104ff38f52c92ea9d1162c8d2cc339b"
+      "artifact_digest": "a01ea550fc0ff405983c0c8ed45c39ac29137a6525404d0f62ed59602a2db394"
     },
     {
       "case_id": "FAS-007",
@@ -100,7 +100,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "4c9cbc2cc283a2cbab2f77b33d333e25edb3c5b0005b6b59cdb044ec9174c36f"
+      "artifact_digest": "881c6c2099cff8cd20096d1e6d064bc9892adc4f46bdd9dbf247ad59eb0e57d4"
     },
     {
       "case_id": "FAS-008",
@@ -111,7 +111,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "047725f85b0ca9be1be948f94cb47dee72fba176daa7dad2843a3a4d43ca9a13"
+      "artifact_digest": "ef1f685131b86f3668b1397a2c8833871a4d4c5b359cdbcd08feaa4f27cdda88"
     },
     {
       "case_id": "FAS-009",
@@ -122,7 +122,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "943f8539377c56c9b997080b8c58b97173c2e4b06e7ad3d33da683ce4ae369ff"
+      "artifact_digest": "a40da31622a56908b6e1973d79ca028bef12f7cf35bbf809ddbd03b37b0680de"
     },
     {
       "case_id": "FAS-010",
@@ -133,7 +133,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "9c0fa7ba1ea9b9e171ad6379575e70020f0e230b000df58f73e59009a4ac1142"
+      "artifact_digest": "95b9216a81761f8a490587930bdb323dd19bfc8bf09712459425df658ab99d5f"
     },
     {
       "case_id": "FAS-011",
@@ -144,7 +144,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "4200823e09f1f46b2d886f3cf58eef5915e0a6dc79f6e7d7f5ff057c5ca87f68"
+      "artifact_digest": "3eb4d592cf002cbf2bf0c2df546c13024ecafc9f30b6248dfa4e1ca5b9cb8af8"
     },
     {
       "case_id": "FAS-012",
@@ -155,7 +155,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "d886ecc3b171f94679a5a71e3a0f12e84c89b5e6cac9f56459561e4534956a4b"
+      "artifact_digest": "cbe0c762aaa1f812bd52269698a1d11c9b1138feefa8a815f748c082cc9af49b"
     },
     {
       "case_id": "FAS-013",
@@ -166,7 +166,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "ca490a8fa163053a4796f0d61aad7a89973214144df75d04064db7a46150adb6"
+      "artifact_digest": "58b027e3090cfaff94ccd9563ba72096baae779b730f0f29f516f006aa6c1ccf"
     },
     {
       "case_id": "FAS-014",
@@ -177,7 +177,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "417b360cc5fe0dba545f2f41136c0b3f57656c35e816c447a2d7e71bd68754db"
+      "artifact_digest": "b896a5f14c77276e78c20cbf1668b52a91e8f0c5968ef49e0da892a3aa06b459"
     },
     {
       "case_id": "FAS-015",
@@ -188,7 +188,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "cf7837a4456e2046add50c4a630cda98254e265a28ddf5b1b31d4c5ba080a5d1"
+      "artifact_digest": "c2cf506471bdb8215500592064c9e143e98ced5ff711941334d53e621ba519b4"
     },
     {
       "case_id": "FAS-016",
@@ -199,7 +199,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "dee5d88cec9e9cebfb41ebfa80286bee3dc4ae597d2d1d06337b1421da2e8bfa"
+      "artifact_digest": "9562129f0389a71ea3608daea4b849dfe9f207fc01e75b0611e8501e9a6ba6db"
     },
     {
       "case_id": "FAS-017",
@@ -210,18 +210,18 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "a86e050fd6607a5d70de49c62058844a665d5eb54e1bd897265eb0d64a60345c"
+      "artifact_digest": "1ccbb18b06575c3101fe7b19797e5289e62e7c23e9888edb54be58b8022205d2"
     },
     {
       "case_id": "FAS-018",
-      "title": "Agent → CI/CD → Production",
+      "title": "Agent \u2192 CI/CD \u2192 Production",
       "primary_category": "C9_CROSS_COMPONENT_ATTACK_PATHS",
       "secondary_categories": [],
       "difficulty": "L5_CROSS_SYSTEM",
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "91645e2c2763e461fe1b8bed11778ca3711dce60a8ed91b707b5c61299b44ec7"
+      "artifact_digest": "713a3492332e04c45e6df5da8f236ff9c5396295a58157ce14240bdb15b86c16"
     },
     {
       "case_id": "FAS-019",
@@ -232,7 +232,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "0976b90376c87b8dd33aa641dbab82073c97e2bdeb0c0df9b6f56061cafa12c3"
+      "artifact_digest": "f972efa51dd36a1ba4bdd8a1ea3be6c8b271cfa6be2b4888c7f712577c799d08"
     },
     {
       "case_id": "FAS-020",
@@ -243,7 +243,7 @@
       "lifecycle_status": "VALIDATED",
       "case_version": "0.1.0",
       "schema_version": "0.1",
-      "artifact_digest": "3cd826c2ef2687d2e596f7e2cfd449485a3615e3d1f09ed68aae3b04f1397c48"
+      "artifact_digest": "65c28daf81b4536c565ef8bc4aa65de0bb1c7ebc6628a54221956c66f61795f4"
     }
   ],
   "hidden_ground_truth": false,
