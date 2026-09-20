@@ -217,9 +217,7 @@ def validate_all() -> dict[str, Any]:
         errors.append("registry does not contain exactly FAS-001..FAS-020 in order")
 
     actual_dirs = sorted(
-        path.name
-        for path in CASES_ROOT.iterdir()
-        if path.is_dir() and path.name.startswith("FAS-")
+        path.name for path in CASES_ROOT.iterdir() if path.is_dir() and path.name.startswith("FAS-")
     )
     if actual_dirs != sorted(CASE_IDS):
         errors.append("case directories do not exactly match the registry")
@@ -237,13 +235,9 @@ def validate_all() -> dict[str, Any]:
     coverage = _load(coverage_path) if coverage_path.is_file() else {}
     if coverage.get("case_ids") != registry_ids:
         errors.append("coverage case_ids do not match registry")
-    if coverage.get("category_counts") != _count_by(
-        registry.get("cases", []), "primary_category"
-    ):
+    if coverage.get("category_counts") != _count_by(registry.get("cases", []), "primary_category"):
         errors.append("coverage category_counts do not match registry")
-    if coverage.get("difficulty_counts") != _count_by(
-        registry.get("cases", []), "difficulty"
-    ):
+    if coverage.get("difficulty_counts") != _count_by(registry.get("cases", []), "difficulty"):
         errors.append("coverage difficulty_counts do not match registry")
     verdict_counts = {
         key: 0
