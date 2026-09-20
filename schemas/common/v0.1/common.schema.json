@@ -222,7 +222,8 @@
         "EVIDENCE_MISSING",
         "EVIDENCE_PROVENANCE_INVALID",
         "EVIDENCE_CASE_MISMATCH",
-        "EVIDENCE_SCHEMA_INVALID"
+        "EVIDENCE_SCHEMA_INVALID",
+        "EVIDENCE_UNKNOWN_ID"
       ]
     },
     "NodeType": {
