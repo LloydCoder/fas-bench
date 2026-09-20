@@ -1,8 +1,9 @@
 """Public graph-domain result models."""
 
 from __future__ import annotations
+
 from dataclasses import dataclass, field
-from typing import Any
+
 from .errors import GraphDiagnostic, GraphLimits
 
 
@@ -25,15 +26,6 @@ class GraphValidationResult:
             "graph_digest": self.graph_digest,
         }
 
-        return {
-            "valid": self.valid,
-            "diagnostics": [d.as_dict() for d in self.diagnostics],
-            "node_count": self.node_count,
-            "edge_count": self.edge_count,
-            "path_count": self.path_count,
-            "graph_digest": self.graph_digest,
-        }
-
 
 @dataclass(frozen=True)
 class MetricSet:
@@ -45,15 +37,6 @@ class MetricSet:
     expected: int
 
     def as_dict(self):
-        return {
-            "precision": self.precision,
-            "recall": self.recall,
-            "f1": self.f1,
-            "true_positive": self.true_positive,
-            "submitted": self.submitted,
-            "expected": self.expected,
-        }
-
         return {
             "precision": self.precision,
             "recall": self.recall,
@@ -91,19 +74,6 @@ class GraphMetrics:
             "alternate_paths": [list(p) for p in self.alternate_paths],
         }
 
-        return {
-            "node_metrics": self.node.as_dict(),
-            "edge_metrics": self.edge.as_dict(),
-            "path_completeness": self.path_completeness,
-            "boundary_crossing_metrics": self.boundary.as_dict(),
-            "graph_score": self.graph_score,
-            "unsupported_edges": list(self.unsupported_edges),
-            "contradictory_edges": list(self.contradictory_edges),
-            "missing_transitions": list(self.missing_transitions),
-            "matched_paths": list(self.matched_paths),
-            "alternate_paths": [list(p) for p in self.alternate_paths],
-        }
-
 
 @dataclass(frozen=True)
 class GraphEvaluation:
@@ -116,16 +86,6 @@ class GraphEvaluation:
     versions: dict[str, str] = field(default_factory=dict)
 
     def as_dict(self):
-        return {
-            "valid": self.valid,
-            "validation": self.validation.as_dict(),
-            **self.metrics.as_dict(),
-            "graph_digest": self.graph_digest,
-            "expected_graph_digest": self.expected_graph_digest,
-            "case_digest": self.case_digest,
-            "versions": dict(self.versions),
-        }
-
         return {
             "valid": self.valid,
             "validation": self.validation.as_dict(),
