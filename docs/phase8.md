@@ -14,7 +14,7 @@ The provisional v0.1 evidence score is:
 
 0.35 validity + 0.30 relevance + 0.20 coverage + 0.15 specificity
 
-The weights are versioned configuration, not scientifically validated constants.
+The weights are versioned configuration in the packaged Phase 8 scoring resource, not scientifically validated constants.
 
 ### Integrity policy
 
