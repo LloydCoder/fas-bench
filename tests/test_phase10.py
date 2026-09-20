@@ -92,7 +92,8 @@ def test_release_manifest_is_content_addressed():
     manifest = build_release_manifest(ROOT, "0.1.0-phase10-dev")
     assert len(manifest["release_digest"]) == 64
     assert manifest["case_ids"] == list(CASE_IDS)
-    assert validate_release_manifest(ROOT, manifest)["status"] == "PASS"
+    result = validate_release_manifest(ROOT, manifest)
+    assert result["status"] == "PASS", result["errors"]
 
 
 def test_health_does_not_overclaim():
