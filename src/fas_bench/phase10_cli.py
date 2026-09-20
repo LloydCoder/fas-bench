@@ -1,3 +1,4 @@
+# fmt: off
 """Phase 10 command surface. All outputs are deterministic JSON unless noted."""
 
 from __future__ import annotations
