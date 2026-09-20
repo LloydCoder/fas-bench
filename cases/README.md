@@ -41,3 +41,8 @@ The initial gold cases use DYNAMIC security-property validation through loopback
 ## Phase 4 evidence contract
 
 Every initial case now carries an independently verifiable expected-evidence fact. The fact references a case-local artifact and structured key/value, allowing the evidence engine to verify the ground-truth evidence itself without hard-coded case logic.
+
+
+## Phase 5 self-evaluation
+
+Every public case can be evaluated with a synthetic gold submission through the generic evaluator. The evaluator derives the authoritative verdict from declarative path, condition, control, and remediation state and rejects case-specific evaluator branches. FAS-001/FAS-006 exercise false-positive resistance; FAS-008 exercises explicit conditionality; FAS-012 exercises UNKNOWN; FAS-013/FAS-019/FAS-020 exercise remediation semantics. These cases remain public development data and are not a hidden evaluation set.
