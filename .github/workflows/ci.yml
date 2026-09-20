@@ -45,7 +45,7 @@ jobs:
       - name: Evidence engine CLI smoke test
         run: fas-bench evidence validate tests/fixtures/integrated/FAS-001.json --case FAS-001 --json
       - name: Verdict engine CLI smoke test
-        run: fas-bench evaluate finding --case FAS-001 --submission tests/fixtures/integrated/FAS-001-gold.json --strict --json
+        run: fas-bench evaluate finding --case FAS-001 --submission tests/fixtures/phase5/FAS-001-gold.json --strict --json
       - name: Gold reproduction
         run: fas-bench cases validate-gold --reproduce
       - name: Repository contract
