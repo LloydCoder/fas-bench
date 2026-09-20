@@ -79,7 +79,7 @@ def sha256_json(value: Any) -> str:
 
 def digest_tree(root: Path, *, exclude: Iterable[str] = ()) -> str:
     root = root.resolve()
-    excluded = set(exclude)
+    excluded = set(exclude) | {".git", "__pycache__", ".pytest_cache"}
     entries = []
     for path in root.rglob("*"):
         if not path.is_file():
