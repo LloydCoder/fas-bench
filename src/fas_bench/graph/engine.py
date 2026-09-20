@@ -67,8 +67,10 @@ def graph_digest(graph: dict[str, Any]) -> str:
 
 
 def _metric(tp: int, submitted: int, expected: int) -> MetricSet:
+    if submitted == 0 and expected == 0:
+        return MetricSet(1.0, 1.0, 1.0, 0, 0, 0)
     p = tp / submitted if submitted else 0.0
-    r = tp / expected if expected else (1.0 if submitted == 0 else 0.0)
+    r = tp / expected if expected else 0.0
     f = 2 * p * r / (p + r) if p + r else 0.0
     return MetricSet(p, r, f, tp, submitted, expected)
 
