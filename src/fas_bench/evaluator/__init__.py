@@ -4,6 +4,7 @@ from .engine import (
     evaluate_claims,
     evaluate_finding,
     evaluate_submission,
+    evaluate_submission_document,
     evaluate_verdict,
     resolve_security_condition,
 )
@@ -24,6 +25,7 @@ __all__ = [
     "evaluate_claims",
     "evaluate_finding",
     "evaluate_submission",
+    "evaluate_submission_document",
     "evaluate_verdict",
     "resolve_security_condition",
 ]
