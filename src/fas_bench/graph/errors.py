@@ -1,31 +1,8 @@
 """Structured graph-engine diagnostics and limits."""
 
 from __future__ import annotations
-from dataclasses import dataclass
 
-GRAPH_ERROR_CODES = frozenset(
-    {
-        "INVALID_SUBMISSION",
-        "INVALID_SCHEMA",
-        "INVALID_GRAPH",
-        "DANGLING_REFERENCE",
-        "DUPLICATE_NODE",
-        "DUPLICATE_EDGE",
-        "UNSUPPORTED_VERSION",
-        "UNSUPPORTED_NODE",
-        "UNSUPPORTED_EDGE",
-        "INVALID_PATH",
-        "DISCONNECTED_PATH",
-        "UNSUPPORTED_EVIDENCE",
-        "CONTRADICTORY_EVIDENCE",
-        "CROSS_CASE_REFERENCE",
-        "GRAPH_LIMIT_EXCEEDED",
-        "PATH_LIMIT_EXCEEDED",
-        "EVALUATOR_ERROR",
-        "DUPLICATE_PATH",
-        "CASE_MISMATCH",
-    }
-)
+from dataclasses import dataclass
 
 GRAPH_ERROR_CODES = frozenset(
     {
@@ -67,13 +44,6 @@ class GraphDiagnostic:
             "severity": self.severity,
         }
 
-        return {
-            "code": self.code,
-            "path": self.path,
-            "message": self.message,
-            "severity": self.severity,
-        }
-
 
 @dataclass(frozen=True)
 class GraphLimits:
@@ -88,9 +58,6 @@ class GraphLimits:
 class GraphValidationError(ValueError):
     def __init__(self, diagnostics: tuple[GraphDiagnostic, ...]):
         self.diagnostics = diagnostics
-        super().__init__(
-            "graph validation failed: " + "; ".join(d.message for d in diagnostics[:5])
-        )
         super().__init__(
             "graph validation failed: " + "; ".join(d.message for d in diagnostics[:5])
         )
