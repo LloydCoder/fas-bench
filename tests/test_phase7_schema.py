@@ -1,14 +1,9 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
 from jsonschema import Draft202012Validator
 
 from fas_bench.validation import load_schema, validate
 
-ROOT = Path(__file__).parents[1]
-SCHEMA = ROOT / "schemas/remediation-evaluation/v0.1/remediation-evaluation.schema.json"
 
 
 def test_phase7_schema_is_valid():
@@ -17,7 +12,6 @@ def test_phase7_schema_is_valid():
 
 
 def test_phase7_result_shape_validates():
-    schema = load_schema("remediation-evaluation")
     payload = {
         "remediation_id": "REM-TEST",
         "case_id": "FAS-002",
