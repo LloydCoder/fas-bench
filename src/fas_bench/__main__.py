@@ -120,7 +120,7 @@ def main(argv=None):
     secure_parser.add_argument("--case", required=True)
     secure_parser.add_argument("--submission-id", required=True)
     secure_parser.add_argument("--image", required=True)
-    secure_parser.add_argument("--command", nargs="+", required=True)
+    secure_parser.add_argument("--command", dest="exec_command", nargs="+", required=True)
     secure_parser.add_argument("--input", type=Path)
     secure_parser.add_argument("--output", type=Path)
 
@@ -392,7 +392,7 @@ def main(argv=None):
             result = runner.execute(ExecutionRequest(
                 case_id=args.case,
                 submission_id=args.submission_id,
-                command=tuple(args.command),
+                command=tuple(args.exec_command),
                 input_files=input_files,
             ))
             rendered = json.dumps(result.as_dict(), indent=2, sort_keys=True)
