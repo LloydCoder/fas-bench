@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://fas-bench.dev/schemas/release-validation/v0.1/release-validation.schema.json","type":"object","additionalProperties":false,"required":["status","errors"],"properties":{"status":{"enum":["PASS","FAIL"]},"errors":{"type":"array","items":{"type":"string"}}}}
