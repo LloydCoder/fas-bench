@@ -387,7 +387,9 @@ def calculate_graph_metrics(
         + weights[3] * boundary.f1
     )
     if not submitted.get("nodes") and not submitted.get("edges") and not submitted.get("paths"):
-        score = 0.0 if expected.get("nodes") or expected.get("edges") or expected.get("paths") else 1.0
+        score = (
+            0.0 if expected.get("nodes") or expected.get("edges") or expected.get("paths") else 1.0
+        )
     if unsupported:
         score = min(score, max(0.0, score - 0.05 * len(unsupported)))
     if contradictory:
