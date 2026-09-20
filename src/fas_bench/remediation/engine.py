@@ -370,6 +370,8 @@ def evaluate_remediation(
         regression_status=regression_status,
         new_findings_status=new_status,
         evidence_integrity=evidence_status,
+        benchmark_version=baseline.benchmark_version,
+        schema_version=REMEDIATION_SCHEMA_VERSION,
         path_lifecycles=lifecycles,
         alternate_paths=alternates,
         graph_diff=graph_diff,
