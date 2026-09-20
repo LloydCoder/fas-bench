@@ -21,3 +21,8 @@ Case execution introduces risks from malicious benchmark artifacts, dependency c
 ## Phase 3 case execution controls
 
 The initial dynamic gold cases execute only local synthetic HTTP targets bound to loopback. They do not require public Internet access, real credentials, cloud accounts, host mounts, Docker sockets, or privileged containers. Case validation treats oracle failures as infrastructure errors rather than security verdicts. The Phase 3 oracle harness executes case oracles in a pinned, network-disabled, read-only container with dropped capabilities, no-new-privileges, CPU/memory/PID limits, and no host Docker socket. These controls apply to the CI-validated initial public corpus.
+
+
+## Phase 4 evidence-engine threats and controls
+
+The evaluator treats submissions and case artifacts as untrusted data. Controls include case-root path confinement, traversal and absolute-path rejection, NUL rejection, schema validation, deterministic canonicalization, no execution of evidence fields, case-integrity verification before trust, cross-case identity binding, duplicate detection, and stable machine-readable reason codes. Symlink resolution is checked after canonical path resolution so an artifact cannot escape the case root.
