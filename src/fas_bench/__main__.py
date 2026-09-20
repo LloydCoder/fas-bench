@@ -211,8 +211,6 @@ def main(argv=None):
             if args.remediation_command == "diff":
                 before = json.loads(args.before.read_text(encoding="utf-8"))
                 after = json.loads(args.after.read_text(encoding="utf-8"))
-                from .graph import diff_graphs
-
                 print(json.dumps(diff_graphs(before, after), indent=2, sort_keys=True))
                 return 0
             if args.remediation_command == "regression":
