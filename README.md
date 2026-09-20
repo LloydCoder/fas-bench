@@ -4,9 +4,17 @@
 > Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.
 
 ## Status
-**Phase 3 — Gold Cases & Ground Truth: release candidate; CI-validated.**
+**Phase 4 — Deterministic Evidence Engine: CI-validated implementation candidate.**
 
 FAS-Bench is an independent benchmark. FAS is one candidate evaluated system and is not a dependency, reference implementation, or source of ground truth.
+
+## Phase 4 evidence engine
+
+The deterministic evidence engine verifies submitted evidence against authoritative case artifacts. It canonicalizes evidence, computes stable content-derived identities, safely resolves case-relative artifacts, verifies structured facts and source locations, detects duplicates and relationship mismatches, and reports verified/invalid/unresolved/contradicted/missing evidence with raw coverage and integrity statistics. A verified evidence item establishes an underlying fact; it does not by itself establish exploitability or the final security verdict.
+
+Evidence validation command:
+
+`fas-bench evidence validate tests/fixtures/integrated/FAS-001.json --case FAS-001 --json`
 
 ## Phase 3 corpus
 
@@ -27,7 +35,7 @@ The Phase 1 conceptual contract is now encoded as JSON Schema Draft 2020-12 fami
 Schema-valid != semantically-valid != benchmark-correct.
 
 ## Public/hidden boundary
-Submissions contain system beliefs and structured evidence. They must not contain expected verdicts or hidden evaluator truth. Public case metadata remains separate from hidden ground truth.
+The FAS-001 through FAS-020 corpus is public development data, so its gold facts are not a hidden evaluation set. The evidence engine does not expose additional hidden truth through diagnostics. Future benchmark releases must use held-out or otherwise contamination-resistant evaluation data.
 
 ## Canonical categories
 C1_REACHABILITY, C2_DATA_FLOW_TAINT, C3_AUTHENTICATION_AUTHORIZATION, C4_AI_AGENT_SECURITY, C5_MCP_SECURITY, C6_SUPPLY_CHAIN, C7_SECRETS_SENSITIVE_DATA, C8_INFRASTRUCTURE_CLOUD, C9_CROSS_COMPONENT_ATTACK_PATHS, C10_REMEDIATION_REGRESSION.
