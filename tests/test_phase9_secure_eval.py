@@ -1,5 +1,3 @@
-import json
-
 import pytest
 
 from fas_bench.secure_eval.archive import safe_relative_path, write_inputs
@@ -7,7 +5,7 @@ from fas_bench.secure_eval.artifacts import ArtifactSecurityError, collect_artif
 from fas_bench.secure_eval.cache import EvaluationCache
 from fas_bench.secure_eval.identity import run_identity
 from fas_bench.secure_eval.lifecycle import LifecycleError, LifecycleState, RunLifecycle
-from fas_bench.secure_eval.models import ExecutionPolicy, ExecutionRequest, FailureCode
+from fas_bench.secure_eval.models import Artifact, ExecutionPolicy, ExecutionRequest, ExecutionResult, FailureCode
 from fas_bench.secure_eval.runner import SecureRunner
 from fas_bench.secure_eval.verification import IntegrityError, verify_result
 
@@ -75,9 +73,6 @@ def test_lifecycle_rejects_illegal_transition():
 
 def test_result_verifier_rejects_bad_artifact_path():
     r = SecureRunner(ExecutionPolicy(PINNED), docker_binary="fas-bench-no-such-docker").execute(ExecutionRequest("FAS-001", "SUB-1", ("/bin/true",)))
-    bad = json.loads(json.dumps(r.as_dict()))
-    bad["artifacts"] = [{"path": "../secret", "sha256": "a" * 64, "size": 1, "type": "file", "producer": "candidate", "trust_level": "UNTRUSTED"}]
-    from fas_bench.secure_eval.models import Artifact, ExecutionResult
     forged = ExecutionResult(**{**r.as_dict(), "artifacts": (Artifact("../secret", "a" * 64, 1),)})
     with pytest.raises(IntegrityError):
         verify_result(forged)
