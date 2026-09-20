@@ -5,7 +5,7 @@ from fas_bench.cases import reproduce_all, run_oracle, validate_all
 
 def test_phase3_registry_and_packages_validate():
     result = validate_all()
-    assert result["status"] == "PASS", json.dumps(result, indent=2)
+    assert result["status"] == "PASS", result
 
 
 def test_phase3_oracles_match_ground_truth():
