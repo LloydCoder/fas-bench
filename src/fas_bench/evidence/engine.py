@@ -11,12 +11,12 @@ from ..cases import _digest_case, validate_case_package
 from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
 from ..validation import validate
 from .errors import CaseIntegrityError, CaseLoadError, SubmissionError
-from .models import EvidenceItemResult, EvidenceVerificationResult
-from .normalization import evidence_identity, normalize_evidence
-from .resolver import read_fact, safe_resolve, verify_location
-from .relationships import relationship_errors
 from .coverage import calculate_coverage
 from .integrity import calculate_integrity
+from .models import EvidenceItemResult, EvidenceVerificationResult
+from .normalization import evidence_identity, normalize_evidence
+from .relationships import relationship_errors
+from .resolver import read_fact, safe_resolve, verify_location
 
 
 def _cases_root(cases_root: Path | None) -> Path:
