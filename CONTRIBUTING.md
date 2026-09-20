@@ -22,3 +22,7 @@ New or changed cases must include a falsifiable security hypothesis, explicit at
 ## Phase 3 validation states
 
 A case remains IN_REVIEW until schema, semantic, reproducibility, oracle, integrity, and security gates pass. Do not mark a case VALIDATED manually. Gold cases require mutation sensitivity. Dynamic cases must use controlled local targets and deterministic cleanup.
+
+## Phase 4 evidence contributions
+
+Evidence changes must remain deterministic and benchmark-independent. New expected evidence must identify an authoritative case artifact and structured fact where the fact can be deterministically observed. Add positive, negative, boundary, duplicate, contradiction, missing, tampering, and ordering-invariance tests as appropriate. Never execute submission evidence fields. Run the complete case validation and evidence test suite before opening a pull request.
