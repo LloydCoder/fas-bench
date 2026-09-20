@@ -1,6 +1,7 @@
 # fmt: off
 # ruff: noqa: E701,E702,I001,UP035
 from __future__ import annotations
+
 from dataclasses import dataclass
 
 @dataclass
