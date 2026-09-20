@@ -10,9 +10,11 @@ from fas_bench.evidence import (
     calculate_integrity,
     evidence_identity,
     load_case,
+    load_submission,
     normalize_evidence,
     verify_evidence,
 )
+from fas_bench.evidence.errors import CaseLoadError
 
 ROOT = Path(__file__).parents[1]
 CASES = ROOT / "cases"
@@ -137,3 +139,50 @@ def test_expected_fact_is_real_case_state(number: int):
     fact = evidence["fact"]
     state = json.loads((CASES / case_id / fact["artifact_path"]).read_text(encoding="utf-8"))
     assert state[fact["key"]] == fact["value"]
+
+
+def test_relationship_mutation_is_rejected():
+    case = load_case("FAS-001", CASES)
+    submission = dict(case["expected_evidence"][0])
+    submission["related_claims"] = ["CLM-not-the-gold-claim"]
+    result = verify_evidence(case, [submission])
+    assert result.invalid == 1
+    assert result.items[0].reason_code == "EVIDENCE_RELATIONSHIP_MISMATCH"
+
+
+def test_absolute_and_nul_paths_are_rejected(tmp_path: Path):
+    from fas_bench.evidence.resolver import safe_resolve
+
+    with pytest.raises(CaseLoadError):
+        safe_resolve(tmp_path, "/etc/passwd")
+    with pytest.raises(CaseLoadError):
+        safe_resolve(tmp_path, "bad\\x00path")
+
+
+def test_symlink_escape_is_rejected(tmp_path: Path):
+    root = tmp_path / "case"
+    outside = tmp_path / "outside.txt"
+    root.mkdir()
+    outside.write_text("secret", encoding="utf-8")
+    link = root / "escape.txt"
+    link.symlink_to(outside)
+    with pytest.raises(CaseLoadError):
+        from fas_bench.evidence.resolver import safe_resolve
+        safe_resolve(root, "escape.txt")
+
+
+def test_malformed_submission_is_rejected(tmp_path: Path):
+    path = tmp_path / "submission.json"
+    path.write_text("{not-json", encoding="utf-8")
+    with pytest.raises(Exception):
+        load_submission(path)
+
+
+def test_benchmark_package_has_no_evaluated-system_dependency():
+    source = "\\n".join(
+        path.read_text(encoding="utf-8").lower()
+        for path in (ROOT / "src" / "fas_bench" / "evidence").glob("*.py")
+    )
+    assert "threatfade" not in source
+    assert "tinlance" not in source
+    assert "import fas" not in source
