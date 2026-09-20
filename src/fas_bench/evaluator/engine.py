@@ -8,7 +8,7 @@ import math
 from pathlib import Path
 from typing import Any
 
-from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
+from ..contract import BENCHMARK_VERSION, SCHEMA_VERSION
 from ..evidence import load_case, load_submission, verify_evidence
 from ..evidence.errors import CaseIntegrityError, CaseLoadError
 from .errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
@@ -131,7 +131,7 @@ def _expected_claims_for_submission(
     # A submission may contain contradictory assertions with the same structured subject/predicate.
     grouped: dict[tuple[Any, ...], list[ClaimEvaluation]] = {}
     for evaluation, claim in zip(
-        evaluations, sorted(submission_claims, key=lambda item: item["claim_id"])
+        evaluations, sorted(submission_claims, key=lambda item: item["claim_id"]), strict=True
     ):
         grouped.setdefault(_claim_key(claim), []).append(evaluation)
     for group in grouped.values():
@@ -345,7 +345,6 @@ def _expected_support(
     expected_claim_ids = {claim["claim_id"] for claim in ground_truth["claims"]}
     expected_evidence_ids = set(ground_truth["verdict"].get("evidence_ids", []))
     required_conditions = set(condition.required_conditions)
-    satisfied_conditions = set(condition.satisfied_conditions)
 
     supporting_claims = tuple(sorted(expected_claim_ids & verified_claims))
     blocking_claims = tuple(sorted(expected_claim_ids - set(supporting_claims)))
