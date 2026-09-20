@@ -1,6 +1,7 @@
 """Deterministic attack-path and security-graph evaluation engine."""
 
 from __future__ import annotations
+
 import hashlib
 import json
 from collections import defaultdict, deque
