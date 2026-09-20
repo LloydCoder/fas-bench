@@ -24,3 +24,8 @@ The validated initial cases prioritize causal clarity and reproducibility over c
 ## Phase 3 validation methodology
 
 The corpus is a controlled experimental set, not a statistical sample of real-world vulnerabilities. Gold cases combine structured security-model evidence with executable security-property tests. Dynamic oracles exercise local synthetic targets; mutation tests verify oracle sensitivity to security-semantic changes. Public ground truth is deliberately acknowledged as a contamination risk, so later evaluation must use held-out or undisclosed variants.
+
+
+## Phase 4 methodology
+
+FAS-Bench separates observation, evidence, claim, security property, and verdict. Phase 4 verifies only the evidence layer. Canonicalization removes representation differences without erasing security-relevant distinctions. Evidence identity is content-derived, duplicate evidence is preserved for auditability but cannot inflate coverage, and missing evidence is not treated as invalid evidence. Later phases consume the structured result rather than reimplementing evidence resolution.
