@@ -83,15 +83,31 @@ def _path_lifecycles(baseline: SecurityState, post: SecurityState, original_ids:
         if b is None:
             result.append(PathLifecycle(pid, "UNKNOWN", None, ass, reason="baseline path missing"))
         elif a is None:
-            result.append(\n                PathLifecycle(pid, "REMOVED", bs, None, reason="path absent after remediation")\n            )
+            result.append(
+                PathLifecycle(pid, "REMOVED", bs, None, reason="path absent after remediation")
+            )
         elif bs in {"VIABLE", "COMPLETE"} and ass in {"BLOCKED", "INCOMPLETE"}:
-            result.append(\n                PathLifecycle(\n                    pid, "REMOVED", bs, ass, reason="path remains represented but is blocked"\n                )\n            )
+            result.append(
+                PathLifecycle(
+                    pid, "REMOVED", bs, ass, reason="path remains represented but is blocked"
+                )
+            )
         elif bs in {"BLOCKED", "INCOMPLETE"} and ass in {"VIABLE", "COMPLETE"}:
-            result.append(\n                PathLifecycle(\n                    pid, "REINTRODUCED", bs, ass, reason="previously blocked path became viable"\n                )\n            )
+            result.append(
+                PathLifecycle(
+                    pid, "REINTRODUCED", bs, ass, reason="previously blocked path became viable"
+                )
+            )
         elif bs == ass:
-            result.append(\n                PathLifecycle(pid, "PERSISTING", bs, ass, reason="security path status persisted")\n            )
+            result.append(
+                PathLifecycle(pid, "PERSISTING", bs, ass, reason="security path status persisted")
+            )
         else:
-            result.append(\n                PathLifecycle(\n                    pid, "UNKNOWN", bs, ass, reason="path transition is not deterministically classified"\n                )\n            )
+            result.append(
+                PathLifecycle(
+                    pid, "UNKNOWN", bs, ass, reason="path transition is not deterministically classified"
+                )
+            )
     return tuple(result)
 
 
@@ -170,23 +186,34 @@ def evaluate_remediation(
     if baseline.case_id != post.case_id:
         return _benchmark_error(remediation, baseline.case_id, "baseline/post case mismatch")
     if baseline.condition_id != post.condition_id:
-        return _benchmark_error(\n            remediation, baseline.case_id, "security-condition identity mismatch"\n        )
+        return _benchmark_error(
+            remediation, baseline.case_id, "security-condition identity mismatch"
+        )
     if baseline.benchmark_version != post.benchmark_version:
         return _benchmark_error(remediation, baseline.case_id, "benchmark version mismatch")
     bv = validate_graph(baseline.graph, case_id=baseline.case_id)
     pv = validate_graph(post.graph, case_id=post.case_id)
     if not bv.valid or not pv.valid:
-        return _benchmark_error(\n            remediation, baseline.case_id, "invalid baseline or post-remediation graph"\n        )
+        return _benchmark_error(
+            remediation, baseline.case_id, "invalid baseline or post-remediation graph"
+        )
     original_ids = set(remediation.get("original_path_ids", []))
     if not original_ids:
-        return _benchmark_error(\n            remediation, baseline.case_id, "no remediation target paths declared"\n        )
+        return _benchmark_error(
+            remediation, baseline.case_id, "no remediation target paths declared"
+        )
     lifecycles = _path_lifecycles(baseline, post, original_ids)
     alternates = _classify_alternates(baseline, post, original_ids)
     security_status = _aggregate_tests(tuple(security_tests), "SECURITY")
     functional_status = _aggregate_tests(tuple(functional_tests), "FUNCTIONAL")
     regression_status = _aggregate_tests(tuple(regression_tests), "REGRESSION")
     new_status = _aggregate_tests(tuple(new_finding_tests), "NEW_")
-    all_tests = (\n        tuple(security_tests)\n        + tuple(functional_tests)\n        + tuple(regression_tests)\n        + tuple(new_finding_tests)\n    )
+    all_tests = (
+        tuple(security_tests)
+        + tuple(functional_tests)
+        + tuple(regression_tests)
+        + tuple(new_finding_tests)
+    )
     evidence_status = _evidence_integrity(evidence)
     controls = _control_diff(baseline, post)
     condition_diff = _security_condition_diff(baseline, post)
@@ -240,7 +267,16 @@ def evaluate_remediation(
         status = "REMEDIATION_FAILED"
     elif conditional:
         status = "CONDITIONALLY_REMEDIATED"
-    elif (\n        path_closed\n        and alternate_closed\n        and security_ok\n        and functional_ok\n        and regression_ok\n        and new_ok\n        and controls_ok\n        and evidence_status == "VERIFIED"\n    ):
+    elif (
+        path_closed
+        and alternate_closed
+        and security_ok
+        and functional_ok
+        and regression_ok
+        and new_ok
+        and controls_ok
+        and evidence_status == "VERIFIED"
+    ):
         status = "REMEDIATED"
     else:
         status = "UNKNOWN"
