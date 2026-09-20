@@ -39,3 +39,8 @@ The evaluation-result schema now represents Phase 5 finding evaluation, per-clai
 ## Phase 6 graph extensions
 
 The attack-graph family remains authoritative. Phase 6 extends the shared GraphNode, GraphEdge, AttackPath, and TrustBoundary definitions with optional abstraction, security-relevance, alias, evidence, control, identity-transition, and security-semantic fields. Existing Phase 1–5 graph documents remain schema-valid.
+
+
+## Phase 7 schemas
+
+`schemas/remediation/v0.1` remains the authoritative case-remediation declaration. `schemas/remediation-evaluation/v0.1` defines the deterministic output contract of the Phase 7 oracle. The latter is referenced by the evaluation-result schema and registered with offline schema validation.
