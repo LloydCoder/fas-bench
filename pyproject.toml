@@ -26,3 +26,4 @@ line-length=100
 target-version="py312"
 [tool.ruff.lint]
 select=["E","F","I","UP","B"]
+per-file-ignores={"src/fas_bench/secure_eval/*.py"=["E501"],"tests/test_phase9_secure_eval.py"=["E501"]}
