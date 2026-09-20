@@ -58,3 +58,10 @@ Phase 6 inserts a first-class graph substrate after evidence/claim adjudication:
 Case → Evidence → Claims → Security Graph → Effective Security Graph → Attack Paths → Boundary/Control Analysis → Verdict/Scoring → Remediation/Regression
 
 The graph engine owns canonical graph representation, deterministic validation, identity, traversal limits, path analysis, graph matching, and graph diffing. Phase 4 remains the sole evidence-verification authority; Phase 5 remains the verdict/finding adjudication layer. Phase 6 does not hard-code individual case identifiers.
+
+
+## Phase 7 architecture
+
+Baseline security state → post-remediation security state → graph/path diff → alternate-path analysis → security-condition diff → security/functional/regression tests → evidence-integrity gate → remediation verdict.
+
+Phase 4 owns evidence verification; Phase 5 owns finding/verdict adjudication; Phase 6 owns graph semantics; Phase 7 owns remediation/regression adjudication; Phase 9 will own untrusted candidate execution and sandboxing. Phase 7 never imports or executes FAS.

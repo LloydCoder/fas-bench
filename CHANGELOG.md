@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — Phase 7: Remediation & Regression Engine
+
+CI validation is required before merge; Phase 7 requires security-condition closure, required security/functional verification, alternate-path analysis, evidence integrity, and regression checks.
+
+### Added
+- Deterministic baseline/post-remediation security-state models and remediation/regression oracle.
+- Required PASS security and functional verification gates; missing required tests remain UNKNOWN.
+- Semantic path lifecycle classification, equivalent-impact alternate-path detection, control weakening detection, evidence-integrity gating, and reproducible evaluation provenance.
+- Versioned remediation-evaluation outputs, local schema-resolution tests, and the canonical valid remediation-evaluation fixture.
+
 ## Unreleased — Phase 5: Verdict & Finding Evaluator
 
 CI validation is required before merge; no scoring fields are manufactured by Phase 5.
@@ -60,3 +70,12 @@ All notable changes to FAS-Bench are documented here.
 - Node/edge/path/boundary dimensions remain separate from verdict correctness.
 - Graph scoring weights are explicit and versioned methodology configuration; they are not scientifically validated constants.
 - Unsupported fabricated edges and contradictory security transitions cannot manufacture graph credit.
+
+
+## Unreleased — Phase 7: Remediation & Regression Engine
+
+- Added deterministic baseline/post-remediation security-state models and remediation oracle.
+- Added semantic path lifecycle classification, equivalent-impact alternate-path detection, control weakening detection, functional-preservation checks, regression evaluation, evidence-integrity gating, content-derived run identity, and provisional raw remediation dimensions.
+- Added remediation evaluation schema and CLI commands.
+- Added adversarial, overblocking, cosmetic-fix, evidence-fabrication, alternate-path, regression, and all-20 remediation-artifact tests.
+- Phase 7 does not execute candidate code; secure patch execution and isolation remain Phase 9 responsibilities.

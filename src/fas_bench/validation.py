@@ -26,6 +26,7 @@ FAMILY_PATHS = {
         "remediation",
         "submission",
         "evaluation-result",
+        "remediation-evaluation",
     )
 }
 

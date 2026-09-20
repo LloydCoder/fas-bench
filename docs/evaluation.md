@@ -63,3 +63,10 @@ Reported dimensions are Node Precision/Recall/F1, Edge Precision/Recall/F1, Path
 Serialization, node-order, and edge-order changes are intentionally non-semantic. Security-critical identity, authorization, control, trust-boundary, sink, impact, and capability distinctions remain material. Finite limits prevent path-explosion and graph-bomb denial of service.
 
 Graph diffing reports added/removed/changed nodes and edges for remediation/regression consumers; it does not independently declare remediation success.
+
+
+## Phase 7 evaluation
+
+The remediation result is multidimensional rather than a single opaque verdict. It exposes security-condition resolution, attack-path resolution, alternate-path resolution, control effectiveness, security-test success, functional preservation, regression resistance, and evidence integrity. The provisional score is the unweighted arithmetic mean of these raw dimensions and is explicitly versioned for later calibration.
+
+A test status of ERROR, TIMEOUT, or UNRESOLVED is not a security pass. Required security and functional tests must be present and PASS before a remediation can receive REMEDIATED status; missing tests produce UNKNOWN rather than credit. Candidate self-reports are never authoritative.

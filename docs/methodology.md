@@ -43,3 +43,8 @@ UNKNOWN means the authoritative condition cannot be concluded. CONDITIONAL requi
 Node matching alone is insufficient because a system can identify the right entities without proving how control or authority moves between them. Edge matching alone is insufficient because a graph can contain locally correct relationships while omitting the complete attack chain. Shortest-path matching is insufficient because a shorter route can erase an authorization or trust-boundary transition that determines exploitability. Text similarity is insufficient because equivalent security reasoning may be represented with different labels while materially different privilege or control semantics may share similar prose.
 
 Phase 6 therefore evaluates semantic nodes, typed directed edges, ordered attack paths, trust-boundary crossings, evidence support, and contradictions separately. The graph score is deliberately explicit and versioned but remains provisional until later calibration work.
+
+
+## Phase 7 methodology
+
+Patch presence is not evidence of remediation. The evaluator compares security state, not source-text appearance. Path lifecycle is derived from semantic path status; alternate routes are classified by impact identity; security-critical control weakening is independently exposed; functional tests prevent trivial overblocking from receiving a complete remediation result. All raw dimensions remain available so Phase 8 can calibrate thresholds and weighting without rewriting the oracle.
