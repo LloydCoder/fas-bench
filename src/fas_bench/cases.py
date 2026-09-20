@@ -201,7 +201,15 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
     }
 
 
-\ndef _count_by(items: list[dict[str, Any]], key: str) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for item in items:\n        value = item.get(key)\n        counts[value] = counts.get(value, 0) + 1\n    return counts\n\ndef validate_all() -> dict[str, Any]:
+\ndef _count_by(items: list[dict[str, Any]], key: str) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in items:
+        value = item.get(key)
+        counts[value] = counts.get(value, 0) + 1
+    return counts
+
+
+def validate_all() -> dict[str, Any]:
     registry = load_registry()
     registry_ids = [item["case_id"] for item in registry.get("cases", [])]
     errors: list[str] = []
@@ -209,7 +217,9 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
         errors.append("registry does not contain exactly FAS-001..FAS-020 in order")
 
     actual_dirs = sorted(
-        path.name for path in CASES_ROOT.iterdir() if path.is_dir() and path.name.startswith("FAS-")
+        path.name
+        for path in CASES_ROOT.iterdir()
+        if path.is_dir() and path.name.startswith("FAS-")
     )
     if actual_dirs != sorted(CASE_IDS):
         errors.append("case directories do not exactly match the registry")
@@ -222,6 +232,37 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
     errors.extend(
         f"{result['case_id']}: {error}" for result in results for error in result["errors"]
     )
+
+    coverage_path = CASES_ROOT / "coverage.json"
+    coverage = _load(coverage_path) if coverage_path.is_file() else {}
+    if coverage.get("case_ids") != registry_ids:
+        errors.append("coverage case_ids do not match registry")
+    if coverage.get("category_counts") != _count_by(
+        registry.get("cases", []), "primary_category"
+    ):
+        errors.append("coverage category_counts do not match registry")
+    if coverage.get("difficulty_counts") != _count_by(
+        registry.get("cases", []), "difficulty"
+    ):
+        errors.append("coverage difficulty_counts do not match registry")
+    verdict_counts = {
+        key: 0
+        for key in (
+            "EXPLOITABLE",
+            "NOT_EXPLOITABLE",
+            "CONDITIONALLY_EXPLOITABLE",
+            "REMEDIATED",
+            "REMEDIATION_FAILED",
+            "REGRESSED",
+            "UNKNOWN",
+        )
+    }
+    for result in results:
+        if result.get("verdict") in verdict_counts:
+            verdict_counts[result["verdict"]] += 1
+    if coverage.get("verdict_counts") != verdict_counts:
+        errors.append("coverage verdict_counts do not match corpus")
+
     manifest_by_id = {item.get("case_id"): item for item in manifest.get("cases", [])}
     registry_by_id = {item.get("case_id"): item for item in registry.get("cases", [])}
     for result in results:
