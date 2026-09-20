@@ -40,6 +40,22 @@ jobs:
         run: python -c "import fas_bench; assert fas_bench.__version__ == '0.1.0'"
       - name: Pull pinned oracle image
         run: docker pull python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
+      - name: Phase 9 isolated execution integration
+        run: |
+          python - <<'PY'
+          from fas_bench.secure_eval import ExecutionPolicy, ExecutionRequest, SecureRunner
+          image = "python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea"
+          result = SecureRunner(ExecutionPolicy(image=image)).execute(
+              ExecutionRequest(
+                  "FAS-001",
+                  "CI-SECURE-EXEC",
+                  ("/usr/local/bin/python", "-c", "from pathlib import Path; Path('/output/proof.txt').write_text('phase9-ok')"),
+              )
+          )
+          assert result.status == "SUCCESS", result.as_dict()
+          assert any(a.path == "proof.txt" and a.size == 9 for a in result.artifacts), result.as_dict()
+          assert result.run_id and result.input_digest and result.manifest_sha256
+          PY
       - name: Corpus validation
         run: fas-bench cases validate-all
       - name: Evidence engine CLI smoke test
