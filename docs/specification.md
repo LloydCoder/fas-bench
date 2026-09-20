@@ -705,3 +705,14 @@ An attack path is an ordered node/edge chain with an entry and impact endpoint. 
 The Phase 6 provisional graph score is 0.30 NodeF1 + 0.35 EdgeF1 + 0.20 PathCompleteness + 0.15 BoundaryCrossingF1. The weighting is versioned methodology configuration and is explicitly not scientifically validated by the current public development corpus.
 
 Unsupported or contradictory submitted graph facts MUST remain distinguishable from evaluator failure and MUST NOT be converted into a security verdict.
+
+
+## Phase 7 normative definitions
+
+A verified remediation requires independent closure of the declared security condition, removal or effective blocking of all required original paths, consideration of equivalent-impact alternate paths, valid remediation evidence, required security tests, required functional behavior, and no benchmark-defined regression.
+
+A cosmetic change is not a remediation. A partial fix that leaves an equivalent-impact route is a remediation failure. Conditional remediation is reserved for explicitly declared benchmark conditions. UNKNOWN means the oracle cannot establish closure; evaluator failure and invalid benchmark state remain distinct.
+
+Regression is semantic: a previously blocked condition or effective control becomes materially weaker or exploitable after a later state. Textual diffs alone are not sufficient.
+
+Case-specific truth remains declarative. Evaluator code must not branch on case identifiers.
