@@ -11,9 +11,7 @@ ROOT = Path(__file__).parents[1]
 
 
 def load(case_id):
-    return json.loads(
-        (ROOT / "cases" / case_id / "expected" / "attack_graph.json").read_text()
-    )
+    return json.loads((ROOT / "cases" / case_id / "expected" / "attack_graph.json").read_text())
 
 
 def make_state(case_id, status, graph, paths):
@@ -78,9 +76,7 @@ def test_evidence_fabrication_blocks_full_credit():
         baseline,
         post,
         {"remediation_id": "REM-TEST", "original_path_ids": ["P-002-001"]},
-        security_tests=(
-            TestResult("SEC", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),
-        ),
+        security_tests=(TestResult("SEC", "SECURITY_POST_FIX_EXPLOIT_BLOCKED", "PASS"),),
         evidence=({"verification": "INVALID"},),
     )
     assert result.status == "UNKNOWN"
