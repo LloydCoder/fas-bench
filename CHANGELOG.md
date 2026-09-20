@@ -56,3 +56,16 @@
 ## 0.1.0 — Phase 1: Specification & Benchmark Contract
 
 - Normative benchmark contract, taxonomy, verdict semantics, evidence model, graph model, remediation/regression semantics, reproducibility, security, contamination, and FAS independence.
+# Changelog
+
+## Phase 10 — Corpus, contamination, mutation and release
+
+- Added content-addressed Phase 10 corpus validation and benchmark health diagnostics.
+- Added explicit case lifecycle and evaluation eligibility primitives.
+- Added deterministic mutation operators with semantic-preservation guards.
+- Added contamination/leakage and FAS-independence audits.
+- Added versioned release manifest generation and fail-closed verification.
+- Added corpus, release, mutation, contamination, and governance documentation.
+- Pinned GitHub Actions to full commit SHAs for immutable workflow references.
+- Preserved the initial 20-case public development corpus and explicitly documented its statistical and contamination limitations.
+

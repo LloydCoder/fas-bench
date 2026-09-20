@@ -78,3 +78,12 @@ A test status of ERROR, TIMEOUT, or UNRESOLVED is not a security pass. Required 
 
 ## Phase 9 secure execution
 Arbitrary candidate code is untrusted and must not execute on the evaluator host. The v0.1 runner refuses execution unless Docker is available and the configured image is immutable. The container has no network, no added capabilities, no privilege escalation, a read-only root, non-root identity, bounded resources, and ephemeral writable filesystems. Timeout, resource exhaustion, unavailable isolation, invalid input, and candidate process failure are execution outcomes, not security verdicts.
+
+
+## Phase 10 evaluation modes
+
+Practice/development evaluation may expose public case details. Official evaluation must reference a designated release and case-population digest, record network and external-lookup policy, and keep hidden case-level ground truth outside public outputs.
+
+Eligibility is separate from security verdicts. Infrastructure failure, policy violation, integrity failure, and non-reproducibility are not mapped to NOT_EXPLOITABLE, REMEDIATED, or zero-score shortcuts.
+
+Resource and contamination metadata are part of result provenance. Historical results must retain their benchmark, scoring, evaluator, harness, and schema versions.

@@ -56,3 +56,10 @@ Patch presence is not evidence of remediation. The evaluator compares security s
 
 ## Phase 9 reproducibility and execution security
 Dynamic execution is treated as an experimental measurement boundary. Run identity is content-derived from the case, submission, input digest, and execution policy. Candidate code is isolated from evaluator secrets and host state. Results preserve the exact policy, immutable image reference, execution status, timing, exit code, output limits, artifact hashes, and input digest. The harness fails closed rather than converting missing isolation into a benchmark result.
+
+
+## Phase 10 methodology
+
+Phase 10 measures benchmark integrity rather than adding another security-agent score. Corpus validity is checked recursively; case identity is content-derived; mutations declare semantic relationships; contamination scans are deterministic; release manifests bind the population and artifacts; and public reports explicitly expose limitations.
+
+The initial twenty cases are a development corpus and are not asserted to be statistically representative. Mutation validity, contamination cleanliness, and benchmark saturation require empirical evidence. The repository therefore reports NOT_ASSESSED where the current artifacts cannot establish those properties.

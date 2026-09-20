@@ -13,10 +13,10 @@ jobs:
       matrix:
         python-version: ["3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Git diff check
         run: git diff --check
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
@@ -38,6 +38,14 @@ jobs:
         run: python -m pip install --force-reinstall dist/*.whl
       - name: Package import
         run: python -c "import fas_bench; assert fas_bench.__version__ == '0.1.0'"
+      - name: Phase 10 corpus validation
+        run: fas-bench corpus validate
+      - name: Phase 10 contamination audit
+        run: fas-bench contamination scan
+      - name: Phase 10 independence audit
+        run: fas-bench contamination independence
+      - name: Phase 10 benchmark doctor
+        run: fas-bench benchmark doctor
       - name: Pull pinned oracle image
         run: docker pull python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
       - name: Phase 9 isolated execution integration
@@ -65,7 +73,6 @@ jobs:
           import os
           import pathlib
           import socket
-          import re
           assert os.getuid() != 0
           assert not pathlib.Path("/var/run/docker.sock").exists()
           assert pathlib.Path("/etc").is_dir()
@@ -75,11 +82,11 @@ jobs:
               pass
           else:
               raise AssertionError("root filesystem is writable")
-          status = pathlib.Path("/proc/self/status").read_text()
-          cap = re.search(r"^CapEff:\s*([0-9a-fA-F]+)$", status, re.MULTILINE)
-          assert cap and int(cap.group(1), 16) == 0
-          nnp = re.search(r"^NoNewPrivs:\s*(\d+)$", status, re.MULTILINE)
-          assert nnp and nnp.group(1) == "1"
+          status = pathlib.Path("/proc/self/status").read_text().splitlines()
+          cap_line = next(line for line in status if line.startswith("CapEff:"))
+          nnp_line = next(line for line in status if line.startswith("NoNewPrivs:"))
+          assert int(cap_line.split()[1], 16) == 0
+          assert nnp_line.split()[1] == "1"
           try:
               socket.create_connection(("1.1.1.1", 443), timeout=1)
           except OSError:

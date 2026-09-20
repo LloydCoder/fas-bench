@@ -73,3 +73,14 @@ Phase 4 owns evidence verification; Phase 5 owns finding/verdict adjudication; P
 
 ## Phase 9 architecture
 Execution Request → Input Integrity/Path Validation → Isolation Availability Check → Immutable Container Image Check → Hardened Container Execution → Timeout/Resource Enforcement → Artifact Hashing/Manifest → Cleanup → Structured Execution Result. Phase 9 is downstream of Phases 4–8 and does not redefine evidence, verdict, graph, remediation, or scoring semantics.
+
+
+## Phase 10 architecture
+
+The benchmark architecture now wraps the Phase 1–9 evaluation path with:
+
+`Corpus → Case Registry → Case Resolver → Secure Harness → Evidence → Verdict → Graph → Remediation → Scoring → Integrity → Release/Report`
+
+Phase 10 adds parallel integrity planes for Public Development Corpus, future Held-Out/Hidden Corpus, Mutation Engine, Oracle Validation, Release Manifest, Provenance, Contamination Checks, and Artifact Integrity. The initial repository contains the public plane only; hidden evaluation is an architectural capability, not a fabricated dataset.
+
+Release identity is derived from canonical manifest content and referenced artifact digests. Timestamps are provenance metadata and are not identity inputs.
