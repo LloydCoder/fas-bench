@@ -73,7 +73,6 @@ jobs:
           import os
           import pathlib
           import socket
-          import re
           assert os.getuid() != 0
           assert not pathlib.Path("/var/run/docker.sock").exists()
           assert pathlib.Path("/etc").is_dir()
@@ -83,11 +82,11 @@ jobs:
               pass
           else:
               raise AssertionError("root filesystem is writable")
-          status = pathlib.Path("/proc/self/status").read_text()
-          cap = re.search(r"^CapEff:s*([0-9a-fA-F]+)$", status, re.MULTILINE)
-          assert cap and int(cap.group(1), 16) == 0
-          nnp = re.search(r"^NoNewPrivs:s*(d+)$", status, re.MULTILINE)
-          assert nnp and nnp.group(1) == "1"
+          status = pathlib.Path("/proc/self/status").read_text().splitlines()
+          cap_line = next(line for line in status if line.startswith("CapEff:"))
+          nnp_line = next(line for line in status if line.startswith("NoNewPrivs:"))
+          assert int(cap_line.split()[1], 16) == 0
+          assert nnp_line.split()[1] == "1"
           try:
               socket.create_connection(("1.1.1.1", 443), timeout=1)
           except OSError:
