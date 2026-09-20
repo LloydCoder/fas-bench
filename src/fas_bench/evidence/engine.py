@@ -12,8 +12,8 @@ from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
 from ..validation import validate
 from .errors import CaseIntegrityError, CaseLoadError, SubmissionError
 from .models import EvidenceItemResult, EvidenceVerificationResult
-from .normalization import canonical_evidence, evidence_identity, normalize_evidence
-from .resolver import read_fact, resolve_artifact_path, safe_resolve, verify_location
+from .normalization import evidence_identity, normalize_evidence
+from .resolver import read_fact, safe_resolve, verify_location
 from .coverage import calculate_coverage
 from .integrity import calculate_integrity
 
