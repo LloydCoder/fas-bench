@@ -201,7 +201,7 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
     }
 
 
-\ndef _count_by(items: list[dict[str, Any]], key: str) -> dict[str, int]:
+def _count_by(items: list[dict[str, Any]], key: str) -> dict[str, int]:
     counts: dict[str, int] = {}
     for item in items:
         value = item.get(key)
