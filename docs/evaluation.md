@@ -74,3 +74,7 @@ Graph diffing reports added/removed/changed nodes and edges for remediation/regr
 The remediation result is multidimensional rather than a single opaque verdict. It exposes security-condition resolution, attack-path resolution, alternate-path resolution, control effectiveness, security-test success, functional preservation, regression resistance, and evidence integrity. The provisional score is the unweighted arithmetic mean of these raw dimensions and is explicitly versioned for later calibration.
 
 A test status of ERROR, TIMEOUT, or UNRESOLVED is not a security pass. Required security and functional tests must be present and PASS before a remediation can receive REMEDIATED status; missing tests produce UNKNOWN rather than credit. Candidate self-reports are never authoritative.
+
+
+## Phase 9 secure execution
+Arbitrary candidate code is untrusted and must not execute on the evaluator host. The v0.1 runner refuses execution unless Docker is available and the configured image is immutable. The container has no network, no added capabilities, no privilege escalation, a read-only root, non-root identity, bounded resources, and ephemeral writable filesystems. Timeout, resource exhaustion, unavailable isolation, invalid input, and candidate process failure are execution outcomes, not security verdicts.
