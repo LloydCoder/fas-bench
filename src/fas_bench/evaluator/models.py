@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Any
+
+from dataclasses import dataclass
 
 
 CLAIM_STATUSES = ("VERIFIED", "INVALID", "UNRESOLVED", "CONTRADICTED", "MISSING")
