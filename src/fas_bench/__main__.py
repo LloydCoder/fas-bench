@@ -233,6 +233,7 @@ def main(argv=None):
                 if args.evidence
                 else ()
             )
+
             def _tests(prefix):
                 return tuple(TestResult(**item) for item in tests_doc.get(prefix, []))
             result = evaluate_remediation(
