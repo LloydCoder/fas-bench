@@ -220,6 +220,7 @@
         "type": "string"
       }
     },
+    "remediation": { "$ref": "../../remediation-evaluation/v0.1/remediation-evaluation.schema.json" },
     "graph": {
       "type": "object",
       "properties": {
