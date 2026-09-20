@@ -33,3 +33,8 @@ The evaluator treats submissions and case artifacts as untrusted data. Controls 
 Threats include fabricated evidence, contradictory claims, malformed confidence (including NaN/Infinity), cross-case evidence substitution, duplicate-evidence flooding, title/severity manipulation, verdict-only submissions, case tampering, semantic ambiguity, false-positive overfitting, case-specific hard-coding, evaluator exceptions masquerading as UNKNOWN, and scoring leakage.
 
 Controls include strict schema validation, finite confidence checks, Phase 4 evidence verification, case-integrity verification before trust, structured claim matching, declarative verdict derivation, deterministic fingerprints, duplicate-resistant evidence support, explicit contradiction states, and separate evaluator-error handling. The evaluator never imports or executes FAS and never uses evaluated-system output as ground truth.
+
+
+## Phase 6 evaluator threats
+
+The graph evaluator treats submissions as hostile data. Threats include oversized graphs, graph bombs, pathological cycles, path explosion, fabricated privileged identities, fabricated authorization/control edges, malicious identifiers, Unicode normalization ambiguity, cross-case references, schema confusion, evidence spoofing, and evaluator denial of service. The engine uses safe JSON parsing, no dynamic execution, deterministic normalization, finite node/edge/path/traversal limits, and structured diagnostics.

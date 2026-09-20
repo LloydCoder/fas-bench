@@ -9,6 +9,14 @@ from .cases import reproduce_all, validate_all
 from .evaluator import evaluate_submission as evaluate_finding_submission
 from .evaluator.errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .evidence import evaluate_submission as evaluate_evidence_submission
+from .graph import (
+    canonicalize_graph,
+    compare_graphs,
+    diff_graphs,
+    extract_paths,
+    graph_digest,
+    validate_graph,
+)
 from .validation import validate_file
 
 
@@ -34,6 +42,30 @@ def main(argv=None):
     finding_parser.add_argument("--output", type=Path)
     finding_parser.add_argument("--json", action="store_true")
     finding_parser.add_argument("--strict", action="store_true")
+
+    graph_parser = subparsers.add_parser("graph")
+    graph_subparsers = graph_parser.add_subparsers(dest="graph_command", required=True)
+    graph_validate = graph_subparsers.add_parser("validate")
+    graph_validate.add_argument("graph", type=Path)
+    graph_validate.add_argument("--case")
+    graph_validate.add_argument("--json", action="store_true")
+    graph_normalize = graph_subparsers.add_parser("normalize")
+    graph_normalize.add_argument("graph", type=Path)
+    graph_normalize.add_argument("--output", type=Path)
+    graph_digest_parser = graph_subparsers.add_parser("digest")
+    graph_digest_parser.add_argument("graph", type=Path)
+    graph_paths = graph_subparsers.add_parser("paths")
+    graph_paths.add_argument("graph", type=Path)
+    graph_paths.add_argument("--json", action="store_true")
+    graph_diff = graph_subparsers.add_parser("diff")
+    graph_diff.add_argument("before", type=Path)
+    graph_diff.add_argument("after", type=Path)
+    graph_diff.add_argument("--json", action="store_true")
+    graph_compare = graph_subparsers.add_parser("compare")
+    graph_compare.add_argument("--expected", type=Path, required=True)
+    graph_compare.add_argument("--submission", type=Path, required=True)
+    graph_compare.add_argument("--case")
+    graph_compare.add_argument("--json", action="store_true")
 
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("path", type=Path)
@@ -106,6 +138,39 @@ def main(argv=None):
         except EvaluatorInternalError as exc:
             print(json.dumps({"status": "EVALUATOR_ERROR", "error": str(exc)}, indent=2))
             return 4
+
+    if args.command == "graph":
+        try:
+            if args.graph_command in {"validate", "normalize", "digest", "paths"}:
+                document = json.loads(args.graph.read_text(encoding="utf-8"))
+            if args.graph_command == "validate":
+                payload = validate_graph(document, case_id=args.case).as_dict()
+            elif args.graph_command == "normalize":
+                payload = canonicalize_graph(document)
+                if args.output:
+                    args.output.write_text(
+                        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+                    )
+                    return 0
+            elif args.graph_command == "digest":
+                payload = {"graph_digest": graph_digest(document)}
+            elif args.graph_command == "paths":
+                payload = {"paths": [list(path) for path in extract_paths(document)]}
+            elif args.graph_command == "diff":
+                before = json.loads(args.before.read_text(encoding="utf-8"))
+                after = json.loads(args.after.read_text(encoding="utf-8"))
+                payload = diff_graphs(before, after)
+            else:
+                expected = json.loads(args.expected.read_text(encoding="utf-8"))
+                submission = json.loads(args.submission.read_text(encoding="utf-8"))
+                payload = compare_graphs(expected, submission, case_id=args.case).as_dict()
+            print(json.dumps(payload, indent=2, sort_keys=True))
+            if args.graph_command in {"validate", "compare"} and payload.get("valid") is False:
+                return 2
+            return 0
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            print(json.dumps({"status": "ERROR", "error": str(exc)}, indent=2))
+            return 2
 
     if args.command == "validate":
         result = validate_file(args.path, args.schema, args.semantic)

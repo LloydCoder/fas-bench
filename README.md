@@ -72,3 +72,11 @@ python -c "import fas_bench; print(fas_bench.__version__)"
 8. Scoring, Calibration & Benchmark Analytics
 9. Secure Evaluation Harness & Reproducibility
 10. Benchmark Corpus, Contamination Defense & Release
+
+## Phase 6 — Attack-Path & Security-Graph Engine
+
+Phase 6 adds deterministic graph validation, canonicalization, graph identity, path extraction, semantic graph matching, boundary metrics, attack-path completeness, graph diffing, finite traversal limits, adversarial defenses, and graph CLI commands. The graph engine consumes the evidence/claim substrate; it does not import or execute FAS.
+
+The current public development corpus remains FAS-001 through FAS-020. Their graphs are machine-validated and self-comparison is deterministic. The graph score is provisional methodology configuration and is not presented as scientifically validated.
+
+See docs/graph-engine.md for the implementation contract and limits.

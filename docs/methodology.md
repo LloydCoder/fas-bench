@@ -36,3 +36,10 @@ FAS-Bench separates observation, evidence, claim, security property, and verdict
 FAS-Bench separates detection from adjudication. A scanner can correctly detect a suspicious source/sink, dependency, tool, or function while the security condition is blocked by an effective boundary. Phase 5 therefore matches findings by structured category and claims, verifies evidence through Phase 4, resolves reachability/control/precondition state from declarative case data, and only then evaluates the submitted verdict.
 
 UNKNOWN means the authoritative condition cannot be concluded. CONDITIONAL requires explicit case-defined conditions. Remediation verdicts are based on security-property state, not the presence of a patch string. Correct verdict and evidence support remain separate dimensions for later scoring.
+
+
+## Phase 6 graph methodology
+
+Node matching alone is insufficient because a system can identify the right entities without proving how control or authority moves between them. Edge matching alone is insufficient because a graph can contain locally correct relationships while omitting the complete attack chain. Shortest-path matching is insufficient because a shorter route can erase an authorization or trust-boundary transition that determines exploitability. Text similarity is insufficient because equivalent security reasoning may be represented with different labels while materially different privilege or control semantics may share similar prose.
+
+Phase 6 therefore evaluates semantic nodes, typed directed edges, ordered attack paths, trust-boundary crossings, evidence support, and contradictions separately. The graph score is deliberately explicit and versioned but remains provisional until later calibration work.

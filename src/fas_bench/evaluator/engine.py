@@ -11,6 +11,7 @@ from typing import Any
 from ..contract import BENCHMARK_VERSION, SCHEMA_VERSION
 from ..evidence import load_case, load_submission, verify_evidence
 from ..evidence.errors import CaseIntegrityError, CaseLoadError
+from ..graph import compare_graphs
 from .errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .models import (
     ClaimEvaluation,
@@ -430,6 +431,7 @@ def _fingerprint_payload(
     condition: SecurityCondition,
     verdict: VerdictEvaluation,
     evidence: dict[str, Any],
+    graph: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return {
         "case_id": case_id,
@@ -451,6 +453,7 @@ def _fingerprint_payload(
                 "result_hash",
             )
         },
+        "graph": graph,
     }
 
 
@@ -518,8 +521,22 @@ def evaluate_submission_document(
         "coverage": evidence_result.coverage,
         "result_hash": evidence_result.result_hash,
     }
+    graph_result = None
+    if submission.get("attack_graph") is not None:
+        graph_result = compare_graphs(
+            ground_truth["graph"],
+            submission["attack_graph"],
+            case_id=submission["case_id"],
+            evidence_ids={item.evidence_id for item in evidence_result.items},
+        ).as_dict()
     payload = _fingerprint_payload(
-        submission["case_id"], finding_evaluation, claims, condition, verdict_evaluation, evidence
+        submission["case_id"],
+        finding_evaluation,
+        claims,
+        condition,
+        verdict_evaluation,
+        evidence,
+        graph_result,
     )
     fingerprint = hashlib.sha256(
         json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
@@ -537,6 +554,7 @@ def evaluate_submission_document(
         verdict=verdict_evaluation,
         evidence=evidence,
         fingerprint=fingerprint,
+        graph=graph_result,
     )
 
 

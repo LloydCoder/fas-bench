@@ -22,3 +22,8 @@ Intentionally vulnerable semantics are confined to synthetic case state. Cases m
 ## Phase 5 evaluator security
 
 The finding evaluator treats submissions as hostile data. It validates finite confidence values, requires case integrity before trusting ground truth, preserves cross-case identity, never executes submitted evidence, separates evaluator errors from UNKNOWN, and does not use evaluated-system output as ground truth. Fabricated, contradictory, duplicated, malformed, and cross-case evidence must not manufacture verdict support.
+
+
+## Phase 6 evaluator security
+
+Graph submissions are untrusted data. The graph engine performs safe JSON parsing only, never executes submission content, and enforces finite graph/path/traversal limits. Security-sensitive changes must include denial-of-service, cross-case, fabricated-edge, and deterministic normalization coverage where applicable.

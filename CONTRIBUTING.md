@@ -31,3 +31,8 @@ Evidence changes must remain deterministic and benchmark-independent. New expect
 ## Phase 5 evaluator contributions
 
 Finding and verdict semantics must remain deterministic and case-independent. Core evaluator code MUST NOT branch on individual case IDs. Case-specific truth belongs in case artifacts, claims, evidence, attack paths, controls, conditions, and remediation metadata. Changes must include positive, negative, contradiction, missing-evidence, cross-case, metamorphic, and tamper tests where applicable. The evaluator must consume Phase 4 evidence results rather than reimplement evidence verification. Final benchmark scoring remains deferred to Phase 8.
+
+
+## Phase 6 graph contributions
+
+Graph changes must preserve deterministic canonicalization, finite traversal limits, semantic edge direction, evidence linkage, and FAS independence. Add adversarial and ordering-invariance tests for score-affecting graph changes. Do not add case-ID branches to evaluator code.

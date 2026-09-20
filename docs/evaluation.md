@@ -52,3 +52,14 @@ The result exposes:
 - deterministic fingerprint.
 
 Severity and confidence do not determine correctness. Confidence is preserved and validated independently. Final benchmark scoring is deferred to Phase 8.
+
+
+## Phase 6 graph evaluation
+
+A graph submission is parsed as untrusted JSON and evaluated without executing submission content. Validation precedes matching. Node matching uses semantic type and conservative normalized identity; edges use matched endpoint identity plus edge type; path matching requires ordered structural continuity.
+
+Reported dimensions are Node Precision/Recall/F1, Edge Precision/Recall/F1, Path Completeness, Boundary Crossing Precision/Recall/F1, unsupported edges, contradictory edges, missing transitions, and Graph Score. Graph Score does not replace verdict correctness.
+
+Serialization, node-order, and edge-order changes are intentionally non-semantic. Security-critical identity, authorization, control, trust-boundary, sink, impact, and capability distinctions remain material. Finite limits prevent path-explosion and graph-bomb denial of service.
+
+Graph diffing reports added/removed/changed nodes and edges for remediation/regression consumers; it does not independently declare remediation success.

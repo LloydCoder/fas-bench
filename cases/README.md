@@ -46,3 +46,8 @@ Every initial case now carries an independently verifiable expected-evidence fac
 ## Phase 5 self-evaluation
 
 Every public case can be evaluated with a synthetic gold submission through the generic evaluator. The evaluator derives the authoritative verdict from declarative path, condition, control, and remediation state and rejects case-specific evaluator branches. FAS-001/FAS-006 exercise false-positive resistance; FAS-008 exercises explicit conditionality; FAS-012 exercises UNKNOWN; FAS-013/FAS-019/FAS-020 exercise remediation semantics. These cases remain public development data and are not a hidden evaluation set.
+
+
+## Phase 6 graph contract
+
+Each public case's expected attack graph is validated through the generic graph engine. No evaluator branch is keyed to a case identifier. Phase 6 treats case graph data as declarative ground truth and evaluates submissions through the shared node/edge/path semantics.
