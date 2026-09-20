@@ -9,7 +9,7 @@
     "C6_SUPPLY_CHAIN"
   ],
   "difficulty": "L3_MULTI_COMPONENT",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "The dependency contains vulnerable functionality, but execution-path evidence is intentionally insufficient to establish whether application control can reach it.",
   "security_condition": "INSUFFICIENT_EVIDENCE",
   "attacker_model": "Normal application attacker; no unsupported hidden runtime assumptions.",
@@ -29,6 +29,6 @@
   },
   "metadata": {
     "case_version": "0.1.0",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
