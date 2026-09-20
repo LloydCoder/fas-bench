@@ -143,6 +143,8 @@ class RemediationResult:
     regression_status: str
     new_findings_status: str
     evidence_integrity: str
+    benchmark_version: str = "0.1.0"
+    schema_version: str = "0.1"
     path_lifecycles: tuple[PathLifecycle, ...] = ()
     alternate_paths: tuple[AlternatePath, ...] = ()
     graph_diff: dict[str, object] = dataclasses.field(default_factory=dict)
@@ -171,6 +173,8 @@ class RemediationResult:
             "regression_status": self.regression_status,
             "new_findings_status": self.new_findings_status,
             "evidence_integrity": self.evidence_integrity,
+            "benchmark_version": self.benchmark_version,
+            "schema_version": self.schema_version,
             "path_lifecycles": [x.as_dict() for x in self.path_lifecycles],
             "alternate_paths": [x.as_dict() for x in self.alternate_paths],
             "graph_diff": self.graph_diff,
