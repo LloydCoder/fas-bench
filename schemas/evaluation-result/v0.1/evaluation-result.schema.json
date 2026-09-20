@@ -240,9 +240,6 @@
     "verdict_evaluation",
     "evidence",
     "fingerprint",
-    "final_score",
-    "cap",
-    "penalty",
     "errors",
     "warnings"
   ],
