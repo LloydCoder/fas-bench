@@ -168,6 +168,7 @@ def test_symlink_escape_is_rejected(tmp_path: Path):
     link.symlink_to(outside)
     with pytest.raises(CaseLoadError):
         from fas_bench.evidence.resolver import safe_resolve
+
         safe_resolve(root, "escape.txt")
 
 
