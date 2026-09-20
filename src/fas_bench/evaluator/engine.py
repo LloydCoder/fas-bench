@@ -13,7 +13,6 @@ from ..evidence import load_case, load_submission, verify_evidence
 from ..evidence.errors import CaseIntegrityError, CaseLoadError
 from .errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .models import (
-    CLAIM_STATUSES,
     ClaimEvaluation,
     FindingEvaluation,
     FindingEvaluationResult,
@@ -48,7 +47,9 @@ def _load_ground_truth(case: dict[str, Any]) -> dict[str, Any]:
     graph = _load_json(expected_root / "attack_graph.json")
     remediation = _load_json(expected_root / "remediation.json")
     if len(findings) != 1 or len(verdict) == 0 or len(graph.get("paths", [])) != 1:
-        raise EvaluatorCaseError("initial case contract requires one expected finding, verdict, and path")
+        raise EvaluatorCaseError(
+            "initial case contract requires one expected finding, verdict, and path"
+        )
     return {
         "claims": claims,
         "finding": findings[0],
@@ -75,7 +76,12 @@ def _evidence_status_map(evidence_result: Any) -> dict[str, str]:
 
 
 def _finite_confidence(value: Any) -> bool:
-    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(float(value)) and 0 <= float(value) <= 1
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(float(value))
+        and 0 <= float(value) <= 1
+    )
 
 
 def _expected_claims_for_submission(
@@ -124,7 +130,9 @@ def _expected_claims_for_submission(
 
     # A submission may contain contradictory assertions with the same structured subject/predicate.
     grouped: dict[tuple[Any, ...], list[ClaimEvaluation]] = {}
-    for evaluation, claim in zip(evaluations, sorted(submission_claims, key=lambda item: item["claim_id"])):
+    for evaluation, claim in zip(
+        evaluations, sorted(submission_claims, key=lambda item: item["claim_id"])
+    ):
         grouped.setdefault(_claim_key(claim), []).append(evaluation)
     for group in grouped.values():
         if len(group) > 1:
@@ -200,15 +208,15 @@ def evaluate_claims(
     return tuple(updated)
 
 
-def resolve_security_condition(case: dict[str, Any], ground_truth: dict[str, Any]) -> SecurityCondition:
+def resolve_security_condition(
+    case: dict[str, Any], ground_truth: dict[str, Any]
+) -> SecurityCondition:
     graph = ground_truth["graph"]
     path = graph["paths"][0]
     remediation = ground_truth["remediation"]
     verdict = ground_truth["verdict"]
 
-    conditions = tuple(
-        condition["prerequisite"] for condition in verdict.get("conditions", [])
-    )
+    conditions = tuple(condition["prerequisite"] for condition in verdict.get("conditions", []))
     satisfied = tuple(
         condition["prerequisite"]
         for condition in verdict.get("conditions", [])
@@ -250,7 +258,9 @@ def resolve_security_condition(case: dict[str, Any], ground_truth: dict[str, Any
     )
 
 
-def _derive_authoritative_verdict(ground_truth: dict[str, Any], condition: SecurityCondition) -> str:
+def _derive_authoritative_verdict(
+    ground_truth: dict[str, Any], condition: SecurityCondition
+) -> str:
     remediation = ground_truth["remediation"]
     previous = remediation.get("previous_verdict")
     current = remediation.get("current_verdict")
@@ -326,17 +336,19 @@ def _expected_support(
     condition: SecurityCondition,
     expected_verdict: str,
 ) -> tuple[bool, tuple[str, ...], tuple[str, ...]]:
-    verified_evidence = {item.evidence_id for item in evidence_result.items if item.status == "VERIFIED"}
-    verified_claims = {claim.expected_claim_id for claim in claim_evaluations if claim.status == "VERIFIED"}
+    verified_evidence = {
+        item.evidence_id for item in evidence_result.items if item.status == "VERIFIED"
+    }
+    verified_claims = {
+        claim.expected_claim_id for claim in claim_evaluations if claim.status == "VERIFIED"
+    }
     expected_claim_ids = {claim["claim_id"] for claim in ground_truth["claims"]}
     expected_evidence_ids = set(ground_truth["verdict"].get("evidence_ids", []))
     required_conditions = set(condition.required_conditions)
     satisfied_conditions = set(condition.satisfied_conditions)
 
     supporting_claims = tuple(sorted(expected_claim_ids & verified_claims))
-    blocking_claims = tuple(
-        sorted(expected_claim_ids - set(supporting_claims))
-    )
+    blocking_claims = tuple(sorted(expected_claim_ids - set(supporting_claims)))
     submission_verdict_claim_ids = set(submission["verdict"].get("claim_ids", []))
     submission_verdict_evidence_ids = set(submission["verdict"].get("evidence_ids", []))
 
@@ -344,13 +356,14 @@ def _expected_support(
     evidence_ok = expected_evidence_ids <= verified_evidence
     references_ok = (
         bool(submission_verdict_claim_ids)
-        and submission_verdict_claim_ids <= {claim.claim_id for claim in claim_evaluations if claim.status == "VERIFIED"}
+        and submission_verdict_claim_ids
+        <= {claim.claim_id for claim in claim_evaluations if claim.status == "VERIFIED"}
         and bool(submission_verdict_evidence_ids)
         and submission_verdict_evidence_ids <= verified_evidence
     )
-    conditions_ok = (
-        not required_conditions
-        or (set(condition.satisfied_conditions) == required_conditions and not condition.unknown_conditions)
+    conditions_ok = not required_conditions or (
+        set(condition.satisfied_conditions) == required_conditions
+        and not condition.unknown_conditions
     )
 
     if expected_verdict == "UNKNOWN":
@@ -437,15 +450,23 @@ def _fingerprint_payload(
     }
 
 
-def evaluate_submission_document(submission: dict[str, Any], cases_root: Path | None = None) -> FindingEvaluationResult:
+def evaluate_submission_document(
+    submission: dict[str, Any], cases_root: Path | None = None
+) -> FindingEvaluationResult:
     if not _finite_confidence(submission["verdict"].get("confidence")):
-        raise EvaluatorSubmissionError("SUBMISSION_ERROR: verdict confidence must be finite and within [0,1]")
+        raise EvaluatorSubmissionError(
+            "SUBMISSION_ERROR: verdict confidence must be finite and within [0,1]"
+        )
     for finding in submission.get("findings", []):
         if not _finite_confidence(finding.get("confidence")):
-            raise EvaluatorSubmissionError("SUBMISSION_ERROR: finding confidence must be finite and within [0,1]")
+            raise EvaluatorSubmissionError(
+                "SUBMISSION_ERROR: finding confidence must be finite and within [0,1]"
+            )
     for claim in submission.get("claims", []):
         if not _finite_confidence(claim.get("confidence")):
-            raise EvaluatorSubmissionError("SUBMISSION_ERROR: claim confidence must be finite and within [0,1]")
+            raise EvaluatorSubmissionError(
+                "SUBMISSION_ERROR: claim confidence must be finite and within [0,1]"
+            )
 
     try:
         case = load_case(submission["case_id"], cases_root)
@@ -527,7 +548,9 @@ def evaluate_finding(
     )
 
 
-def evaluate_submission(submission_path: Path, cases_root: Path | None = None) -> FindingEvaluationResult:
+def evaluate_submission(
+    submission_path: Path, cases_root: Path | None = None
+) -> FindingEvaluationResult:
     try:
         submission = load_submission(submission_path)
         return evaluate_submission_document(submission, cases_root)
