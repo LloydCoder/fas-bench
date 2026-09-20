@@ -10,6 +10,7 @@ from typing import Any
 
 from ..contract import BENCHMARK_VERSION, EVALUATOR_VERSION, SCHEMA_VERSION
 from ..evidence import load_case, load_submission, verify_evidence
+from ..evidence.errors import CaseIntegrityError, CaseLoadError
 from .errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .models import (
     CLAIM_STATUSES,
@@ -446,7 +447,10 @@ def evaluate_submission_document(submission: dict[str, Any], cases_root: Path | 
         if not _finite_confidence(claim.get("confidence")):
             raise EvaluatorSubmissionError("SUBMISSION_ERROR: claim confidence must be finite and within [0,1]")
 
-    case = load_case(submission["case_id"], cases_root)
+    try:
+        case = load_case(submission["case_id"], cases_root)
+    except (CaseIntegrityError, CaseLoadError) as exc:
+        raise EvaluatorCaseError(str(exc)) from exc
     ground_truth = _load_ground_truth(case)
     expected_verdict = ground_truth["verdict"]["verdict"]
     condition = resolve_security_condition(case, ground_truth)
