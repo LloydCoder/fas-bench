@@ -17,5 +17,11 @@
   "related_claims": [
     "CLM-001-001"
   ],
-  "provenance": "VERIFIED"
+  "provenance": "VERIFIED",
+  "fact": {
+    "artifact_path": "repository/state.json",
+    "key": "path_viable",
+    "operator": "EQUALS",
+    "value": false
+  }
 }
