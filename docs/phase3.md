@@ -19,13 +19,13 @@ Every case defines:
 
 ## Validation states
 
-Schema-valid, semantically-valid, reproducible, security-validated and release-ready are distinct gates.
+Schema-valid, semantically-valid, reproducible, security-validated and release-ready are distinct gates. The normative lifecycle is DRAFT → CONSTRUCTED → SELF-VALIDATED → INDEPENDENTLY_REVIEWED → REPRODUCIBLE → VALIDATED → RELEASE_CANDIDATE → RELEASED. The current public corpus remains IN_REVIEW until release gating is explicitly completed.
 
 A case is not validated because a file exists or because a prose statement says it is vulnerable. The oracle must independently derive an observed security state and agree with structured ground truth.
 
 ## Gold cases
 
-FAS-001, FAS-002, FAS-006, FAS-016 and FAS-020 receive enhanced review and mutation testing in the Phase 3 design. FAS-020 specifically represents original-path blocking plus an alternate viable path.
+FAS-001, FAS-002, FAS-006, FAS-016 and FAS-020 receive enhanced validation, mutation testing, and metamorphic stability checks in the Phase 3 design. FAS-020 specifically represents original-path blocking plus an alternate viable path.
 
 ## Public/hidden boundary
 
@@ -33,7 +33,7 @@ The initial corpus is public development data. Future evaluation must use held-o
 
 ## Reproducibility
 
-Case execution is network-independent by default, uses synthetic credentials, has deterministic state, and emits machine-readable oracle output. Future dynamic/containerized cases must use isolated execution and explicit resource limits.
+Case execution is network-independent by default, uses synthetic credentials, has deterministic state, and emits machine-readable oracle output. Dynamic cases in the initial corpus use a pinned Python container with network disabled, read-only case mounts, dropped capabilities, no-new-privileges, CPU/memory/PID limits, and deterministic cleanup. Future dynamic/containerized cases must preserve or strengthen these controls.
 
 ## Security
 
