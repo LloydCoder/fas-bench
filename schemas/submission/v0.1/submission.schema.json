@@ -94,6 +94,9 @@
       },
       "uniqueItems": true
     },
+    "attack_graph": {
+      "$ref": "../../attack-graph/v0.1/attack-graph.schema.json"
+    },
     "impact": {
       "$ref": "../../common/v0.1/common.schema.json#/$defs/Impact"
     },
