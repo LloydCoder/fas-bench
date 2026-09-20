@@ -14,6 +14,7 @@ from .errors import CaseIntegrityError, CaseLoadError, SubmissionError
 from .models import EvidenceItemResult, EvidenceVerificationResult
 from .normalization import evidence_identity, normalize_evidence
 from .resolver import read_fact, safe_resolve, verify_location
+from .relationships import relationship_errors
 from .coverage import calculate_coverage
 from .integrity import calculate_integrity
 
@@ -98,6 +99,10 @@ def _item_match(
         return "INVALID", "EVIDENCE_CASE_MISMATCH"
     if evidence.get("type") != expected.get("type"):
         return "INVALID", "EVIDENCE_VALUE_MISMATCH"
+    if evidence.get("role") != expected.get("role"):
+        return "INVALID", "EVIDENCE_RELATIONSHIP_MISMATCH"
+    if relationship_errors(evidence, expected):
+        return "INVALID", "EVIDENCE_RELATIONSHIP_MISMATCH"
     if evidence.get("fact") is not None or expected.get("fact") is not None:
         matched, reason = _fact_matches(case_root, evidence, expected)
         if not matched:
@@ -147,7 +152,10 @@ def verify_evidence(
                 )
             )
             continue
-        status, reason = _item_match(case["root"], evidence, expected_item)
+        if relationship_errors(evidence, submission=submission):
+            status, reason = "INVALID", "EVIDENCE_RELATIONSHIP_MISMATCH"
+        else:
+            status, reason = _item_match(case["root"], evidence, expected_item)
         if expected_item.get("role") == "CONTRADICTORY" and status == "VERIFIED":
             status, reason = "CONTRADICTED", "EVIDENCE_CONTRADICTED"
         matched = (evidence_id,) if status == "VERIFIED" else ()
@@ -192,7 +200,7 @@ def verify_evidence(
 def evaluate_submission(submission_path: Path, cases_root: Path | None = None) -> dict[str, Any]:
     submission = load_submission(submission_path)
     case = load_case(submission["case_id"], cases_root)
-    result = verify_evidence(case, submission["evidence"])
+    result = verify_evidence(case, submission["evidence"], submission)
     result = EvidenceVerificationResult(
         **{**result.__dict__, "submission_id": submission["submission_id"]}
     )
