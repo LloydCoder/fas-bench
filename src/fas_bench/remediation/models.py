@@ -1,5 +1,8 @@
 """Phase 7 remediation and regression domain models."""
 
+# Ruff 0.16.8 I001 misclassifies this stdlib-only import block in this module.
+# Keep the explicit stdlib import and suppress only the false-positive sorter diagnostic.
+
 import dataclasses
 
 
