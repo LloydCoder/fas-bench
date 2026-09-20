@@ -4,6 +4,7 @@
   "title": "FAS-Bench Evaluation Result v0.1",
   "type": "object",
   "properties": {
+    "evaluation_phase": {"type": "string", "minLength": 1},
     "evaluation_id": {
       "$ref": "../../common/v0.1/common.schema.json#/$defs/EvaluationId"
     },
@@ -225,6 +226,7 @@
     }
   },
   "required": [
+    "evaluation_phase",
     "evaluation_id",
     "benchmark_version",
     "schema_version",
