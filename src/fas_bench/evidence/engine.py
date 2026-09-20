@@ -78,7 +78,7 @@ def _fact_matches(
         "key"
     ) != expected_fact.get("key"):
         return False, "EVIDENCE_VALUE_MISMATCH"
-    found, actual, detail = read_fact(case_root, evidence)
+    found, actual, _ = read_fact(case_root, evidence)
     if not found:
         return False, "EVIDENCE_UNRESOLVED"
     if expected_fact.get("operator", "EQUALS") != "EQUALS":
