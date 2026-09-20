@@ -37,3 +37,16 @@ def test_case_ids_are_exactly_the_initial_twenty():
     result = validate_all()
     assert result["case_count"] == 20
     assert [r["case_id"] for r in result["results"]] == [f"FAS-{i:03d}" for i in range(1, 21)]
+
+
+def test_gold_oracles_are_stable_under_irrelevant_mutations():
+    expected = {
+        "FAS-001": "NOT_EXPLOITABLE",
+        "FAS-002": "EXPLOITABLE",
+        "FAS-006": "NOT_EXPLOITABLE",
+        "FAS-016": "NOT_EXPLOITABLE",
+        "FAS-020": "REMEDIATION_FAILED",
+    }
+    for case_id, verdict in expected.items():
+        result = run_oracle(case_id, mutation={"unrelated_metadata": "metamorphic-noop"})
+        assert result["observed_verdict"] == verdict, (case_id, result)
