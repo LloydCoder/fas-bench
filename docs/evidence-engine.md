@@ -50,3 +50,8 @@ Case integrity is checked before expected evidence is trusted. An integrity fail
 ## Phase boundary
 
 Phase 4 intentionally does not score exploitability, attack paths, remediation, regression, calibration, or composite benchmark performance. Those later phases consume this normalized evidence result rather than reimplementing evidence resolution.
+
+
+## Phase 5 handoff
+
+The evidence engine is the sole source of submitted-evidence verification for Phase 5. Verdict evaluation consumes its VERIFIED/INVALID/UNRESOLVED/CONTRADICTED states, coverage, duplicate handling, and integrity statistics and does not reimplement artifact resolution or evidence identity.
