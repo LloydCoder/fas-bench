@@ -26,3 +26,10 @@ The initial dynamic gold cases execute only local synthetic HTTP targets bound t
 ## Phase 4 evidence-engine threats and controls
 
 The evaluator treats submissions and case artifacts as untrusted data. Controls include case-root path confinement, traversal and absolute-path rejection, NUL rejection, schema validation, deterministic canonicalization, no execution of evidence fields, case-integrity verification before trust, cross-case identity binding, duplicate detection, and stable machine-readable reason codes. Symlink resolution is checked after canonical path resolution so an artifact cannot escape the case root.
+
+
+## Phase 5 evaluator threats and controls
+
+Threats include fabricated evidence, contradictory claims, malformed confidence (including NaN/Infinity), cross-case evidence substitution, duplicate-evidence flooding, title/severity manipulation, verdict-only submissions, case tampering, semantic ambiguity, false-positive overfitting, case-specific hard-coding, evaluator exceptions masquerading as UNKNOWN, and scoring leakage.
+
+Controls include strict schema validation, finite confidence checks, Phase 4 evidence verification, case-integrity verification before trust, structured claim matching, declarative verdict derivation, deterministic fingerprints, duplicate-resistant evidence support, explicit contradiction states, and separate evaluator-error handling. The evaluator never imports or executes FAS and never uses evaluated-system output as ground truth.
