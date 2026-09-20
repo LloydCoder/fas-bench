@@ -63,7 +63,7 @@ python -c "import fas_bench; print(fas_bench.__version__)"
 
 ## Phase 8 — Scoring, Calibration & Benchmark Analytics
 
-Phase 8 adds deterministic decomposable measurement, evidence-integrity caps, verdict/finding metrics, Phase 6 graph-score consumption, Phase 7 remediation measurement, confidence calibration, bootstrap uncertainty, stratification, leave-one-out diagnostics, canonical JSON reporting, and versioned scoring configuration. Results are benchmark-specific and do not establish real-world security effectiveness.
+Phase 8 adds deterministic decomposable measurement, evidence-integrity caps, verdict/finding metrics, Phase 6 graph-score consumption, Phase 7 remediation measurement, confidence calibration, bootstrap uncertainty, stratification, leave-one-out diagnostics, canonical JSON reporting, and versioned packaged scoring configuration. Results are benchmark-specific and do not establish real-world security effectiveness.
 
 CLI: `fas-bench score <submission>`, `fas-bench self-test`, `fas-bench analyze <results.json>`, `fas-bench report <results.json> --output <dir>`.
 
