@@ -27,3 +27,8 @@ The finding evaluator treats submissions as hostile data. It validates finite co
 ## Phase 6 evaluator security
 
 Graph submissions are untrusted data. The graph engine performs safe JSON parsing only, never executes submission content, and enforces finite graph/path/traversal limits. Security-sensitive changes must include denial-of-service, cross-case, fabricated-edge, and deterministic normalization coverage where applicable.
+
+
+## Benchmark scoring security
+
+Phase 8 candidate submissions are untrusted data. The scoring/reporting layer must not execute candidate code, import candidate modules, accept candidate aggregate scores as authoritative, or permit candidate data to alter gold truth or scoring configuration. Security-sensitive changes require tests covering malformed numeric data, oversized structures, fabricated evidence, and metadata tampering.
