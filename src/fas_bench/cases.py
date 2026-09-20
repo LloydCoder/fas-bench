@@ -21,7 +21,6 @@ DOCKER_IMAGE = (
 EXPECTED_FILES = (
     ("claims.json", "claim"),
     ("evidence.json", "evidence"),
-    ("findings.json", "finding"),
     ("verdict.json", "verdict"),
     ("remediation.json", "remediation"),
     ("attack_graph.json", "attack-graph"),
@@ -132,11 +131,24 @@ def validate_case_package(case_id: str) -> dict[str, Any]:
         if result.status != "VALID":
             errors.extend(f"{name}: {error.message}" for error in result.errors)
 
-    finding = (
-        _load(case_dir / "expected" / "findings.json")
-        if (case_dir / "expected" / "findings.json").is_file()
-        else {}
-    )
+    findings_path = case_dir / "expected" / "findings.json"
+    finding = _load(findings_path) if findings_path.is_file() else {}
+    if not findings_path.is_file():
+        errors.append("missing expected/findings.json")
+    required_finding = {
+        "finding_id",
+        "title",
+        "category",
+        "severity",
+        "description",
+        "claim_ids",
+        "evidence_ids",
+        "verdict",
+        "confidence",
+    }
+    if not required_finding <= finding.keys():
+        errors.append("finding schema contract incomplete")
+
     verdict = (
         _load(case_dir / "expected" / "verdict.json")
         if (case_dir / "expected" / "verdict.json").is_file()
@@ -319,6 +331,10 @@ def reproduce_all(case_ids: list[str] | None = None) -> dict[str, Any]:
     ids = case_ids or list(CASE_IDS)
     results = [run_oracle(case_id) for case_id in ids]
     return {
-        "status": ("PASS" if all(result.get("status") == "PASS" for result in results) else "FAIL"),
+        "status": (
+            "PASS"
+            if all(result.get("status") == "PASS" for result in results)
+            else "FAIL"
+        ),
         "results": results,
     }
