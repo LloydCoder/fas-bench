@@ -18,7 +18,7 @@ FAS-Bench remains independent of FAS. FAS is only a candidate evaluated system.
 Schemas encode serialized structure. Semantic validators encode cross-object invariants. Later evaluator phases consume these stable objects without redefining their identity.
 
 ## Phase 2 to later phases
-Phase 3 constructs and validates gold cases; Phase 4 verifies evidence; Phase 5 can adjudicate findings and verdicts; Phase 6 can normalize graphs; Phase 7 can evaluate remediation/regression; Phase 8 can consume evaluation-result metrics; Phase 9 can add secure execution; Phase 10 can publish the corpus.
+Phase 3 constructs, validates, and reproduces gold cases; Phase 4 verifies evidence; Phase 5 can adjudicate findings and verdicts; Phase 6 can normalize graphs; Phase 7 can evaluate remediation/regression; Phase 8 can consume evaluation-result metrics; Phase 9 can add secure execution; Phase 10 can publish the corpus.
 
 
 ## Phase 3 case pipeline
