@@ -17,3 +17,8 @@ Hidden truth and evaluator-only material must not be exposed through public fixt
 
 ## Benchmark case isolation
 Intentionally vulnerable semantics are confined to synthetic case state. Cases must not access host credentials, Docker sockets, real cloud accounts, production systems, or uncontrolled Internet destinations. Case oracles emit structured machine-readable results and must not expose hidden evaluation truth. Report infrastructure vulnerabilities separately from intentionally vulnerable benchmark semantics.
+
+
+## Phase 5 evaluator security
+
+The finding evaluator treats submissions as hostile data. It validates finite confidence values, requires case integrity before trusting ground truth, preserves cross-case identity, never executes submitted evidence, separates evaluator errors from UNKNOWN, and does not use evaluated-system output as ground truth. Fabricated, contradictory, duplicated, malformed, and cross-case evidence must not manufacture verdict support.

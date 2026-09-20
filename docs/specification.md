@@ -1,7 +1,7 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Normative contract; Phase 4 evidence-verification contract validated by CI.  
+**Status:** Normative contract; Phase 5 verdict/finding contract validated by CI.  
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (conceptual contract only; schemas are a Phase 2 deliverable)  
 **Evaluator version:** 0.1.0 (contract identifier; evaluator implementation is later)  
@@ -661,3 +661,34 @@ Case validation records case-set/version metadata, environment version, oracle v
 ### Public and hidden corpus model
 
 The initial public corpus intentionally exposes ground truth. Future benchmark evaluation must use held-out cases, private ground truth, or undisclosed mutations. Public cases must never be described as contamination-resistant.
+
+
+## Phase 5 — Verdict & Finding Evaluator
+
+Phase 5 is the deterministic adjudication layer after evidence verification. A **finding** is a structured report of a security-relevant condition; a **claim** is an explicit assertion; **verified evidence** establishes an observable fact; a **security condition** is the set of reachability, control, boundary, and precondition facts whose truth determines the case; and a **verdict** is the resulting benchmark security state.
+
+### Verdict semantics
+
+- **EXPLOITABLE** — the authoritative security condition is supported, the viable path is reachable, required attacker capability and preconditions hold, and effective controls do not prevent the stated security-property violation.
+- **NOT_EXPLOITABLE** — an apparent signal/path exists, but an effective security control, boundary, or lack of reachability prevents the stated security-property violation.
+- **CONDITIONALLY_EXPLOITABLE** — the case explicitly defines a security condition whose exploitability depends on one or more stated, represented preconditions. It is not a synonym for uncertainty.
+- **REMEDIATED** — authoritative remediation verification establishes that the original security condition is actually broken, not merely that a code change exists.
+- **REMEDIATION_FAILED** — the proposed remediation does not eliminate the security condition, including when an alternate viable path remains.
+- **REGRESSED** — a security condition that was previously remediated becomes exploitable again under the benchmark's temporal/version semantics.
+- **UNKNOWN** — authoritative evidence is insufficient to adjudicate exploitability. UNKNOWN is not equivalent to NOT_EXPLOITABLE and MUST NOT be used for evaluator errors or malformed cases.
+
+### Evidence dependency
+
+Verdict correctness and verdict support are independent dimensions. A submitted verdict can match the authoritative verdict while lacking verified evidence; such a result is verdict-correct but evidence-unsupported and MUST remain distinguishable for later scoring. Conversely, verified facts can support the underlying condition while a submitted verdict is incorrect.
+
+### Effective controls and boundaries
+
+Control presence is not control effectiveness. Authentication is distinct from authorization. Presence is distinct from reachability. The evaluator uses authoritative case path/control/condition state and verified evidence; it does not infer exploitability from severity, CWE labels, titles, or scanner output.
+
+### Conditional and remediation reasoning
+
+Conditional verdicts require explicit case conditions. Remediation verdicts consume the existing remediation contract; Phase 5 does not implement the later full remediation/regression engine. A verified original-path block can establish REMEDIATED, while a verified alternate path can establish REMEDIATION_FAILED. Temporal previous/current verdict metadata provides the seam for REGRESSED.
+
+### Phase 5 exit criteria
+
+Phase 5 requires deterministic finding and claim matching, security-condition resolution, reachability/control/precondition adjudication, evidence dependency, structured verdict reasoning, stable reason codes, adversarial and metamorphic tests, all 20 public development cases self-evaluating, and CI validation. Final composite scoring remains deferred to Phase 8.

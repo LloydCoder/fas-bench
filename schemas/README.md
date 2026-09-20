@@ -29,3 +29,8 @@ Patch-compatible changes preserve existing valid instances and semantics. Additi
 ## Phase 4 evidence contract
 
 Evidence objects may carry a structured `fact` containing an artifact path, a structured key, an equality operator, and an expected value. This makes benchmark facts machine-verifiable without treating prose as ground truth. Source locations also support optional exact snippets. The common reason-code taxonomy includes deterministic evidence verification outcomes. These fields are data only; the evidence engine never executes them.
+
+
+## Phase 5 evaluation-result contract
+
+The evaluation-result schema now represents Phase 5 finding evaluation, per-claim status, security-condition state, verdict correctness/support, evidence integrity, reason codes, and a deterministic fingerprint. Composite score fields remain optional before Phase 8; Phase 5 explicitly marks scoring as deferred rather than manufacturing a score.

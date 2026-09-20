@@ -38,3 +38,14 @@ Gold cases receive enhanced dynamic validation and mutation sensitivity checks. 
 ## Phase 4 evidence pipeline
 
 Phase 4 establishes a deterministic evidence substrate: Case → Integrity Verification → Ground Truth Evidence → Submission Parsing → Canonical Normalization → Safe Resolution → Evidence Verification → Relationship/Duplicate Analysis → Coverage/Integrity Result. Phase 5 consumes these results for verdict evaluation; Phase 4 does not adjudicate exploitability.
+
+
+## Phase 5 verdict pipeline
+
+Phase 5 consumes the Phase 4 evidence result without duplicating its verification logic:
+
+Submission → Finding Parser → Claim Resolver → Verified Evidence → Security Condition Resolver → Reachability/Control/Precondition Analysis → Exploitability Adjudication → Verdict Resolver → Structured Verdict Reasoning → Evaluation Result.
+
+Finding identity is structured rather than title-based. Claim matching uses structured claim properties. Security-condition state is derived from declarative case path status, explicit conditions, and remediation state. The evaluator derives the authoritative verdict from those facts and checks the submission's verdict independently. No LLM, FAS runtime, scanner output, or case-ID branch is authoritative.
+
+Phase 5 exposes finding correctness, claim status, evidence support/integrity, verdict correctness/support, security-condition facts, and a deterministic fingerprint. Final composite scoring is deferred to Phase 8.

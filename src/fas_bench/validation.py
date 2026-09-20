@@ -358,30 +358,43 @@ def validate_semantics(
             "calibration_score",
             "efficiency_score",
         )
-        total = 0.0
-        for component in components:
-            value = document.get(component, {})
-            contribution = value.get("contribution", 0)
-            normalized = value.get("normalized", 0)
-            weight = value.get("weight", 0)
-            if abs(contribution - normalized * weight) > 1e-9:
+        scoring_present = any(component in document for component in components) or any(
+            key in document for key in ("final_score", "cap", "penalty")
+        )
+        if scoring_present:
+            total = 0.0
+            for component in components:
+                value = document.get(component, {})
+                contribution = value.get("contribution", 0)
+                normalized = value.get("normalized", 0)
+                weight = value.get("weight", 0)
+                if abs(contribution - normalized * weight) > 1e-9:
+                    errors.append(
+                        _error(
+                            "INTEGRITY_VIOLATION",
+                            component,
+                            "contribution must equal normalized multiplied by weight",
+                        )
+                    )
+                total += contribution
+            if not all(key in document for key in ("final_score", "cap", "penalty")):
                 errors.append(
                     _error(
-                        "INTEGRITY_VIOLATION",
-                        component,
-                        "contribution must equal normalized multiplied by weight",
+                        "MISSING_REQUIRED_DATA",
+                        "scoring",
+                        "scoring fields must be complete when any scoring field is present",
                     )
                 )
-            total += contribution
-        expected = max(0, min(document["cap"], total - document["penalty"]))
-        if abs(expected - document["final_score"]) > 1e-9:
-            errors.append(
-                _error(
-                    "INTEGRITY_VIOLATION",
-                    "final_score",
-                    "final score is not coherent with contributions, cap, and penalty",
-                )
-            )
+            else:
+                expected = max(0, min(document["cap"], total - document["penalty"]))
+                if abs(expected - document["final_score"]) > 1e-9:
+                    errors.append(
+                        _error(
+                            "INTEGRITY_VIOLATION",
+                            "final_score",
+                            "final score is not coherent with contributions, cap, and penalty",
+                        )
+                    )
         if document["validity"] != "VALID" and not document["errors"]:
             errors.append(
                 _error(

@@ -1,5 +1,24 @@
 # Changelog
 
+## Unreleased — Phase 5: Verdict & Finding Evaluator
+
+CI validation is required before merge; no scoring fields are manufactured by Phase 5.
+
+### Added
+- Deterministic finding, claim, security-condition, and verdict evaluation consuming the Phase 4 evidence engine.
+- Declarative verdict derivation from authoritative path state, effective controls, explicit conditions, and remediation state.
+- Structured verdict reasoning, stable Phase 5 reason codes, evidence-support metadata, and deterministic evaluation fingerprints.
+- Gold-case self-evaluation, adversarial submissions, contradiction handling, metamorphic invariants, confidence validation, tamper detection, and FAS-independence tests.
+- Finding-evaluation CLI with strict mode.
+- Phase 5 evaluation-result fields with scoring explicitly deferred to Phase 8.
+
+### Normative clarifications
+- A correct verdict with invalid or incomplete evidence is not fully supported.
+- Severity and finding prose never determine exploitability.
+- UNKNOWN is distinct from NOT_EXPLOITABLE; conditional exploitability requires explicit case conditions.
+- Remediation failure and regression are distinct temporal states.
+
+
 All notable changes to FAS-Bench are documented here.
 
 ## Unreleased — Phase 2: Schema & Data Model

@@ -4,6 +4,7 @@
   "title": "FAS-Bench Evaluation Result v0.1",
   "type": "object",
   "properties": {
+    "evaluation_phase": {"type": "string", "minLength": 1},
     "evaluation_id": {
       "$ref": "../../common/v0.1/common.schema.json#/$defs/EvaluationId"
     },
@@ -94,6 +95,96 @@
       "minimum": 0,
       "maximum": 1
     },
+    "expected_verdict": {
+      "$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"
+    },
+    "finding_evaluation": {
+      "type": "object",
+      "properties": {
+        "finding_id": {"$ref": "../../common/v0.1/common.schema.json#/$defs/FindingId"},
+        "matched": {"type": "boolean"},
+        "category_supported": {"type": "boolean"},
+        "claims_supported": {"type": "boolean"},
+        "evidence_supported": {"type": "boolean"},
+        "verdict_claimed": {"$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"},
+        "expected_verdict": {"$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"},
+        "reason_code": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ReasonCode"},
+        "details": {"type": "string"}
+      },
+      "required": ["finding_id","matched","category_supported","claims_supported","evidence_supported","verdict_claimed","expected_verdict","reason_code"],
+      "additionalProperties": false
+    },
+    "claim_evaluations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimId"},
+          "expected_claim_id": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimId"},
+          "status": {"type": "string","enum": ["VERIFIED","INVALID","UNRESOLVED","CONTRADICTED","MISSING"]},
+          "reason_code": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ReasonCode"},
+          "evidence_ids": {"$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRef"},
+          "details": {"type": "string"}
+        },
+        "required": ["claim_id","status","reason_code","evidence_ids"],
+        "additionalProperties": false
+      }
+    },
+    "security_condition": {
+      "type": "object",
+      "properties": {
+        "path_id": {"$ref": "../../common/v0.1/common.schema.json#/$defs/PathId"},
+        "path_status": {"$ref": "../../common/v0.1/common.schema.json#/$defs/PathStatus"},
+        "security_property": {"type": "string","minLength": 1},
+        "effective_control_state": {"type": "string","enum": ["EFFECTIVE","INEFFECTIVE_OR_BYPASSED","NOT_RELEVANT","UNKNOWN"]},
+        "required_conditions": {"type": "array","items":{"type":"string"}},
+        "satisfied_conditions": {"type": "array","items":{"type":"string"}},
+        "unsatisfied_conditions": {"type": "array","items":{"type":"string"}},
+        "unknown_conditions": {"type": "array","items":{"type":"string"}}
+      },
+      "required": ["path_id","path_status","security_property","effective_control_state","required_conditions","satisfied_conditions","unsatisfied_conditions","unknown_conditions"],
+      "additionalProperties": false
+    },
+    "verdict_evaluation": {
+      "type": "object",
+      "properties": {
+        "submitted": {"$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"},
+        "expected": {"$ref": "../../common/v0.1/common.schema.json#/$defs/Verdict"},
+        "verdict_correct": {"type": "boolean"},
+        "verdict_supported": {"type": "boolean"},
+        "reason_code": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ReasonCode"},
+        "supporting_claims": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimRef"},
+        "blocking_claims": {"$ref": "../../common/v0.1/common.schema.json#/$defs/ClaimRef"},
+        "required_conditions": {"type": "array","items":{"type":"string"}},
+        "satisfied_conditions": {"type": "array","items":{"type":"string"}},
+        "unsatisfied_conditions": {"type": "array","items":{"type":"string"}},
+        "evidence_ids": {"$ref": "../../common/v0.1/common.schema.json#/$defs/EvidenceRef"},
+        "details": {"type":"string"}
+      },
+      "required": ["submitted","expected","verdict_correct","verdict_supported","reason_code","supporting_claims","blocking_claims","required_conditions","satisfied_conditions","unsatisfied_conditions","evidence_ids"],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "submitted_evidence_count": {"type":"integer","minimum":0},
+        "verified_evidence_count": {"type":"integer","minimum":0},
+        "invalid_evidence_count": {"type":"integer","minimum":0},
+        "unresolved_evidence_count": {"type":"integer","minimum":0},
+        "contradicted_evidence_count": {"type":"integer","minimum":0},
+        "missing_expected_evidence_count": {"type":"integer","minimum":0},
+        "duplicate_evidence_count": {"type":"integer","minimum":0},
+        "evidence_hallucination_rate": {"type":"number","minimum":0,"maximum":1},
+        "coverage": {"type":"number","minimum":0,"maximum":1},
+        "result_hash": {"type":"string","pattern":"^[A-Fa-f0-9]{64}$"}
+      },
+      "required": ["submitted_evidence_count","verified_evidence_count","invalid_evidence_count","unresolved_evidence_count","contradicted_evidence_count","missing_expected_evidence_count","duplicate_evidence_count","evidence_hallucination_rate","coverage","result_hash"],
+      "additionalProperties": false
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
     "errors": {
       "type": "array",
       "items": {
@@ -141,9 +232,6 @@
     "submission_id",
     "case_id",
     "validity",
-    "final_score",
-    "cap",
-    "penalty",
     "errors",
     "warnings"
   ],
