@@ -11,7 +11,14 @@ from typing import Any
 from .contract import BENCHMARK_VERSION, CASE_IDS, GOLD_CASE_IDS, SCHEMA_VERSION
 from .validation import validate, validate_file
 
-ROOT = Path(__file__).resolve().parents[2]
+def _find_root() -> Path:
+    for candidate in (Path.cwd(), *Path.cwd().parents, Path(__file__).resolve().parents[2]):
+        if (candidate / "cases").is_dir() and (candidate / "pyproject.toml").is_file():
+            return candidate
+    raise RuntimeError("FAS-Bench repository root with cases/ could not be located")
+
+
+ROOT = _find_root()
 CASES_ROOT = ROOT / "cases"
 REGISTRY_PATH = CASES_ROOT / "registry.json"
 MANIFEST_PATH = CASES_ROOT / "manifest.json"
