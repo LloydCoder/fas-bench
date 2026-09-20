@@ -56,3 +56,8 @@ Each public case's expected attack graph is validated through the generic graph 
 ## Phase 7 case contract
 
 The existing twenty public remediation artifacts remain authoritative declarations. Cases without an asserted fix retain `NOT_ASSESSED`; remediation-enabled cases such as FAS-013, FAS-019, and FAS-020 are consumed as declarative data. The evaluator never branches on a case identifier.
+
+
+## Phase 8 measurement
+
+The released FAS-001 through FAS-020 corpus is executable by the deterministic Phase 8 self-test. Case ground truth remains benchmark-controlled; scoring does not contain case-ID-specific branches.
