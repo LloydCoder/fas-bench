@@ -9,7 +9,7 @@
     "C3_AUTHENTICATION_AUTHORIZATION"
   ],
   "difficulty": "L2_MULTI_FUNCTION",
-  "status": "IN_REVIEW",
+  "status": "VALIDATED",
   "scenario": "An authenticated low-privilege user can retrieve another user's object because authorization is based on a caller-supplied object identifier.",
   "security_condition": "REACHABLE_TO_SINK",
   "attacker_model": "Authenticated user has only their own-resource permission and knows a second object identifier.",
@@ -38,6 +38,6 @@
     "case_version": "0.1.0",
     "environment_version": "0.1.0",
     "provenance": "SYNTHETIC",
-    "lifecycle_status": "IN_REVIEW"
+    "lifecycle_status": "VALIDATED"
   }
 }
