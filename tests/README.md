@@ -30,3 +30,8 @@ python -c "import fas_bench; print(fas_bench.__version__)"
 ## Phase 6 tests
 
 Tests/test_phase6_graph.py covers all 20 public graphs, graph self-consistency, empty/saturated submissions, fabricated and reversed edges, duplicates, dangling references, path continuity, cycles, traversal limits, semantic identifier variation, graph diffing, and minimal paths. Tests/test_phase6_properties.py covers canonicalization idempotence, permutation-invariant digests, identity diffs, and score reflexivity.
+
+
+## Phase 7 tests
+
+Tests cover complete remediation, alternate-path failure, cosmetic fixes, overblocking, UNKNOWN, regression, secure refactoring, evidence fabrication, test removal/absence, case mismatch, schema validation, and all twenty remediation artifacts.
