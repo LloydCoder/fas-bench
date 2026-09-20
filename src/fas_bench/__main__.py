@@ -389,12 +389,14 @@ def main(argv=None):
                 for path in sorted(p for p in args.input.rglob("*") if p.is_file()):
                     input_files[path.relative_to(args.input).as_posix()] = path.read_bytes()
             runner = SecureRunner(ExecutionPolicy(image=args.image))
-            result = runner.execute(ExecutionRequest(
-                case_id=args.case,
-                submission_id=args.submission_id,
-                command=tuple(args.exec_command),
-                input_files=input_files,
-            ))
+            result = runner.execute(
+                ExecutionRequest(
+                    case_id=args.case,
+                    submission_id=args.submission_id,
+                    command=tuple(args.exec_command),
+                    input_files=input_files,
+                )
+            )
             rendered = json.dumps(result.as_dict(), indent=2, sort_keys=True)
             if args.output:
                 args.output.write_text(rendered + "\n", encoding="utf-8")
