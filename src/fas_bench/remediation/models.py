@@ -24,6 +24,8 @@ REMEDIATION_STATUSES = {
 
 @dataclasses.dataclass(frozen=True)
 class TestResult:
+    __test__ = False
+
     test_id: str
     test_type: str
     status: str
