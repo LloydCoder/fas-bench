@@ -6,6 +6,8 @@
   "properties":{
     "remediation_id":{"$ref":"../../common/v0.1/common.schema.json#/$defs/RemediationId"},
     "case_id":{"$ref":"../../common/v0.1/common.schema.json#/$defs/CaseId"},
+    "benchmark_version":{"$ref":"../../common/v0.1/common.schema.json#/$defs/BenchmarkVersion"},
+    "schema_version":{"$ref":"../../common/v0.1/common.schema.json#/$defs/SchemaVersion"},
     "status":{"type":"string","enum":["REMEDIATED","REMEDIATION_FAILED","CONDITIONALLY_REMEDIATED","REGRESSED","UNKNOWN","BENCHMARK_ERROR"]},
     "original_condition_status":{"type":"string","minLength":1},
     "path_status":{"type":"string","enum":["REMOVED","PERSISTING","UNKNOWN"]},
@@ -29,6 +31,6 @@
     "diagnostics":{"type":"array","items":{"type":"string"}},
     "provenance":{"type":"object","additionalProperties":{"type":"string"}}
   },
-  "required":["remediation_id","case_id","status","original_condition_status","path_status","alternate_path_status","security_test_status","functional_test_status","regression_status","new_findings_status","evidence_integrity","path_lifecycles","alternate_paths","graph_diff","security_condition_diff","security_controls","dimensions","diagnostics","provenance"],
+  "required":["remediation_id","case_id","benchmark_version","schema_version","status","original_condition_status","path_status","alternate_path_status","security_test_status","functional_test_status","regression_status","new_findings_status","evidence_integrity","path_lifecycles","alternate_paths","graph_diff","security_condition_diff","security_controls","dimensions","diagnostics","provenance"],
   "additionalProperties":false
 }
