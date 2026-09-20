@@ -17,6 +17,7 @@ fas-bench="fas_bench.__main__:main"
 packages=["src/fas_bench"]
 [tool.hatch.build.targets.wheel.force-include]
 schemas="fas_bench/schemas"
+"src/fas_bench/scoring/config/v0.1.json"="fas_bench/scoring/config/v0.1.json"
 [tool.pytest.ini_options]
 testpaths=["tests"]
 addopts="-ra"

@@ -1,4 +1,8 @@
 # FAS-Bench Architecture
+
+## Phase 8 measurement boundary
+
+The scoring layer consumes Phase 4–7 outputs and is side-effect free at metric level. Configuration is versioned under `configs/scoring/`; canonical result serialization and reporting are under `reporting/`; statistical utilities are under `analytics/`. Graph semantics remain in Phase 6 and remediation semantics remain in Phase 7; Phase 8 measures them rather than duplicating their authoritative logic.
 **Role:** architecture and implementation model.
 **Authority:** docs/specification.md.
 

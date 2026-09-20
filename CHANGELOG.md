@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased — Phase 8: Scoring, Calibration & Benchmark Analytics
+
+### Added
+- Deterministic finding, verdict, evidence, reachability, graph, remediation, calibration, integrity, and composite measurement APIs.
+- Versioned scoring policy, canonical result/report serialization, deterministic bootstrap uncertainty, stratification, and leave-one-case-out analysis.
+- Phase 8 CLI commands and self-test pipeline over the public 20-case development corpus.
+
+### Limitations
+- Scoring weights are provisional; the public 20-case corpus is not statistically representative or hidden.
+
 ## Unreleased — Phase 7: Remediation & Regression Engine
 
 CI validation is required before merge; Phase 7 requires security-condition closure, required security/functional verification, alternate-path analysis, evidence integrity, and regression checks.

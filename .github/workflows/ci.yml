@@ -48,5 +48,11 @@ jobs:
         run: fas-bench evaluate finding --case FAS-001 --submission tests/fixtures/phase5/FAS-001-gold.json --strict --json
       - name: Gold reproduction
         run: fas-bench cases validate-gold --reproduce
+      - name: Phase 8 self-test
+        run: fas-bench self-test --output /tmp/fas-bench-phase8
+      - name: Phase 8 analytics CLI
+        run: fas-bench analyze /tmp/fas-bench-phase8/results.json --bootstrap 200 --seed 0
+      - name: Phase 8 report CLI
+        run: fas-bench report /tmp/fas-bench-phase8/results.json --output /tmp/fas-bench-phase8-regenerated
       - name: Repository contract
         run: pytest tests/test_contract.py tests/test_docs.py tests/test_phase3_cases.py

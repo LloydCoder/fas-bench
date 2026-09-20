@@ -1,4 +1,8 @@
 # FAS-Bench Evaluation
+
+## Phase 8 pipeline
+
+The authoritative evaluation pipeline is submission schema validation → Phase 4 evidence verification → Phase 5 verdict/finding evaluation → Phase 6 graph comparison → Phase 7 remediation output where applicable → Phase 8 scoring → calibration → aggregation → uncertainty → canonical result/report. Phase 8 never executes candidate code and ignores candidate-provided aggregate scores.
 **Role:** evaluation methodology and metric interpretation.
 **Authority:** docs/specification.md.
 

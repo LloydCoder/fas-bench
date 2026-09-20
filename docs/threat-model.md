@@ -43,3 +43,8 @@ The graph evaluator treats submissions as hostile data. Threats include oversize
 ## Phase 7 threat model
 
 The remediation evaluator treats candidate-produced state and evidence as hostile input. Relevant threats include cosmetic fixes, partial fixes, alternate-path bypasses, equivalent-sink replacement, evidence fabrication, test removal/weakening, baseline tampering, graph spoofing, control weakening, regression hiding, and resource-exhaustion through graph inputs. Phase 7 performs no dynamic candidate execution and therefore cannot itself provide the sandbox boundary required for arbitrary patch execution; that responsibility is explicitly reserved for Phase 9.
+
+
+## Phase 8 scoring trust boundary
+
+Phase 8 treats candidate submissions as untrusted structured data. Candidate-provided aggregate scores, weights, gold data, or result digests are never authoritative. The scorer performs deterministic calculations without executing candidate code or loading candidate modules. Resource, path, serialization, and hidden-gold controls remain part of the benchmark security boundary.
