@@ -131,6 +131,7 @@ class FindingEvaluationResult:
     fingerprint: str
     errors: tuple[dict[str, str], ...] = ()
     warnings: tuple[str, ...] = ()
+    graph: dict[str, Any] | None = None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -151,4 +152,5 @@ class FindingEvaluationResult:
             "errors": list(self.errors),
             "warnings": list(self.warnings),
             "metadata": {"scoring_deferred_to_phase_8": True},
+            **({"graph": self.graph} if self.graph is not None else {}),
         }
