@@ -26,3 +26,8 @@ A case remains IN_REVIEW until schema, semantic, reproducibility, oracle, integr
 ## Phase 4 evidence contributions
 
 Evidence changes must remain deterministic and benchmark-independent. New expected evidence must identify an authoritative case artifact and structured fact where the fact can be deterministically observed. Add positive, negative, boundary, duplicate, contradiction, missing, tampering, and ordering-invariance tests as appropriate. Never execute submission evidence fields. Run the complete case validation and evidence test suite before opening a pull request.
+
+
+## Phase 5 evaluator contributions
+
+Finding and verdict semantics must remain deterministic and case-independent. Core evaluator code MUST NOT branch on individual case IDs. Case-specific truth belongs in case artifacts, claims, evidence, attack paths, controls, conditions, and remediation metadata. Changes must include positive, negative, contradiction, missing-evidence, cross-case, metamorphic, and tamper tests where applicable. The evaluator must consume Phase 4 evidence results rather than reimplement evidence verification. Final benchmark scoring remains deferred to Phase 8.
