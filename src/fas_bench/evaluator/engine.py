@@ -10,8 +10,8 @@ from typing import Any
 
 from ..contract import BENCHMARK_VERSION, SCHEMA_VERSION
 from ..evidence import load_case, load_submission, verify_evidence
-from ..graph import compare_graphs
 from ..evidence.errors import CaseIntegrityError, CaseLoadError
+from ..graph import compare_graphs
 from .errors import EvaluatorCaseError, EvaluatorInternalError, EvaluatorSubmissionError
 from .models import (
     ClaimEvaluation,
