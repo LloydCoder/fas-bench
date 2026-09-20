@@ -692,3 +692,16 @@ Conditional verdicts require explicit case conditions. Remediation verdicts cons
 ### Phase 5 exit criteria
 
 Phase 5 requires deterministic finding and claim matching, security-condition resolution, reachability/control/precondition adjudication, evidence dependency, structured verdict reasoning, stable reason codes, adversarial and metamorphic tests, all 20 public development cases self-evaluating, and CI validation. Final composite scoring remains deferred to Phase 8.
+
+
+## Phase 6 — Security Graph and Attack-Path Contract
+
+A security graph is a directed, evidence-aware graph of canonical security entities and relationships. Node identity, edge semantics, abstraction, trust boundaries, controls, and attack paths are distinct concepts.
+
+Graph validation MUST reject duplicate identifiers, dangling references, unsupported versions/types, malformed paths, cross-case references, and configured resource-limit violations. Graph canonicalization MUST be independent of JSON object/array presentation ordering, and graph identity MUST be computed from canonical serialization.
+
+An attack path is an ordered node/edge chain with an entry and impact endpoint. Path completeness requires the security-relevant transitions necessary to establish the case condition; shortest-path length alone is not authoritative. Trust-boundary and control relationships are separately measurable.
+
+The Phase 6 provisional graph score is 0.30 NodeF1 + 0.35 EdgeF1 + 0.20 PathCompleteness + 0.15 BoundaryCrossingF1. The weighting is versioned methodology configuration and is explicitly not scientifically validated by the current public development corpus.
+
+Unsupported or contradictory submitted graph facts MUST remain distinguishable from evaluator failure and MUST NOT be converted into a security verdict.
