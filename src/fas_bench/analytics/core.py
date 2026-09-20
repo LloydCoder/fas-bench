@@ -1,7 +1,9 @@
 """Deterministic aggregation, bootstrap, stratification and sensitivity analysis."""
 
 from __future__ import annotations
-import math, random
+
+import math
+import random
 from collections import defaultdict
 from statistics import mean, median
 
