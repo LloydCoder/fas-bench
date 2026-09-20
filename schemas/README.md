@@ -24,3 +24,8 @@ Patch-compatible changes preserve existing valid instances and semantics. Additi
 
 ## Evaluator-only ground truth
 `schemas/ground-truth/v0.1/ground-truth.schema.json` defines the evaluator-only shape for expected verdicts and hidden evidence. It is never accepted as the public submission contract and does not contain the Phase 3 corpus.
+
+
+## Phase 4 evidence contract
+
+Evidence objects may carry a structured `fact` containing an artifact path, a structured key, an equality operator, and an expected value. This makes benchmark facts machine-verifiable without treating prose as ground truth. Source locations also support optional exact snippets. The common reason-code taxonomy includes deterministic evidence verification outcomes. These fields are data only; the evidence engine never executes them.

@@ -1,7 +1,7 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Normative contract; Phase 3 release candidate validated by CI.  
+**Status:** Normative contract; Phase 4 evidence-verification contract validated by CI.  
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (conceptual contract only; schemas are a Phase 2 deliverable)  
 **Evaluator version:** 0.1.0 (contract identifier; evaluator implementation is later)  
@@ -9,6 +9,10 @@
 **Submission format version:** 0.1.0 (conceptual contract; machine schema is Phase 2)
 
 Other project documents may explain, summarize, or operationalize this contract. They MUST NOT redefine normative semantics. When a conflict exists, this specification controls.
+
+## Phase 4 evidence contract
+
+Phase 4 defines deterministic evidence verification as a separate layer between benchmark ground truth and later verdict evaluation. Evidence MUST be normalized using only representation-level transformations, bound to case identity, resolved against authoritative case artifacts, and classified as VERIFIED, INVALID, UNRESOLVED, or CONTRADICTED without using an LLM oracle. Evidence identity MUST exclude presentation-only descriptions, evaluator verification labels, and evaluation timestamps. A verified evidence item establishes an underlying fact only; exploitability remains a later-phase conclusion.
 
 ## Scope
 

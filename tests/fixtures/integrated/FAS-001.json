@@ -65,22 +65,28 @@
       "evidence_id": "EVD-001-001",
       "benchmark_version": "0.1.0",
       "schema_version": "0.1",
-      "type": "SOURCE_LOCATION",
+      "type": "TEST_RESULT",
       "role": "DIRECT",
       "verification": "VERIFIED",
       "description": "Contract fixture evidence.",
       "location": {
-        "repository": "fixture-repo",
-        "commit": "abc123",
-        "file": "app.py",
-        "line_start": 10,
-        "line_end": 12,
-        "language": "python"
+        "repository": "cases/FAS-001",
+        "commit": "phase3-initial",
+        "file": "repository/state.json",
+        "line_start": 1,
+        "line_end": 1,
+        "language": "json"
       },
       "related_claims": [
         "CLM-001-001"
       ],
-      "provenance": "OBSERVED"
+      "provenance": "OBSERVED",
+      "fact": {
+        "artifact_path": "repository/state.json",
+        "key": "path_viable",
+        "operator": "EQUALS",
+        "value": false
+      }
     }
   ],
   "attack_paths": [

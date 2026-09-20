@@ -36,3 +36,8 @@ The corpus includes EXPLOITABLE, NOT_EXPLOITABLE, CONDITIONALLY_EXPLOITABLE, REM
 ## Oracle classes
 
 The initial gold cases use DYNAMIC security-property validation through loopback-only synthetic services. Other cases may remain STATIC where runtime execution is not required. A dynamic oracle must demonstrate the security property itself, not merely process success.
+
+
+## Phase 4 evidence contract
+
+Every initial case now carries an independently verifiable expected-evidence fact. The fact references a case-local artifact and structured key/value, allowing the evidence engine to verify the ground-truth evidence itself without hard-coded case logic.

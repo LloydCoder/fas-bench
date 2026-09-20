@@ -42,6 +42,8 @@ jobs:
         run: docker pull python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
       - name: Corpus validation
         run: fas-bench cases validate-all
+      - name: Evidence engine CLI smoke test
+        run: fas-bench evidence validate tests/fixtures/integrated/FAS-001.json --case FAS-001 --json
       - name: Gold reproduction
         run: fas-bench cases validate-gold --reproduce
       - name: Repository contract

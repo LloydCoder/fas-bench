@@ -30,3 +30,8 @@ The initial corpus is public development data. Corpus validation checks registry
 ## Phase 3 corpus gates
 
 Before a case is marked VALIDATED, the corpus validator checks the Phase 2 schema contract, semantic references, expected finding/verdict agreement, attack-path representation, registry consistency, and oracle agreement. Dynamic gold cases additionally require executable security-property checks and mutation sensitivity. ERROR and INCONCLUSIVE oracle outcomes are never converted into security verdicts.
+
+
+## Phase 4 evidence verification
+
+Evidence verification is deterministic and case-authoritative. Submitted evidence is normalized before identity comparison; source locations are resolved beneath the case root; structured facts are read from benchmark-controlled artifacts; duplicate facts do not inflate coverage. `VERIFIED` establishes an underlying fact only. `INVALID`, `UNRESOLVED`, and `CONTRADICTED` remain distinct outcomes. Evidence Hallucination Rate is the raw invalid-evidence count divided by submitted evidence count, with zero submissions producing 0.0. Evaluator errors remain evaluator errors and are never converted into security verdicts.

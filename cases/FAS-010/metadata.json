@@ -5,8 +5,8 @@
   "case_version": "0.1.0",
   "environment_version": "0.1.0",
   "validation_type": "STATIC",
-  "lifecycle_status": "IN_REVIEW",
+  "lifecycle_status": "VALIDATED",
   "provenance": "SYNTHETIC",
-  "artifact_digest": "93a0a133e74e8fd4f161a477db4afa2a46480ba988c66d0ac9578732dd6e0f48",
+  "artifact_digest": "95b9216a81761f8a490587930bdb323dd19bfc8bf09712459425df658ab99d5f",
   "oracle_version": "0.1.0"
 }

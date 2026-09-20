@@ -12,6 +12,7 @@ DOCS = [
     "docs/evaluation.md",
     "docs/methodology.md",
     "docs/threat-model.md",
+    "docs/evidence-engine.md",
     "cases/README.md",
     "schemas/README.md",
     "tests/README.md",

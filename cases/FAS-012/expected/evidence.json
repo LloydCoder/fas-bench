@@ -4,10 +4,16 @@
   "schema_version": "0.1",
   "type": "DEPENDENCY",
   "role": "SUPPORTING",
-  "verification": "UNRESOLVED",
-  "description": "Dependency is present but call-path evidence is unresolved.",
+  "verification": "VERIFIED",
+  "description": "Deterministic evidence that the dependency is present while the reachability prerequisite is false.",
   "related_claims": [
     "CLM-012-001"
   ],
-  "provenance": "VERIFIED"
+  "provenance": "VERIFIED",
+  "fact": {
+    "artifact_path": "repository/state.json",
+    "key": "reachability_evidence",
+    "operator": "EQUALS",
+    "value": false
+  }
 }

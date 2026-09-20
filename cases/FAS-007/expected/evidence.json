@@ -17,5 +17,11 @@
   "related_claims": [
     "CLM-007-001"
   ],
-  "provenance": "VERIFIED"
+  "provenance": "VERIFIED",
+  "fact": {
+    "artifact_path": "repository/state.json",
+    "key": "agent_capability",
+    "operator": "EQUALS",
+    "value": true
+  }
 }

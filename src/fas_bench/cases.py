@@ -86,8 +86,9 @@ def load_registry() -> dict[str, Any]:
     return _load(REGISTRY_PATH)
 
 
-def validate_case_package(case_id: str) -> dict[str, Any]:
-    case_dir = CASES_ROOT / case_id
+def validate_case_package(case_id: str, cases_root: Path | None = None) -> dict[str, Any]:
+    root = cases_root.resolve() if cases_root is not None else CASES_ROOT
+    case_dir = root / case_id
     errors: list[str] = []
     if not case_dir.is_dir():
         return {
