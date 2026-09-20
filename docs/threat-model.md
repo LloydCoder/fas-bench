@@ -38,3 +38,8 @@ Controls include strict schema validation, finite confidence checks, Phase 4 evi
 ## Phase 6 evaluator threats
 
 The graph evaluator treats submissions as hostile data. Threats include oversized graphs, graph bombs, pathological cycles, path explosion, fabricated privileged identities, fabricated authorization/control edges, malicious identifiers, Unicode normalization ambiguity, cross-case references, schema confusion, evidence spoofing, and evaluator denial of service. The engine uses safe JSON parsing, no dynamic execution, deterministic normalization, finite node/edge/path/traversal limits, and structured diagnostics.
+
+
+## Phase 7 threat model
+
+The remediation evaluator treats candidate-produced state and evidence as hostile input. Relevant threats include cosmetic fixes, partial fixes, alternate-path bypasses, equivalent-sink replacement, evidence fabrication, test removal/weakening, baseline tampering, graph spoofing, control weakening, regression hiding, and resource-exhaustion through graph inputs. Phase 7 performs no dynamic candidate execution and therefore cannot itself provide the sandbox boundary required for arbitrary patch execution; that responsibility is explicitly reserved for Phase 9.
