@@ -1,5 +1,6 @@
 """Stable Phase 5 evaluator errors."""
 
+
 class EvaluatorError(Exception):
     """Base class for deterministic finding/verdict evaluation failures."""
 
