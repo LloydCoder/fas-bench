@@ -17,7 +17,7 @@ REMEDIATION_STATUSES = {
 }
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclasses.dataclasses.dataclass(frozen=True)
 class TestResult:
     test_id: str
     test_type: str
@@ -47,7 +47,7 @@ class TestResult:
         return value
 
 
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class PathLifecycle:
     path_id: str
     lifecycle: str
@@ -71,7 +71,7 @@ class PathLifecycle:
         }
 
 
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class AlternatePath:
     path_id: str
     classification: str
@@ -93,7 +93,7 @@ class AlternatePath:
         }
 
 
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class SecurityState:
     state_id: str
     case_id: str
@@ -125,7 +125,7 @@ class SecurityState:
         }
 
 
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class RemediationResult:
     remediation_id: str
     case_id: str
@@ -141,13 +141,13 @@ class RemediationResult:
     path_lifecycles: tuple[PathLifecycle, ...] = ()
     alternate_paths: tuple[AlternatePath, ...] = ()
     graph_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
-    security_condition_diff: dict[str, Any] = field(default_factory=dict)
-    security_controls: dict[str, Any] = field(default_factory=dict)
+    security_condition_diff: dict[str, Any] = dataclasses.field(default_factory=dict)
+    security_controls: dict[str, Any] = dataclasses.field(default_factory=dict)
     test_results: tuple[TestResult, ...] = ()
-    dimensions: dict[str, float] = field(default_factory=dict)
+    dimensions: dict[str, float] = dataclasses.field(default_factory=dict)
     score: float | None = None
     diagnostics: tuple[str, ...] = ()
-    provenance: dict[str, str] = field(default_factory=dict)
+    provenance: dict[str, str] = dataclasses.field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.status not in REMEDIATION_STATUSES:
