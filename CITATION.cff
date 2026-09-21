@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "FAS-Bench"
+message: "If FAS-Bench contributes to your research or evaluation, please cite this repository."
+type: software
+authors:
+  - family-names: Nwachukwu
+    given-names: Chinaemerem
+    alias: LloydCoder
+repository-code: "https://github.com/LloydCoder/fas-bench"
+url: "https://github.com/LloydCoder/fas-bench"
+license: "Apache-2.0"
+keywords:
+  - cybersecurity
+  - security
+  - benchmark
+  - AI agents
+  - LLM
+  - SAST
+  - security analysis
+  - evidence evaluation
+  - vulnerability research
