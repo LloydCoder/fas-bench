@@ -1,12 +1,12 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Normative contract; Phase 5 verdict/finding contract validated by CI.  
+**Status:** Phase 10 implementation contract; normative semantics are versioned for the v0.1.0 benchmark family.  
 **Benchmark specification version:** 0.1.0  
-**Schema version:** 0.1.0 (conceptual contract only; schemas are a Phase 2 deliverable)  
-**Evaluator version:** 0.1.0 (contract identifier; evaluator implementation is later)  
-**Case-set version:** 0.1.0 (validated public development corpus)  
-**Submission format version:** 0.1.0 (conceptual contract; machine schema is Phase 2)
+**Schema version:** 0.1.0 (machine-readable schema families are implemented under schemas/)  
+**Evaluator version:** 0.1.0  
+**Case-set version:** 0.1.0 (public development corpus)  
+**Submission format version:** 0.1.0 (machine-readable submission schema implemented under schemas/)
 
 Other project documents may explain, summarize, or operationalize this contract. They MUST NOT redefine normative semantics. When a conflict exists, this specification controls.
 
