@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: I001
 """Single authoritative deterministic canonical JSON implementation."""
 from __future__ import annotations
 import dataclasses
