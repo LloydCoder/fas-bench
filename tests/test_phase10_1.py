@@ -9,6 +9,12 @@ ROOT=Path(__file__).resolve().parents[1]
 def test_phase10_corpus_validation_is_stable():
     from fas_bench.cases import CASES_ROOT, validate_all
     assert CASES_ROOT.resolve() == ROOT / "cases"
+    from fas_bench.cases import _digest_case, _digest_repository
+    import json
+    case = ROOT / "cases" / "FAS-001"
+    meta = json.loads((case / "metadata.json").read_text(encoding="utf-8"))
+    case_doc = json.loads((case / "case.json").read_text(encoding="utf-8"))
+    print("DIGEST_DIAG", _digest_case(case), meta.get("artifact_digest"), _digest_repository(case), case_doc.get("repository", {}).get("artifact_digest", {}).get("sha256"))
     first = validate_all()
     second = validate_all()
     assert first["status"] == "PASS", first["errors"]
