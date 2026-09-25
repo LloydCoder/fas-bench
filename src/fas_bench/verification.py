@@ -1,3 +1,4 @@
+# fmt: off
 # ruff: noqa: E501
 """Independent Phase 10.2 verification primitives."""
 from __future__ import annotations
