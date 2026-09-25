@@ -27,7 +27,7 @@ def test_case_digest_ignores_generated_python_caches(tmp_path):
     from fas_bench.cases import _digest_case
     source = ROOT / "cases" / "FAS-001"
     copy = tmp_path / "FAS-001"
-    shutil.copytree(source, copy)
+    shutil.copytree(source, copy, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     baseline = _digest_case(copy)
     cache = copy / "repository" / "__pycache__"
     cache.mkdir(parents=True)
