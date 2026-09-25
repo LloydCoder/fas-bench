@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 from pathlib import Path
 from fas_bench.canonical import canonical_json as production_canonical
 from fas_bench.phase10 import digest_tree as production_tree
