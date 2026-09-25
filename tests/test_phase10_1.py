@@ -6,8 +6,6 @@ import pytest
 from fas_bench.canonical import canonical_json
 from fas_bench.evidence.resolver import verify_location
 from fas_bench.phase10 import build_release_manifest, digest_tree, validate_release_manifest
-from fas_bench.secure_eval.models import ExecutionPolicy
-from fas_bench.secure_eval.runner import SecureRunner
 
 ROOT=Path(__file__).resolve().parents[1]
 
