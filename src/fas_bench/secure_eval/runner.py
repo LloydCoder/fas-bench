@@ -1,3 +1,4 @@
+# fmt: off
 """Fail-closed Docker execution runner with bounded runtime resources."""
 from __future__ import annotations
 import hashlib,json,os,shutil,subprocess,tempfile,threading,time,uuid
