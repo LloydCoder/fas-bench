@@ -46,7 +46,9 @@ def test_release_verifier_does_not_trust_validation_status():
     from fas_bench.phase10 import build_release_manifest, validate_release_manifest
     manifest=build_release_manifest(ROOT,"test",channel="release-candidate")
     manifest["validation_status"]="INVALID"
-    assert validate_release_manifest(ROOT,manifest)["status"]=="PASS"
+    result=validate_release_manifest(ROOT,manifest)
+    assert result["status"]=="FAIL"
+    assert "release digest mismatch" in result["errors"]
 
 def test_release_verifier_detects_component_tampering():
     from fas_bench.phase10 import build_release_manifest, validate_release_manifest
