@@ -1,3 +1,4 @@
+# fmt: off
 """Phase 10 corpus integrity plus Phase 10.1 independent release verification."""
 from __future__ import annotations
 import ast, hashlib, json, re
