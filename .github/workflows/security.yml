@@ -18,7 +18,7 @@ jobs:
       - name: Compile Python
         run: python -m compileall -q src cases
       - name: Dependency vulnerability audit
-        run: python -m pip install pip-audit==2.9.0 && pip freeze | grep -v '^fas-bench==' > /tmp/fas-bench-audit-requirements.txt && pip-audit --strict -r /tmp/fas-bench-audit-requirements.txt
+        run: python -m pip install pip-audit==2.9.0 && pip freeze | grep -vE '^(-e |fas-bench==)' > /tmp/fas-bench-audit-requirements.txt && pip-audit --strict -r /tmp/fas-bench-audit-requirements.txt
       - name: Phase 10.1 adversarial regression suite
         run: pytest tests/test_phase10_1.py
       - name: Repository secret-pattern audit
