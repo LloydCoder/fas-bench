@@ -1,8 +1,0 @@
-# Binary release artifacts must never be line-ending normalized.
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.zip binary
-*.whl binary
-*.tar.gz binary
