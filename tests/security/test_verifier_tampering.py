@@ -1,3 +1,4 @@
+# fmt: off
 # ruff: noqa: E501
 import hashlib, json
 from pathlib import Path
