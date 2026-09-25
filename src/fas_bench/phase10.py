@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 from .canonical import canonical_json
-from .cases import CASES_ROOT, validate_all, validate_case_package
+from .cases import CASES_ROOT, validate_case_package
 from .contract import BENCHMARK_VERSION, CASE_IDS, SCHEMA_VERSION
 
 PHASE10_VERSION="0.1.0"
