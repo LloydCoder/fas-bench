@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 from fas_bench.phase10 import build_release_manifest
 from fas_bench.verification import verify_manifest_independently
 from fas_bench.contract import BENCHMARK_VERSION, CASE_IDS
