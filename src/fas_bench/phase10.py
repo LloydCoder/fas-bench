@@ -2,7 +2,10 @@
 # ruff: noqa: E501,UP035,UP037,E701,E702
 """Phase 10 corpus integrity plus Phase 10.1 independent release verification."""
 from __future__ import annotations
-import ast, hashlib, json, re
+import ast
+import hashlib
+import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -145,7 +148,8 @@ def validate_release_manifest(root:Path,manifest:dict[str,Any])->dict[str,Any]:
  errors=[]
  schema_path=root/"schemas/release-manifest/v0.1/release-manifest.schema.json"
  try:
-  schema=json.loads(schema_path.read_text(encoding="utf-8")); sr=validate_instance(manifest,"release-manifest")
+  schema_path.read_text(encoding="utf-8")
+  sr=validate_instance(manifest,"release-manifest")
   if sr.status!="VALID": errors.extend(e.message for e in sr.errors)
  except Exception as exc: errors.append(f"manifest schema validation failed: {exc}")
  if manifest.get("benchmark_version")!=BENCHMARK_VERSION: errors.append("benchmark version mismatch")
