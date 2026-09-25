@@ -1,3 +1,4 @@
+# fmt: off
 # ruff: noqa: E501
 from pathlib import Path
 from fas_bench.canonical import canonical_json as production_canonical
