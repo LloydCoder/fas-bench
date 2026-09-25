@@ -1,5 +1,5 @@
 # fmt: off
-import json
+# ruff: noqa: E501,I001
 from pathlib import Path
 import pytest
 
