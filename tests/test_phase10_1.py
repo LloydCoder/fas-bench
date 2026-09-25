@@ -65,6 +65,8 @@ def test_digest_tree_excludes_symlinks(tmp_path):
     assert digest_tree(root)==digest_tree(root/".."/root.name)
 
 def test_environment_authority_is_not_overridable():
+    from fas_bench.secure_eval.models import ExecutionPolicy
+    from fas_bench.secure_eval.runner import SecureRunner
     policy=ExecutionPolicy("python:3.12-slim@sha256:"+"a"*64)
     runner=SecureRunner(policy,docker_binary="not-a-real-docker")
     assert not runner._validate_environment({"fas_bench_run_id":"x"})
