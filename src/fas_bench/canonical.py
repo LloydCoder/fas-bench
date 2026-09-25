@@ -1,7 +1,8 @@
 # fmt: off
 """Single authoritative deterministic canonical JSON implementation."""
 from __future__ import annotations
-import dataclasses, json
+import dataclasses
+import json
 from enum import Enum
 from typing import Any
 
