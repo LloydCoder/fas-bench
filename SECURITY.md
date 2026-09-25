@@ -44,3 +44,14 @@ Phase 10 treats the corpus and release system as security-sensitive. Release man
 The initial twenty cases are public development data. The repository does not claim that public-case execution is equivalent to a hidden official evaluation. Future held-out corpora must be maintained outside the public artifact boundary.
 
 Report benchmark-integrity issues involving hidden-data leakage, oracle compromise, malicious fixtures, cache poisoning, release tampering, or sandbox escapes through the repository's normal security-reporting channel. Never include live credentials in a report.
+
+
+## Phase 10.2 independent verification and certification
+
+Phase 10.2 separates benchmark implementation, independent verification, and release certification. The independent verifier recomputes selected high-risk integrity properties rather than trusting the production verifier or manifest validation fields.
+
+The release certification object is derived from observed checks. A NOT_ASSESSED mandatory check prevents certification. Certification is not a cryptographic signature and does not establish scientific validity, statistical representativeness, training-contamination freedom, or host/kernel security.
+
+The trust model is documented in docs/trust-model.md. The reproducibility contract is documented in docs/reproducibility.md. External release verification is documented in docs/release-certification.md.
+
+Release evidence must not contain secrets. The certification report and release manifest are treated as integrity evidence tied to the source commit and manifest digest.

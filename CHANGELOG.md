@@ -1,3 +1,20 @@
+## Unreleased — Phase 10.2: Independent Verification & Release Certification
+
+### Added
+
+- Independently implemented release-manifest and component-digest verification.
+- Small reference implementations for canonical JSON, tree identity, path confinement, line ranges, graph identity and score boundaries.
+- Negative tamper tests and certification anti-spoofing tests.
+- Explicit verification, reproducibility, release-certification and trust-model documentation.
+- CI two-pass release verification and deterministic manifest reproduction.
+
+### Integrity boundary
+
+- Independent verification covers selected high-risk contracts; it does not constitute proof of the complete evaluator.
+- SHA-256 establishes content integrity, not authenticity or a cryptographic signature.
+- The public FAS-001 through FAS-020 corpus remains development/practice data and is not a hidden official evaluation corpus.
+- Statistical representativeness and training-contamination freedom remain unclaimed.
+
 ## Unreleased — Phase 10.1: Security, Release Integrity & Reproducibility Hardening
 
 ### Added

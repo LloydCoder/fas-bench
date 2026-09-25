@@ -13,6 +13,7 @@ PHASE10_COMMANDS = {
     "contamination",
     "health",
     "report-release",
+    "verification",
 }
 
 

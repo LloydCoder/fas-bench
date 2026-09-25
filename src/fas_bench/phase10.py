@@ -53,7 +53,7 @@ def digest_tree(root:Path,*,exclude:Iterable[str]=())->str:
   entries.append((rel,path.read_bytes()))
  h=hashlib.sha256()
  for rel,data in sorted(entries,key=lambda x:x[0]):
-  h.update(rel.encode("utf-8"));h.update(b"\\0");h.update(hashlib.sha256(data).digest());h.update(b"\\0")
+  h.update(rel.encode("utf-8"));h.update(b"\0");h.update(hashlib.sha256(data).digest());h.update(b"\0")
  return h.hexdigest()
 
 def case_record(case_id:str,validated:dict[str,Any]|None=None)->dict[str,Any]:

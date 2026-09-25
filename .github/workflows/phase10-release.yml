@@ -29,6 +29,8 @@ jobs:
         run: ruff format --check .
       - name: Lint
         run: ruff check .
+      - name: Pull pinned oracle image
+        run: docker pull python:3.12-slim@sha256:78387bc3881b8273120a12ebe6c1ab22b018ccc2c9adf565ae1ac9b536e184ea
       - name: Tests
         run: pytest
       - name: Schema meta-validation
@@ -60,6 +62,20 @@ jobs:
         run: fas-bench benchmark release --version "$RELEASE_VERSION" --channel "$RELEASE_CHANNEL" > release-manifest.json
       - name: Verify release manifest
         run: fas-bench release verify release-manifest.json
+      - name: Independent manifest verification
+        run: fas-bench verification manifest release-manifest.json
+      - name: Reproduce release manifest
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version || '0.1.0-phase10-rc1' }}
+          RELEASE_CHANNEL: ${{ inputs.channel || 'release-candidate' }}
+        run: |
+          fas-bench benchmark release --version "$RELEASE_VERSION" --channel "$RELEASE_CHANNEL" > release-manifest-reproduced.json
+          python - <<'PY'
+          import json
+          a=json.load(open("release-manifest.json"))
+          b=json.load(open("release-manifest-reproduced.json"))
+          assert a == b, "release manifest reproduction mismatch"
+          PY
       - name: Build package
         run: python -m build
       - name: Install wheel
@@ -78,5 +94,31 @@ jobs:
         run: fas-bench benchmark doctor
       - name: Phase 10.1 adversarial regressions
         run: pytest tests/test_phase10_1.py tests/test_phase9_secure_eval.py
+      - name: Independent verifier tamper test
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          m=json.load(open("release-manifest.json"))
+          m["component_digests"]["README.md"]="0"*64
+          import hashlib
+          u={k:v for k,v in m.items() if k!="release_digest"}
+          m["release_digest"]=hashlib.sha256((json.dumps(u,sort_keys=True,separators=(",",":"),ensure_ascii=False)+"\n").encode()).hexdigest()
+          json.dump(m,open("/tmp/tampered-manifest.json","w"))
+          p=subprocess.run(["fas-bench","verification","manifest","/tmp/tampered-manifest.json"])
+          assert p.returncode != 0, "tampered manifest unexpectedly accepted"
+          PY
       - name: Release manifest independent verification
-        run: fas-bench release verify release-manifest.json
+        run: fas-bench verification manifest release-manifest.json
+      - name: Generate release certification
+        run: fas-bench verification certify release-manifest.json --security-status PASS --output verification-report.json
+      - name: Require release certification
+        run: python -c "import json; r=json.load(open('verification-report.json')); assert r['status']=='CERTIFIED', r"
+      - name: Upload certification evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: fas-bench-release-certification
+          path: |
+            verification-report.json
+            release-manifest.json
+            release-manifest-reproduced.json
+          if-no-files-found: error

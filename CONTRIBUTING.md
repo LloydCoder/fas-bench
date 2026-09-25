@@ -48,3 +48,14 @@ New cases require a security objective, taxonomy, difficulty, fixture, oracle, e
 Mutation contributions must declare their semantic relation and include a validation path. Renaming identifiers is not by itself evidence of security-semantic preservation; the trusted validator/oracle must establish that relationship.
 
 Release changes require corpus validation, contamination scanning, independence checks, manifest generation, manifest verification, and documentation/changelog updates. Do not publish hidden ground truth in the public package.
+
+
+## Phase 10.2 verification contributions
+
+Changes to critical semantics should include an independently derived expected property where practical. Do not construct an oracle by calling the production implementation and asserting that result against itself.
+
+Reference checks should be small, obvious, deterministic, and auditable. Differential tests must investigate divergences rather than automatically choosing the production implementation as correct. Metamorphic tests should document the semantic relation they enforce.
+
+Release changes must run both the normal release verifier and the independent verifier. Certification must be derived from observed checks; never edit a certification report or manifest status to make a release pass.
+
+Reproducibility-sensitive changes must not depend on local paths, hostnames, timestamps, usernames, uncontrolled environment variables, filesystem enumeration order, or hidden local state.

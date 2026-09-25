@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 
 from .cases import reproduce_all, validate_all
+from .contract import BENCHMARK_VERSION, CASE_IDS
 from .mutations import generate_identifier_mutation
 from .phase10 import (
     benchmark_health,
@@ -21,6 +22,7 @@ from .phase10 import (
     validate_corpus,
     validate_release_manifest,
 )
+from .verification import certify, verify_manifest_independently
 
 
 def _dump(value, path=None):
@@ -77,6 +79,14 @@ def main(argv=None):
     co2.add_parser("independence")
 
     subs.add_parser("health")
+    verify_cmd = subs.add_parser("verification")
+    vv = verify_cmd.add_subparsers(dest="sub", required=True)
+    vi = vv.add_parser("manifest")
+    vi.add_argument("manifest", type=Path)
+    vc = vv.add_parser("certify")
+    vc.add_argument("manifest", type=Path)
+    vc.add_argument("--security-status", choices=["PASS", "NOT_ASSESSED"], default="NOT_ASSESSED")
+    vc.add_argument("--output", type=Path)
     report = subs.add_parser("report-release")
     report.add_argument("manifest", type=Path)
 
@@ -139,6 +149,56 @@ def main(argv=None):
         if args.sub == "doctor":
             return 0 if result.get("status") == "GREEN" else 1
         return 0 if result.get("status") in {"PASS", "VALIDATED"} or "release_digest" in result else 1
+
+    if args.command == "verification":
+        manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+        independent = verify_manifest_independently(
+            root,
+            manifest,
+            expected_benchmark_version=BENCHMARK_VERSION,
+            expected_case_ids=tuple(CASE_IDS),
+            required_components=(
+                "pyproject.toml",
+                "src/fas_bench",
+                "schemas",
+                "cases",
+                "docs",
+                "README.md",
+                "SECURITY.md",
+            ),
+        )
+        if args.sub == "certify":
+            second = build_release_manifest(
+                root,
+                manifest.get("release_version", "verification"),
+                channel=manifest.get("channel", "release-candidate"),
+            )
+            implementation = validate_release_manifest(root, manifest)
+            checks = {
+                "implementation": {"status": "PASS" if implementation["status"] == "PASS" else "FAIL"},
+                "independent_verification": independent,
+                "reproducibility": {"status": "PASS" if second == manifest else "FAIL"},
+                "security": {"status": args.security_status},
+                "release": {"status": independent["status"]},
+            }
+            result = certify(
+                checks,
+                {
+                    "benchmark_version": BENCHMARK_VERSION,
+                    "release_version": manifest.get("release_version"),
+                    "manifest_digest": manifest.get("release_digest"),
+                    "certification_policy": "FAS-BENCH-CERTIFICATION-V1",
+                },
+            )
+        else:
+            result = independent
+        _dump(result)
+        if getattr(args, "output", None):
+            args.output.write_text(
+                json.dumps(result, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+        return 0 if result.get("status") in {"PASS", "CERTIFIED"} else 1
 
     if args.command == "release":
         result = validate_release_manifest(
