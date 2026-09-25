@@ -149,9 +149,9 @@ def validate_release_manifest(root:Path,manifest:dict[str,Any])->dict[str,Any]:
  errors=[]
  schema_path=root/"schemas/release-manifest/v0.1/release-manifest.schema.json"
  try:
-  schema_path.read_text(encoding="utf-8")
-  sr=validate_instance(manifest,"release-manifest")
-  if sr.status!="VALID": errors.extend(e.message for e in sr.errors)
+  schema=json.loads(schema_path.read_text(encoding="utf-8"))
+  Draft202012Validator.check_schema(schema)
+  errors.extend(e.message for e in Draft202012Validator(schema).iter_errors(manifest))
  except Exception as exc: errors.append(f"manifest schema validation failed: {exc}")
  if manifest.get("benchmark_version")!=BENCHMARK_VERSION: errors.append("benchmark version mismatch")
  if manifest.get("case_ids")!=list(CASE_IDS): errors.append("release population differs from public initial corpus")
