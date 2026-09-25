@@ -76,6 +76,18 @@ jobs:
           b=json.load(open("release-manifest-reproduced.json"))
           assert a == b, "release manifest reproduction mismatch"
           PY
+      - name: Reproducible package build
+        run: |
+          rm -rf /tmp/fas-bench-dist-a /tmp/fas-bench-dist-b
+          SOURCE_DATE_EPOCH=1600000000 python -m build --outdir /tmp/fas-bench-dist-a
+          SOURCE_DATE_EPOCH=1600000000 python -m build --outdir /tmp/fas-bench-dist-b
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          def hashes(root):
+              return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(root).iterdir()}
+          assert hashes("/tmp/fas-bench-dist-a") == hashes("/tmp/fas-bench-dist-b")
+          PY
       - name: Build package
         run: python -m build
       - name: Install wheel
