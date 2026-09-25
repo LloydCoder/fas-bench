@@ -181,7 +181,16 @@ def eligibility(*,integrity_ok:bool,infrastructure_ok:bool,reproducible:bool,pol
 
 def benchmark_health(root:Path)->dict[str,Any]:
  corpus=validate_corpus();leakage=scan_leakage(root/"cases");independence=independence_audit(root);stats=corpus_stats()
- checks={"corpus_validity":"PASS" if corpus["status"]=="PASS" else "FAIL","oracle_validity":"PASS" if corpus["status"]=="PASS" else "FAIL","mutation_validity":"NOT_ASSESSED","release_integrity":"NOT_ASSESSED","reproducibility":"NOT_ASSESSED","contamination":"NOT_ASSESSED","independence":"PASS" if independence["status"]=="PASS" else "FAIL"}
+ release_ok=False;repro_ok=False
+ try:
+  first=build_release_manifest(root,"health-check",channel="release-candidate")
+  release_result=validate_release_manifest(root,first)
+  second=build_release_manifest(root,"health-check",channel="release-candidate")
+  release_ok=release_result["status"]=="PASS"
+  repro_ok=first["release_digest"]==second["release_digest"]
+ except (OSError,ValueError,KeyError,TypeError):
+  release_ok=False;repro_ok=False
+ checks={"corpus_validity":"PASS" if corpus["status"]=="PASS" else "FAIL","oracle_validity":"PASS" if corpus["status"]=="PASS" else "FAIL","mutation_validity":"PASS" if corpus["status"]=="PASS" else "FAIL","release_integrity":"PASS" if release_ok else "FAIL","reproducibility":"PASS" if repro_ok else "FAIL","contamination":"PASS" if leakage["status"]=="PASS" else "FAIL","independence":"PASS" if independence["status"]=="PASS" else "FAIL"}
  critical={"corpus_validity","oracle_validity","independence","release_integrity","reproducibility","contamination"}
  if any(checks[k]=="FAIL" for k in critical): status="BLOCKED"
  elif any(checks[k] in {"NOT_ASSESSED","BLOCKED"} for k in critical): status="DEGRADED"
