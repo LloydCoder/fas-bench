@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 import hashlib, json
 from pathlib import Path
 from fas_bench.contract import BENCHMARK_VERSION, CASE_IDS
