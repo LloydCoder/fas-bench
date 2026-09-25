@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 from pathlib import Path
 from fas_bench.verification import environment_report
 
