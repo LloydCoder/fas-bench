@@ -9,8 +9,8 @@ import json
 from pathlib import Path
 
 from .cases import reproduce_all, validate_all
-from .mutations import generate_identifier_mutation
 from .contract import BENCHMARK_VERSION, CASE_IDS
+from .mutations import generate_identifier_mutation
 from .verification import verify_manifest_independently
 from .phase10 import (
     benchmark_health,
