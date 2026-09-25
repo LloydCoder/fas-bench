@@ -113,3 +113,12 @@ jobs:
         run: fas-bench verification certify release-manifest.json --security-status PASS --output verification-report.json
       - name: Require release certification
         run: python -c "import json; r=json.load(open('verification-report.json')); assert r['status']=='CERTIFIED', r"
+      - name: Upload certification evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: fas-bench-release-certification
+          path: |
+            verification-report.json
+            release-manifest.json
+            release-manifest-reproduced.json
+          if-no-files-found: error
