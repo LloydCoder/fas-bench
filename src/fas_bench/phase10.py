@@ -12,7 +12,6 @@ from typing import Any, Iterable
 from .canonical import canonical_json
 from .cases import CASES_ROOT, validate_all, validate_case_package
 from .contract import BENCHMARK_VERSION, CASE_IDS, SCHEMA_VERSION
-from jsonschema import Draft202012Validator
 
 PHASE10_VERSION="0.1.0"
 PHASE10_1_VERSION="0.1.0"
@@ -145,6 +144,7 @@ def scan_release_surface(root:Path)->dict[str,Any]:
  return {"status":"PASS" if not findings else "FAIL","findings":findings}
 
 def validate_release_manifest(root:Path,manifest:dict[str,Any])->dict[str,Any]:
+ from jsonschema import Draft202012Validator
  errors=[]
  schema_path=root/"schemas/release-manifest/v0.1/release-manifest.schema.json"
  try:
