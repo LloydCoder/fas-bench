@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: E501,UP035,UP037
 """Deterministic identities shared by the secure evaluator."""
 from __future__ import annotations
 from typing import Any
