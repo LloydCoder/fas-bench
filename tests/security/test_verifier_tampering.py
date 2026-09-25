@@ -25,7 +25,9 @@ def test_source_tamper_is_detected_by_digest():
     altered["component_digests"]["README.md"] = "0" * 64
     unsigned = {key: value for key, value in altered.items() if key != "release_digest"}
     altered["release_digest"] = hashlib.sha256(
-        (json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode()
+        (
+            json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"
+        ).encode()
     ).hexdigest()
     result = verify_manifest_independently(
         ROOT,
