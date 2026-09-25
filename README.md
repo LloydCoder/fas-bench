@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.12-blue.svg)](pyproject.toml)
 
-**Status:** Phase 10.1 — security, release-integrity, evidence-verification, reproducibility, and secure-evaluation hardening are implemented on the Phase 10.1 branch. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set. The current public corpus is **development/practice data, not a hidden official evaluation set**.
+**Status:** Phase 10.2 — independent verification, release-integrity hardening, and reproducibility verification are implemented on the Phase 10.2 branch. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set.
 
 FAS-Bench is an independent, evidence-first benchmark for evaluating AI agents, security scanners, SAST/SCA systems, LLM-based security tools, MCP-aware systems, autonomous coding agents, and hybrid human/machine security-analysis pipelines.
 
@@ -307,6 +307,7 @@ fas-bench report <results.json> --output <directory>
 fas-bench corpus validate
 fas-bench benchmark release --version 0.1.0-phase10-dev
 fas-bench release verify <manifest.json>
+fas-bench verification manifest <manifest.json>
 ~~~
 
 Release identity is content-derived. A timestamp or directory name is not sufficient to establish release identity.
@@ -381,6 +382,10 @@ Start with the document that matches your task:
 | Understand mutation | [Phase 10 mutation](docs/phase10-mutation.md) |
 | Understand contamination defense | [Phase 10 contamination](docs/phase10-contamination.md) |
 | Understand release procedure | [Phase 10 release](docs/phase10-release.md) |
+| Understand independent verification | [Phase 10.2 verification](docs/phase10-2-verification.md) |
+| Understand reproducibility | [Reproducibility contract](docs/reproducibility.md) |
+| Understand release certification | [Release certification](docs/release-certification.md) |
+| Understand trust boundaries | [Trust model](docs/trust-model.md) |
 | Understand governance | [Phase 10 governance](docs/phase10-governance.md) |
 | Contribute code/cases/docs | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report vulnerabilities | [SECURITY.md](SECURITY.md) |
