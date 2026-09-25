@@ -13,3 +13,6 @@
 *.zip binary
 *.whl binary
 *.tar.gz binary
+
+# Case packages contain content-addressed fixtures; preserve their stored bytes.
+cases/** -text
