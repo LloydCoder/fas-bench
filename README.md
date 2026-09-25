@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.12-blue.svg)](pyproject.toml)
 
-**Status:** Phase 10 — corpus integrity, contamination defense, mutation, governance, and release infrastructure are implemented in the public development repository. The current public corpus is **development/practice data, not a hidden official evaluation set**.
+**Status:** Phase 10.1 — security, release-integrity, evidence-verification, reproducibility, and secure-evaluation hardening are implemented on the Phase 10.1 branch. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set. The current public corpus is **development/practice data, not a hidden official evaluation set**.
 
 FAS-Bench is an independent, evidence-first benchmark for evaluating AI agents, security scanners, SAST/SCA systems, LLM-based security tools, MCP-aware systems, autonomous coding agents, and hybrid human/machine security-analysis pipelines.
 
