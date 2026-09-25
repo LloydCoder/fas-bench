@@ -1,3 +1,4 @@
+# fmt: off
 """Deterministic identities shared by the secure evaluator."""
 from __future__ import annotations
 from typing import Any
