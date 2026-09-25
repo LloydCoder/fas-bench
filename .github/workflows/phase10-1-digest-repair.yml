@@ -1,0 +1,30 @@
+name: Phase 10.1 Case Digest Repair
+on:
+  push:
+    branches: ["phase10.1-security-release-hardening"]
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - name: Reconcile content digests
+        run: python scripts/reconcile_case_digests.py
+      - name: Verify corpus
+        run: fas-bench cases validate-all
+      - name: Commit repaired content digests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cases/FAS-*/metadata.json cases/FAS-*/case.json
+          if git diff --cached --quiet; then
+            echo "No digest changes required."
+            exit 0
+          fi
+          git commit -m "fix: reconcile content-addressed case digests [skip ci]"
+          git push
