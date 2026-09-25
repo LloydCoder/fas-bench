@@ -1,5 +1,5 @@
 # fmt: off
-# ruff: noqa: E501,UP035,UP037,E701,E702
+# ruff: noqa: E501,UP035,UP037,I001,E701,E702,I001
 """Phase 10 corpus integrity plus Phase 10.1 independent release verification."""
 from __future__ import annotations
 import ast
