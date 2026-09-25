@@ -136,6 +136,8 @@ def main(argv=None):
             manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
             result = validate_release_manifest(root, manifest)
         _dump(result)
+        if args.sub == "doctor":
+            return 0 if result.get("status") == "GREEN" else 1
         return 0 if result.get("status") in {"PASS", "VALIDATED"} or "release_digest" in result else 1
 
     if args.command == "release":
@@ -151,8 +153,9 @@ def main(argv=None):
         return 0 if result["status"] == "PASS" else 1
 
     if args.command == "health":
-        _dump(benchmark_health(root))
-        return 0
+        result = benchmark_health(root)
+        _dump(result)
+        return 0 if result.get("status") == "GREEN" else 1
 
     if args.command == "report-release":
         manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
