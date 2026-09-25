@@ -3,9 +3,6 @@
 from pathlib import Path
 import pytest
 
-from fas_bench.canonical import canonical_json
-from fas_bench.evidence.resolver import verify_location
-from fas_bench.phase10 import build_release_manifest, digest_tree, validate_release_manifest
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -20,17 +17,20 @@ def test_phase10_corpus_validation_is_stable():
 
 
 def test_canonical_json_rejects_non_finite_values():
+    from fas_bench.canonical import canonical_json
     with pytest.raises(ValueError):
         canonical_json({"x": float("nan")})
     with pytest.raises(ValueError):
         canonical_json({"x": float("inf")})
 
 def test_release_verifier_does_not_trust_validation_status():
+    from fas_bench.phase10 import build_release_manifest, validate_release_manifest
     manifest=build_release_manifest(ROOT,"test",channel="release-candidate")
     manifest["validation_status"]="INVALID"
     assert validate_release_manifest(ROOT,manifest)["status"]=="PASS"
 
 def test_release_verifier_detects_component_tampering():
+    from fas_bench.phase10 import build_release_manifest, validate_release_manifest
     manifest=build_release_manifest(ROOT,"test",channel="release-candidate")
     manifest["component_digests"]["README.md"]="0"*64
     result=validate_release_manifest(ROOT,manifest)
@@ -38,6 +38,8 @@ def test_release_verifier_detects_component_tampering():
     assert "component digest mismatch: README.md" in result["errors"]
 
 def test_official_channel_requires_external_held_out_corpus():
+    from fas_bench.canonical import canonical_json
+    from fas_bench.phase10 import build_release_manifest, validate_release_manifest
     manifest=build_release_manifest(ROOT,"test",channel="release-candidate")
     manifest["channel"]="official"
     manifest["release_digest"]=__import__("hashlib").sha256(
@@ -48,6 +50,7 @@ def test_official_channel_requires_external_held_out_corpus():
     assert any("held-out corpus" in e for e in result["errors"])
 
 def test_exact_symbol_range_and_snippet_binding(tmp_path):
+    from fas_bench.evidence.resolver import verify_location
     case=tmp_path
     src=case/"sample.py"
     src.write_text("def outside():\n    return 1\n\ndef target():\n    return 2\n",encoding="utf-8")
@@ -59,6 +62,7 @@ def test_exact_symbol_range_and_snippet_binding(tmp_path):
     assert (status,reason)==("INVALID","EVIDENCE_SNIPPET_MISMATCH")
 
 def test_digest_tree_excludes_symlinks(tmp_path):
+    from fas_bench.phase10 import digest_tree
     root=tmp_path
     (root/"a.txt").write_bytes(b"a")
     (root/"link").symlink_to(root/"a.txt")
