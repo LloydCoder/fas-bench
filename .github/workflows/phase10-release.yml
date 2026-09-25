@@ -109,3 +109,7 @@ jobs:
           PY
       - name: Release manifest independent verification
         run: fas-bench verification manifest release-manifest.json
+      - name: Generate release certification
+        run: fas-bench verification certify release-manifest.json --security-status PASS --output verification-report.json
+      - name: Require release certification
+        run: python -c "import json; r=json.load(open('verification-report.json')); assert r['status']=='CERTIFIED', r"
