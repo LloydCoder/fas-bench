@@ -72,6 +72,7 @@ def _digest_paths(paths: list[Path], root: Path) -> str:
 _EPHEMERAL_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".tox"}
 _EPHEMERAL_SUFFIXES = {".pyc", ".pyo"}
 
+
 def _content_files(root: Path, *, exclude_manifest: bool = False) -> list[Path]:
     files: list[Path] = []
     for path in root.rglob("*"):
