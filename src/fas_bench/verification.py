@@ -118,9 +118,7 @@ def reference_path(root: Path, candidate: str) -> Path:
     return resolved
 
 
-def reference_graph_identity(
-    nodes: list[dict[str, Any]], edges: list[dict[str, Any]]
-) -> str:
+def reference_graph_identity(nodes: list[dict[str, Any]], edges: list[dict[str, Any]]) -> str:
     payload = {
         "nodes": sorted(nodes, key=lambda item: json.dumps(item, sort_keys=True)),
         "edges": sorted(edges, key=lambda item: json.dumps(item, sort_keys=True)),
@@ -146,9 +144,7 @@ def environment_report(root: Path) -> dict[str, Any]:
     }
 
 
-def certify(
-    results: dict[str, dict[str, Any]], identity: dict[str, Any]
-) -> dict[str, Any]:
+def certify(results: dict[str, dict[str, Any]], identity: dict[str, Any]) -> dict[str, Any]:
     required = {
         "implementation",
         "independent_verification",
@@ -158,9 +154,7 @@ def certify(
     }
     missing = sorted(required - set(results))
     failed = sorted(
-        key
-        for key, value in results.items()
-        if value.get("status") not in {"PASS", "GREEN"}
+        key for key, value in results.items() if value.get("status") not in {"PASS", "GREEN"}
     )
     status = "CERTIFIED" if not missing and not failed else "NOT_CERTIFIED"
     return {
