@@ -1,9 +1,7 @@
 from fas_bench.canonical import canonical_json as production_canonical
 from fas_bench.phase10 import digest_tree as production_tree
-from fas_bench.verification import (
-    canonical_json as reference_canonical,
-    digest_tree as reference_tree,
-)
+from fas_bench.verification import canonical_json as reference_canonical
+from fas_bench.verification import digest_tree as reference_tree
 
 
 def test_canonical_differential():
