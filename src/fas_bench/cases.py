@@ -88,8 +88,10 @@ def _content_files(root: Path, *, exclude_manifest: bool = False) -> list[Path]:
         files.append(path)
     return files
 
+
 def _digest_case(case_dir: Path) -> str:
     return _digest_paths(_content_files(case_dir, exclude_manifest=True), case_dir)
+
 
 def _digest_repository(case_dir: Path) -> str:
     return _digest_paths(_content_files(case_dir / "repository"), case_dir)
