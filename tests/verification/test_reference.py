@@ -1,3 +1,4 @@
+# fmt: off
 from pathlib import Path
 import pytest
 from fas_bench.verification import canonical_json, digest_tree, reference_graph_identity, reference_line_range, reference_path, reference_score
