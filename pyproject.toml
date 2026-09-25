@@ -10,9 +10,10 @@ readme="README.md"
 requires-python=">=3.12"
 license={file="LICENSE"}
 authors=[{name="LloydCoder"}]
+dependencies=["jsonschema>=4.23,<5","referencing>=0.35,<1"]
 
 [project.optional-dependencies]
-dev=["build>=1.2,<2","pytest>=8,<9","ruff>=0.12,<1","jsonschema>=4.23,<5","referencing>=0.35,<1"]
+dev=["build>=1.2,<2","pytest>=8,<9","ruff>=0.12,<1"]
 
 [project.scripts]
 fas-bench="fas_bench.phase10_entry:main"
