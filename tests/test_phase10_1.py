@@ -16,6 +16,19 @@ def test_phase10_corpus_validation_is_stable():
     assert first["errors"] == second["errors"]
 
 
+def test_case_digest_ignores_generated_python_caches(tmp_path):
+    import shutil
+    from fas_bench.cases import _digest_case
+    source = ROOT / "cases" / "FAS-001"
+    copy = tmp_path / "FAS-001"
+    shutil.copytree(source, copy)
+    baseline = _digest_case(copy)
+    cache = copy / "repository" / "__pycache__"
+    cache.mkdir(parents=True)
+    (cache / "generated.pyc").write_bytes(b"generated")
+    assert _digest_case(copy) == baseline
+
+
 def test_canonical_json_rejects_non_finite_values():
     from fas_bench.canonical import canonical_json
     with pytest.raises(ValueError):
