@@ -4,7 +4,10 @@
 from __future__ import annotations
 from typing import Any
 
-from ..canonical import digest_json
+from ..canonical import canonical_json as _canonical_json, digest_json
+
+def canonical_json(value: Any) -> bytes:
+    return _canonical_json(value)
 
 def sha256_bytes(data: bytes) -> str:
     import hashlib
