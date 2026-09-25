@@ -13,6 +13,14 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -e .
+      - name: Import side-effect diagnostic
+        run: |
+          python - <<'PY'
+          from fas_bench.cases import validate_all
+          print("BEFORE", validate_all()["errors"][:10])
+          import fas_bench.phase10
+          print("AFTER", validate_all()["errors"][:10])
+          PY
       - name: Recompute and show digest changes
         run: |
           python scripts/reconcile_case_digests.py
