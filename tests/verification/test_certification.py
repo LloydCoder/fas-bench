@@ -1,3 +1,4 @@
+# fmt: off
 from fas_bench.verification import certify
 
 def test_certification_requires_all_mandatory_checks():
