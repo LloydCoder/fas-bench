@@ -10,6 +10,7 @@ from pathlib import Path
 
 from .cases import reproduce_all, validate_all
 from .contract import BENCHMARK_VERSION, CASE_IDS
+from .mutations import generate_identifier_mutation
 from .phase10 import (
     benchmark_health,
     build_release_manifest,
@@ -21,7 +22,6 @@ from .phase10 import (
     validate_corpus,
     validate_release_manifest,
 )
-from .mutations import generate_identifier_mutation
 from .verification import verify_manifest_independently
 
 
