@@ -11,6 +11,16 @@ from fas_bench.secure_eval.runner import SecureRunner
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def test_phase10_corpus_validation_is_stable():
+    from fas_bench.cases import CASES_ROOT, validate_all
+    assert CASES_ROOT.resolve() == ROOT / "cases"
+    first = validate_all()
+    second = validate_all()
+    assert first["status"] == "PASS", first["errors"]
+    assert second["status"] == "PASS", second["errors"]
+    assert first["errors"] == second["errors"]
+
+
 def test_canonical_json_rejects_non_finite_values():
     with pytest.raises(ValueError):
         canonical_json({"x": float("nan")})
