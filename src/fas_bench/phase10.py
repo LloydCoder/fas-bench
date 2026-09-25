@@ -13,6 +13,7 @@ from .canonical import canonical_json
 from .cases import CASES_ROOT, validate_all, validate_case_package
 from .contract import BENCHMARK_VERSION, CASE_IDS, SCHEMA_VERSION
 from .validation import validate_instance
+from jsonschema import Draft202012Validator
 
 PHASE10_VERSION="0.1.0"
 PHASE10_1_VERSION="0.1.0"
