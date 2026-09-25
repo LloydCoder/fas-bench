@@ -7,9 +7,10 @@ permissions:
   contents: read
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, pcidss-hp]
     strategy:
       fail-fast: true
+      max-parallel: 1
       matrix:
         python-version: ["3.12", "3.13"]
     steps:
