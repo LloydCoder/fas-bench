@@ -124,7 +124,7 @@ def independence_audit(root:Path)->dict[str,Any]:
 def build_release_manifest(root:Path,version:str,*,channel="development")->dict[str,Any]:
  if channel not in CHANNELS: raise ValueError(f"unsupported release channel: {channel}")
  corpus=validate_corpus()
- if corpus["status"]!="PASS": raise ValueError("cannot build release manifest from invalid corpus")
+ if corpus["status"]!="PASS": raise ValueError(f"cannot build release manifest from invalid corpus: {corpus['errors'][:20]}")
  records=[case_record(x) for x in CASE_IDS]
  files=["pyproject.toml","src/fas_bench","schemas","cases","docs","README.md","SECURITY.md"]
  component_digests={}
