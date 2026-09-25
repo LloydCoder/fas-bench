@@ -17,3 +17,10 @@ Release channels are development, release-candidate, public, and official. The p
 ## Historical compatibility
 
 A result must retain the benchmark, scoring, evaluator, harness, schema, and case-population versions with which it was produced. New semantics require a new version rather than silently reinterpreting historical results.
+
+
+## Phase 10.1 release-integrity rules
+
+Release verification independently recomputes component, case, fixture, oracle, and manifest digests. The manifest's `validation_status` field is metadata and is never proof of validation. A SHA-256 release digest establishes content integrity, not authenticity or a cryptographic signature. The public repository cannot qualify itself as an official held-out release; official evaluation requires separately controlled evaluation infrastructure.
+
+<!-- Phase 10.1 release-integrity contract -->

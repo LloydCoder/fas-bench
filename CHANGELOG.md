@@ -1,3 +1,21 @@
+## Unreleased — Phase 10.1: Security, Release Integrity & Reproducibility Hardening
+
+### Added
+
+- Runtime declaration of JSON Schema validation dependencies.
+- Independent release-manifest verification with recomputed component, case, fixture, oracle, and manifest digests.
+- Explicit release-channel policy; the public repository cannot self-declare a hidden official corpus.
+- Derived benchmark doctor states: GREEN, DEGRADED, and BLOCKED.
+- Exact evidence line-range and snippet binding, including hostile-input failure handling.
+- Deterministic canonical JSON with non-finite-number rejection and explicit symlink exclusion from tree digests.
+- Bounded `/output` tmpfs enforcement, memory+swap limits, evaluator environment protection, and unique runtime container identities.
+- Phase 10.1 adversarial regression coverage, safer workflow input handling, and dependency vulnerability auditing.
+
+### Integrity boundary
+
+- The SHA-256 release digest provides content integrity, not authenticity or a cryptographic signature.
+- Official held-out evaluation requires separately controlled evaluation infrastructure outside this public repository.
+
 # Changelog
 
 All notable changes to FAS-Bench are recorded here. Historical benchmark semantics must remain interpretable through explicit versioning.

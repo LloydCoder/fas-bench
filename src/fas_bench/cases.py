@@ -69,17 +69,32 @@ def _digest_paths(paths: list[Path], root: Path) -> str:
     return digest.hexdigest()
 
 
+_EPHEMERAL_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".tox"}
+_EPHEMERAL_SUFFIXES = {".pyc", ".pyo"}
+
+
+def _content_files(root: Path, *, exclude_manifest: bool = False) -> list[Path]:
+    files: list[Path] = []
+    for path in root.rglob("*"):
+        if not path.is_file() or path.is_symlink():
+            continue
+        relative = path.relative_to(root)
+        if any(part in _EPHEMERAL_DIRS for part in relative.parts):
+            continue
+        if path.suffix in _EPHEMERAL_SUFFIXES:
+            continue
+        if exclude_manifest and path.name == "manifest.json":
+            continue
+        files.append(path)
+    return files
+
+
 def _digest_case(case_dir: Path) -> str:
-    files = [
-        path for path in case_dir.rglob("*") if path.is_file() and path.name != "manifest.json"
-    ]
-    return _digest_paths(files, case_dir)
+    return _digest_paths(_content_files(case_dir, exclude_manifest=True), case_dir)
 
 
 def _digest_repository(case_dir: Path) -> str:
-    repository = case_dir / "repository"
-    files = [path for path in repository.rglob("*") if path.is_file()]
-    return _digest_paths(files, case_dir)
+    return _digest_paths(_content_files(case_dir / "repository"), case_dir)
 
 
 def load_registry() -> dict[str, Any]:

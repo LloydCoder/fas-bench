@@ -13,6 +13,8 @@ jobs:
       matrix:
         python-version: ["3.12", "3.13"]
     steps:
+      - name: Configure Git line endings
+        run: git config --global core.autocrlf false
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Git diff check
         run: git diff --check

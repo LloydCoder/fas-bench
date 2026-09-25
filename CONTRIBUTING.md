@@ -37,6 +37,10 @@ Security-sensitive changes should include isolation, resource, artifact-integrit
 Before opening a PR, run the complete test suite, formatting and lint checks, package build/install, corpus validation, and the Docker-backed Phase 9 checks available in CI.
 
 
+## Phase 10.1 security and release contributions
+
+Changes touching evidence verification, release manifests, canonicalization, secure execution, environment policy, lifecycle state, or GitHub Actions must include a focused regression test and preserve fail-closed behavior. Never trust candidate-provided hashes, lifecycle declarations, or aggregate scores as benchmark authority. Do not introduce unbounded execution, candidate-specific coupling, hidden-corpus leakage, or secret material.
+
 ## Phase 10 case and release contributions
 
 New cases require a security objective, taxonomy, difficulty, fixture, oracle, expected evidence/verdict/graph/remediation state where applicable, provenance, licensing review, deterministic validation, and content digests. A case is not RELEASED merely because its directory exists or its legacy metadata says VALIDATED.
