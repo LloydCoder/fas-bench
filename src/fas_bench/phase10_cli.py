@@ -193,7 +193,7 @@ def main(argv=None):
         else:
             result = independent
         _dump(result)
-        if args.output:
+        if getattr(args, "output", None):
             args.output.write_text(
                 json.dumps(result, indent=2, sort_keys=True) + "\n",
                 encoding="utf-8",
