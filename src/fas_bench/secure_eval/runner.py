@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: E501,UP035,UP037,I001
 """Fail-closed Docker execution runner with bounded runtime resources."""
 from __future__ import annotations
 import hashlib,json,os,shutil,subprocess,tempfile,threading,time,uuid
