@@ -22,7 +22,7 @@ from .phase10 import (
     validate_corpus,
     validate_release_manifest,
 )
-from .verification import verify_manifest_independently
+from .verification import certify, verify_manifest_independently
 
 
 def _dump(value, path=None):
