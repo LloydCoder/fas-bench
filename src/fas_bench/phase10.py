@@ -195,7 +195,7 @@ def benchmark_health(root:Path)->dict[str,Any]:
  if any(checks[k]=="FAIL" for k in critical): status="BLOCKED"
  elif any(checks[k] in {"NOT_ASSESSED","BLOCKED"} for k in critical): status="DEGRADED"
  else: status="GREEN"
- return {"status":status,"checks":checks,"coverage":stats,"statistical_representativeness_claim":False,"policy":{"critical_checks":sorted(critical)}}
+ return {"status":status,"checks":checks,"corpus_validity":checks["corpus_validity"],"oracle_validity":checks["oracle_validity"],"mutation_validity":checks["mutation_validity"],"release_integrity":checks["release_integrity"],"reproducibility":checks["reproducibility"],"contamination":checks["contamination"],"independence":checks["independence"],"coverage":stats,"statistical_representativeness_claim":False,"policy":{"critical_checks":sorted(critical)}}
 
 def public_report(manifest:dict[str,Any],stats:dict[str,Any],health:dict[str,Any])->dict[str,Any]:
  return {"release_identity":{"release_version":manifest["release_version"],"release_digest":manifest["release_digest"],"benchmark_version":manifest["benchmark_version"]},"population":len(manifest["case_ids"]),"coverage":stats,"validation_status":manifest.get("validation_status"),"health":health,"known_limitations":["The initial 20-case corpus is public development data.","No claim of statistical representativeness is made.","Hidden/official evaluation requires a separately controlled corpus.","The SHA-256 release digest provides integrity, not authenticity."],"hidden_case_details":False}
