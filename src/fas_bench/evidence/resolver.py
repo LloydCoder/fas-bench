@@ -9,7 +9,7 @@ from typing import Any
 from .errors import CaseLoadError
 
 def safe_resolve(root:Path,relative:str)->Path:
- if not isinstance(relative,str) or not relative or "\\x00" in relative: raise CaseLoadError("EVIDENCE_INVALID_PATH: empty or NUL-containing path")
+ if not isinstance(relative,str) or not relative or "\x00" in relative: raise CaseLoadError("EVIDENCE_INVALID_PATH: empty or NUL-containing path")
  candidate=Path(relative)
  if candidate.is_absolute() or candidate.anchor: raise CaseLoadError("EVIDENCE_INVALID_PATH: absolute path is forbidden")
  resolved_root=root.resolve();resolved=(resolved_root/candidate).resolve()
