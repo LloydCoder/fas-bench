@@ -1,3 +1,4 @@
+# fmt: off
 """Safe resolution and exact source-location verification."""
 from __future__ import annotations
 import ast,json
