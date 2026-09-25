@@ -1,4 +1,5 @@
 # fmt: off
+# ruff: noqa: E501,UP035,UP037,I001
 """Safe resolution and exact source-location verification."""
 from __future__ import annotations
 import ast,json
