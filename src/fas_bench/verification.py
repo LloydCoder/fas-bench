@@ -1,4 +1,5 @@
 """Independent Phase 10.2 verification primitives."""
+
 from __future__ import annotations
 
 import hashlib
