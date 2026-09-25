@@ -60,6 +60,20 @@ jobs:
         run: fas-bench benchmark release --version "$RELEASE_VERSION" --channel "$RELEASE_CHANNEL" > release-manifest.json
       - name: Verify release manifest
         run: fas-bench release verify release-manifest.json
+      - name: Independent manifest verification
+        run: fas-bench verification manifest release-manifest.json
+      - name: Reproduce release manifest
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version || '0.1.0-phase10-rc1' }}
+          RELEASE_CHANNEL: ${{ inputs.channel || 'release-candidate' }}
+        run: |
+          fas-bench benchmark release --version "$RELEASE_VERSION" --channel "$RELEASE_CHANNEL" > release-manifest-reproduced.json
+          python - <<'PY'
+          import json
+          a=json.load(open("release-manifest.json"))
+          b=json.load(open("release-manifest-reproduced.json"))
+          assert a == b, "release manifest reproduction mismatch"
+          PY
       - name: Build package
         run: python -m build
       - name: Install wheel
@@ -78,5 +92,15 @@ jobs:
         run: fas-bench benchmark doctor
       - name: Phase 10.1 adversarial regressions
         run: pytest tests/test_phase10_1.py tests/test_phase9_secure_eval.py
+      - name: Independent verifier tamper test
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          m=json.load(open("release-manifest.json"))
+          m["validation_status"]="INVALID"
+          json.dump(m,open("/tmp/tampered-manifest.json","w"))
+          p=subprocess.run(["fas-bench","verification","manifest","/tmp/tampered-manifest.json"])
+          assert p.returncode != 0, "tampered manifest unexpectedly accepted"
+          PY
       - name: Release manifest independent verification
-        run: fas-bench release verify release-manifest.json
+        run: fas-bench verification manifest release-manifest.json
