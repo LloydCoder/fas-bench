@@ -6,6 +6,8 @@ import ast
 import hashlib
 import json
 import re
+import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -73,8 +75,18 @@ def validate_case_phase10(case_id:str,validated:dict[str,Any]|None=None)->dict[s
  if record.get("case_id") not in CASE_IDS: errors.append("case is outside canonical initial corpus")
  return {**record,"status":"PASS" if not errors and base.get("status")=="PASS" else "FAIL","errors":errors}
 
+def _independent_base_corpus_validation()->dict[str,Any]:
+ code="import json; from fas_bench.cases import validate_all; print(json.dumps(validate_all(), sort_keys=True))"
+ try:
+  proc=subprocess.run([sys.executable,"-c",code],cwd=CASES_ROOT.parent,stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=30,check=False)
+  if proc.returncode!=0:
+   return {"status":"FAIL","errors":[f"corpus validator subprocess failed: {proc.stderr[-500:]}"],"results":[]}
+  return json.loads(proc.stdout)
+ except (OSError,subprocess.SubprocessError,json.JSONDecodeError) as exc:
+  return {"status":"FAIL","errors":[f"corpus validator subprocess infrastructure failure: {exc}"],"results":[]}
+
 def validate_corpus()->dict[str,Any]:
- base=validate_all();base_results={r["case_id"]:r for r in base.get("results",[])}
+ base=_independent_base_corpus_validation();base_results={r["case_id"]:r for r in base.get("results",[])}
  results=[validate_case_phase10(x,base_results.get(x)) for x in CASE_IDS]
  errors=list(base.get("errors",[]));errors.extend(f"{r['case_id']}: {e}" for r in results for e in r["errors"])
  return {"status":"PASS" if not errors else "FAIL","benchmark_version":BENCHMARK_VERSION,"schema_version":SCHEMA_VERSION,"phase10_version":PHASE10_VERSION,"case_count":len(results),"valid_count":sum(r["status"]=="PASS" for r in results),"errors":sorted(set(errors)),"cases":results}
