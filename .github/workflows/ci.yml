@@ -30,6 +30,8 @@ jobs:
         run: ruff check .
       - name: Tests
         run: pytest
+      - name: Phase 10.2 independent verification suite
+        run: pytest tests/verification tests/independence tests/reproducibility
       - name: Schema meta-validation
         run: python -c "from pathlib import Path; from jsonschema import Draft202012Validator; import json; [Draft202012Validator.check_schema(json.loads(p.read_text())) for p in Path('schemas').rglob('*.schema.json')]"
       - name: Fixture validation
