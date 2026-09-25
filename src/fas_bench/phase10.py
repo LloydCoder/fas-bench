@@ -74,7 +74,8 @@ def validate_case_phase10(case_id:str,validated:dict[str,Any]|None=None)->dict[s
  return {**record,"status":"PASS" if not errors and base.get("status")=="PASS" else "FAIL","errors":errors}
 
 def validate_corpus()->dict[str,Any]:
- base=validate_all();results=[validate_case_phase10(x) for x in CASE_IDS]
+ base=validate_all();base_results={r["case_id"]:r for r in base.get("results",[])}
+ results=[validate_case_phase10(x,base_results.get(x)) for x in CASE_IDS]
  errors=list(base.get("errors",[]));errors.extend(f"{r['case_id']}: {e}" for r in results for e in r["errors"])
  return {"status":"PASS" if not errors else "FAIL","benchmark_version":BENCHMARK_VERSION,"schema_version":SCHEMA_VERSION,"phase10_version":PHASE10_VERSION,"case_count":len(results),"valid_count":sum(r["status"]=="PASS" for r in results),"errors":sorted(set(errors)),"cases":results}
 
