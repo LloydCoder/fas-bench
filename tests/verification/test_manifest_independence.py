@@ -38,7 +38,9 @@ def test_tampering_is_detected():
     manifest["component_digests"]["README.md"] = "0" * 64
     unsigned = {key: value for key, value in manifest.items() if key != "release_digest"}
     manifest["release_digest"] = hashlib.sha256(
-        (json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode()
+        (
+            json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"
+        ).encode()
     ).hexdigest()
     result = verify(manifest)
     assert result["status"] == "FAIL"
@@ -50,6 +52,8 @@ def test_validation_status_is_not_authority():
     manifest["validation_status"] = "INVALID"
     unsigned = {key: value for key, value in manifest.items() if key != "release_digest"}
     manifest["release_digest"] = hashlib.sha256(
-        (json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode()
+        (
+            json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"
+        ).encode()
     ).hexdigest()
     assert verify(manifest)["status"] == "PASS"
