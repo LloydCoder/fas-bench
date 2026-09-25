@@ -13,9 +13,7 @@ from fas_bench.verification import (
 
 
 def test_reference_canonical_and_tree(tmp_path):
-    assert canonical_json({"b": 2, "a": [1, "✓"]}) == canonical_json(
-        {"a": [1, "✓"], "b": 2}
-    )
+    assert canonical_json({"b": 2, "a": [1, "✓"]}) == canonical_json({"a": [1, "✓"], "b": 2})
     with pytest.raises(ValueError):
         canonical_json({"x": float("nan")})
     (tmp_path / "b").write_text("b", encoding="utf-8")
