@@ -1,3 +1,4 @@
+# fmt: off
 # ruff: noqa: E501
 from fas_bench.phase10 import build_release_manifest
 from fas_bench.verification import verify_manifest_independently
