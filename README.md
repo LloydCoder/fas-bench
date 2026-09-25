@@ -308,6 +308,7 @@ fas-bench corpus validate
 fas-bench benchmark release --version 0.1.0-phase10-dev
 fas-bench release verify <manifest.json>
 fas-bench verification manifest <manifest.json>
+fas-bench verification certify <manifest.json> --security-status PASS --output verification-report.json
 ~~~
 
 Release identity is content-derived. A timestamp or directory name is not sufficient to establish release identity.
@@ -386,6 +387,7 @@ Start with the document that matches your task:
 | Understand reproducibility | [Reproducibility contract](docs/reproducibility.md) |
 | Understand release certification | [Release certification](docs/release-certification.md) |
 | Understand trust boundaries | [Trust model](docs/trust-model.md) |
+| Understand verification coverage | [Phase 10.2 matrix](docs/phase10-2-verification-matrix.md) |
 | Understand governance | [Phase 10 governance](docs/phase10-governance.md) |
 | Contribute code/cases/docs | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report vulnerabilities | [SECURITY.md](SECURITY.md) |
