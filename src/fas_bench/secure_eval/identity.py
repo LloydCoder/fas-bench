@@ -3,7 +3,8 @@
 """Deterministic identities shared by the secure evaluator."""
 from __future__ import annotations
 from typing import Any
-from ..canonical import canonical_json, digest_json
+
+from ..canonical import digest_json
 
 def sha256_bytes(data: bytes) -> str:
     import hashlib
