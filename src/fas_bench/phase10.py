@@ -62,7 +62,7 @@ def case_record(case_id:str)->dict[str,Any]:
  expected=json.loads((case_dir/"expected"/"verdict.json").read_text(encoding="utf-8"))
  legacy=metadata.get("lifecycle_status","VALIDATED")
  state=metadata.get("phase10_lifecycle","ORACLE_VALIDATED" if legacy=="VALIDATED" else legacy)
- return {"case_id":case_id,"title":case["title"],"case_version":metadata.get("case_version"),"schema_version":case.get("schema_version"),"benchmark_version":case.get("benchmark_version"),"category":case.get("category"),"categories":case.get("categories",[]),"difficulty":case.get("difficulty"),"verdict":expected.get("verdict"),"legacy_lifecycle":legacy,"phase10_lifecycle":state,"provenance":metadata.get("provenance","SYNTHETIC"),"contamination_status":metadata.get("contamination_status","NOT_ASSESSED"),"case_digest":digest_tree(case_dir),"repository_digest":digest_tree(case_dir/"repository")}
+ return {"case_id":case_id,"title":case["title"],"case_version":metadata.get("case_version"),"schema_version":case.get("schema_version"),"benchmark_version":case.get("benchmark_version"),"category":case.get("category"),"categories":case.get("categories",[]),"difficulty":case.get("difficulty"),"verdict":expected.get("verdict"),"legacy_lifecycle":legacy,"phase10_lifecycle":state,"provenance":metadata.get("provenance","SYNTHETIC"),"contamination_status":metadata.get("contamination_status","NOT_ASSESSED"),"case_digest":validate_case_package(case_id).get("artifact_digest"),"repository_digest":validate_case_package(case_id).get("repository_digest")}
 
 def validate_case_phase10(case_id:str)->dict[str,Any]:
  base=validate_case_package(case_id);errors=list(base.get("errors",[]))
