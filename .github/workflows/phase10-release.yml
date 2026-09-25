@@ -97,7 +97,10 @@ jobs:
           python - <<'PY'
           import json, subprocess
           m=json.load(open("release-manifest.json"))
-          m["validation_status"]="INVALID"
+          m["component_digests"]["README.md"]="0"*64
+          import hashlib
+          u={k:v for k,v in m.items() if k!="release_digest"}
+          m["release_digest"]=hashlib.sha256((json.dumps(u,sort_keys=True,separators=(",",":"),ensure_ascii=False)+"\n").encode()).hexdigest()
           json.dump(m,open("/tmp/tampered-manifest.json","w"))
           p=subprocess.run(["fas-bench","verification","manifest","/tmp/tampered-manifest.json"])
           assert p.returncode != 0, "tampered manifest unexpectedly accepted"
