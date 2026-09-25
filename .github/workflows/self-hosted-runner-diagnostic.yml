@@ -1,0 +1,70 @@
+name: Self-Hosted Runner Diagnostic
+
+on:
+  push:
+    branches:
+      - chore/self-hosted-runner-diagnostic
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runner-diagnostic:
+    runs-on: [self-hosted, linux, x64, pcidss-hp]
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Runner identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "=== Runner ==="
+          echo "RUNNER_NAME=$RUNNER_NAME"
+          echo "RUNNER_OS=$RUNNER_OS"
+          echo "RUNNER_ARCH=$RUNNER_ARCH"
+          echo "RUNNER_WORKSPACE=$RUNNER_WORKSPACE"
+          echo "=== Host ==="
+          uname -a
+          id
+          echo "=== CPU ==="
+          nproc
+          echo "=== Memory ==="
+          free -h
+          echo "=== Disk ==="
+          df -h /
+
+      - name: Python
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 -m pip --version
+
+      - name: Node
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          npm --version
+
+      - name: Docker
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker version
+          docker info --format 'Server={{.ServerVersion}} Containers={{.Containers}} Images={{.Images}}'
+          docker run --rm hello-world >/dev/null
+          echo "Docker execution: OK"
+
+      - name: Workspace write test
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'self-hosted-runner-ok\n' > runner-diagnostic.txt
+          test "$(cat runner-diagnostic.txt)" = "self-hosted-runner-ok"
+          rm runner-diagnostic.txt
+          echo "Workspace write/delete: OK"
