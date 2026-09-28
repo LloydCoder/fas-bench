@@ -33,6 +33,14 @@ def sha256_json(value: Any) -> str:
     return hashlib.sha256(canonical_json(value)).hexdigest()
 
 
+def _canonical_tree_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    try:
+        return data.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    except UnicodeDecodeError:
+        return data
+
+
 def digest_tree(root: Path) -> str:
     root = root.resolve()
     entries: list[tuple[str, bytes]] = []
@@ -42,7 +50,7 @@ def digest_tree(root: Path) -> str:
         rel = path.relative_to(root).as_posix()
         if any(part in {".git", "__pycache__", ".pytest_cache"} for part in Path(rel).parts):
             continue
-        entries.append((rel, path.read_bytes()))
+        entries.append((rel, _canonical_tree_bytes(path)))
     digest = hashlib.sha256()
     for rel, data in sorted(entries):
         digest.update(rel.encode("utf-8"))
