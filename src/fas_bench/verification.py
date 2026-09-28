@@ -1,5 +1,7 @@
 """Independent Phase 10.2 verification primitives."""
 
+# ruff: noqa: E501
+
 from __future__ import annotations
 
 import hashlib
