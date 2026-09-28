@@ -154,6 +154,6 @@ jobs:
       - name: Install
         run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
       - name: Independent contract suite
-        run: pytest tests/verification tests/independence tests/reproducibility
+        run: pytest tests/verification/test_reference.py tests/verification/test_full_contract.py tests/verification/test_certification.py tests/reproducibility/test_environment.py tests/independence/test_static.py
       - name: Full independent contract gate
         run: fas-bench verification full-contract
