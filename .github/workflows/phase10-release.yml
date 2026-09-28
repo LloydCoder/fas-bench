@@ -110,7 +110,7 @@ jobs:
         run: |
           ! find dist -type f -print0 | xargs -0 grep -IlE '(-----BEGIN [A-Z ]*PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,})'
       - name: Attest release packages
-        uses: actions/attest@508db95
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d
         with:
           subject-path: 'dist/*'
       - name: Release manifest digest
