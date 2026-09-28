@@ -40,6 +40,7 @@ def _load(path: Path) -> dict[str, Any]:
 
 
 def _canonical_bytes(path: Path, case_dir: Path) -> bytes:
+    """Return OS-independent canonical bytes for content-addressed artifacts."""
     if path.name == "metadata.json":
         value = _load(path)
         value["artifact_digest"] = "CONTENT_DERIVED"
@@ -56,7 +57,11 @@ def _canonical_bytes(path: Path, case_dir: Path) -> bytes:
         return json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
     if path.suffix == ".json":
         return json.dumps(_load(path), sort_keys=True, separators=(",", ":")).encode()
-    return path.read_bytes()
+    data = path.read_bytes()
+    try:
+        return data.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    except UnicodeDecodeError:
+        return data
 
 
 def _digest_paths(paths: list[Path], root: Path) -> str:
