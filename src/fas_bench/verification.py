@@ -148,7 +148,6 @@ def environment_report(root: Path) -> dict[str, Any]:
 
 
 
-# fmt: off
 def independent_security_check(root: Path) -> dict[str, Any]:
     """Run security checks without importing the production phase-10 implementation."""
     findings: list[str] = []
@@ -278,7 +277,6 @@ def independent_full_contract_check(root: Path) -> dict[str, Any]:
 
 
 
-# fmt: on
 
 def certify(results: dict[str, dict[str, Any]], identity: dict[str, Any]) -> dict[str, Any]:
     required = {
