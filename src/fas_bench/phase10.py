@@ -43,6 +43,13 @@ class CaseLifecycle:
 def sha256_bytes(data:bytes)->str:return hashlib.sha256(data).hexdigest()
 def sha256_json(value:Any)->str:return sha256_bytes(canonical_json(value))
 
+def _canonical_tree_bytes(path: Path) -> bytes:
+ data = path.read_bytes()
+ try:
+  return data.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+ except UnicodeDecodeError:
+  return data
+
 def digest_tree(root:Path,*,exclude:Iterable[str]=())->str:
  root=root.resolve(); excluded=set(exclude)|{".git","__pycache__",".pytest_cache"}
  entries=[]
@@ -50,7 +57,7 @@ def digest_tree(root:Path,*,exclude:Iterable[str]=())->str:
   if path.is_symlink() or not path.is_file(): continue
   rel=path.relative_to(root).as_posix()
   if rel in excluded or any(part in excluded for part in Path(rel).parts): continue
-  entries.append((rel,path.read_bytes()))
+  entries.append((rel,_canonical_tree_bytes(path)))
  h=hashlib.sha256()
  for rel,data in sorted(entries,key=lambda x:x[0]):
   h.update(rel.encode("utf-8"));h.update(b"\0");h.update(hashlib.sha256(data).digest());h.update(b"\0")
