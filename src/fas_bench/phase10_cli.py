@@ -168,6 +168,7 @@ def main(argv=None):
             expected_case_ids=tuple(CASE_IDS),
             required_components=(
                 "pyproject.toml",
+                ".gitattributes",
                 "src/fas_bench",
                 "schemas",
                 "cases",
