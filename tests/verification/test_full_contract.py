@@ -1,11 +1,10 @@
-from pathlib import Path
-
 from fas_bench.verification import (
     independent_corpus_contract_check,
     independent_full_contract_check,
     independent_scoring_contract_check,
     independent_security_check,
 )
+from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
