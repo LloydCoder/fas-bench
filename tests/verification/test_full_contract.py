@@ -1,3 +1,5 @@
+# ruff: noqa: I001
+
 from fas_bench.verification import (
     independent_corpus_contract_check,
     independent_full_contract_check,
