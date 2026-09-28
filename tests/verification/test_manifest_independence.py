@@ -9,6 +9,7 @@ from fas_bench.verification import verify_manifest_independently
 ROOT = Path(__file__).resolve().parents[2]
 COMPONENTS = (
     "pyproject.toml",
+    ".gitattributes",
     "src/fas_bench",
     "schemas",
     "cases",

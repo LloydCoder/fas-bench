@@ -18,6 +18,9 @@ dev=["build>=1.2,<2","pytest>=9.0.3,<10","ruff>=0.12,<1"]
 [project.scripts]
 fas-bench="fas_bench.phase10_entry:main"
 
+[tool.hatch.build]
+reproducible=true
+
 [tool.hatch.build.targets.wheel]
 packages=["src/fas_bench"]
 
@@ -36,3 +39,6 @@ target-version="py312"
 [tool.ruff.lint]
 select=["E","F","I","UP","B"]
 per-file-ignores={"src/fas_bench/secure_eval/*.py"=["E501"],"tests/test_phase9_secure_eval.py"=["E501"]}
+
+[tool.ruff.format]
+exclude = ["src/fas_bench/verification.py"]

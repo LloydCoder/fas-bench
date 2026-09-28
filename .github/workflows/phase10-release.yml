@@ -13,6 +13,9 @@ on:
         default: "release-candidate"
 permissions:
   contents: read
+  id-token: write
+  attestations: write
+  artifact-metadata: write
 jobs:
   release-gate:
     runs-on: ubuntu-latest
@@ -76,10 +79,29 @@ jobs:
           b=json.load(open("release-manifest-reproduced.json"))
           assert a == b, "release manifest reproduction mismatch"
           PY
+      - name: Reproducible package build
+        run: |
+          rm -rf /tmp/fas-bench-dist-a /tmp/fas-bench-dist-b
+          SOURCE_DATE_EPOCH=1600000000 python -m build --outdir /tmp/fas-bench-dist-a
+          SOURCE_DATE_EPOCH=1600000000 python -m build --outdir /tmp/fas-bench-dist-b
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          def hashes(root):
+              return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(root).iterdir()}
+          assert hashes("/tmp/fas-bench-dist-a") == hashes("/tmp/fas-bench-dist-b")
+          PY
       - name: Build package
         run: python -m build
       - name: Install wheel
         run: python -m pip install --force-reinstall dist/*.whl
+      - name: Clean-install wheel validation
+        shell: bash
+        run: |
+          rm -rf /tmp/fas-bench-clean
+          python -m venv /tmp/fas-bench-clean
+          /tmp/fas-bench-clean/bin/python -m pip install --no-index --no-deps dist/*.whl
+          /tmp/fas-bench-clean/bin/python -c "import fas_bench; assert fas_bench.__version__ == '0.1.0'"
       - name: Installed CLI corpus validation
         run: fas-bench corpus validate
       - name: Installed CLI doctor
@@ -87,6 +109,10 @@ jobs:
       - name: Package leakage audit
         run: |
           ! find dist -type f -print0 | xargs -0 grep -IlE '(-----BEGIN [A-Z ]*PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,})'
+      - name: Attest release packages
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d
+        with:
+          subject-path: 'dist/*'
       - name: Release manifest digest
         run: python -c "import json,hashlib; d=json.load(open('release-manifest.json')); x=dict(d); x.pop('release_digest',None); c=json.dumps(x,sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\n'; assert hashlib.sha256(c.encode()).hexdigest()==d['release_digest']"
 
@@ -109,8 +135,10 @@ jobs:
           PY
       - name: Release manifest independent verification
         run: fas-bench verification manifest release-manifest.json
+      - name: Full independent contract gate
+        run: fas-bench verification full-contract
       - name: Generate release certification
-        run: fas-bench verification certify release-manifest.json --security-status PASS --output verification-report.json
+        run: fas-bench verification certify release-manifest.json --output verification-report.json
       - name: Require release certification
         run: python -c "import json; r=json.load(open('verification-report.json')); assert r['status']=='CERTIFIED', r"
       - name: Upload certification evidence

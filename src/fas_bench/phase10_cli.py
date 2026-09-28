@@ -22,7 +22,12 @@ from .phase10 import (
     validate_corpus,
     validate_release_manifest,
 )
-from .verification import certify, verify_manifest_independently
+from .verification import (
+    certify,
+    independent_full_contract_check,
+    independent_security_check,
+    verify_manifest_independently,
+)
 
 
 def _dump(value, path=None):
@@ -83,9 +88,9 @@ def main(argv=None):
     vv = verify_cmd.add_subparsers(dest="sub", required=True)
     vi = vv.add_parser("manifest")
     vi.add_argument("manifest", type=Path)
+    vv.add_parser("full-contract")
     vc = vv.add_parser("certify")
     vc.add_argument("manifest", type=Path)
-    vc.add_argument("--security-status", choices=["PASS", "NOT_ASSESSED"], default="NOT_ASSESSED")
     vc.add_argument("--output", type=Path)
     report = subs.add_parser("report-release")
     report.add_argument("manifest", type=Path)
@@ -151,6 +156,10 @@ def main(argv=None):
         return 0 if result.get("status") in {"PASS", "VALIDATED"} or "release_digest" in result else 1
 
     if args.command == "verification":
+        if args.sub == "full-contract":
+            result = independent_full_contract_check(root)
+            _dump(result)
+            return 0 if result.get("status") == "PASS" else 1
         manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
         independent = verify_manifest_independently(
             root,
@@ -159,6 +168,7 @@ def main(argv=None):
             expected_case_ids=tuple(CASE_IDS),
             required_components=(
                 "pyproject.toml",
+                ".gitattributes",
                 "src/fas_bench",
                 "schemas",
                 "cases",
@@ -174,12 +184,15 @@ def main(argv=None):
                 channel=manifest.get("channel", "release-candidate"),
             )
             implementation = validate_release_manifest(root, manifest)
+            full_contract = independent_full_contract_check(root)
             checks = {
-                "implementation": {"status": "PASS" if implementation["status"] == "PASS" else "FAIL"},
-                "independent_verification": independent,
-                "reproducibility": {"status": "PASS" if second == manifest else "FAIL"},
-                "security": {"status": args.security_status},
-                "release": {"status": independent["status"]},
+                "implementation": {"status": "PASS" if implementation["status"] == "PASS" else "FAIL", "source": "derived"},
+                "independent_verification": {**independent, "source": "derived"},
+                "reproducibility": {"status": "PASS" if second == manifest else "FAIL", "source": "derived"},
+                "security": {**independent_security_check(root), "source": "derived"},
+                "release": {"status": independent["status"], "source": "derived"},
+                "corpus": {**full_contract["checks"]["corpus"], "source": "derived"},
+                "scoring": {**full_contract["checks"]["scoring"], "source": "derived"},
             }
             result = certify(
                 checks,
