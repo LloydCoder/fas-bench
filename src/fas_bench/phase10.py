@@ -139,7 +139,7 @@ def build_release_manifest(root:Path,version:str,*,channel="development")->dict[
  corpus=validate_corpus()
  if corpus["status"]!="PASS": raise ValueError(f"cannot build release manifest from invalid corpus: {corpus['errors'][:20]}")
  records=[case_record(x) for x in CASE_IDS]
- files=["pyproject.toml","src/fas_bench","schemas","cases","docs","README.md","SECURITY.md"]
+ files=["pyproject.toml",".gitattributes","src/fas_bench","schemas","cases","docs","README.md","SECURITY.md"]
  component_digests={}
  for item in files:
   path=root/item
