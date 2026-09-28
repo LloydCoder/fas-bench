@@ -255,15 +255,27 @@ def independent_scoring_contract_check(root: Path) -> dict[str, Any]:
     except (OSError, json.JSONDecodeError) as exc:
         return {"status": "FAIL", "errors": [f"invalid scoring config: {exc}"], "source": "independent"}
     errors: list[str] = []
-    weights = value.get("weights")
-    if isinstance(weights, dict):
+    groups = (
+        "evidence_weights",
+        "graph_weights",
+        "composite_weights",
+    )
+    for group_name in groups:
+        weights = value.get(group_name)
+        if not isinstance(weights, dict) or not weights:
+            errors.append(f"missing scoring weights: {group_name}")
+            continue
         numeric = [float(v) for v in weights.values()]
         if any(v < 0 for v in numeric):
-            errors.append("negative scoring weight")
-        if numeric and abs(sum(numeric) - 1.0) > 1e-9:
-            errors.append("scoring weights must sum to 1")
-    else:
-        errors.append("missing scoring weights")
+            errors.append(f"negative scoring weight: {group_name}")
+        if abs(sum(numeric) - 1.0) > 1e-9:
+            errors.append(f"scoring weights must sum to 1: {group_name}")
+    calibration = value.get("calibration", {})
+    if int(calibration.get("bins", 0)) <= 0 or not 0 < float(calibration.get("confidence_level", 0)) < 1:
+        errors.append("invalid calibration configuration")
+    bootstrap = value.get("bootstrap", {})
+    if int(bootstrap.get("resamples", 0)) <= 0 or bootstrap.get("method") != "percentile":
+        errors.append("invalid bootstrap configuration")
     return {"status": "PASS" if not errors else "FAIL", "errors": errors, "source": "independent"}
 
 def independent_full_contract_check(root: Path) -> dict[str, Any]:
@@ -285,6 +297,8 @@ def certify(results: dict[str, dict[str, Any]], identity: dict[str, Any]) -> dic
         "reproducibility",
         "security",
         "release",
+        "corpus",
+        "scoring",
     }
     missing = sorted(required - set(results))
     failed = sorted(
