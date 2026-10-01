@@ -103,11 +103,7 @@ def validate_mutation_semantics(
 
 def phase11_gate(records: Iterable[dict]) -> dict:
     rows = tuple(records)
-    errors = [
-        f"{r.get('case_id')}: {e}"
-        for r in rows
-        for e in validate_case_record_shape(r)
-    ]
+    errors = [f"{r.get('case_id')}: {e}" for r in rows for e in validate_case_record_shape(r)]
     profile = profile_cases(rows)
     if not profile.engineering_ready:
         errors.append("corpus profile is not engineering-ready")
