@@ -1,7 +1,7 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Phase 10 implementation contract; normative semantics are versioned for the v0.1.0 benchmark family.  
+**Status:** Phase 15 implementation contract; normative semantics remain versioned for the v0.1.0 benchmark family. Later phases add measurement, governance, platform, and operational contracts without silently redefining the benchmark's core verdict/evidence semantics.  
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (machine-readable schema families are implemented under schemas/)  
 **Evaluator version:** 0.1.0  
@@ -490,7 +490,7 @@ Phase 1 distinguishes:
 
 The initial 20 cases are not claimed representative. The taxonomy is provisionally frozen to enable implementation, not claimed universally complete. The benchmark is not claimed to generalize to all real-world security analysis without validation.
 
-## Ten-phase roadmap
+## Fifteen-phase roadmap
 
 ### PHASE 1 — Specification & Benchmark Contract
 
@@ -522,7 +522,7 @@ Implement fix verification, alternate-path analysis, baseline comparisons, and r
 
 ### PHASE 8 — Scoring, Calibration & Benchmark Analytics
 
-Implement and empirically validate component metrics, weights, calibration analysis, evidence-integrity policy, and aggregate reporting.
+Implement component metrics, calibration analysis, uncertainty, stratification, and aggregate reporting while preserving provisional scientific boundaries until empirical validation.
 
 ### PHASE 9 — Secure Evaluation Harness & Reproducibility
 
@@ -530,9 +530,45 @@ Implement isolated execution, provenance capture, deterministic orchestration, a
 
 ### PHASE 10 — Benchmark Corpus, Contamination Defense & Release
 
-Expand and validate the corpus, establish contamination defenses and held-out evaluation sets, perform release validation, and publish methodology/results.
+Establish corpus integrity, contamination controls, mutation foundations, release manifests, governance, and release certification.
 
-Dependencies are sequential: Phase 2 depends on Phase 1; Phase 3 depends on the stable case/schema contract; Phases 4–7 consume those semantics; Phase 8 depends on evaluator outputs; Phase 9 secures the complete evaluation flow; Phase 10 depends on empirical validation and release controls.
+### PHASE 10.2 — Independent Verification & Release Certification
+
+Independently recompute selected high-risk integrity properties, verify reproducibility, and derive release certification from observed checks.
+
+### PHASE 11 — Corpus Expansion & Security-Semantic Mutation
+
+Expand corpus diversity and mutation infrastructure while requiring authoritative oracle validation for security-changing relations.
+
+### PHASE 11.1 — Dynamic & Agentic Oracle Contract
+
+Represent runtime and agentic observations with execution identity, evidence, policy, environment, and artifact provenance while preventing oracle self-certification.
+
+### PHASE 12 — Statistical Calibration & Benchmark Validity
+
+Provide reproducible uncertainty, difficulty, stratification, and calibration analysis while distinguishing fixed-corpus measurements from generalized-population claims.
+
+### PHASE 12.1 — Independent Validation Protocol
+
+Provide machine-checkable external-review and replication records without fabricating independent evidence or scientific validation.
+
+### PHASE 13 — Enterprise Security & Operational Hardening
+
+Harden dependency auditing, release provenance, SBOMs, signed attestations, secret scanning, and enterprise release controls.
+
+### PHASE 13.1 — Governance & Release Approval
+
+Formalize material-change review, oracle/security/reproducibility review, corrections, retirement, human approval, and historical-result preservation.
+
+### PHASE 14 — Evaluation Platform Contract
+
+Provide deterministic evaluation-job identity, submission/policy validation, explicit secure-execution delegation, and service-oriented evaluation semantics.
+
+### PHASE 15 — Continuous Benchmark Intelligence
+
+Monitor corpus composition and benchmark drift while preserving immutable historical identities and human-controlled release authority.
+
+Dependencies remain sequential: each phase consumes the stable contract of its predecessors. Scientific claims remain subject to empirical evidence and independent review.
 
 ## Architecture boundaries
 
