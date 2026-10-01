@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.12-blue.svg)](pyproject.toml)
 
-**Status:** Phase 10.2 — independent verification, release-integrity hardening, and reproducibility verification are implemented on the Phase 10.2 branch. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set.
+**Status:** Phase 15 complete — FAS-Bench now includes independent verification, statistical calibration, external-validation protocols, enterprise release hardening, governance, an evaluation-platform contract, and continuous benchmark-health monitoring. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set.
 
 FAS-Bench is an independent, evidence-first benchmark for evaluating AI agents, security scanners, SAST/SCA systems, LLM-based security tools, MCP-aware systems, autonomous coding agents, and hybrid human/machine security-analysis pipelines.
 
@@ -185,6 +185,14 @@ The implementation roadmap is:
 8. Scoring, Calibration & Benchmark Analytics
 9. Secure Evaluation Harness & Reproducibility
 10. Corpus, Contamination Defense, Mutation & Release
+11. Corpus Expansion & Security-Semantic Mutation
+11.1 Dynamic & Agentic Oracle Contract
+12. Statistical Calibration & Benchmark Validity
+12.1 Independent Validation Protocol
+13. Enterprise Security & Operational Hardening
+13.1 Governance & Release Approval
+14. Evaluation Platform Contract
+15. Continuous Benchmark Intelligence
 
 The normative semantics live in [docs/specification.md](docs/specification.md). Other documents explain or operationalize the specification; they must not silently redefine it.
 
@@ -301,7 +309,7 @@ fas-bench analyze <results.json>
 fas-bench report <results.json> --output <directory>
 ~~~
 
-### Work with Phase 10 releases
+### Work with releases and verification
 
 ~~~bash
 fas-bench corpus validate
@@ -389,6 +397,14 @@ Start with the document that matches your task:
 | Understand trust boundaries | [Trust model](docs/trust-model.md) |
 | Understand verification coverage | [Phase 10.2 matrix](docs/phase10-2-verification-matrix.md) |
 | Understand governance | [Phase 10 governance](docs/phase10-governance.md) |
+| Understand Phase 11 corpus expansion | [Phase 11](docs/phase11-corpus-expansion.md) |
+| Understand Phase 11.1 dynamic oracles | [Phase 11.1](docs/phase11-1-dynamic-oracles.md) |
+| Understand Phase 12 statistical calibration | [Phase 12](docs/phase12-statistical-calibration.md) |
+| Understand Phase 12.1 independent validation | [Phase 12.1](docs/phase12-1-independent-validation.md) |
+| Understand Phase 13 enterprise hardening | [Phase 13](docs/phase13-enterprise-hardening.md) |
+| Understand Phase 13.1 governance | [Phase 13.1](docs/phase13-1-governance.md) |
+| Understand Phase 14 evaluation platform | [Phase 14](docs/phase14-evaluation-platform.md) |
+| Understand Phase 15 continuous intelligence | [Phase 15](docs/phase15-continuous-benchmark-intelligence.md) |
 | Contribute code/cases/docs | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report vulnerabilities | [SECURITY.md](SECURITY.md) |
 | Get project help | [SUPPORT.md](SUPPORT.md) |
@@ -438,7 +454,7 @@ FAS-Bench is governed by a small set of non-negotiable principles:
 
 FAS-Bench is an active research/engineering benchmark project.
 
-Phase 10 substantially strengthens the repository's corpus integrity, release, mutation, contamination-defense, and governance foundations. That does **not** mean every scientific question has been solved.
+Phases 10–15 substantially strengthen corpus integrity, independent verification, statistical analysis, external-validation protocols, enterprise release security, governance, evaluation-platform contracts, and continuous benchmark health. That does **not** mean every scientific question has been solved.
 
 In particular, the project still treats the following as research areas requiring empirical evidence:
 
@@ -452,6 +468,10 @@ In particular, the project still treats the following as research areas requirin
 - long-term reproducibility across heterogeneous platforms
 
 The project deliberately documents these limits instead of turning implementation maturity into unsupported scientific claims.
+
+## Enterprise and research boundaries
+
+Phase 15 is the current implementation maturity endpoint. Scientific validity remains an empirical property: the public corpus is not claimed to be representative, public results are not equivalent to hidden official evaluation, and governance automation cannot replace independent human review.
 
 ## License
 
