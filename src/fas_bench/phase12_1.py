@@ -45,8 +45,7 @@ def cohens_kappa(first: Sequence[str], second: Sequence[str]) -> float:
     agree = mean(a == b for a, b in zip(first, second, strict=True))
     labels = sorted(set(first) | set(second))
     expected = sum(
-        (first.count(label) / len(first)) * (second.count(label) / len(second))
-        for label in labels
+        (first.count(label) / len(first)) * (second.count(label) / len(second)) for label in labels
     )
     if expected == 1.0:
         return 1.0
