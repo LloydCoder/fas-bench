@@ -59,3 +59,36 @@ Reference checks should be small, obvious, deterministic, and auditable. Differe
 Release changes must run both the normal release verifier and the independent verifier. Certification must be derived from observed checks; never edit a certification report or manifest status to make a release pass.
 
 Reproducibility-sensitive changes must not depend on local paths, hostnames, timestamps, usernames, uncontrolled environment variables, filesystem enumeration order, or hidden local state.
+
+## Phase 11–15 measurement, platform, and governance contributions
+
+Phase 11 case/mutation changes must preserve authoritative-oracle validation and
+must not turn mutation generation into ground truth.
+
+Phase 11.1 runtime/agentic oracle changes must emit observations with execution,
+artifact, policy, and environment identities. Oracle output MUST NOT silently
+become the final benchmark verdict.
+
+Phase 12 measurement changes must report uncertainty, assumptions, and
+stratification. Do not present public-corpus measurements as generalized
+population estimates without supporting empirical methodology.
+
+Phase 12.1 validation changes must distinguish internal protocol checks from
+actual external review. The repository must never fabricate independent
+reviewer evidence, replication results, or scientific validation.
+
+Phase 13 release-security changes must preserve signed provenance, SBOM
+attestation, dependency auditing, secret scanning, reproducible builds, and
+independent verification. Do not weaken a release gate to make CI green.
+
+Phase 13.1 governance changes must preserve explicit human approval and
+historical release identities. Corrections create new identities rather than
+silently rewriting historical benchmark results.
+
+Phase 14 platform changes must keep candidate execution outside the platform
+control plane and delegate untrusted execution to the Phase 9 secure provider.
+Job identities must be content-derived.
+
+Phase 15 monitoring changes may raise drift or benchmark-health signals but
+MUST NOT automatically mutate gold truth, scoring weights, corpus identities,
+or release state.

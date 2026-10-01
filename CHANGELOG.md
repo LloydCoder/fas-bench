@@ -1,3 +1,73 @@
+## Unreleased — Phase 15: Continuous Benchmark Intelligence
+
+### Added
+
+- Continuous benchmark-health primitives for corpus composition and validation-type monitoring.
+- Total-variation distribution drift detection with explicit thresholds.
+- Corpus identity and contamination-status health reporting.
+- Human-controlled release authority preserved for all automated monitoring signals.
+
+## Unreleased — Phase 14: Evaluation Platform Contract
+
+### Added
+
+- Deterministic content-derived evaluation-job identities.
+- Submission, policy, environment, evaluator, scoring, and corpus identity binding.
+- Explicit delegation to the Phase 9 secure execution provider.
+- Machine-readable platform/job status semantics.
+
+## Unreleased — Phase 13.1: Governance and Release Approval
+
+### Added
+
+- Machine-checkable material-change governance records.
+- Required security-objective, oracle/ground-truth, security, and reproducibility/integrity review dimensions.
+- Correction, retirement, historical-result preservation, and explicit human approval policy.
+- Contributor-facing governance documentation.
+
+## Unreleased — Phase 13: Enterprise Security and Operational Hardening
+
+### Added
+
+- Enterprise release-control policy primitives.
+- CycloneDX SBOM generation and signed SBOM/provenance attestations in the release workflow.
+- Explicit dependency-audit, secret-scan, reproducible-build, and independent-verification release controls.
+
+## Unreleased — Phase 12.1: Independent Validation Protocol
+
+### Added
+
+- External-review record contract with independence and blinding declarations.
+- Deterministic Cohen's kappa agreement primitive.
+- Replication metadata and explicit no-self-certification boundary.
+
+## Unreleased — Phase 12: Statistical Calibration and Benchmark Validity
+
+### Added
+
+- Fixed-corpus accuracy and Wilson uncertainty intervals.
+- Deterministic bootstrap uncertainty.
+- Item difficulty and stratified accuracy.
+- Confidence calibration error.
+- Explicit distinction between benchmark-conditioned measurements and generalized-population claims.
+
+## Unreleased — Phase 11.1: Dynamic and Agentic Oracle Contract
+
+### Added
+
+- Runtime/agentic observation schema with execution, artifact, policy, and environment identities.
+- Evidence requirements for PASS/FAIL observations.
+- Explicit separation of oracle observations from final benchmark ground truth.
+
+## Unreleased — Phase 11: Corpus Expansion and Security-Semantic Mutation
+
+### Added
+
+- Corpus profile and engineering-readiness gate.
+- Required case metadata validation.
+- Authoritative-oracle requirement for security-changing mutations.
+- Explicit statistical-representativeness boundary.
+
 ## Unreleased — Phase 10.2: Independent Verification & Release Certification
 
 ### Added
