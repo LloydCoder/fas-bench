@@ -41,11 +41,7 @@ def wilson_interval(
     p = successes / trials
     denominator = 1.0 + z * z / trials
     centre = (p + z * z / (2 * trials)) / denominator
-    margin = (
-        z
-        * math.sqrt((p * (1.0 - p) + z * z / (4 * trials)) / trials)
-        / denominator
-    )
+    margin = z * math.sqrt((p * (1.0 - p) + z * z / (4 * trials)) / trials) / denominator
     return max(0.0, centre - margin), min(1.0, centre + margin)
 
 
@@ -115,8 +111,7 @@ def calibration_error(rows: Iterable[EvaluationRow], bins: int = 10) -> float:
         group = [
             row
             for row in scored
-            if lower <= row.confidence < upper
-            or (index == bins - 1 and row.confidence == upper)
+            if lower <= row.confidence < upper or (index == bins - 1 and row.confidence == upper)
         ]
         if group:
             accuracy = benchmark_accuracy(group)
