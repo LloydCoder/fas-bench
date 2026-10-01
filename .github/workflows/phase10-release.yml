@@ -113,6 +113,22 @@ jobs:
         uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d
         with:
           subject-path: 'dist/*'
+      - name: Phase 13 release security policy
+        run: |
+          python - <<'PY'
+          from fas_bench.phase13 import phase13_gate
+          controls = {
+              "content_addressed_release": True,
+              "independent_verification": True,
+              "reproducible_build": True,
+              "artifact_provenance_attestation": True,
+              "sbom_attestation": True,
+              "secret_scan": True,
+              "dependency_audit": True,
+          }
+          result = phase13_gate(controls, artifacts=["dist/fas_bench.whl", "sbom.cdx.json"])
+          assert result["status"] == "PASS", result
+          PY
       - name: Release manifest digest
         run: python -c "import json,hashlib; d=json.load(open('release-manifest.json')); x=dict(d); x.pop('release_digest',None); c=json.dumps(x,sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\n'; assert hashlib.sha256(c.encode()).hexdigest()==d['release_digest']"
 
@@ -149,4 +165,5 @@ jobs:
             verification-report.json
             release-manifest.json
             release-manifest-reproduced.json
+            sbom.cdx.json
           if-no-files-found: error
