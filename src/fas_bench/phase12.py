@@ -5,9 +5,9 @@ from __future__ import annotations
 import math
 import random
 from collections import defaultdict
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from statistics import mean
-from typing import Iterable, Sequence
 
 VALID_OUTCOMES = frozenset({"CORRECT", "INCORRECT"})
 
