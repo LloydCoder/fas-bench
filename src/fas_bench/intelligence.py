@@ -6,17 +6,14 @@ from collections import Counter
 from collections.abc import Iterable, Mapping
 
 
-def total_variation_distance(
-    baseline: Mapping[str, int], current: Mapping[str, int]
-) -> float:
+def total_variation_distance(baseline: Mapping[str, int], current: Mapping[str, int]) -> float:
     base_total = sum(baseline.values())
     current_total = sum(current.values())
     if base_total <= 0 or current_total <= 0:
         raise ValueError("both populations must contain at least one item")
     keys = set(baseline) | set(current)
     return 0.5 * sum(
-        abs(baseline.get(key, 0) / base_total - current.get(key, 0) / current_total)
-        for key in keys
+        abs(baseline.get(key, 0) / base_total - current.get(key, 0) / current_total) for key in keys
     )
 
 
