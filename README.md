@@ -397,6 +397,7 @@ Start with the document that matches your task:
 | Understand trust boundaries | [Trust model](docs/trust-model.md) |
 | Understand verification coverage | [Phase 10.2 matrix](docs/phase10-2-verification-matrix.md) |
 | Understand governance | [Phase 10 governance](docs/phase10-governance.md) |
+| Project governance and release approval | [GOVERNANCE.md](GOVERNANCE.md) |
 | Understand Phase 11 corpus expansion | [Phase 11](docs/phase11-corpus-expansion.md) |
 | Understand Phase 11.1 dynamic oracles | [Phase 11.1](docs/phase11-1-dynamic-oracles.md) |
 | Understand Phase 12 statistical calibration | [Phase 12](docs/phase12-statistical-calibration.md) |
