@@ -55,3 +55,35 @@ The release certification object is derived from observed checks. A NOT_ASSESSED
 The trust model is documented in docs/trust-model.md. The reproducibility contract is documented in docs/reproducibility.md. External release verification is documented in docs/release-certification.md.
 
 Release evidence must not contain secrets. The certification report and release manifest are treated as integrity evidence tied to the source commit and manifest digest.
+
+
+## Phase 11–15 security boundaries
+
+Phase 11 mutation and corpus-expansion inputs remain untrusted. Security-changing
+mutations require an authoritative oracle and content-derived artifact identity.
+
+Phase 11.1 dynamic/agentic oracle execution must use the fail-closed Phase 9
+provider. Oracle observations are evidence-bearing runtime records, not
+self-authorizing ground truth.
+
+Phase 12 and 12.1 measurement artifacts must preserve uncertainty, reviewer
+identity/independence metadata, methodology and environment digests, and
+limitations. Statistical output must not be used to bypass security or
+integrity gates.
+
+Phase 13 release artifacts are protected by dependency auditing, secret
+scanning, reproducible builds, content-addressed manifests, and signed
+provenance/SBOM attestations. Attestation presence is not treated as proof
+that an artifact is secure; consumers must verify provenance against policy.
+
+Phase 13.1 governance preserves human approval, correction history, case
+retirement records, and historical benchmark identities. Automation must not
+fabricate approval.
+
+Phase 14 platform control-plane components must never execute candidate code
+directly on the host. Candidate workloads remain within the Phase 9 secure
+execution trust boundary.
+
+Phase 15 continuous monitoring may detect drift, contamination signals, oracle
+health issues, or benchmark aging, but monitoring must not silently change
+gold truth, scoring policy, or release state.
