@@ -5,7 +5,8 @@ from fas_bench.contamination import (
 
 
 def corpus(visibility=CorpusVisibility.PUBLIC_PRACTICE):
-    return CorpusSet("official-v1", "1.0.0", visibility, ("a" * 64,), "restricted", "2026-01-01" if visibility == CorpusVisibility.PRIVATE_OFFICIAL else None)
+    cutoff = "2026-01-01" if visibility == CorpusVisibility.PRIVATE_OFFICIAL else None
+    return CorpusSet("official-v1", "1.0.0", visibility, ("a" * 64,), "restricted", cutoff)
 
 
 def test_identity_is_content_derived():
