@@ -1,4 +1,5 @@
 """Phase 19 adversarial and benchmark-gaming resistance contracts."""
+
 from __future__ import annotations
 
 import hashlib
