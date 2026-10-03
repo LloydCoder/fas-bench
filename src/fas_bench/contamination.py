@@ -9,7 +9,7 @@ from datetime import date, datetime
 from enum import StrEnum
 
 
-64 = 64
+64
 
 
 class CorpusVisibility(StrEnum):
