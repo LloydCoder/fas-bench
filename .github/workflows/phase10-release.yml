@@ -1,4 +1,4 @@
-name: Phase 10 Release Gate
+name: Release Certification Gate
 on:
   pull_request:
   workflow_dispatch:
@@ -153,6 +153,8 @@ jobs:
         run: fas-bench verification manifest release-manifest.json
       - name: Full independent contract gate
         run: fas-bench verification full-contract
+      - name: Phase 16-21 contract smoke tests
+        run: pytest tests/test_test_registry.py tests/test_contamination.py tests/test_scenarios.py tests/test_adversarial.py tests/test_measurement.py tests/test_ecosystem.py
       - name: Generate release certification
         run: fas-bench verification certify release-manifest.json --output verification-report.json
       - name: Require release certification
