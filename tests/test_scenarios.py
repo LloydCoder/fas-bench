@@ -42,6 +42,7 @@ def test_event_count_cannot_exceed_max_turns():
 def test_valid_scenario_passes():
     assert scenario_gate([scenario((event(),))])["status"] == "PASS"
 
+
 def test_event_turn_is_bounded():
     invalid = scenario((event(),))
     invalid = EvaluationScenario(
