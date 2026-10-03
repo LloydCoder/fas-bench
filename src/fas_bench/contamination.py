@@ -1,4 +1,5 @@
 """Phase 17 hidden-evaluation and contamination-defense contracts."""
+
 from __future__ import annotations
 
 import hashlib
