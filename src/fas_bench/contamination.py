@@ -80,7 +80,9 @@ class ContaminationFinding:
 
 def validate_corpus(corpus: CorpusSet) -> list[str]:
     errors: list[str] = []
-    if not corpus.corpus_id.strip() or not corpus.version.strip():
+    if not isinstance(corpus.corpus_id, str) or not corpus.corpus_id.strip():
+        errors.append("corpus_id must be a non-empty string")
+    if not isinstance(corpus.version, str) or not corpus.version.strip():
         errors.append("corpus identity fields are required")
     if not corpus.case_digests:
         errors.append("case_digests must not be empty")
@@ -88,7 +90,7 @@ def validate_corpus(corpus: CorpusSet) -> list[str]:
         errors.append("case_digests must not contain duplicates")
     if any(not _valid_digest(digest) for digest in corpus.case_digests):
         errors.append("case_digests must contain lowercase SHA-256 digests")
-    if not corpus.access_policy.strip():
+    if not isinstance(corpus.access_policy, str) or not corpus.access_policy.strip():
         errors.append("access_policy is required")
     if corpus.visibility in {
         CorpusVisibility.PRIVATE_OFFICIAL,
@@ -100,9 +102,9 @@ def validate_corpus(corpus: CorpusSet) -> list[str]:
 
 def _validate_finding(finding: ContaminationFinding) -> list[str]:
     errors: list[str] = []
-    if not finding.corpus_id.strip():
+    if not isinstance(finding.corpus_id, str) or not finding.corpus_id.strip():
         errors.append("finding corpus_id is required")
-    if not finding.source.strip():
+    if not isinstance(finding.source, str) or not finding.source.strip():
         errors.append("finding source is required")
     if not _valid_digest(finding.evidence_digest):
         errors.append("finding evidence_digest must be a lowercase SHA-256 digest")
