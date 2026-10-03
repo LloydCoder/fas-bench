@@ -132,8 +132,8 @@ class ResultRecord:
             errors.append("submission_identity must be a lowercase SHA-256 digest")
         if not _valid_digest(self.provenance_identity):
             errors.append("provenance_identity must be a lowercase SHA-256 digest")
-        if not math.isfinite(self.score) or not 0.0 <= self.score <= 1.0:
-            errors.append("score must be finite and within [0,1]")
+        if not isinstance(self.score, (int, float)) or isinstance(self.score, bool) or not math.isfinite(self.score) or not 0.0 <= self.score <= 1.0:
+            errors.append("score must be a finite numeric value within [0,1]")
         if len(self.confidence_interval) != 2 or not all(
             math.isfinite(value) for value in self.confidence_interval
         ):
@@ -142,10 +142,18 @@ class ResultRecord:
             low, high = self.confidence_interval
             if not 0.0 <= low <= high <= 1.0:
                 errors.append("confidence interval must be within [0,1]")
-        if self.cost is not None and (not math.isfinite(self.cost) or self.cost < 0):
+        if self.cost is not None and (
+            not isinstance(self.cost, (int, float))
+            or isinstance(self.cost, bool)
+            or not math.isfinite(self.cost)
+            or self.cost < 0
+        ):
             errors.append("cost must be a finite non-negative value")
         if self.latency_ms is not None and (
-            not math.isfinite(self.latency_ms) or self.latency_ms < 0
+            not isinstance(self.latency_ms, (int, float))
+            or isinstance(self.latency_ms, bool)
+            or not math.isfinite(self.latency_ms)
+            or self.latency_ms < 0
         ):
             errors.append("latency_ms must be a finite non-negative value")
         return sorted(set(errors))
