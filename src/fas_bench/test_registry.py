@@ -9,7 +9,6 @@ from dataclasses import asdict, dataclass
 from enum import StrEnum
 
 
-64
 
 
 class TestLifecycle(StrEnum):
