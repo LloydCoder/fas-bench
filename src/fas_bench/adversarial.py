@@ -79,7 +79,8 @@ def validate_adversarial_case(case: AdversarialCase) -> list[str]:
         "mutation_digest",
         "oracle_digest",
     ):
-        if not getattr(case, name).strip():
+        value = getattr(case, name)
+        if not isinstance(value, str) or not value.strip():
             errors.append(f"{name} is required")
     for name in ("mutation_digest", "oracle_digest"):
         if not _valid_digest(getattr(case, name)):
@@ -89,13 +90,13 @@ def validate_adversarial_case(case: AdversarialCase) -> list[str]:
 
 def _validate_result(result: RobustnessResult) -> list[str]:
     errors: list[str] = []
-    if not result.attack_id.strip():
+    if not isinstance(result.attack_id, str) or not result.attack_id.strip():
         errors.append("attack_id is required")
-    if not result.observed_invariant.strip():
+    if not isinstance(result.observed_invariant, str) or not result.observed_invariant.strip():
         errors.append("observed_invariant is required")
     if not _valid_digest(result.evidence_digest):
         errors.append("evidence_digest must be a lowercase SHA-256 digest")
-    if not result.execution_identity.strip():
+    if not isinstance(result.execution_identity, str) or not result.execution_identity.strip():
         errors.append("execution_identity is required")
     return errors
 
