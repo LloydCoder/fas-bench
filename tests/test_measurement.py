@@ -57,6 +57,7 @@ def test_reliability_report_requires_boolean_outcomes():
 def test_stratified_counts_sorted():
     assert stratified_counts(["B", "A", "B"]) == {"A": 1, "B": 2}
 
+
 def test_measurement_rejects_malformed_numeric_types():
     with pytest.raises(ValueError):
         wilson_interval("8", 10)
