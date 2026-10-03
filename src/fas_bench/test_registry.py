@@ -8,6 +8,9 @@ from enum import StrEnum
 from typing import Mapping
 
 
+_SHA256 = 64
+
+
 class TestLifecycle(StrEnum):
     PROPOSED = "PROPOSED"
     DRAFT = "DRAFT"
@@ -18,6 +21,27 @@ class TestLifecycle(StrEnum):
     RELEASED = "RELEASED"
     DEPRECATED = "DEPRECATED"
     RETIRED = "RETIRED"
+
+
+_ALLOWED_TRANSITIONS = {
+    TestLifecycle.PROPOSED: {TestLifecycle.DRAFT},
+    TestLifecycle.DRAFT: {TestLifecycle.REVIEW},
+    TestLifecycle.REVIEW: {TestLifecycle.VALIDATED, TestLifecycle.DRAFT},
+    TestLifecycle.VALIDATED: {TestLifecycle.CALIBRATED, TestLifecycle.REVIEW},
+    TestLifecycle.CALIBRATED: {TestLifecycle.CERTIFIED, TestLifecycle.REVIEW},
+    TestLifecycle.CERTIFIED: {TestLifecycle.RELEASED, TestLifecycle.REVIEW},
+    TestLifecycle.RELEASED: {TestLifecycle.DEPRECATED},
+    TestLifecycle.DEPRECATED: {TestLifecycle.RETIRED},
+    TestLifecycle.RETIRED: set(),
+}
+
+
+def _valid_digest(value: str) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == _SHA256
+        and all(character in "0123456789abcdef" for character in value.lower())
+    )
 
 
 @dataclass(frozen=True)
@@ -51,30 +75,47 @@ class TestSpec:
 def validate_test_spec(spec: TestSpec) -> list[str]:
     errors: list[str] = []
     required = (
-        "test_id", "version", "title", "objective",
-        "primary_category", "difficulty", "oracle_type",
+        "test_id",
+        "version",
+        "title",
+        "objective",
+        "primary_category",
+        "difficulty",
+        "oracle_type",
     )
     for name in required:
         value = getattr(spec, name)
         if not isinstance(value, str) or not value.strip():
             errors.append(f"{name} must be non-empty")
+
+    for name, values in (
+        ("evidence_requirements", spec.evidence_requirements),
+        ("prerequisites", spec.prerequisites),
+    ):
+        if any(not isinstance(value, str) or not value.strip() for value in values):
+            errors.append(f"{name} entries must be non-empty strings")
+        if len(values) != len(set(values)):
+            errors.append(f"{name} must not contain duplicates")
+
     if not spec.evidence_requirements:
         errors.append("evidence_requirements must not be empty")
-    if spec.lifecycle in {TestLifecycle.RELEASED, TestLifecycle.CERTIFIED}:
-        if not spec.source_digest:
-            errors.append("released/certified tests require source_digest")
+
+    if spec.lifecycle in {TestLifecycle.CERTIFIED, TestLifecycle.RELEASED}:
+        if not _valid_digest(spec.source_digest):
+            errors.append("certified/released tests require a lowercase SHA-256 source_digest")
+
     return sorted(set(errors))
 
 
 def registry_validate(specs: list[TestSpec]) -> dict:
     errors = [
-        f"{spec.test_id}: {err}"
+        f"{spec.test_id}@{spec.version}: {err}"
         for spec in specs
         for err in validate_test_spec(spec)
     ]
-    ids = [spec.test_id for spec in specs]
-    if len(ids) != len(set(ids)):
-        errors.append("duplicate test_id")
+    versions = [(spec.test_id, spec.version) for spec in specs]
+    if len(versions) != len(set(versions)):
+        errors.append("duplicate test_id/version")
     identities = [spec.identity() for spec in specs]
     if len(identities) != len(set(identities)):
         errors.append("duplicate test identity")
@@ -85,6 +126,10 @@ def registry_validate(specs: list[TestSpec]) -> dict:
         "errors": sorted(set(errors)),
         "release_authority": "GOVERNANCE",
     }
+
+
+def lifecycle_transition_allowed(current: TestLifecycle, target: TestLifecycle) -> bool:
+    return target in _ALLOWED_TRANSITIONS[current]
 
 
 def coverage_matrix(specs: list[TestSpec]) -> Mapping[str, int]:
