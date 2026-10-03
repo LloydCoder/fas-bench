@@ -2,6 +2,7 @@ from dataclasses import replace
 
 from fas_bench import test_registry
 
+
 def spec(
     test_id="FAS-REG-001",
     version="1.0.0",
@@ -53,8 +54,12 @@ def test_duplicate_requirements_are_rejected():
 
 
 def test_lifecycle_transitions_are_monotonic():
-    assert lifecycle_transition_allowed(test_registry.TestLifecycle.DRAFT, test_registry.TestLifecycle.REVIEW)
-    assert not lifecycle_transition_allowed(test_registry.TestLifecycle.RETIRED, test_registry.TestLifecycle.DRAFT)
+    assert lifecycle_transition_allowed(
+        test_registry.TestLifecycle.DRAFT, test_registry.TestLifecycle.REVIEW
+    )
+    assert not lifecycle_transition_allowed(
+        test_registry.TestLifecycle.RETIRED, test_registry.TestLifecycle.DRAFT
+    )
 
 
 def test_coverage_matrix_is_deterministic():
