@@ -9,8 +9,6 @@ from dataclasses import asdict, dataclass
 from enum import StrEnum
 
 
-
-
 class TestLifecycle(StrEnum):
     PROPOSED = "PROPOSED"
     DRAFT = "DRAFT"
