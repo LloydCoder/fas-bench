@@ -132,7 +132,12 @@ class ResultRecord:
             errors.append("submission_identity must be a lowercase SHA-256 digest")
         if not _valid_digest(self.provenance_identity):
             errors.append("provenance_identity must be a lowercase SHA-256 digest")
-        if not isinstance(self.score, (int, float)) or isinstance(self.score, bool) or not math.isfinite(self.score) or not 0.0 <= self.score <= 1.0:
+        if (
+            not isinstance(self.score, (int, float))
+            or isinstance(self.score, bool)
+            or not math.isfinite(self.score)
+            or not 0.0 <= self.score <= 1.0
+        ):
             errors.append("score must be a finite numeric value within [0,1]")
         if len(self.confidence_interval) != 2 or not all(
             math.isfinite(value) for value in self.confidence_interval
