@@ -36,7 +36,8 @@ class AdversarialCase:
 
     def identity(self) -> str:
         payload = {
-            "attack_id": self.attack_id, "version": self.version,
+            "attack_id": self.attack_id,
+            "version": self.version,
             "attack_class": self.attack_class.value,
             "target_surface": self.target_surface,
             "expected_invariant": self.expected_invariant,
@@ -60,8 +61,12 @@ class RobustnessResult:
 def validate_adversarial_case(case: AdversarialCase) -> list[str]:
     errors: list[str] = []
     for name in (
-        "attack_id", "version", "target_surface", "expected_invariant",
-        "mutation_digest", "oracle_digest",
+        "attack_id",
+        "version",
+        "target_surface",
+        "expected_invariant",
+        "mutation_digest",
+        "oracle_digest",
     ):
         if not getattr(case, name):
             errors.append(f"{name} is required")
@@ -70,16 +75,22 @@ def validate_adversarial_case(case: AdversarialCase) -> list[str]:
     return sorted(set(errors))
 
 
-def robustness_gate(cases: list[AdversarialCase], results: list[RobustnessResult]) -> dict:
-    errors = [f"{c.attack_id}: {e}" for c in cases for e in validate_adversarial_case(c)]
-    by_id = {r.attack_id: r for r in results}
+def robustness_gate(
+    cases: list[AdversarialCase], results: list[RobustnessResult]
+) -> dict:
+    errors = [
+        f"{case.attack_id}: {error}"
+        for case in cases
+        for error in validate_adversarial_case(case)
+    ]
+    by_id = {result.attack_id: result for result in results}
     for case in cases:
         result = by_id.get(case.attack_id)
         if result is None:
             errors.append(f"{case.attack_id}: missing robustness result")
-        elif result.status == RobustnessStatus.INFRASTRUCTURE_FAILURE:
-            errors.append(f"{case.attack_id}: infrastructure failure")
-        elif result.status == RobustnessStatus.PASS and result.observed_invariant != case.expected_invariant:
+        elif result.status != RobustnessStatus.PASS:
+            errors.append(f"{case.attack_id}: robustness result is {result.status}")
+        elif result.observed_invariant != case.expected_invariant:
             errors.append(f"{case.attack_id}: invariant mismatch")
     return {
         "phase": "19",
