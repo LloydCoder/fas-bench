@@ -92,3 +92,17 @@ def test_retirement_requires_human_approval():
     assert governance_transition(
         Lifecycle.DEPRECATED, Lifecycle.RETIRED, True
     )["allowed"]
+
+def test_result_rejects_malformed_numeric_types():
+    result = ResultRecord(
+        "r",
+        "a" * 64,
+        "s" * 64,
+        "b" * 64,
+        "e" * 64,
+        "not-a-number",
+        (0, 1),
+        ResultStatus.VALID,
+        "p" * 64,
+    )
+    assert result.validate()
