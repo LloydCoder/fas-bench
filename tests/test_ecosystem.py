@@ -77,6 +77,7 @@ def test_release_requires_human_approval():
     assert not governance_transition(Lifecycle.CERTIFIED, Lifecycle.RELEASED)["allowed"]
     assert governance_transition(Lifecycle.CERTIFIED, Lifecycle.RELEASED, True)["allowed"]
 
+
 def test_provenance_rejects_cycles():
     edges = [
         ProvenanceEdge("source", "build", "PRODUCED", "a" * 64, "actor"),
