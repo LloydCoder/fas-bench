@@ -44,9 +44,9 @@ def test_released_test_requires_source_digest():
         == "FAIL"
     )
     assert (
-        registry_validate([spec(lifecycle=test_registry.TestLifecycle.RELEASED, source_digest="a" * 64)])[
-            "status"
-        ]
+        registry_validate(
+            [spec(lifecycle=test_registry.TestLifecycle.RELEASED, source_digest="a" * 64)]
+        )["status"]
         == "PASS"
     )
 
