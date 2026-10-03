@@ -119,11 +119,7 @@ def contamination_gate(
     corpus: CorpusSet, findings: list[ContaminationFinding]
 ) -> dict:
     errors = validate_corpus(corpus)
-    errors.extend(
-        f"finding: {error}"
-        for finding in findings
-        for error in _validate_finding(finding)
-    )
+    errors.extend(f"finding: {error}" for finding in findings for error in _validate_finding(finding))
     relevant = [f for f in findings if f.corpus_id == corpus.corpus_id]
     if len(relevant) != len({(f.source, f.evidence_digest) for f in relevant}):
         errors.append("duplicate contamination finding")
