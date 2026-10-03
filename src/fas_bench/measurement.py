@@ -1,4 +1,5 @@
 """Phase 20 benchmark measurement-science primitives."""
+
 from __future__ import annotations
 
 import math
