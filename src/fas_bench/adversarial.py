@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-64
 
 
 class AttackClass(StrEnum):
