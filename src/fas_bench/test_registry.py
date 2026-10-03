@@ -40,7 +40,8 @@ def _valid_digest(value: str) -> bool:
     return (
         isinstance(value, str)
         and len(value) == _SHA256
-        and value == value.lower()\n        and all(character in "0123456789abcdef" for character in value)
+        and value == value.lower()
+        and all(character in "0123456789abcdef" for character in value)
     )
 
 
