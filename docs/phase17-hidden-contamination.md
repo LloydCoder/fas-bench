@@ -20,4 +20,4 @@ material, credentials, or artifacts that defeat the hidden-test boundary.
 
 Mature benchmark programs commonly separate practice material from hidden
 official tests to reduce overfitting and preserve credible evaluation. MLCommons
-documents this pattern explicitly for AILuminate. citeturn0search8turn0search13
+documents this pattern explicitly for AILuminate.
