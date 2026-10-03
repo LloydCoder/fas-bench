@@ -8,8 +8,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-
-
 class EventKind(StrEnum):
     OBSERVATION = "OBSERVATION"
     TOOL_CALL = "TOOL_CALL"
