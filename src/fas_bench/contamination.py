@@ -9,8 +9,6 @@ from datetime import date, datetime
 from enum import StrEnum
 
 
-
-
 class CorpusVisibility(StrEnum):
     PUBLIC_PRACTICE = "PUBLIC_PRACTICE"
     PUBLIC_CANARY = "PUBLIC_CANARY"
