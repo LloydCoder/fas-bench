@@ -1,8 +1,8 @@
 from dataclasses import replace
 
 from fas_bench.test_registry import (
-    TestLifecycle,
-    TestSpec,
+    RegistryLifecycle as RegistryLifecycle,
+    RegistrySpec as RegistrySpec,
     coverage_matrix,
     lifecycle_transition_allowed,
     registry_validate,
@@ -12,10 +12,10 @@ from fas_bench.test_registry import (
 def spec(
     test_id="FAS-REG-001",
     version="1.0.0",
-    lifecycle=TestLifecycle.DRAFT,
+    lifecycle=RegistryLifecycle.DRAFT,
     source_digest="",
 ):
-    return TestSpec(
+    return RegistrySpec(
         test_id=test_id,
         version=version,
         title="registry test",
@@ -36,7 +36,7 @@ def test_identity_is_stable_and_order_independent():
 
 
 def test_identity_is_stable_across_lifecycle_transitions():
-    assert spec().identity() == spec(lifecycle=TestLifecycle.REVIEW).identity()
+    assert spec().identity() == spec(lifecycle=RegistryLifecycle.REVIEW).identity()
 
 
 def test_registry_rejects_duplicate_versions_but_allows_history():
@@ -45,9 +45,9 @@ def test_registry_rejects_duplicate_versions_but_allows_history():
 
 
 def test_released_test_requires_source_digest():
-    assert registry_validate([spec(lifecycle=TestLifecycle.RELEASED)])["status"] == "FAIL"
+    assert registry_validate([spec(lifecycle=RegistryLifecycle.RELEASED)])["status"] == "FAIL"
     assert (
-        registry_validate([spec(lifecycle=TestLifecycle.RELEASED, source_digest="a" * 64)])[
+        registry_validate([spec(lifecycle=RegistryLifecycle.RELEASED, source_digest="a" * 64)])[
             "status"
         ]
         == "PASS"
@@ -60,8 +60,8 @@ def test_duplicate_requirements_are_rejected():
 
 
 def test_lifecycle_transitions_are_monotonic():
-    assert lifecycle_transition_allowed(TestLifecycle.DRAFT, TestLifecycle.REVIEW)
-    assert not lifecycle_transition_allowed(TestLifecycle.RETIRED, TestLifecycle.DRAFT)
+    assert lifecycle_transition_allowed(RegistryLifecycle.DRAFT, RegistryLifecycle.REVIEW)
+    assert not lifecycle_transition_allowed(RegistryLifecycle.RETIRED, RegistryLifecycle.DRAFT)
 
 
 def test_coverage_matrix_is_deterministic():
