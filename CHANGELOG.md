@@ -1,3 +1,15 @@
+## Unreleased — Phase 16–21 forensic hardening
+
+### Fixed
+
+- Stabilized test identities across lifecycle transitions while retaining version history.
+- Hardened SHA-256, type, temporal-boundary, and private-access validation for advanced benchmark contracts.
+- Bound agentic events to immutable environment identities and explicit turn limits.
+- Rejected incomplete, duplicate, unknown, or non-passing adversarial results.
+- Hardened uncertainty, bootstrap, agreement, and reliability input validation.
+- Hardened result and provenance validation, including acyclic provenance and human-gated retirement.
+- Reconciled advanced architecture, specification, and Phase 16 lifecycle documentation.
+
 ## Unreleased — Phase 21: Enterprise Evaluation Platform & Ecosystem
 
 ### Added
