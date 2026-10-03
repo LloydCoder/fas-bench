@@ -32,7 +32,8 @@ class CorpusSet:
 
     def identity(self) -> str:
         payload = {
-            "corpus_id": self.corpus_id, "version": self.version,
+            "corpus_id": self.corpus_id,
+            "version": self.version,
             "visibility": self.visibility.value,
             "case_digests": sorted(self.case_digests),
             "access_policy": self.access_policy,
@@ -60,27 +61,34 @@ def validate_corpus(corpus: CorpusSet) -> list[str]:
         errors.append("case_digests must not be empty")
     if not corpus.access_policy.strip():
         errors.append("access_policy is required")
-    if corpus.visibility == CorpusVisibility.PRIVATE_OFFICIAL and not corpus.temporal_cutoff:
-        errors.append("private official corpora require a temporal cutoff")
+    if corpus.visibility == CorpusVisibility.PRIVATE_OFFICIAL:
+        if not corpus.temporal_cutoff:
+            errors.append("private official corpora require a temporal cutoff")
     return sorted(set(errors))
 
 
-def contamination_gate(corpus: CorpusSet, findings: list[ContaminationFinding]) -> dict:
+def contamination_gate(
+    corpus: CorpusSet, findings: list[ContaminationFinding]
+) -> dict:
     errors = validate_corpus(corpus)
     relevant = [f for f in findings if f.corpus_id == corpus.corpus_id]
     if corpus.visibility == CorpusVisibility.PRIVATE_OFFICIAL:
         if not relevant:
             errors.append("official corpus requires an explicit contamination assessment")
-        if any(f.status in {ContaminationStatus.SUSPECTED, ContaminationStatus.CONFIRMED} for f in relevant):
-            errors.append("official corpus has unresolved contamination")
+        if any(
+            f.status != ContaminationStatus.CLEAN for f in relevant
+        ):
+            errors.append("official corpus is not contamination-clean")
     return {
         "phase": "17",
         "status": "PASS" if not errors else "FAIL",
         "corpus_id": corpus.corpus_id,
         "visibility": corpus.visibility.value,
         "contamination_status": (
-            "BLOCKED" if any(f.status == ContaminationStatus.CONFIRMED for f in relevant)
-            else "REVIEW" if any(f.status == ContaminationStatus.SUSPECTED for f in relevant)
+            "BLOCKED"
+            if any(f.status == ContaminationStatus.CONFIRMED for f in relevant)
+            else "REVIEW"
+            if any(f.status != ContaminationStatus.CLEAN for f in relevant)
             else "ASSESSED"
         ),
         "errors": sorted(set(errors)),
