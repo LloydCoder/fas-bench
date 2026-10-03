@@ -34,9 +34,9 @@ def test_invalid_environment_digest_fails_closed():
     assert scenario_gate([invalid])["status"] == "FAIL"
 
 
-def test_event_count_cannot_exceed_max_turns():
-    invalid = scenario(tuple(event(sequence=i) for i in range(5)))
-    assert scenario_gate([invalid])["status"] == "FAIL"
+def test_multiple_events_can_share_a_turn():
+    valid = scenario(tuple(event(sequence=i) for i in range(5)))
+    assert scenario_gate([valid])["status"] == "PASS"
 
 
 def test_valid_scenario_passes():
