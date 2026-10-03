@@ -84,6 +84,7 @@ def test_provenance_rejects_cycles():
     ]
     assert provenance_gate(edges)["status"] == "FAIL"
 
+
 def test_retirement_requires_human_approval():
     assert not governance_transition(
         Lifecycle.DEPRECATED, Lifecycle.RETIRED
