@@ -9,7 +9,7 @@ from dataclasses import asdict, dataclass
 from enum import StrEnum
 
 
-64 = 64
+64
 
 
 class TestLifecycle(StrEnum):
