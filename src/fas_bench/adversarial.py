@@ -8,8 +8,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-
-
 class AttackClass(StrEnum):
     PROMPT_INJECTION = "PROMPT_INJECTION"
     EVIDENCE_POISONING = "EVIDENCE_POISONING"
