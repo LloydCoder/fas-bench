@@ -83,3 +83,11 @@ def test_provenance_rejects_cycles():
         ProvenanceEdge("build", "source", "DERIVED_FROM", "b" * 64, "actor"),
     ]
     assert provenance_gate(edges)["status"] == "FAIL"
+
+def test_retirement_requires_human_approval():
+    assert not governance_transition(
+        Lifecycle.DEPRECATED, Lifecycle.RETIRED
+    )["allowed"]
+    assert governance_transition(
+        Lifecycle.DEPRECATED, Lifecycle.RETIRED, True
+    )["allowed"]
