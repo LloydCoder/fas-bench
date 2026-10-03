@@ -1,3 +1,5 @@
+import math
+
 from fas_bench.ecosystem import (
     Lifecycle,
     ProvenanceEdge,
@@ -46,9 +48,29 @@ def test_result_rejects_invalid_score():
     assert result.validate()
 
 
+def test_result_rejects_non_finite_values():
+    result = ResultRecord(
+        "r",
+        "a" * 64,
+        "s" * 64,
+        "b" * 64,
+        "e" * 64,
+        math.nan,
+        (0, 1),
+        ResultStatus.VALID,
+        "p" * 64,
+    )
+    assert result.validate()
+
+
 def test_provenance_requires_complete_edges():
     edge = ProvenanceEdge("source", "build", "PRODUCED", "a" * 64, "actor")
     assert provenance_gate([edge])["status"] == "PASS"
+
+
+def test_provenance_rejects_self_edges():
+    edge = ProvenanceEdge("source", "source", "PRODUCED", "a" * 64, "actor")
+    assert provenance_gate([edge])["status"] == "FAIL"
 
 
 def test_release_requires_human_approval():
