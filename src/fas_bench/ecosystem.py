@@ -1,4 +1,5 @@
 """Phase 21 submission, results, provenance, and governance contracts."""
+
 from __future__ import annotations
 
 import hashlib
