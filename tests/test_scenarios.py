@@ -43,3 +43,15 @@ def test_event_count_cannot_exceed_max_turns():
 
 def test_valid_scenario_passes():
     assert scenario_gate([scenario((event(),))])["status"] == "PASS"
+
+def test_event_turn_is_bounded():
+    invalid = scenario((event(),))
+    invalid = EvaluationScenario(
+        invalid.scenario_id,
+        invalid.version,
+        invalid.initial_state_digest,
+        invalid.environment,
+        (InteractionEvent(0, EventKind.OBSERVATION, "agent", "e" * 64, "env-1", 4),),
+        invalid.max_turns,
+    )
+    assert scenario_gate([invalid])["status"] == "FAIL"
