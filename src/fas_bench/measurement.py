@@ -11,19 +11,12 @@ from dataclasses import dataclass
 def wilson_interval(
     successes: int, total: int, z: float = 1.959963984540054
 ) -> tuple[float, float]:
-    if (
-        total <= 0
-        or not 0 <= successes <= total
-        or not math.isfinite(z)
-        or z <= 0
-    ):
+    if total <= 0 or not 0 <= successes <= total or not math.isfinite(z) or z <= 0:
         raise ValueError("successes, total, and z must define a valid confidence interval")
     p = successes / total
     denom = 1 + z * z / total
     center = (p + z * z / (2 * total)) / denom
-    half = z * math.sqrt(
-        (p * (1 - p) + z * z / (4 * total)) / total
-    ) / denom
+    half = z * math.sqrt((p * (1 - p) + z * z / (4 * total)) / total) / denom
     return max(0.0, center - half), min(1.0, center + half)
 
 
@@ -37,10 +30,7 @@ def deterministic_bootstrap(
     ):
         raise ValueError("values must be a non-empty finite numeric sequence")
     rng = random.Random(seed)
-    means = [
-        sum(rng.choice(values) for _ in values) / len(values)
-        for _ in range(samples)
-    ]
+    means = [sum(rng.choice(values) for _ in values) / len(values) for _ in range(samples)]
     means.sort()
     low_index = max(0, math.ceil(0.025 * samples) - 1)
     high_index = min(samples - 1, math.ceil(0.975 * samples) - 1)
@@ -53,10 +43,7 @@ def cohens_kappa(left: list[str], right: list[str]) -> float:
     n = len(left)
     observed = sum(a == b for a, b in zip(left, right)) / n
     labels = set(left) | set(right)
-    expected = sum(
-        (left.count(label) / n) * (right.count(label) / n)
-        for label in labels
-    )
+    expected = sum((left.count(label) / n) * (right.count(label) / n) for label in labels)
     if math.isclose(expected, 1.0):
         return 1.0 if math.isclose(observed, 1.0) else 0.0
     return (observed - expected) / (1 - expected)
