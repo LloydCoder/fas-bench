@@ -65,5 +65,5 @@ def test_lifecycle_transitions_are_monotonic():
     )
 
 
-def test_test_registry.coverage_matrix_is_deterministic():
+def test_coverage_matrix_is_deterministic():
     assert test_registry.coverage_matrix([spec(), spec("FAS-REG-002")]) == {"C1": 2}
