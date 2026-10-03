@@ -86,12 +86,9 @@ def test_provenance_rejects_cycles():
 
 
 def test_retirement_requires_human_approval():
-    assert not governance_transition(
-        Lifecycle.DEPRECATED, Lifecycle.RETIRED
-    )["allowed"]
-    assert governance_transition(
-        Lifecycle.DEPRECATED, Lifecycle.RETIRED, True
-    )["allowed"]
+    assert not governance_transition(Lifecycle.DEPRECATED, Lifecycle.RETIRED)["allowed"]
+    assert governance_transition(Lifecycle.DEPRECATED, Lifecycle.RETIRED, True)["allowed"]
+
 
 def test_result_rejects_malformed_numeric_types():
     result = ResultRecord(
