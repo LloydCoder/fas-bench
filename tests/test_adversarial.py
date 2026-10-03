@@ -20,9 +20,7 @@ def case():
 
 
 def result(status=RobustnessStatus.PASS, attack_id="A-1"):
-    return RobustnessResult(
-        attack_id, status, "ignore_untrusted_instruction", "c" * 64, "run-1"
-    )
+    return RobustnessResult(attack_id, status, "ignore_untrusted_instruction", "c" * 64, "run-1")
 
 
 def test_identity_is_deterministic():
@@ -34,9 +32,7 @@ def test_missing_result_fails_closed():
 
 
 def test_infrastructure_failure_is_not_a_security_pass():
-    result_value = robustness_gate(
-        [case()], [result(RobustnessStatus.INFRASTRUCTURE_FAILURE)]
-    )
+    result_value = robustness_gate([case()], [result(RobustnessStatus.INFRASTRUCTURE_FAILURE)])
     assert result_value["status"] == "FAIL"
 
 
