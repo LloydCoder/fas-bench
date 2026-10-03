@@ -1,13 +1,9 @@
-"""Phase 16 benchmark test registry and specification contracts.
-
-The registry is a deterministic metadata layer. It does not execute tests or
-grant release authority; those remain separate evaluation/governance concerns.
-"""
+"""Phase 16 benchmark test registry and specification contracts."""
 from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from enum import StrEnum
 from typing import Mapping
 
@@ -46,24 +42,36 @@ class TestSpec:
         return data
 
     def identity(self) -> str:
-        payload = json.dumps(self.canonical(), sort_keys=True, separators=(",", ":")).encode()
+        payload = json.dumps(
+            self.canonical(), sort_keys=True, separators=(",", ":")
+        ).encode()
         return hashlib.sha256(payload).hexdigest()
 
 
 def validate_test_spec(spec: TestSpec) -> list[str]:
     errors: list[str] = []
-    for name in ("test_id", "version", "title", "objective", "primary_category", "difficulty", "oracle_type"):
-        if not isinstance(getattr(spec, name), str) or not getattr(spec, name).strip():
+    required = (
+        "test_id", "version", "title", "objective",
+        "primary_category", "difficulty", "oracle_type",
+    )
+    for name in required:
+        value = getattr(spec, name)
+        if not isinstance(value, str) or not value.strip():
             errors.append(f"{name} must be non-empty")
     if not spec.evidence_requirements:
         errors.append("evidence_requirements must not be empty")
-    if spec.lifecycle in {TestLifecycle.RELEASED, TestLifecycle.CERTIFIED} and not spec.source_digest:
-        errors.append("released/certified tests require source_digest")
+    if spec.lifecycle in {TestLifecycle.RELEASED, TestLifecycle.CERTIFIED}:
+        if not spec.source_digest:
+            errors.append("released/certified tests require source_digest")
     return sorted(set(errors))
 
 
 def registry_validate(specs: list[TestSpec]) -> dict:
-    errors = [f"{spec.test_id}: {err}" for spec in specs for err in validate_test_spec(spec)]
+    errors = [
+        f"{spec.test_id}: {err}"
+        for spec in specs
+        for err in validate_test_spec(spec)
+    ]
     ids = [spec.test_id for spec in specs]
     if len(ids) != len(set(ids)):
         errors.append("duplicate test_id")
