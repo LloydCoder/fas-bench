@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-_SHA256 = 64
+SHA256_HEX_LENGTH = 64
 
 
 class EventKind(StrEnum):
@@ -24,7 +24,7 @@ class EventKind(StrEnum):
 def _valid_digest(value: str) -> bool:
     return (
         isinstance(value, str)
-        and len(value) == _SHA256
+        and len(value) == SHA256_HEX_LENGTH
         and value == value.lower()
         and all(character in "0123456789abcdef" for character in value)
     )
