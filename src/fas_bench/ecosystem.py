@@ -9,8 +9,6 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-
-
 def _valid_digest(value: str) -> bool:
     return (
         isinstance(value, str)
