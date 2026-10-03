@@ -225,14 +225,17 @@ def governance_transition(
     human_approved: bool = False,
 ) -> dict:
     allowed = transition_allowed(current, target)
-    if target in {Lifecycle.CERTIFIED, Lifecycle.RELEASED} and not human_approved:
+    approval_targets = {
+        Lifecycle.CERTIFIED,
+        Lifecycle.RELEASED,
+        Lifecycle.DEPRECATED,
+        Lifecycle.RETIRED,
+    }
+    if target in approval_targets and not human_approved:
         allowed = False
     return {
         "from": current.value,
         "to": target.value,
         "allowed": allowed,
-        "human_approval_required": target in {
-            Lifecycle.CERTIFIED,
-            Lifecycle.RELEASED,
-        },
+        "human_approval_required": target in approval_targets,
     }
