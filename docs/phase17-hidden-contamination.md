@@ -6,8 +6,7 @@ held-out evaluation populations and makes contamination status explicit.
 ## Contract
 
 Official corpora MUST have controlled access, a content-derived identity, a
-temporal boundary, and an explicit contamination assessment. SUSPECTED or
-CONFIRMED contamination blocks official release until governance resolves it.
+temporal boundary, and an explicit contamination assessment. SUSPECTED, CONFIRMED, or UNKNOWN contamination blocks official release until governance resolves it.
 
 Contamination findings are evidence-bearing observations, not proof of
 training-data history. A repository scan cannot prove that a model has never
