@@ -51,7 +51,7 @@ def test_normative_spec_has_phase_sections():
         "Contamination resistance",
         "Ground-truth isolation",
         "Submission contract",
-        "Fifteen-phase roadmap",
+        "Twenty-one-phase roadmap",
         "Phase 1 exit criteria",
         "Phase 2 exit criteria",
     ]
