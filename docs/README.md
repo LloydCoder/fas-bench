@@ -23,7 +23,7 @@ Other documentation may explain implementation, operational procedures, contribu
 - [Phase 8 scoring](phase8-scoring.md)
 - [Phase 9 secure evaluation](phase9-secure-evaluation.md)
 
-### 3. Phase 10–15 integrity, validation, enterprise hardening, and platform
+### 3. Phase 10–21 integrity, validation, enterprise hardening, platform, and ecosystem
 
 - [Corpus and release contract](phase10-corpus-release.md)
 - [Mutation contract](phase10-mutation.md)
@@ -38,6 +38,12 @@ Other documentation may explain implementation, operational procedures, contribu
 - [Phase 13.1 governance](phase13-1-governance.md)
 - [Phase 14 evaluation platform](phase14-evaluation-platform.md)
 - [Phase 15 continuous benchmark intelligence](phase15-continuous-benchmark-intelligence.md)
+- [Phase 16 test registry](phase16-test-registry.md)
+- [Phase 17 hidden evaluation and contamination](phase17-hidden-contamination.md)
+- [Phase 18 agentic evaluation](phase18-agentic-evaluation.md)
+- [Phase 19 adversarial robustness](phase19-adversarial-robustness.md)
+- [Phase 20 measurement science](phase20-measurement-science.md)
+- [Phase 21 evaluation ecosystem](phase21-evaluation-ecosystem.md)
 
 - [Release certification](release-certification.md)
 - [Reproducibility contract](reproducibility.md)

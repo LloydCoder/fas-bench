@@ -1,3 +1,51 @@
+## Unreleased — Phase 21: Enterprise Evaluation Platform & Ecosystem
+
+### Added
+
+- Submission manifest and deterministic submission identity contract.
+- Result registry record with score, uncertainty, provenance, efficiency, and infrastructure-failure dimensions.
+- Content-addressed provenance graph edge contract.
+- Human-gated lifecycle transitions through release and retirement.
+
+## Unreleased — Phase 20: Measurement Science & Independent Validation
+
+### Added
+
+- Wilson uncertainty intervals and deterministic bootstrap.
+- Cohen's kappa inter-rater agreement.
+- Stratified counts and benchmark-conditioned reliability reports.
+
+## Unreleased — Phase 19: Adversarial & Robustness Evaluation
+
+### Added
+
+- Adversarial attack-class taxonomy and mutation identity.
+- Oracle-bound robustness results and fail-closed infrastructure semantics.
+- Benchmark-gaming detection boundary.
+
+## Unreleased — Phase 18: Scenario, Environment & Agentic Evaluation
+
+### Added
+
+- Immutable environment snapshots and ordered interaction events.
+- Deterministic multi-turn scenario identity and validation.
+- Explicit delegation of dynamic execution to the Phase 9 provider.
+
+## Unreleased — Phase 17: Official Hidden Evaluation & Contamination Defense
+
+### Added
+
+- Public-practice, public-canary, private-official, and private-holdout corpus identities.
+- Explicit contamination findings and official-corpus release gate.
+- Temporal cutoff requirement for official evaluation populations.
+
+## Unreleased — Phase 16: Benchmark Test Registry & Specification Engine
+
+### Added
+
+- First-class test specifications with deterministic identities and lifecycle state.
+- Coverage accounting and duplicate/invalid specification gates.
+
 ## Unreleased — Phase 15: Continuous Benchmark Intelligence
 
 ### Added

@@ -87,3 +87,26 @@ execution trust boundary.
 Phase 15 continuous monitoring may detect drift, contamination signals, oracle
 health issues, or benchmark aging, but monitoring must not silently change
 gold truth, scoring policy, or release state.
+
+
+## Phase 16–21 advanced security boundaries
+
+Phase 16 registry metadata is untrusted input and cannot grant execution or
+release authority.
+
+Phase 17 private corpus material must remain outside public packages. A
+contamination finding is evidence for review, not proof of model-training
+history.
+
+Phase 18 dynamic traces and environment metadata are untrusted artifacts and
+must remain within the Phase 9 execution boundary.
+
+Phase 19 adversarial inputs are explicitly hostile. Oracle material must remain
+authoritative and isolated from candidate control.
+
+Phase 20 statistical artifacts cannot bypass security or integrity controls and
+must preserve uncertainty and methodology metadata.
+
+Phase 21 provenance records must be verified rather than trusted merely because
+they are present. Submission results remain untrusted data, and lifecycle
+automation cannot manufacture certification or release approval.

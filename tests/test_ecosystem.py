@@ -1,0 +1,36 @@
+from fas_bench.ecosystem import (
+    Lifecycle,
+    ProvenanceEdge,
+    ResultRecord,
+    ResultStatus,
+    SubmissionManifest,
+    governance_transition,
+    provenance_gate,
+)
+
+
+def manifest():
+    return SubmissionManifest(
+        "system", "1", "model", "a" * 64, "b" * 64, "c" * 64, "d" * 64, "1"
+    )
+
+
+def test_submission_identity_is_deterministic():
+    assert manifest().identity() == manifest().identity()
+
+
+def test_result_rejects_invalid_score():
+    result = ResultRecord(
+        "r", "a" * 64, "s", "b" * 64, "e", 1.1, (0, 1), ResultStatus.VALID, "p"
+    )
+    assert result.validate()
+
+
+def test_provenance_requires_complete_edges():
+    edge = ProvenanceEdge("source", "build", "PRODUCED", "a" * 64, "actor")
+    assert provenance_gate([edge])["status"] == "PASS"
+
+
+def test_release_requires_human_approval():
+    assert not governance_transition(Lifecycle.CERTIFIED, Lifecycle.RELEASED)["allowed"]
+    assert governance_transition(Lifecycle.CERTIFIED, Lifecycle.RELEASED, True)["allowed"]

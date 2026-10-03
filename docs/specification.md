@@ -1,7 +1,7 @@
 # FAS-Bench v0.1.0 — Normative Benchmark Specification
 
 **Document role:** normative benchmark contract and highest-authority technical specification.  
-**Status:** Phase 15 implementation contract; normative semantics remain versioned for the v0.1.0 benchmark family. Later phases add measurement, governance, platform, and operational contracts without silently redefining the benchmark's core verdict/evidence semantics.  
+**Status:** Phase 21 implementation contract; normative semantics remain versioned for the v0.1.0 benchmark family. Later phases add measurement, governance, platform, and operational contracts without silently redefining the benchmark's core verdict/evidence semantics.  
 **Benchmark specification version:** 0.1.0  
 **Schema version:** 0.1.0 (machine-readable schema families are implemented under schemas/)  
 **Evaluator version:** 0.1.0  
@@ -757,6 +757,12 @@ Regression is semantic: a previously blocked condition or effective control beco
 
 Case-specific truth remains declarative. Evaluator code must not branch on case identifiers.
 
+
+## Phase 16–21 advanced benchmark contracts
+
+Phase 16 makes test specifications first-class versioned artifacts with deterministic identities and lifecycle state. Phase 17 separates public practice material from private official/held-out populations and requires explicit contamination assessment for official corpora. Phase 18 binds dynamic interaction traces to immutable environment identities. Phase 19 defines adversarial robustness cases whose invariants are controlled by authoritative oracles. Phase 20 provides uncertainty, bootstrap, agreement, stratification, and reliability primitives without converting benchmark-conditioned measurements into universal claims. Phase 21 defines submission manifests, result records, provenance edges, and human-gated lifecycle transitions.
+
+These phases MUST preserve the core independence invariant: FAS-Bench remains an evaluator, not a candidate runtime or security product. Candidate execution remains delegated to Phase 9, platform scheduling remains bounded by Phase 14, and release authority remains governed by Phase 13.1.
 
 ## Phase 9 normative execution contract
 Phase 9 is the sole benchmark execution trust boundary. Candidate workloads MUST execute only through a validated isolation backend. The v0.1 backend is Docker and MUST use an immutable image digest, network disabled, read-only root filesystem, all capabilities dropped, no-new-privileges, non-root UID/GID, bounded CPU/memory/PIDs/time/output, and ephemeral writable workspaces. The harness MUST fail closed when isolation or the immutable image is unavailable. Host execution, Docker-socket mounts, arbitrary host paths, repository credentials, and candidate-controlled aggregate results are prohibited. Infrastructure failures MUST remain distinct from security verdicts.
