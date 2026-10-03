@@ -1,4 +1,5 @@
 """Phase 16 benchmark test registry and specification contracts."""
+
 from __future__ import annotations
 
 import hashlib
@@ -71,9 +72,7 @@ class TestSpec:
         return data
 
     def identity(self) -> str:
-        payload = json.dumps(
-            self.canonical(), sort_keys=True, separators=(",", ":")
-        ).encode()
+        payload = json.dumps(self.canonical(), sort_keys=True, separators=(",", ":")).encode()
         return hashlib.sha256(payload).hexdigest()
 
 
