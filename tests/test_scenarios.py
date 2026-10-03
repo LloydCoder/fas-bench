@@ -8,9 +8,7 @@ from fas_bench.scenarios import (
 
 
 def scenario(events=()):
-    env = EnvironmentSnapshot(
-        "env-1", "linux", "a" * 64, "b" * 64, "c" * 64, "DENY"
-    )
+    env = EnvironmentSnapshot("env-1", "linux", "a" * 64, "b" * 64, "c" * 64, "DENY")
     return EvaluationScenario("S-1", "1.0", "d" * 64, env, tuple(events), 4)
 
 
