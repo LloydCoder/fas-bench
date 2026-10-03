@@ -19,7 +19,7 @@ and sensitivity analysis remain evidence-producing activities.
 
 NIST treats reliable measurement and evaluation as foundational to trustworthy AI
 technology assessment, while MLCommons has explicitly pursued benchmark
-reliability research. citeturn0search2turn0search10
+reliability research.
 
 ## Independence
 
