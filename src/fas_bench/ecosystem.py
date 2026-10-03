@@ -1,14 +1,17 @@
 """Phase 21 submission, results, provenance, and governance contracts."""
 from __future__ import annotations
+
 import hashlib
 import json
 from dataclasses import dataclass
 from enum import StrEnum
 
+
 class ResultStatus(StrEnum):
     VALID = "VALID"
     INVALID = "INVALID"
     INFRASTRUCTURE_FAILURE = "INFRASTRUCTURE_FAILURE"
+
 
 class Lifecycle(StrEnum):
     PROPOSED = "PROPOSED"
@@ -21,6 +24,7 @@ class Lifecycle(StrEnum):
     MONITORED = "MONITORED"
     DEPRECATED = "DEPRECATED"
     RETIRED = "RETIRED"
+
 
 _ALLOWED_TRANSITIONS = {
     Lifecycle.PROPOSED: {Lifecycle.DRAFT},
@@ -35,6 +39,7 @@ _ALLOWED_TRANSITIONS = {
     Lifecycle.RETIRED: set(),
 }
 
+
 @dataclass(frozen=True)
 class SubmissionManifest:
     system_id: str
@@ -48,8 +53,27 @@ class SubmissionManifest:
 
     def identity(self) -> str:
         return hashlib.sha256(
-            json.dumps(self.__dict__, sort_keys=True, separators=(",", ":")).encode()
+            json.dumps(
+                self.__dict__, sort_keys=True, separators=(",", ":")
+            ).encode()
         ).hexdigest()
+
+    def validate(self) -> list[str]:
+        errors = []
+        for name in (
+            "system_id",
+            "system_version",
+            "model_id",
+            "configuration_digest",
+            "toolchain_digest",
+            "environment_digest",
+            "submission_digest",
+            "adapter_version",
+        ):
+            if not getattr(self, name):
+                errors.append(f"{name} is required")
+        return sorted(set(errors))
+
 
 @dataclass(frozen=True)
 class ResultRecord:
@@ -67,6 +91,8 @@ class ResultRecord:
 
     def validate(self) -> list[str]:
         errors: list[str] = []
+        if not self.result_id:
+            errors.append("result_id is required")
         if not 0.0 <= self.score <= 1.0:
             errors.append("score must be within [0,1]")
         low, high = self.confidence_interval
@@ -80,6 +106,7 @@ class ResultRecord:
             errors.append("provenance_identity is required")
         return sorted(set(errors))
 
+
 @dataclass(frozen=True)
 class ProvenanceEdge:
     source: str
@@ -88,11 +115,16 @@ class ProvenanceEdge:
     digest: str
     actor: str
 
+
 def provenance_gate(edges: list[ProvenanceEdge]) -> dict:
     errors: list[str] = []
     for edge in edges:
-        if not all((edge.source, edge.target, edge.relation, edge.digest, edge.actor)):
-            errors.append("provenance edges require source, target, relation, digest, and actor")
+        if not all(
+            (edge.source, edge.target, edge.relation, edge.digest, edge.actor)
+        ):
+            errors.append(
+                "provenance edges require source, target, relation, digest, and actor"
+            )
     keys = {(e.source, e.target, e.relation) for e in edges}
     if len(keys) != len(edges):
         errors.append("duplicate provenance edge")
@@ -105,10 +137,16 @@ def provenance_gate(edges: list[ProvenanceEdge]) -> dict:
         "automatic_release_authority": False,
     }
 
+
 def transition_allowed(current: Lifecycle, target: Lifecycle) -> bool:
     return target in _ALLOWED_TRANSITIONS[current]
 
-def governance_transition(current: Lifecycle, target: Lifecycle, human_approved: bool = False) -> dict:
+
+def governance_transition(
+    current: Lifecycle,
+    target: Lifecycle,
+    human_approved: bool = False,
+) -> dict:
     allowed = transition_allowed(current, target)
     if target in {Lifecycle.CERTIFIED, Lifecycle.RELEASED} and not human_approved:
         allowed = False
@@ -116,5 +154,8 @@ def governance_transition(current: Lifecycle, target: Lifecycle, human_approved:
         "from": current.value,
         "to": target.value,
         "allowed": allowed,
-        "human_approval_required": target in {Lifecycle.CERTIFIED, Lifecycle.RELEASED},
+        "human_approval_required": target in {
+            Lifecycle.CERTIFIED,
+            Lifecycle.RELEASED,
+        },
     }
