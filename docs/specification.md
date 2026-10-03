@@ -490,7 +490,7 @@ Phase 1 distinguishes:
 
 The initial 20 cases are not claimed representative. The taxonomy is provisionally frozen to enable implementation, not claimed universally complete. The benchmark is not claimed to generalize to all real-world security analysis without validation.
 
-## Fifteen-phase roadmap
+## Twenty-one-phase roadmap
 
 ### PHASE 1 — Specification & Benchmark Contract
 
