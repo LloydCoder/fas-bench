@@ -42,9 +42,12 @@ def test_registry_rejects_duplicate_versions_but_allows_history():
 
 def test_released_test_requires_source_digest():
     assert registry_validate([spec(lifecycle=TestLifecycle.RELEASED)])["status"] == "FAIL"
-    assert registry_validate(
-        [spec(lifecycle=TestLifecycle.RELEASED, source_digest="a" * 64)]
-    )["status"] == "PASS"
+    assert (
+        registry_validate([spec(lifecycle=TestLifecycle.RELEASED, source_digest="a" * 64)])[
+            "status"
+        ]
+        == "PASS"
+    )
 
 
 def test_duplicate_requirements_are_rejected():
