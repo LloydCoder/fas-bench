@@ -83,8 +83,10 @@ class EvaluationScenario:
 
 def validate_scenario(scenario: EvaluationScenario) -> list[str]:
     errors: list[str] = []
-    if not scenario.scenario_id.strip() or not scenario.version.strip():
-        errors.append("scenario_id and version are required")
+    if not isinstance(scenario.scenario_id, str) or not scenario.scenario_id.strip():
+        errors.append("scenario_id is required")
+    if not isinstance(scenario.version, str) or not scenario.version.strip():
+        errors.append("version is required")
     if scenario.max_turns < 1:
         errors.append("max_turns must be positive")
     if not _valid_digest(scenario.initial_state_digest):
@@ -92,7 +94,8 @@ def validate_scenario(scenario: EvaluationScenario) -> list[str]:
 
     environment = scenario.environment
     for name in ("environment_id", "os_family", "network_policy"):
-        if not getattr(environment, name).strip():
+        value = getattr(environment, name)
+        if not isinstance(value, str) or not value.strip():
             errors.append(f"environment {name} is required")
     for name in ("image_digest", "dependency_digest", "policy_digest"):
         if not _valid_digest(getattr(environment, name)):
@@ -102,7 +105,7 @@ def validate_scenario(scenario: EvaluationScenario) -> list[str]:
     if sequences != list(range(len(sequences))):
         errors.append("event sequence must be contiguous from zero")
     for event in scenario.events:
-        if not event.actor.strip():
+        if not isinstance(event.actor, str) or not event.actor.strip():
             errors.append(f"event {event.sequence} actor is required")
         if not _valid_digest(event.payload_digest):
             errors.append(
