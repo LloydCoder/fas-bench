@@ -103,9 +103,7 @@ def _validate_result(result: RobustnessResult) -> list[str]:
     return errors
 
 
-def robustness_gate(
-    cases: list[AdversarialCase], results: list[RobustnessResult]
-) -> dict:
+def robustness_gate(cases: list[AdversarialCase], results: list[RobustnessResult]) -> dict:
     errors = [
         f"{case.attack_id}@{case.version}: {error}"
         for case in cases
