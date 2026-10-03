@@ -84,3 +84,34 @@ The benchmark architecture now wraps the Phase 1–9 evaluation path with:
 Phase 10 adds parallel integrity planes for Public Development Corpus, future Held-Out/Hidden Corpus, Mutation Engine, Oracle Validation, Release Manifest, Provenance, Contamination Checks, and Artifact Integrity. The initial repository contains the public plane only; hidden evaluation is an architectural capability, not a fabricated dataset.
 
 Release identity is derived from canonical manifest content and referenced artifact digests. Timestamps are provenance metadata and are not identity inputs.
+
+
+## Phase 11–15 architecture
+
+Phases 11–15 extend the integrity plane without moving execution authority:
+
+- Phase 11: corpus expansion and security-semantic mutation;
+- Phase 11.1: dynamic/agentic oracle observation contracts;
+- Phase 12: uncertainty, difficulty, stratification, and calibration;
+- Phase 12.1: independent-review and replication metadata;
+- Phase 13: release security, SBOM/provenance, secret and dependency controls;
+- Phase 13.1: governed material-change, correction, retirement, and human approval;
+- Phase 14: deterministic evaluation-job identity and secure-provider delegation;
+- Phase 15: benchmark-health and distribution-drift monitoring without automatic release authority.
+
+## Phase 16–21 architecture
+
+The advanced evaluation layer is:
+
+Test Registry → Corpus/Contamination → Scenario/Environment → Adversarial Evaluation → Measurement Science → Submission/Results/Provenance/Governance
+
+The boundaries are deliberate:
+
+- **Phase 16** owns versioned test specifications, lifecycle, coverage, and test identity.
+- **Phase 17** owns visibility, hidden/holdout corpus identity, contamination findings, and temporal boundaries.
+- **Phase 18** owns scenario/environment/event identity and trace integrity; it does not execute candidates.
+- **Phase 19** owns adversarial mutation semantics and robustness adjudication against authoritative oracles.
+- **Phase 20** owns measurement primitives and uncertainty metadata; it does not redefine benchmark truth.
+- **Phase 21** owns submission/result/provenance/lifecycle contracts; it does not become a generic agent runtime.
+
+Candidate execution remains in Phase 9, platform scheduling remains bounded by Phase 14, and release authority remains governed by Phase 13.1. This prevents the advanced layers from duplicating authority or creating a second execution boundary.

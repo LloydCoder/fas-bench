@@ -568,7 +568,64 @@ Provide deterministic evaluation-job identity, submission/policy validation, exp
 
 Monitor corpus composition and benchmark drift while preserving immutable historical identities and human-controlled release authority.
 
+
+
+### PHASE 16 — Benchmark Test Registry & Specification Engine
+
+Make test specifications first-class versioned artifacts. Define deterministic
+test identity, lifecycle transitions, coverage accounting, source provenance,
+and explicit separation between specification, execution, and release authority.
+
+### PHASE 17 — Official Hidden Evaluation & Contamination Defense
+
+Separate public practice/canary material from private official and holdout
+populations. Require controlled access, content-derived corpus identity,
+temporal boundaries, contamination findings, and a fail-closed official-release
+gate. A contamination scan MUST NOT be represented as proof of training-history
+absence.
+
+### PHASE 18 — Scenario, Environment & Agentic Evaluation
+
+Represent dynamic, multi-turn, tool-using, and multi-agent evaluations as
+content-addressed scenarios with immutable environment identities, ordered
+events, state/trace digests, and explicit execution-boundary delegation.
+Candidate execution remains in Phase 9.
+
+### PHASE 19 — Adversarial & Robustness Evaluation
+
+Evaluate benchmark and candidate robustness under prompt injection, evidence
+poisoning, tool-output manipulation, repository deception, oracle tampering,
+sandbox attacks, and benchmark gaming. Only an authoritative-oracle-matching
+PASS can satisfy a robustness case. FAIL, UNKNOWN, and infrastructure failure
+MUST remain non-passing states.
+
+### PHASE 20 — Measurement Science & Independent Validation
+
+Provide deterministic uncertainty, bootstrap, agreement, stratification, and
+reliability primitives. Report benchmark-conditioned measurements separately
+from generalized-population claims. Statistical output MUST preserve assumptions,
+limitations, and independence metadata and MUST NOT become benchmark truth.
+
+### PHASE 21 — Enterprise Evaluation Platform & Ecosystem
+
+Define submission manifests, result records, provenance edges, adapters/results
+surfaces, and lifecycle governance contracts. Provenance MUST be content
+addressed and human approval MUST remain required for certification/release.
+This phase does not create a generic agent runtime or security product.
+
 Dependencies remain sequential: each phase consumes the stable contract of its predecessors. Scientific claims remain subject to empirical evidence and independent review.
+
+## Phase 16–21 exit criteria
+
+- Phase 16: test identity, historical versioning, lifecycle, source-digest, and coverage invariants are validated by deterministic tests.
+- Phase 17: private official/holdout identity, access metadata, temporal boundary, contamination evidence, and fail-closed release semantics are validated.
+- Phase 18: environment/event identity, ordering, digest integrity, turn bounds, and Phase 9 execution delegation are validated.
+- Phase 19: every adversarial case has an authoritative oracle identity; result completeness, uniqueness, invariant matching, and infrastructure-failure separation are validated.
+- Phase 20: uncertainty calculations are deterministic and bounded; agreement and bootstrap behavior are tested; benchmark-conditioned/generalized boundaries are explicit.
+- Phase 21: submission/result/provenance identities are content-derived and validated; provenance edges are complete; lifecycle transitions are governed; certification/release cannot occur without human approval.
+- All Phase 16–21 tests, repository checks, security checks, release checks, documentation checks, and package builds are green.
+- No Phase 16–21 implementation introduces a second candidate execution boundary, candidate-controlled ground truth, hidden FAS dependency, or automatic release authority.
+
 
 ## Architecture boundaries
 

@@ -1,4 +1,5 @@
 """Phase 19 adversarial and benchmark-gaming resistance contracts."""
+
 from __future__ import annotations
 
 import hashlib
@@ -22,6 +23,15 @@ class RobustnessStatus(StrEnum):
     FAIL = "FAIL"
     UNKNOWN = "UNKNOWN"
     INFRASTRUCTURE_FAILURE = "INFRASTRUCTURE_FAILURE"
+
+
+def _valid_digest(value: str) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and value == value.lower()
+        and all(character in "0123456789abcdef" for character in value)
+    )
 
 
 @dataclass(frozen=True)
@@ -68,22 +78,54 @@ def validate_adversarial_case(case: AdversarialCase) -> list[str]:
         "mutation_digest",
         "oracle_digest",
     ):
-        if not getattr(case, name):
+        value = getattr(case, name)
+        if not isinstance(value, str) or not value.strip():
             errors.append(f"{name} is required")
-    if case.attack_class == AttackClass.ORACLE_TAMPERING and not case.oracle_digest:
-        errors.append("oracle tampering cases require an oracle digest")
+    for name in ("mutation_digest", "oracle_digest"):
+        if not _valid_digest(getattr(case, name)):
+            errors.append(f"{name} must be a lowercase SHA-256 digest")
     return sorted(set(errors))
 
 
-def robustness_gate(
-    cases: list[AdversarialCase], results: list[RobustnessResult]
-) -> dict:
+def _validate_result(result: RobustnessResult) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(result.attack_id, str) or not result.attack_id.strip():
+        errors.append("attack_id is required")
+    if not isinstance(result.observed_invariant, str) or not result.observed_invariant.strip():
+        errors.append("observed_invariant is required")
+    if not _valid_digest(result.evidence_digest):
+        errors.append("evidence_digest must be a lowercase SHA-256 digest")
+    if not isinstance(result.execution_identity, str) or not result.execution_identity.strip():
+        errors.append("execution_identity is required")
+    return errors
+
+
+def robustness_gate(cases: list[AdversarialCase], results: list[RobustnessResult]) -> dict:
     errors = [
-        f"{case.attack_id}: {error}"
+        f"{case.attack_id}@{case.version}: {error}"
         for case in cases
         for error in validate_adversarial_case(case)
     ]
-    by_id = {result.attack_id: result for result in results}
+    errors.extend(
+        f"result {result.attack_id}: {error}"
+        for result in results
+        for error in _validate_result(result)
+    )
+    case_keys = [(case.attack_id, case.version) for case in cases]
+    if len(case_keys) != len(set(case_keys)):
+        errors.append("duplicate attack_id/version")
+
+    by_id = {}
+    for result in results:
+        if result.attack_id in by_id:
+            errors.append(f"duplicate robustness result for {result.attack_id}")
+        by_id[result.attack_id] = result
+
+    expected_ids = {case.attack_id for case in cases}
+    extra_ids = set(by_id) - expected_ids
+    if extra_ids:
+        errors.append("robustness results contain unknown attack IDs")
+
     for case in cases:
         result = by_id.get(case.attack_id)
         if result is None:

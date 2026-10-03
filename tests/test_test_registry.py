@@ -1,17 +1,17 @@
 from dataclasses import replace
 
-from fas_bench.test_registry import (
-    TestLifecycle,
-    TestSpec,
-    coverage_matrix,
-    registry_validate,
-)
+from fas_bench import test_registry
 
 
-def spec(test_id="FAS-REG-001", lifecycle=TestLifecycle.DRAFT):
-    return TestSpec(
+def spec(
+    test_id="FAS-REG-001",
+    version="1.0.0",
+    lifecycle=test_registry.TestLifecycle.DRAFT,
+    source_digest="",
+):
+    return test_registry.TestSpec(
         test_id=test_id,
-        version="1.0.0",
+        version=version,
         title="registry test",
         objective="verify a security condition",
         primary_category="C1",
@@ -19,6 +19,7 @@ def spec(test_id="FAS-REG-001", lifecycle=TestLifecycle.DRAFT):
         oracle_type="STATIC",
         evidence_requirements=("source", "sink"),
         lifecycle=lifecycle,
+        source_digest=source_digest,
     )
 
 
@@ -28,15 +29,43 @@ def test_identity_is_stable_and_order_independent():
     assert a.identity() == b.identity()
 
 
-def test_registry_rejects_duplicate_ids():
-    result = registry_validate([spec(), spec()])
-    assert result["status"] == "FAIL"
+def test_identity_is_stable_across_lifecycle_transitions():
+    assert spec().identity() == spec(lifecycle=test_registry.TestLifecycle.REVIEW).identity()
+
+
+def test_registry_rejects_duplicate_versions_but_allows_history():
+    assert test_registry.registry_validate([spec(), spec(version="2.0.0")])["status"] == "PASS"
+    assert test_registry.registry_validate([spec(), spec()])["status"] == "FAIL"
 
 
 def test_released_test_requires_source_digest():
-    result = registry_validate([spec(lifecycle=TestLifecycle.RELEASED)])
-    assert result["status"] == "FAIL"
+    assert (
+        test_registry.registry_validate([spec(lifecycle=test_registry.TestLifecycle.RELEASED)])[
+            "status"
+        ]
+        == "FAIL"
+    )
+    assert (
+        test_registry.registry_validate(
+            [spec(lifecycle=test_registry.TestLifecycle.RELEASED, source_digest="a" * 64)]
+        )["status"]
+        == "PASS"
+    )
+
+
+def test_duplicate_requirements_are_rejected():
+    invalid = replace(spec(), evidence_requirements=("source", "source"))
+    assert test_registry.registry_validate([invalid])["status"] == "FAIL"
+
+
+def test_lifecycle_transitions_are_monotonic():
+    assert test_registry.lifecycle_transition_allowed(
+        test_registry.TestLifecycle.DRAFT, test_registry.TestLifecycle.REVIEW
+    )
+    assert not test_registry.lifecycle_transition_allowed(
+        test_registry.TestLifecycle.RETIRED, test_registry.TestLifecycle.DRAFT
+    )
 
 
 def test_coverage_matrix_is_deterministic():
-    assert coverage_matrix([spec(), spec("FAS-REG-002")]) == {"C1": 2}
+    assert test_registry.coverage_matrix([spec(), spec("FAS-REG-002")]) == {"C1": 2}

@@ -1,9 +1,11 @@
 """Phase 17 hidden-evaluation and contamination-defense contracts."""
+
 from __future__ import annotations
 
 import hashlib
 import json
 from dataclasses import dataclass
+from datetime import date, datetime
 from enum import StrEnum
 
 
@@ -19,6 +21,28 @@ class ContaminationStatus(StrEnum):
     SUSPECTED = "SUSPECTED"
     CONFIRMED = "CONFIRMED"
     UNKNOWN = "UNKNOWN"
+
+
+def _valid_digest(value: str) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and value == value.lower()
+        and all(character in "0123456789abcdef" for character in value)
+    )
+
+
+def _valid_temporal_cutoff(value: str | None) -> bool:
+    if not value:
+        return False
+    try:
+        datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        try:
+            date.fromisoformat(value)
+        except ValueError:
+            return False
+    return True
 
 
 @dataclass(frozen=True)
@@ -55,30 +79,57 @@ class ContaminationFinding:
 
 def validate_corpus(corpus: CorpusSet) -> list[str]:
     errors: list[str] = []
-    if not corpus.corpus_id.strip() or not corpus.version.strip():
+    if not isinstance(corpus.corpus_id, str) or not corpus.corpus_id.strip():
+        errors.append("corpus_id must be a non-empty string")
+    if not isinstance(corpus.version, str) or not corpus.version.strip():
         errors.append("corpus identity fields are required")
     if not corpus.case_digests:
         errors.append("case_digests must not be empty")
-    if not corpus.access_policy.strip():
+    if len(corpus.case_digests) != len(set(corpus.case_digests)):
+        errors.append("case_digests must not contain duplicates")
+    if any(not _valid_digest(digest) for digest in corpus.case_digests):
+        errors.append("case_digests must contain lowercase SHA-256 digests")
+    if not isinstance(corpus.access_policy, str) or not corpus.access_policy.strip():
         errors.append("access_policy is required")
-    if corpus.visibility == CorpusVisibility.PRIVATE_OFFICIAL:
-        if not corpus.temporal_cutoff:
-            errors.append("private official corpora require a temporal cutoff")
+    if corpus.visibility in {
+        CorpusVisibility.PRIVATE_OFFICIAL,
+        CorpusVisibility.PRIVATE_HOLDOUT,
+    } and not _valid_temporal_cutoff(corpus.temporal_cutoff):
+        errors.append("private corpora require an ISO-8601 temporal cutoff")
     return sorted(set(errors))
 
 
-def contamination_gate(
-    corpus: CorpusSet, findings: list[ContaminationFinding]
-) -> dict:
+def _validate_finding(finding: ContaminationFinding) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(finding.corpus_id, str) or not finding.corpus_id.strip():
+        errors.append("finding corpus_id is required")
+    if not isinstance(finding.source, str) or not finding.source.strip():
+        errors.append("finding source is required")
+    if not _valid_digest(finding.evidence_digest):
+        errors.append("finding evidence_digest must be a lowercase SHA-256 digest")
+    if finding.temporal_scope and not _valid_temporal_cutoff(finding.temporal_scope):
+        errors.append("finding temporal_scope must be ISO-8601")
+    return errors
+
+
+def contamination_gate(corpus: CorpusSet, findings: list[ContaminationFinding]) -> dict:
     errors = validate_corpus(corpus)
+    errors.extend(
+        f"finding: {error}" for finding in findings for error in _validate_finding(finding)
+    )
     relevant = [f for f in findings if f.corpus_id == corpus.corpus_id]
-    if corpus.visibility == CorpusVisibility.PRIVATE_OFFICIAL:
+    if len(relevant) != len({(f.source, f.evidence_digest) for f in relevant}):
+        errors.append("duplicate contamination finding")
+
+    if corpus.visibility in {
+        CorpusVisibility.PRIVATE_OFFICIAL,
+        CorpusVisibility.PRIVATE_HOLDOUT,
+    }:
         if not relevant:
-            errors.append("official corpus requires an explicit contamination assessment")
-        if any(
-            f.status != ContaminationStatus.CLEAN for f in relevant
-        ):
-            errors.append("official corpus is not contamination-clean")
+            errors.append("private corpus requires an explicit contamination assessment")
+        if any(f.status != ContaminationStatus.CLEAN for f in relevant):
+            errors.append("private corpus is not contamination-clean")
+
     return {
         "phase": "17",
         "status": "PASS" if not errors else "FAIL",

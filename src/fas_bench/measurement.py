@@ -1,4 +1,5 @@
 """Phase 20 benchmark measurement-science primitives."""
+
 from __future__ import annotations
 
 import math
@@ -10,46 +11,64 @@ from dataclasses import dataclass
 def wilson_interval(
     successes: int, total: int, z: float = 1.959963984540054
 ) -> tuple[float, float]:
-    if total <= 0 or not 0 <= successes <= total:
-        raise ValueError("successes and total must define a valid binomial sample")
+    if (
+        not isinstance(successes, int)
+        or isinstance(successes, bool)
+        or not isinstance(total, int)
+        or isinstance(total, bool)
+        or total <= 0
+        or not 0 <= successes <= total
+        or not isinstance(z, (int, float))
+        or isinstance(z, bool)
+        or not math.isfinite(z)
+        or z <= 0
+    ):
+        raise ValueError("successes, total, and z must define a valid confidence interval")
     p = successes / total
     denom = 1 + z * z / total
     center = (p + z * z / (2 * total)) / denom
-    half = z * math.sqrt(
-        (p * (1 - p) + z * z / (4 * total)) / total
-    ) / denom
+    half = z * math.sqrt((p * (1 - p) + z * z / (4 * total)) / total) / denom
     return max(0.0, center - half), min(1.0, center + half)
 
 
 def deterministic_bootstrap(
     values: list[float], *, samples: int = 2000, seed: int = 0
 ) -> tuple[float, float]:
-    if not values or samples < 1:
-        raise ValueError("values and positive sample count are required")
+    if (
+        not values
+        or not isinstance(samples, int)
+        or isinstance(samples, bool)
+        or samples < 1
+        or any(
+            not isinstance(value, (int, float))
+            or isinstance(value, bool)
+            or not math.isfinite(value)
+            for value in values
+        )
+    ):
+        raise ValueError("values must be a non-empty finite numeric sequence")
     rng = random.Random(seed)
-    means = [
-        sum(rng.choice(values) for _ in values) / len(values)
-        for _ in range(samples)
-    ]
+    means = [sum(rng.choice(values) for _ in values) / len(values) for _ in range(samples)]
     means.sort()
-    return (
-        means[int(0.025 * samples)],
-        means[min(samples - 1, int(0.975 * samples))],
-    )
+    low_index = max(0, math.ceil(0.025 * samples) - 1)
+    high_index = min(samples - 1, math.ceil(0.975 * samples) - 1)
+    return means[low_index], means[high_index]
 
 
 def cohens_kappa(left: list[str], right: list[str]) -> float:
-    if not left or len(left) != len(right):
-        raise ValueError("ratings must be non-empty and equally sized")
+    if (
+        not left
+        or len(left) != len(right)
+        or any(not isinstance(value, str) or not value for value in left)
+        or any(not isinstance(value, str) or not value for value in right)
+    ):
+        raise ValueError("ratings must be non-empty, valid, and equally sized")
     n = len(left)
-    observed = sum(a == b for a, b in zip(left, right)) / n
+    observed = sum(a == b for a, b in zip(left, right, strict=True)) / n
     labels = set(left) | set(right)
-    expected = sum(
-        (left.count(label) / n) * (right.count(label) / n)
-        for label in labels
-    )
-    if expected == 1:
-        return 1.0
+    expected = sum((left.count(label) / n) * (right.count(label) / n) for label in labels)
+    if math.isclose(expected, 1.0):
+        return 1.0 if math.isclose(observed, 1.0) else 0.0
     return (observed - expected) / (1 - expected)
 
 
@@ -73,6 +92,8 @@ def reliability_report(
 ) -> ReliabilityReport:
     if not outcomes:
         raise ValueError("outcomes must not be empty")
+    if any(not isinstance(outcome, bool) for outcome in outcomes):
+        raise ValueError("outcomes must contain booleans")
     if (reference is None) != (observed is None):
         raise ValueError("reference and observed must be supplied together")
     kappa = cohens_kappa(reference, observed) if reference is not None else None
@@ -91,4 +112,6 @@ def reliability_report(
 
 
 def stratified_counts(labels: list[str]) -> dict[str, int]:
+    if any(not isinstance(label, str) or not label for label in labels):
+        raise ValueError("labels must contain non-empty strings")
     return dict(sorted(Counter(labels).items()))
