@@ -64,7 +64,7 @@ def cohens_kappa(left: list[str], right: list[str]) -> float:
     ):
         raise ValueError("ratings must be non-empty, valid, and equally sized")
     n = len(left)
-    observed = sum(a == b for a, b in zip(left, right)) / n
+    observed = sum(a == b for a, b in zip(left, right, strict=True)) / n
     labels = set(left) | set(right)
     expected = sum((left.count(label) / n) * (right.count(label) / n) for label in labels)
     if math.isclose(expected, 1.0):
