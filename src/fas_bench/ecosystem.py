@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-64 = 64
+64
 
 
 def _valid_digest(value: str) -> bool:
