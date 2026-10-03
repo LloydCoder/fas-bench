@@ -1,4 +1,5 @@
 """Phase 18 scenario, environment, and agentic interaction contracts."""
+
 from __future__ import annotations
 
 import hashlib
@@ -122,11 +123,7 @@ def validate_scenario(scenario: EvaluationScenario) -> list[str]:
 
 
 def scenario_gate(scenarios: list[EvaluationScenario]) -> dict:
-    errors = [
-        f"{s.scenario_id}@{s.version}: {e}"
-        for s in scenarios
-        for e in validate_scenario(s)
-    ]
+    errors = [f"{s.scenario_id}@{s.version}: {e}" for s in scenarios for e in validate_scenario(s)]
     versions = [(s.scenario_id, s.version) for s in scenarios]
     if len(versions) != len(set(versions)):
         errors.append("duplicate scenario_id/version")
