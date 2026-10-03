@@ -13,8 +13,8 @@ benchmark gaming.
 ## Contract
 
 Each adversarial case has an explicit mutation identity and authoritative oracle
-identity. Infrastructure failure is never treated as a successful robustness
-result. A PASS requires the observed invariant to match the case oracle.
+identity. Only an oracle-matching PASS is successful; FAIL, UNKNOWN, and infrastructure
+failure are not robustness passes. A PASS requires the observed invariant to match the case oracle.
 
 The benchmark must test both candidate robustness and evaluator integrity. An
 adversarial benchmark MUST NOT allow a candidate-controlled answer to become
