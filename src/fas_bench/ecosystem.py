@@ -66,7 +66,9 @@ class SubmissionManifest:
     adapter_version: str
 
     def identity(self) -> str:
-        return hashlib.sha256(json.dumps(self.__dict__, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        return hashlib.sha256(
+            json.dumps(self.__dict__, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
 
     def validate(self) -> list[str]:
         errors = []
