@@ -60,7 +60,11 @@ class TestSpec:
 
     def canonical(self) -> dict:
         data = asdict(self)
-        data["lifecycle"] = self.lifecycle.value
+        data["lifecycle"] = (
+            self.lifecycle.value
+            if isinstance(self.lifecycle, TestLifecycle)
+            else str(self.lifecycle)
+        )
         for key in ("evidence_requirements", "prerequisites"):
             data[key] = sorted(data[key])
         return data
@@ -100,7 +104,9 @@ def validate_test_spec(spec: TestSpec) -> list[str]:
     if not spec.evidence_requirements:
         errors.append("evidence_requirements must not be empty")
 
-    if spec.lifecycle in {TestLifecycle.CERTIFIED, TestLifecycle.RELEASED}:
+    if not isinstance(spec.lifecycle, TestLifecycle):
+        errors.append("lifecycle must be a valid TestLifecycle")
+    elif spec.lifecycle in {TestLifecycle.CERTIFIED, TestLifecycle.RELEASED}:
         if not _valid_digest(spec.source_digest):
             errors.append("certified/released tests require a lowercase SHA-256 source_digest")
 
