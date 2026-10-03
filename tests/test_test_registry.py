@@ -35,6 +35,10 @@ def test_identity_is_stable_and_order_independent():
     assert a.identity() == b.identity()
 
 
+def test_identity_is_stable_across_lifecycle_transitions():
+    assert spec().identity() == spec(lifecycle=TestLifecycle.REVIEW).identity()
+
+
 def test_registry_rejects_duplicate_versions_but_allows_history():
     assert registry_validate([spec(), spec(version="2.0.0")])["status"] == "PASS"
     assert registry_validate([spec(), spec()])["status"] == "FAIL"
