@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-64 = 64
+64
 
 
 class EventKind(StrEnum):
