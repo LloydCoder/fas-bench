@@ -34,17 +34,17 @@ def test_identity_is_stable_across_lifecycle_transitions():
 
 
 def test_registry_rejects_duplicate_versions_but_allows_history():
-    assert registry_validate([spec(), spec(version="2.0.0")])["status"] == "PASS"
-    assert registry_validate([spec(), spec()])["status"] == "FAIL"
+    assert test_registry.registry_validate([spec(), spec(version="2.0.0")])["status"] == "PASS"
+    assert test_registry.registry_validate([spec(), spec()])["status"] == "FAIL"
 
 
 def test_released_test_requires_source_digest():
     assert (
-        registry_validate([spec(lifecycle=test_registry.TestLifecycle.RELEASED)])["status"]
+        test_registry.registry_validate([spec(lifecycle=test_registry.TestLifecycle.RELEASED)])["status"]
         == "FAIL"
     )
     assert (
-        registry_validate(
+        test_registry.registry_validate(
             [spec(lifecycle=test_registry.TestLifecycle.RELEASED, source_digest="a" * 64)]
         )["status"]
         == "PASS"
@@ -53,17 +53,17 @@ def test_released_test_requires_source_digest():
 
 def test_duplicate_requirements_are_rejected():
     invalid = replace(spec(), evidence_requirements=("source", "source"))
-    assert registry_validate([invalid])["status"] == "FAIL"
+    assert test_registry.registry_validate([invalid])["status"] == "FAIL"
 
 
 def test_lifecycle_transitions_are_monotonic():
-    assert lifecycle_transition_allowed(
+    assert test_registry.lifecycle_transition_allowed(
         test_registry.TestLifecycle.DRAFT, test_registry.TestLifecycle.REVIEW
     )
-    assert not lifecycle_transition_allowed(
+    assert not test_registry.lifecycle_transition_allowed(
         test_registry.TestLifecycle.RETIRED, test_registry.TestLifecycle.DRAFT
     )
 
 
-def test_coverage_matrix_is_deterministic():
-    assert coverage_matrix([spec(), spec("FAS-REG-002")]) == {"C1": 2}
+def test_test_registry.coverage_matrix_is_deterministic():
+    assert test_registry.coverage_matrix([spec(), spec("FAS-REG-002")]) == {"C1": 2}
