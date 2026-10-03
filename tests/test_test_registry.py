@@ -1,8 +1,8 @@
 from dataclasses import replace
 
 from fas_bench.test_registry import (
-    RegistryLifecycle as RegistryLifecycle,
-    RegistrySpec as RegistrySpec,
+    TestLifecycle as RegistryLifecycle,
+    TestSpec as RegistrySpec,
     coverage_matrix,
     lifecycle_transition_allowed,
     registry_validate,
