@@ -92,3 +92,29 @@ Job identities must be content-derived.
 Phase 15 monitoring changes may raise drift or benchmark-health signals but
 MUST NOT automatically mutate gold truth, scoring weights, corpus identities,
 or release state.
+
+
+## Phase 16–21 advanced benchmark contributions
+
+Phase 16 test specifications must include an objective, taxonomy, difficulty,
+oracle type, evidence requirements, lifecycle state, and deterministic source
+identity where certification or release requires it.
+
+Phase 17 hidden-corpus changes must preserve access separation, temporal
+boundaries, contamination assessment, and the rule that private official
+answers never enter the public repository.
+
+Phase 18 scenario changes must bind every event to the scenario environment and
+preserve deterministic ordering and content-derived identity.
+
+Phase 19 adversarial cases must declare the attack class, expected invariant,
+mutation identity, and authoritative oracle. Infrastructure failures must never
+be treated as robustness passes.
+
+Phase 20 measurement changes must preserve deterministic uncertainty and
+agreement calculations and clearly distinguish benchmark-conditioned results
+from population-general claims.
+
+Phase 21 submission/result/provenance changes must preserve candidate
+independence, content-addressed identities, provenance completeness, and human
+approval for certification and release.
