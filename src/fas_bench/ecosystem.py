@@ -182,6 +182,29 @@ def provenance_gate(edges: list[ProvenanceEdge]) -> dict:
     keys = {(e.source, e.target, e.relation) for e in edges}
     if len(keys) != len(edges):
         errors.append("duplicate provenance edge")
+
+    adjacency: dict[str, set[str]] = {}
+    for edge in edges:
+        adjacency.setdefault(edge.source, set()).add(edge.target)
+
+    visiting: set[str] = set()
+    visited: set[str] = set()
+
+    def has_cycle(node: str) -> bool:
+        if node in visiting:
+            return True
+        if node in visited:
+            return False
+        visiting.add(node)
+        if any(has_cycle(target) for target in adjacency.get(node, set())):
+            return True
+        visiting.remove(node)
+        visited.add(node)
+        return False
+
+    if any(has_cycle(node) for node in adjacency):
+        errors.append("provenance graph must be acyclic")
+
     return {
         "phase": "21",
         "status": "PASS" if edges and not errors else "FAIL",
