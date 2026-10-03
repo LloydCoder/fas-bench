@@ -56,6 +56,7 @@ def test_clean_official_corpus_passes():
     finding = ContaminationFinding(c.corpus_id, ContaminationStatus.CLEAN, "review", "b" * 64)
     assert contamination_gate(c, [finding])["status"] == "PASS"
 
+
 def test_private_public_access_policy_fails_closed():
     c = CorpusSet(
         "official-v1",
