@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.12-blue.svg)](pyproject.toml)
 
-**Status:** Phase 15 complete — FAS-Bench now includes independent verification, statistical calibration, external-validation protocols, enterprise release hardening, governance, an evaluation-platform contract, and continuous benchmark-health monitoring. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set.
+**Status:** Phase 21 complete — FAS-Bench now includes a versioned test registry, hidden-evaluation and contamination contracts, agentic scenario evaluation, adversarial robustness, measurement-science primitives, and an enterprise submission/results/provenance/governance contract. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set.
 
 FAS-Bench is an independent, evidence-first benchmark for evaluating AI agents, security scanners, SAST/SCA systems, LLM-based security tools, MCP-aware systems, autonomous coding agents, and hybrid human/machine security-analysis pipelines.
 
@@ -193,6 +193,12 @@ The implementation roadmap is:
 13.1 Governance & Release Approval
 14. Evaluation Platform Contract
 15. Continuous Benchmark Intelligence
+16. Benchmark Test Registry & Specification Engine
+17. Official Hidden Evaluation & Contamination Defense
+18. Scenario, Environment & Agentic Evaluation
+19. Adversarial & Robustness Evaluation
+20. Measurement Science & Independent Validation
+21. Enterprise Evaluation Platform & Ecosystem
 
 The normative semantics live in [docs/specification.md](docs/specification.md). Other documents explain or operationalize the specification; they must not silently redefine it.
 
@@ -406,6 +412,12 @@ Start with the document that matches your task:
 | Understand Phase 13.1 governance | [Phase 13.1](docs/phase13-1-governance.md) |
 | Understand Phase 14 evaluation platform | [Phase 14](docs/phase14-evaluation-platform.md) |
 | Understand Phase 15 continuous intelligence | [Phase 15](docs/phase15-continuous-benchmark-intelligence.md) |
+| Understand Phase 16 test registry | [Phase 16](docs/phase16-test-registry.md) |
+| Understand Phase 17 hidden evaluation | [Phase 17](docs/phase17-hidden-contamination.md) |
+| Understand Phase 18 agentic evaluation | [Phase 18](docs/phase18-agentic-evaluation.md) |
+| Understand Phase 19 adversarial robustness | [Phase 19](docs/phase19-adversarial-robustness.md) |
+| Understand Phase 20 measurement science | [Phase 20](docs/phase20-measurement-science.md) |
+| Understand Phase 21 evaluation ecosystem | [Phase 21](docs/phase21-evaluation-ecosystem.md) |
 | Contribute code/cases/docs | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report vulnerabilities | [SECURITY.md](SECURITY.md) |
 | Get project help | [SUPPORT.md](SUPPORT.md) |
@@ -472,7 +484,7 @@ The project deliberately documents these limits instead of turning implementatio
 
 ## Enterprise and research boundaries
 
-Phase 15 is the current implementation maturity endpoint. Scientific validity remains an empirical property: the public corpus is not claimed to be representative, public results are not equivalent to hidden official evaluation, and governance automation cannot replace independent human review.
+Phase 21 is the current advanced implementation maturity endpoint. Scientific validity remains an empirical property: the public corpus is not claimed to be representative, public results are not equivalent to hidden official evaluation, and governance automation cannot replace independent human review.
 
 ## License
 
