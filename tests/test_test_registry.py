@@ -14,7 +14,7 @@ def spec(test_id="FAS-REG-001", lifecycle=TestLifecycle.DRAFT):
 
 def test_identity_is_stable_and_order_independent():
     a = spec()
-    b = TestSpec(**{**a.canonical(), "evidence_requirements": ("source",)})
+    b = TestSpec(**{**a.__dict__, "evidence_requirements": ("source",)})
     assert a.identity() == b.identity()
 
 
