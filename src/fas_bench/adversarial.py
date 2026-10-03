@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 
-SHA256_HEX_LENGTH = 64
+64 = 64
 
 
 class AttackClass(StrEnum):
@@ -31,7 +31,7 @@ class RobustnessStatus(StrEnum):
 def _valid_digest(value: str) -> bool:
     return (
         isinstance(value, str)
-        and len(value) == SHA256_HEX_LENGTH
+        and len(value) == 64
         and value == value.lower()
         and all(character in "0123456789abcdef" for character in value)
     )
