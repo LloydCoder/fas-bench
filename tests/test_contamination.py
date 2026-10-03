@@ -60,3 +60,14 @@ def test_clean_official_corpus_passes():
         c.corpus_id, ContaminationStatus.CLEAN, "review", "b" * 64
     )
     assert contamination_gate(c, [finding])["status"] == "PASS"
+
+def test_private_public_access_policy_fails_closed():
+    c = CorpusSet(
+        "official-v1",
+        "1.0.0",
+        CorpusVisibility.PRIVATE_OFFICIAL,
+        ("a" * 64,),
+        "public",
+        "2026-01-01",
+    )
+    assert contamination_gate(c, [])["status"] == "FAIL"
