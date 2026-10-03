@@ -66,11 +66,7 @@ class SubmissionManifest:
     adapter_version: str
 
     def identity(self) -> str:
-        return hashlib.sha256(
-            json.dumps(
-                self.__dict__, sort_keys=True, separators=(",", ":")
-            ).encode()
-        ).hexdigest()
+        return hashlib.sha256(json.dumps(self.__dict__, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
     def validate(self) -> list[str]:
         errors = []
@@ -136,18 +132,15 @@ class ResultRecord:
             errors.append("provenance_identity must be a lowercase SHA-256 digest")
         if not math.isfinite(self.score) or not 0.0 <= self.score <= 1.0:
             errors.append("score must be finite and within [0,1]")
-        if (
-            len(self.confidence_interval) != 2
-            or not all(math.isfinite(value) for value in self.confidence_interval)
+        if len(self.confidence_interval) != 2 or not all(
+            math.isfinite(value) for value in self.confidence_interval
         ):
             errors.append("confidence interval must contain two finite values")
         else:
             low, high = self.confidence_interval
             if not 0.0 <= low <= high <= 1.0:
                 errors.append("confidence interval must be within [0,1]")
-        if self.cost is not None and (
-            not math.isfinite(self.cost) or self.cost < 0
-        ):
+        if self.cost is not None and (not math.isfinite(self.cost) or self.cost < 0):
             errors.append("cost must be a finite non-negative value")
         if self.latency_ms is not None and (
             not math.isfinite(self.latency_ms) or self.latency_ms < 0
@@ -172,9 +165,7 @@ def provenance_gate(edges: list[ProvenanceEdge]) -> dict:
             isinstance(value, str) and value.strip()
             for value in (edge.source, edge.target, edge.relation, edge.actor)
         ):
-            errors.append(
-                "provenance edges require non-empty source, target, relation, and actor"
-            )
+            errors.append("provenance edges require non-empty source, target, relation, and actor")
         if not _valid_digest(edge.digest):
             errors.append("provenance edge digest must be a lowercase SHA-256 digest")
         if edge.source == edge.target:
