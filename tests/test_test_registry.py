@@ -40,7 +40,9 @@ def test_registry_rejects_duplicate_versions_but_allows_history():
 
 def test_released_test_requires_source_digest():
     assert (
-        test_registry.registry_validate([spec(lifecycle=test_registry.TestLifecycle.RELEASED)])["status"]
+        test_registry.registry_validate([spec(lifecycle=test_registry.TestLifecycle.RELEASED)])[
+            "status"
+        ]
         == "FAIL"
     )
     assert (
