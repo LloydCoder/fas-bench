@@ -11,7 +11,18 @@ from dataclasses import dataclass
 def wilson_interval(
     successes: int, total: int, z: float = 1.959963984540054
 ) -> tuple[float, float]:
-    if total <= 0 or not 0 <= successes <= total or not math.isfinite(z) or z <= 0:
+    if (
+        not isinstance(successes, int)
+        or isinstance(successes, bool)
+        or not isinstance(total, int)
+        or isinstance(total, bool)
+        or total <= 0
+        or not 0 <= successes <= total
+        or not isinstance(z, (int, float))
+        or isinstance(z, bool)
+        or not math.isfinite(z)
+        or z <= 0
+    ):
         raise ValueError("successes, total, and z must define a valid confidence interval")
     p = successes / total
     denom = 1 + z * z / total
@@ -25,8 +36,15 @@ def deterministic_bootstrap(
 ) -> tuple[float, float]:
     if (
         not values
+        or not isinstance(samples, int)
+        or isinstance(samples, bool)
         or samples < 1
-        or any(not isinstance(value, (int, float)) or not math.isfinite(value) for value in values)
+        or any(
+            not isinstance(value, (int, float))
+            or isinstance(value, bool)
+            or not math.isfinite(value)
+            for value in values
+        )
     ):
         raise ValueError("values must be a non-empty finite numeric sequence")
     rng = random.Random(seed)
@@ -38,8 +56,13 @@ def deterministic_bootstrap(
 
 
 def cohens_kappa(left: list[str], right: list[str]) -> float:
-    if not left or len(left) != len(right):
-        raise ValueError("ratings must be non-empty and equally sized")
+    if (
+        not left
+        or len(left) != len(right)
+        or any(not isinstance(value, str) or not value for value in left)
+        or any(not isinstance(value, str) or not value for value in right)
+    ):
+        raise ValueError("ratings must be non-empty, valid, and equally sized")
     n = len(left)
     observed = sum(a == b for a, b in zip(left, right)) / n
     labels = set(left) | set(right)
