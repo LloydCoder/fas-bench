@@ -45,6 +45,7 @@ class InteractionEvent:
     actor: str
     payload_digest: str
     environment_id: str
+    turn: int = 0
 
 
 @dataclass(frozen=True)
@@ -69,6 +70,7 @@ class EvaluationScenario:
                     "actor": e.actor,
                     "payload_digest": e.payload_digest,
                     "environment_id": e.environment_id,
+                    "turn": e.turn,
                 }
                 for e in self.events
             ],
@@ -103,14 +105,15 @@ def validate_scenario(scenario: EvaluationScenario) -> list[str]:
         if not event.actor.strip():
             errors.append(f"event {event.sequence} actor is required")
         if not _valid_digest(event.payload_digest):
-            errors.append(f"event {event.sequence} payload_digest must be a lowercase SHA-256 digest")
+            errors.append(
+                f"event {event.sequence} payload_digest must be a lowercase SHA-256 digest"
+            )
         if event.environment_id != environment.environment_id:
             errors.append("event environment identity mismatch")
+        if event.turn < 0 or event.turn >= scenario.max_turns:
+            errors.append(f"event {event.sequence} turn is outside max_turns")
     if len({event.sequence for event in scenario.events}) != len(scenario.events):
         errors.append("event sequence values must be unique")
-    if len(scenario.events) > scenario.max_turns:
-        errors.append("event count must not exceed max_turns")
-
     return sorted(set(errors))
 
 
