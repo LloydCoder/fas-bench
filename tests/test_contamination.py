@@ -8,7 +8,10 @@ from fas_bench.contamination import (
 
 
 def corpus(visibility=CorpusVisibility.PUBLIC_PRACTICE):
-    cutoff = "2026-01-01" if visibility == CorpusVisibility.PRIVATE_OFFICIAL else None
+    cutoff = "2026-01-01" if visibility in {
+        CorpusVisibility.PRIVATE_OFFICIAL,
+        CorpusVisibility.PRIVATE_HOLDOUT,
+    } else None
     return CorpusSet(
         "official-v1", "1.0.0", visibility, ("a" * 64,), "restricted", cutoff
     )
@@ -37,6 +40,18 @@ def test_confirmed_contamination_blocks_official():
         c.corpus_id, ContaminationStatus.CONFIRMED, "training-corpus", "b" * 64
     )
     assert contamination_gate(c, [finding])["status"] == "FAIL"
+
+
+def test_invalid_digest_and_temporal_scope_fail_closed():
+    c = CorpusSet(
+        "official-v1",
+        "1.0.0",
+        CorpusVisibility.PRIVATE_HOLDOUT,
+        ("not-a-digest",),
+        "restricted",
+        "not-a-date",
+    )
+    assert contamination_gate(c, [])["status"] == "FAIL"
 
 
 def test_clean_official_corpus_passes():
