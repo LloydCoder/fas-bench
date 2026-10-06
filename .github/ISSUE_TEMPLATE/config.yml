@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security and benchmark-integrity reporting
+    url: https://github.com/LloydCoder/fas-bench/security/advisories/new
+    about: Use private vulnerability reporting when enabled. Do not disclose sensitive details publicly.
+  - name: Support and usage
+    url: https://github.com/LloydCoder/fas-bench/blob/main/SUPPORT.md
+    about: Installation, usage, methodology, and reproducible bug guidance.
+  - name: Contribution guide
+    url: https://github.com/LloydCoder/fas-bench/blob/main/CONTRIBUTING.md
+    about: Development setup, validation, benchmark rules, and pull-request expectations.
