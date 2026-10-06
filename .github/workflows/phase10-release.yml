@@ -160,7 +160,7 @@ jobs:
       - name: Require release certification
         run: python -c "import json; r=json.load(open('verification-report.json')); assert r['status']=='CERTIFIED', r"
       - name: Upload certification evidence
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: fas-bench-release-certification
           path: |
