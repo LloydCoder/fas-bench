@@ -1,0 +1,51 @@
+name: Feature request
+description: Propose a focused improvement to FAS-Bench.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Strong proposals explain the security or measurement objective and how the change can be validated.
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Existing issue check
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or research need
+      description: What limitation or user/research need does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the behavior or capability you want.
+    validations:
+      required: true
+  - type: textarea
+    id: semantics
+    attributes:
+      label: Benchmark semantics and comparability
+      description: Explain whether this changes normative semantics, scoring, case truth, output contracts, or historical comparability.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: What tests, fixtures, evidence, or independent checks would prove the change works?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
