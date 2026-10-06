@@ -1,31 +1,42 @@
 # Code of Conduct
 
-## Our standard
+## Our commitment
 
-FAS-Bench is a technical research and open-source project. We expect participants to communicate professionally, assume good faith, challenge technical ideas rather than people, and make room for contributors with different levels of experience.
+FAS-Bench is a technical research and open-source project. We are committed to providing a professional, respectful environment where people can discuss security, benchmark methodology, software engineering, and research in good faith.
 
 ## Expected behavior
 
-- Be respectful and constructive.
-- Give technical criticism with evidence and actionable reasoning.
+- Be respectful, constructive, and precise.
+- Critique technical claims, evidence, and implementation—not people.
 - Welcome questions and explain project-specific assumptions.
-- Respect security-sensitive information and responsible disclosure.
-- Keep benchmark discussions focused on reproducible technical claims.
-- Credit prior work and contributors appropriately.
+- Respect responsible-disclosure and benchmark-integrity boundaries.
+- Credit prior work and contributors.
+- Prefer reproducible evidence over unsupported assertions.
 
 ## Unacceptable behavior
 
 - Harassment, intimidation, discrimination, or personal attacks.
 - Deliberate disruption of project infrastructure or contributor workflows.
 - Publishing private information without permission.
-- Introducing malicious code, credentials, hidden benchmark data, or deliberate integrity compromises.
-- Misrepresenting benchmark results, ground truth, or security evidence.
-- Retaliating against responsible vulnerability reports.
+- Publishing credentials, private benchmark data, or evaluator-only material.
+- Deliberately falsifying benchmark results, evidence, ground truth, provenance, or security findings.
+- Retaliation against a person who makes a good-faith security report.
+- Deliberate attempts to bypass repository security or evaluation isolation.
 
 ## Enforcement
 
-Project maintainers may remove comments, reject contributions, restrict participation, or take other reasonable action when behavior violates this code or threatens project integrity.
+Project maintainer **@LloydCoder** is the initial Code of Conduct enforcement contact.
 
-For security vulnerabilities or benchmark-integrity issues, use the process in [SECURITY.md](SECURITY.md) rather than publicly exposing sensitive details.
+Maintainers may remove comments, reject contributions, restrict participation, or take other reasonable action when behavior violates this policy or threatens project integrity. Enforcement decisions should be proportionate, documented where appropriate, and applied consistently.
 
-For ordinary community concerns, open an issue or discussion with enough context for maintainers to investigate.
+For security vulnerabilities or benchmark-integrity issues, do not use a public issue. Follow [SECURITY.md](SECURITY.md).
+
+For ordinary community concerns, open an issue with enough context for maintainers to investigate.
+
+## Scope
+
+This Code of Conduct applies to project spaces and interactions conducted on behalf of FAS-Bench, including repository issues, pull requests, discussions, and project-managed communication channels.
+
+## Attribution
+
+This policy is informed by the Contributor Covenant approach to community standards. The project keeps the enforcement contact explicit because a generic template contact is not actionable.
