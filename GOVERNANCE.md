@@ -1,7 +1,12 @@
 # FAS-Bench Governance
 
-FAS-Bench is a security measurement project. Governance protects benchmark
-integrity, scientific validity, reproducibility, and historical comparability.
+FAS-Bench is a security-measurement project. Governance protects benchmark integrity, scientific validity, reproducibility, and historical comparability.
+
+## Authority
+
+The normative benchmark contract is [docs/specification.md](docs/specification.md).
+
+Governance defines how material changes are reviewed and released; it does not redefine benchmark semantics.
 
 ## Change classes
 
@@ -17,13 +22,11 @@ Material changes are classified as:
 - DOCUMENTATION
 - INFRASTRUCTURE
 
-Material CASE, ORACLE, SCHEMA, SCORING, EVALUATOR, HARNESS, RELEASE, or
-INFRASTRUCTURE changes require documented rationale, impact assessment,
-validation evidence, changelog treatment, and review before release.
+Material CASE, ORACLE, SCHEMA, SCORING, EVALUATOR, HARNESS, RELEASE, or INFRASTRUCTURE changes require documented rationale, impact assessment, validation evidence, changelog treatment, and review before release.
 
 ## Required review dimensions
 
-A material change requires evidence for:
+A material security or benchmark change requires evidence for:
 
 1. security objective review;
 2. oracle/ground-truth review;
@@ -34,7 +37,7 @@ Release approval is separate from implementation authorship.
 
 ## Ground-truth corrections
 
-If a case oracle is found to be wrong:
+If an oracle is found to be wrong:
 
 1. freeze the affected release for new official evaluations;
 2. preserve the original case and historical release identity;
@@ -42,30 +45,28 @@ If a case oracle is found to be wrong:
 4. independently review the corrected oracle;
 5. issue a new benchmark version;
 6. identify affected historical results;
-7. publish a correction notice.
+7. publish a correction notice when appropriate.
 
-Historical benchmark identities must not be silently rewritten.
+Historical benchmark identities must never be silently rewritten.
 
 ## Case retirement
 
-Retirement records must include the reason, affected release range, retirement
-date, replacement case when applicable, and compatibility impact.
+Retirement records must include the reason, affected release range, retirement date, replacement case where applicable, and compatibility impact.
 
-## Security and disclosure
+## Public and hidden evaluation
 
-Do not publish hidden cases, evaluator-only material, credentials, or exploit
-details that would compromise an official held-out evaluation. Security
-vulnerabilities follow SECURITY.md.
+Public FAS-001–FAS-020 cases are development/practice data. They must not be represented as a secret or statistically representative official corpus.
 
-## Research integrity
+Hidden official evaluation material must remain outside the public repository and release artifacts.
 
-Public development results must not be represented as statistically validated
-or official hidden-set results. Benchmark reports must preserve benchmark
-version, case-population identity, execution environment, evaluator version,
-scoring configuration, and relevant limitations.
+## Security disclosure
 
-## Release approval
+Follow [SECURITY.md](SECURITY.md). Do not publish hidden cases, evaluator-only material, credentials, or exploit details that could compromise official evaluation.
 
-A release is publishable only when its automated release gates are green and
-the required governance record has been reviewed by the designated human
-maintainers. Automation cannot manufacture human approval.
+## Human approval
+
+Automation can validate gates and produce evidence. It cannot manufacture human approval, certify scientific validity, or silently change historical benchmark truth.
+
+## Maintainer responsibility
+
+The repository owner and designated maintainers are responsible for repository administration, release approval, security response, and maintaining the accuracy of project metadata and community contacts.
