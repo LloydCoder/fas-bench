@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a reproducible defect in FAS-Bench.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues first. Do not include credentials, private benchmark material, or security-sensitive details.
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Existing issue check
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: FAS-Bench version or commit
+      placeholder: "0.1.0 or commit SHA"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Ubuntu 24.04, Python 3.12, Docker 28.x"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command or operation
+      description: Provide the exact command or operation that reproduces the problem.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include the smallest safe reproduction. Remove secrets and private benchmark data.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Redact credentials, tokens, private paths, and sensitive benchmark material.
+      render: text
+    validations:
+      required: false
