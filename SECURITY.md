@@ -1,112 +1,83 @@
 # Security Policy
-**Authority:** docs/specification.md.
 
-FAS-Bench contains intentional security cases and untrusted benchmark artifacts.
+FAS-Bench contains intentionally vulnerable benchmark cases and security-sensitive evaluation infrastructure. A security issue can affect benchmark integrity even when no production system is directly exposed.
 
-## Reporting
-Report infrastructure, evaluator, dependency, CI, or benchmark-integrity vulnerabilities privately to the repository maintainer when public disclosure could compromise evaluation integrity.
+## Private reporting
 
-## Phase 2 validator security
-The validator must process data only. It must not execute artifacts, import submitted modules, trust case-provided schemas, follow attacker-controlled filesystem instructions, or fetch arbitrary remote references.
+**Do not disclose security vulnerabilities, hidden-evaluation material, sandbox escapes, credential exposure, or oracle-compromise details in a public issue.**
 
-## Schema threats
-Oversized objects, pathological nesting, duplicate IDs, reference explosions, parser differentials, unsupported schema versions, malicious metadata, and denial-of-service are considered in the Phase 2 threat model.
+Preferred path:
 
-## Ground truth
-Hidden truth and evaluator-only material must not be exposed through public fixtures or normal submissions.
+1. Use GitHub's private vulnerability reporting for this repository when it is enabled: https://github.com/LloydCoder/fas-bench/security/advisories/new
+2. If private reporting is unavailable, contact the maintainer **@LloydCoder** privately through GitHub and state that the message is a security report.
+3. Do not attach real credentials, private keys, hidden cases, or sensitive production data. Use synthetic/minimized reproduction material.
 
-## Benchmark case isolation
-Intentionally vulnerable semantics are confined to synthetic case state. Cases must not access host credentials, Docker sockets, real cloud accounts, production systems, or uncontrolled Internet destinations. Case oracles emit structured machine-readable results and must not expose hidden evaluation truth. Report infrastructure vulnerabilities separately from intentionally vulnerable benchmark semantics.
+GitHub private vulnerability reporting is separate from SECURITY.md and must be enabled for the private-report form to accept submissions.
 
-## Phase 5 evaluator security
-The finding evaluator treats submissions as hostile data. It validates finite confidence values, requires case integrity before trusting ground truth, preserves cross-case identity, never executes submitted evidence, separates evaluator errors from UNKNOWN, and does not use evaluated-system output as ground truth.
+## What should be reported privately
 
-## Phase 6 evaluator security
-Graph submissions are untrusted data. The graph engine performs safe JSON parsing only, never executes submission content, and enforces finite graph/path/traversal limits.
+Report issues such as:
 
-## Benchmark scoring security
-Phase 8 candidate submissions are untrusted data. The scoring/reporting layer must not execute candidate code, import candidate modules, accept candidate aggregate scores as authoritative, or permit candidate data to alter gold truth or scoring configuration.
+- sandbox or host-execution escapes;
+- Docker-socket, host-mount, credential, or network-isolation bypasses;
+- evaluator or oracle compromise;
+- hidden-corpus or official-answer leakage;
+- contamination-control bypasses;
+- release-manifest or provenance tampering;
+- dependency or CI vulnerabilities that can affect released artifacts;
+- unsafe parsing or denial-of-service conditions with meaningful security impact.
 
-## Phase 9 secure execution
-Candidate workloads and hostile case artifacts are never executed directly on the host. The v0.1 execution provider is Docker and is fail-closed when the daemon or immutable image is unavailable.
+Intentional vulnerabilities inside synthetic benchmark cases are not, by themselves, repository vulnerabilities. Report a case-integrity defect when the case violates its documented isolation or ground-truth contract.
 
-The Phase 9 boundary requires an immutable image digest, network denial, private namespaces, read-only root, dropped capabilities, no-new-privileges, built-in seccomp, non-root execution, bounded resources, isolated input/workspace/output, bounded stdout/stderr, and post-run artifact validation.
+## Response targets
 
-The harness rejects symlinks and special output files, never inherits the host environment, never mounts the Docker socket or host credential directories, and computes artifact hashes itself.
+These are maintainer response targets, not guarantees:
 
-Container isolation is not claimed to be escape-proof. The host kernel, container runtime, hardware, and Docker daemon remain trusted-computing-base assumptions. Physical host compromise and unknown kernel/runtime vulnerabilities are outside the supported boundary.
+| Stage | Target |
+|---|---|
+| Initial acknowledgement | within 3 business days |
+| Initial triage | within 7 business days |
+| Mitigation / coordinated disclosure plan | normally within 14 business days after triage |
+| Public disclosure | coordinated with the reporter after a fix or mitigation is available, where appropriate |
 
+Complex issues may require more time. The reporter will be informed when practical if the target cannot be met.
 
-## Phase 10 benchmark-integrity boundary
+## Disclosure
 
-Phase 10 treats the corpus and release system as security-sensitive. Release manifests are content-addressed; case, fixture, oracle, and component digests are verified. The contamination scanner checks forbidden paths and credential/private-key patterns, while the independence audit checks the core package for unintended FAS/ThreatFade/Tinlance runtime references.
+Please allow reasonable time for investigation and remediation. Do not publish proof-of-concept details that would expose hidden benchmark material or materially weaken evaluation integrity before coordinated disclosure.
 
-The initial twenty cases are public development data. The repository does not claim that public-case execution is equivalent to a hidden official evaluation. Future held-out corpora must be maintained outside the public artifact boundary.
+When a vulnerability is confirmed, maintainers may publish a GitHub Security Advisory, release notes, or a security notice containing the affected versions, impact, mitigation, and credit where the reporter agrees.
 
-Report benchmark-integrity issues involving hidden-data leakage, oracle compromise, malicious fixtures, cache poisoning, release tampering, or sandbox escapes through the repository's normal security-reporting channel. Never include live credentials in a report.
+## Security invariants
 
+Benchmark inputs and candidate submissions are untrusted.
 
-## Phase 10.2 independent verification and certification
+The project must preserve:
 
-Phase 10.2 separates benchmark implementation, independent verification, and release certification. The independent verifier recomputes selected high-risk integrity properties rather than trusting the production verifier or manifest validation fields.
+- no direct host execution of candidate code;
+- fail-closed secure execution;
+- immutable container image references for dynamic execution;
+- no privileged containers or Docker-socket exposure;
+- bounded CPU, memory, PIDs, time, and output;
+- isolated input/workspace/output handling;
+- content-derived identities and artifact digests;
+- deterministic validation;
+- separation of observations, evidence, findings, verdicts, and ground truth;
+- public/hidden corpus separation;
+- FAS-Bench independence from evaluated products.
 
-The release certification object is derived from observed checks. A NOT_ASSESSED mandatory check prevents certification. Certification is not a cryptographic signature and does not establish scientific validity, statistical representativeness, training-contamination freedom, or host/kernel security.
+Container isolation is not claimed to be escape-proof. The host kernel, runtime, hardware, and Docker daemon remain part of the trusted computing base.
 
-The trust model is documented in docs/trust-model.md. The reproducibility contract is documented in docs/reproducibility.md. External release verification is documented in docs/release-certification.md.
+## Safe reporting checklist
 
-Release evidence must not contain secrets. The certification report and release manifest are treated as integrity evidence tied to the source commit and manifest digest.
+Include:
 
+- affected version or commit;
+- affected component/path;
+- security impact;
+- minimal reproduction;
+- required preconditions;
+- whether the issue affects public or private benchmark material;
+- any proposed mitigation.
 
-## Phase 11–15 security boundaries
-
-Phase 11 mutation and corpus-expansion inputs remain untrusted. Security-changing
-mutations require an authoritative oracle and content-derived artifact identity.
-
-Phase 11.1 dynamic/agentic oracle execution must use the fail-closed Phase 9
-provider. Oracle observations are evidence-bearing runtime records, not
-self-authorizing ground truth.
-
-Phase 12 and 12.1 measurement artifacts must preserve uncertainty, reviewer
-identity/independence metadata, methodology and environment digests, and
-limitations. Statistical output must not be used to bypass security or
-integrity gates.
-
-Phase 13 release artifacts are protected by dependency auditing, secret
-scanning, reproducible builds, content-addressed manifests, and signed
-provenance/SBOM attestations. Attestation presence is not treated as proof
-that an artifact is secure; consumers must verify provenance against policy.
-
-Phase 13.1 governance preserves human approval, correction history, case
-retirement records, and historical benchmark identities. Automation must not
-fabricate approval.
-
-Phase 14 platform control-plane components must never execute candidate code
-directly on the host. Candidate workloads remain within the Phase 9 secure
-execution trust boundary.
-
-Phase 15 continuous monitoring may detect drift, contamination signals, oracle
-health issues, or benchmark aging, but monitoring must not silently change
-gold truth, scoring policy, or release state.
-
-
-## Phase 16–21 advanced security boundaries
-
-Phase 16 registry metadata is untrusted input and cannot grant execution or
-release authority.
-
-Phase 17 private corpus material must remain outside public packages. A
-contamination finding is evidence for review, not proof of model-training
-history.
-
-Phase 18 dynamic traces and environment metadata are untrusted artifacts and
-must remain within the Phase 9 execution boundary.
-
-Phase 19 adversarial inputs are explicitly hostile. Oracle material must remain
-authoritative and isolated from candidate control.
-
-Phase 20 statistical artifacts cannot bypass security or integrity controls and
-must preserve uncertainty and methodology metadata.
-
-Phase 21 provenance records must be verified rather than trusted merely because
-they are present. Submission results remain untrusted data, and lifecycle
-automation cannot manufacture certification or release approval.
+Never include live secrets.

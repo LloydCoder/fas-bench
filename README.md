@@ -1,499 +1,228 @@
 # FAS-Bench
 
-**Forensic Agent Security Benchmark**
-
-> **Scanners find signals. FAS-Bench measures whether a system can prove what those signals actually mean.**
+**Forensic Agent Security Benchmark — an evidence-first benchmark for AI agents, security scanners, and security-analysis systems that need to prove security claims, not merely produce findings.**
 
 [![CI](https://github.com/LloydCoder/fas-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/LloydCoder/fas-bench/actions/workflows/ci.yml)
 [![Security](https://github.com/LloydCoder/fas-bench/actions/workflows/security.yml/badge.svg)](https://github.com/LloydCoder/fas-bench/actions/workflows/security.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.12-blue.svg)](pyproject.toml)
 
-**Status:** Phase 21 complete — FAS-Bench now includes a versioned test registry, hidden-evaluation and contamination contracts, agentic scenario evaluation, adversarial robustness, measurement-science primitives, and an enterprise submission/results/provenance/governance contract. The public FAS-001 through FAS-020 corpus remains development/practice data, not a hidden official evaluation set.
+## Visual proof
 
-FAS-Bench is an independent, evidence-first benchmark for evaluating AI agents, security scanners, SAST/SCA systems, LLM-based security tools, MCP-aware systems, autonomous coding agents, and hybrid human/machine security-analysis pipelines.
+FAS-Bench evaluates the chain from a security signal to an independently checkable result:
 
-## Why FAS-Bench exists
+```mermaid
+flowchart LR
+    A[Evaluated system] --> B[Submission]
+    B --> C[Evidence validation]
+    C --> D[Finding / verdict]
+    D --> E[Security graph]
+    E --> F[Remediation / regression]
+    F --> G[Scoring & calibration]
+    G --> H[Verification & release integrity]
+```
 
-Most security benchmarks stop at detection: *did the system flag something?*
+The repository contains a reproducible public development corpus, deterministic schemas and evaluators, secure execution primitives, independent verification, contamination controls, and release/provenance contracts. The public FAS-001–FAS-020 corpus is **not** a secret official evaluation set.
 
-FAS-Bench evaluates the harder question:
+## Why FAS-Bench
 
-> **Can the system establish, with independently verifiable evidence, whether the claimed security condition is actually reachable, exploitable, controlled, remediated, or regressed?**
+Most security benchmarks emphasize whether a tool detects a pattern. FAS-Bench asks whether the resulting claim can survive evidence-based verification.
 
-The benchmark separates:
-
-**signal → claim → evidence → reachability → effective security boundary → attack path → exploitability → impact → remediation → regression**
-
-That separation is deliberate. A plausible explanation is not evidence. A source-level pattern is not automatically an exploitable path. A correct verdict supported by fabricated evidence is not equivalent to a correct verdict supported by verified evidence.
-
-## What FAS-Bench measures
-
-FAS-Bench is designed to measure multiple dimensions of security reasoning:
-
-- **Finding identification** — did the system identify the relevant security condition?
-- **Evidence correctness** — can submitted evidence be independently verified?
-- **Reachability** — can the relevant operation/path actually be reached?
-- **Security-boundary reasoning** — do authentication, authorization, IAM, network, sandbox, policy, and runtime controls change the effective path?
-- **Attack-path reconstruction** — can the system reconstruct the ordered security-relevant path?
-- **Exploitability adjudication** — is the claimed impact actually exercisable under the case assumptions?
-- **Impact reasoning** — what security consequence and blast radius follow from a valid path?
-- **Remediation verification** — did the change eliminate the underlying condition?
-- **Regression detection** — did a later change reintroduce the condition?
-- **Confidence calibration** — does confidence correspond to correctness and uncertainty?
-- **Efficiency** — what time, tool, token, compute, or execution resources were required when those measurements are available?
-
-The benchmark is intentionally **not** a benchmark of prose quality.
-
-## Benchmark scope
-
-FAS-Bench can evaluate systems including:
-
-- AI security agents and autonomous coding agents
-- LLM security-analysis systems
-- SAST and SCA tools
-- Semgrep-based systems
-- vulnerability-analysis and triage systems
-- MCP-aware security systems
-- research prototypes
-- hybrid human/machine pipelines
-
-It is tool-agnostic by design.
-
-### Independence is a hard invariant
-
-FAS-Bench does **not** depend on FAS.
-
-FAS is one candidate system that may be evaluated by the benchmark. The benchmark MUST remain meaningful if FAS disappears. FAS-Bench must not import, require, execute, or derive ground truth from FAS, ThreatFade, Tinlance, or another evaluated product.
-
-## Canonical taxonomy
-
-| ID | Category | What it tests |
-|---|---|---|
-| C1 | Reachability | Whether a security-relevant operation or condition is actually reachable |
-| C2 | Data Flow / Taint | Whether relevant data reaches a security-sensitive sink and how it is transformed |
-| C3 | Authentication / Authorization | Identity, privilege, IAM, policy, and authorization boundaries |
-| C4 | AI Agent Security | Agent capabilities, autonomy, memory, execution, and delegated authority |
-| C5 | MCP Security | Tool/server trust, authorization, invocation, poisoning, and boundary behavior |
-| C6 | Supply Chain | Dependencies, provenance, installation/build behavior, and reachable components |
-| C7 | Secrets / Sensitive Data | Exposure, validity, revocation, access, and exploitability |
-| C8 | Infrastructure / Cloud | Cloud/IAM/storage/network/resource-policy behavior |
-| C9 | Cross-Component Attack Paths | Security paths spanning components, identities, trust boundaries, or systems |
-| C10 | Remediation / Regression | Fix verification and detection of later security regressions |
-
-Cases may cover multiple categories, but each case has one primary category.
-
-## Difficulty model
-
-Difficulty describes **security-reasoning complexity**, not source-code size.
-
-| Level | Meaning |
+| Dimension | Question |
 |---|---|
-| L1 | Local |
-| L2 | Multi-function |
-| L3 | Multi-component |
-| L4 | Agentic |
-| L5 | Cross-system |
+| Finding | Did the system identify the relevant condition? |
+| Evidence | Can the submitted evidence be independently verified? |
+| Reachability | Is the relevant operation or path actually reachable? |
+| Security boundary | Do identity, authorization, IAM, network, sandbox, policy, or runtime controls change the path? |
+| Attack path | Can the ordered security-relevant path be reconstructed? |
+| Exploitability | Is the claimed impact exercisable under the case assumptions? |
+| Remediation | Did the change remove the underlying condition? |
+| Regression | Was the condition later reintroduced? |
+| Calibration | Does confidence track correctness and uncertainty? |
+| Efficiency | What execution, time, token, or compute cost was required when measured? |
 
-See the normative specification for the exact criteria.
+**Core invariant:** a plausible explanation is not evidence, a source pattern is not automatically an exploitable path, and a correct verdict with fabricated evidence is not equivalent to a verified result.
 
-## Canonical verdicts
+## Quick Start
 
-FAS-Bench distinguishes:
+Requires Python 3.12+ and Git. Docker is additionally required for secure-execution integration checks.
 
-- EXPLOITABLE
-- NOT_EXPLOITABLE
-- CONDITIONALLY_EXPLOITABLE
-- REMEDIATED
-- REMEDIATION_FAILED
-- REGRESSED
-- UNKNOWN
-
-**UNKNOWN is not NOT_EXPLOITABLE.** Insufficient evidence must remain distinguishable from evidence that establishes a blocked path.
-
-## Current public corpus
-
-The initial corpus contains **FAS-001 through FAS-020**.
-
-The cases cover examples such as:
-
-- dead vs reachable SSRF
-- sanitized and indirect command injection
-- IDOR and authorization false positives
-- excessive agent capability and sandbox boundaries
-- MCP tool poisoning and safe MCP behavior
-- malicious and unreachable dependencies
-- revoked vs live credentials
-- public storage exposure
-- privilege boundaries
-- multi-service compromise
-- agent → CI/CD → production paths
-- verified fixes and alternate-path failures
-
-The public cases are valuable for development and reproducibility, but their transparency makes them unsuitable as a secret official test set.
-
-## Architecture
-
-FAS-Bench is layered so that each measurement can be inspected independently:
-
-~~~text
-                    ┌─────────────────────────────┐
-                    │       Evaluated System      │
-                    │ AI agent / scanner / tool   │
-                    └──────────────┬──────────────┘
-                                   │ submission
-                                   ▼
-┌──────────┐   ┌──────────┐   ┌────────────┐   ┌─────────────┐
-│  Cases   │──▶│ Evidence │──▶│   Finding  │──▶│ Security    │
-│ & Oracle │   │  Engine  │   │  / Verdict │   │ Graph       │
-└──────────┘   └──────────┘   └────────────┘   └──────┬──────┘
-                                                       │
-                                                       ▼
-                                             ┌──────────────────┐
-                                             │ Remediation /    │
-                                             │ Regression       │
-                                             └────────┬─────────┘
-                                                      │
-                                                      ▼
-                                             ┌──────────────────┐
-                                             │ Scoring /        │
-                                             │ Calibration      │
-                                             └────────┬─────────┘
-                                                      │
-                                                      ▼
-                                             ┌──────────────────┐
-                                             │ Secure Evaluation│
-                                             │ Harness          │
-                                             └────────┬─────────┘
-                                                      │
-                                                      ▼
-                                             ┌──────────────────┐
-                                             │ Corpus / Release │
-                                             │ Integrity        │
-                                             └──────────────────┘
-~~~
-
-The implementation roadmap is:
-
-1. Specification & Benchmark Contract
-2. Schema & Data Model
-3. Gold Cases & Ground Truth
-4. Deterministic Evidence Engine
-5. Verdict & Finding Evaluator
-6. Attack-Path & Security-Graph Engine
-7. Remediation & Regression Engine
-8. Scoring, Calibration & Benchmark Analytics
-9. Secure Evaluation Harness & Reproducibility
-10. Corpus, Contamination Defense, Mutation & Release
-11. Corpus Expansion & Security-Semantic Mutation
-11.1 Dynamic & Agentic Oracle Contract
-12. Statistical Calibration & Benchmark Validity
-12.1 Independent Validation Protocol
-13. Enterprise Security & Operational Hardening
-13.1 Governance & Release Approval
-14. Evaluation Platform Contract
-15. Continuous Benchmark Intelligence
-16. Benchmark Test Registry & Specification Engine
-17. Official Hidden Evaluation & Contamination Defense
-18. Scenario, Environment & Agentic Evaluation
-19. Adversarial & Robustness Evaluation
-20. Measurement Science & Independent Validation
-21. Enterprise Evaluation Platform & Ecosystem
-
-The normative semantics live in [docs/specification.md](docs/specification.md). Other documents explain or operationalize the specification; they must not silently redefine it.
-
-## Security and trust model
-
-Benchmark inputs are treated as untrusted security artifacts.
-
-The repository is designed around:
-
-- deterministic validation
-- content-derived identities and digests
-- fail-closed secure execution
-- immutable container image references for dynamic execution
-- network isolation in the current execution provider
-- non-root execution
-- dropped Linux capabilities
-- no-new-privileges
-- read-only container roots
-- bounded CPU, memory, PIDs, time, and output
-- isolated workspaces and artifact validation
-- no host credential or Docker-socket exposure
-- explicit infrastructure-failure states
-- contamination and independence audits
-
-Container isolation is **not** claimed to be escape-proof. The host kernel, runtime, hardware, and Docker daemon remain part of the trusted computing base.
-
-Read [SECURITY.md](SECURITY.md) before working with benchmark cases or the secure evaluation harness.
-
-## Quick start
-
-### Requirements
-
-- Python **3.12+**
-- Git
-- Docker for Phase 9 secure-execution integration tests
-
-### Install for development
-
-~~~bash
+```bash
 git clone https://github.com/LloydCoder/fas-bench.git
 cd fas-bench
-
-python -m venv .venv
-source .venv/bin/activate
-
-python -m pip install --upgrade pip
+python -m venv .venv && source .venv/bin/activate
 python -m pip install -e ".[dev]"
-~~~
+fas-bench benchmark doctor
+```
 
-Windows PowerShell:
+A successful `benchmark doctor` run gives an immediate repository-health result without requiring a hidden corpus or external service.
 
-~~~powershell
+## Installation
+
+### Development install
+
+```bash
+python -m pip install -e ".[dev]"
+```
+
+### Windows PowerShell
+
+```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
-~~~
+```
 
-### Run the core checks
+### Build and install a wheel
 
-~~~bash
-ruff format --check .
-ruff check .
-pytest
+```bash
 python -m build
-~~~
+python -m pip install --force-reinstall dist/*.whl
+```
+
+FAS-Bench currently defines the package as Python `>=3.12`; the repository CI validates Python 3.12 and 3.13.
+
+## Usage
 
 ### Validate the public corpus
 
-~~~bash
-fas-bench cases validate-all
-fas-bench cases validate-gold
+```bash
 fas-bench corpus validate
-fas-bench corpus stats
-fas-bench benchmark doctor
-~~~
+fas-bench cases validate-all
+fas-bench cases validate-gold --reproduce
+```
 
-### Inspect benchmark health and integrity
+### Validate evidence
 
-~~~bash
-fas-bench contamination scan
-fas-bench contamination independence
-fas-bench health
-~~~
-
-### Work with evidence and findings
-
-~~~bash
+```bash
 fas-bench evidence validate tests/fixtures/integrated/FAS-001.json --case FAS-001 --json
+```
 
-fas-bench evaluate finding \
-  --case FAS-002 \
-  --submission tests/fixtures/phase5/FAS-001-gold.json \
-  --json
-~~~
+### Evaluate a finding
 
-### Work with graphs
+```bash
+fas-bench evaluate finding --case FAS-001 --submission tests/fixtures/phase5/FAS-001-gold.json --strict --json
+```
 
-~~~bash
+### Inspect graphs
+
+```bash
 fas-bench graph validate <graph.json>
-fas-bench graph normalize <graph.json>
-fas-bench graph digest <graph.json>
 fas-bench graph paths <graph.json>
 fas-bench graph diff <before.json> <after.json>
-fas-bench graph compare --expected <expected.json> --submission <submission.json>
-~~~
+```
 
-### Work with scoring and analytics
+### Produce analysis and reports
 
-~~~bash
-fas-bench score <submission>
-fas-bench self-test
-fas-bench analyze <results.json>
-fas-bench report <results.json> --output <directory>
-~~~
+```bash
+fas-bench self-test --output /tmp/fas-bench
+fas-bench analyze /tmp/fas-bench/results.json --bootstrap 200 --seed 0
+fas-bench report /tmp/fas-bench/results.json --output /tmp/fas-bench-report
+```
 
-### Work with releases and verification
+### Verify a release manifest
 
-~~~bash
-fas-bench corpus validate
-fas-bench benchmark release --version 0.1.0-phase10-dev
+```bash
 fas-bench release verify <manifest.json>
 fas-bench verification manifest <manifest.json>
 fas-bench verification certify <manifest.json> --security-status PASS --output verification-report.json
-~~~
+```
 
-Release identity is content-derived. A timestamp or directory name is not sufficient to establish release identity.
+Replace angle-bracket placeholders with paths in your environment.
 
-## Evidence-first by design
+## Configuration / options
 
-FAS-Bench separates four important states:
+FAS-Bench is primarily configured through CLI arguments and versioned repository contracts rather than a mutable global configuration file.
 
-~~~text
-schema-valid
-    ≠
-semantically-valid
-    ≠
-evidence-supported
-    ≠
-benchmark-correct
-~~~
+| Option / contract | Default / current value | Notes |
+|---|---|---|
+| Python | >=3.12 | CI validates 3.12 and 3.13 |
+| Package version | 0.1.0 | Declared in `pyproject.toml` |
+| Public corpus | FAS-001–FAS-020 | Development/practice data |
+| JSON Schema | Draft 2020-12 | Schema contracts are checked in |
+| Scoring policy | v0.1 | Research configuration; not a universal weighting claim |
+| Secure execution | Docker provider | Fail-closed when required isolation is unavailable |
+| Oracle image | Immutable digest | Do not replace with a mutable tag |
+| Network for candidate execution | Denied in current provider | Host execution is not an allowed fallback |
 
-The evidence engine verifies claims against authoritative case artifacts. It does not use an LLM as an oracle.
+Run `fas-bench <command> --help` for command-specific options.
 
-A verified evidence item establishes an underlying fact; it does not automatically establish exploitability or the final verdict.
+## Features
 
-## Public vs hidden evaluation
-
-The repository intentionally distinguishes development data from official evaluation data.
-
-~~~text
-PUBLIC_DEVELOPMENT
-PUBLIC_PRACTICE
-      │
-      │ development / reproducibility
-      ▼
-HELD_OUT / HIDDEN / OFFICIAL
-      │
-      │ contamination-resistant evaluation
-      ▼
-official benchmark result
-~~~
-
-The current public repository does **not** contain a secret official evaluation corpus.
-
-The contamination scanner can detect repository-level leakage patterns and forbidden artifacts. It cannot prove that a model has never encountered benchmark-related material during training.
-
-Official evaluation should additionally record the benchmark version, case-population digest, network policy, external lookup policy, hidden-set usage, execution environment, and relevant reproducibility metadata.
-
-## Scoring and scientific boundaries
-
-FAS-Bench exposes decomposable metrics rather than treating one composite number as the whole story.
-
-The scoring layer supports finding, verdict, evidence, reachability, graph, remediation, calibration, integrity, and efficiency measurements.
-
-Some scoring weights and policies remain **provisional research configuration**. They are not presented as scientifically validated universal weights.
-
-The public twenty-case corpus is not statistically representative. FAS-Bench does not currently claim universal real-world security effectiveness, model-training contamination freedom, or cross-platform reproducibility under every environment.
-
-Those boundaries are features of a credible benchmark, not omissions.
-
-## Documentation map
-
-Start with the document that matches your task:
-
-| Need | Document |
+| Area | Capability |
 |---|---|
-| Understand the benchmark contract | [Specification](docs/specification.md) |
-| Understand repository architecture | [Architecture](docs/architecture.md) |
-| Understand evidence evaluation | [Evidence engine docs](docs/evidence-engine.md) |
-| Understand graph evaluation | [Graph engine docs](docs/graph-engine.md) |
-| Understand remediation/regression | [Phase 7 docs](docs/phase7-remediation.md) |
-| Understand scoring/calibration | [Phase 8 docs](docs/phase8-scoring.md) |
-| Understand secure execution | [Phase 9 docs](docs/phase9-secure-evaluation.md) |
-| Understand corpus/release lifecycle | [Phase 10 corpus/release](docs/phase10-corpus-release.md) |
-| Understand mutation | [Phase 10 mutation](docs/phase10-mutation.md) |
-| Understand contamination defense | [Phase 10 contamination](docs/phase10-contamination.md) |
-| Understand release procedure | [Phase 10 release](docs/phase10-release.md) |
-| Understand independent verification | [Phase 10.2 verification](docs/phase10-2-verification.md) |
-| Understand reproducibility | [Reproducibility contract](docs/reproducibility.md) |
-| Understand release certification | [Release certification](docs/release-certification.md) |
-| Understand trust boundaries | [Trust model](docs/trust-model.md) |
-| Understand verification coverage | [Phase 10.2 matrix](docs/phase10-2-verification-matrix.md) |
-| Understand governance | [Phase 10 governance](docs/phase10-governance.md) |
-| Project governance and release approval | [GOVERNANCE.md](GOVERNANCE.md) |
-| Understand Phase 11 corpus expansion | [Phase 11](docs/phase11-corpus-expansion.md) |
-| Understand Phase 11.1 dynamic oracles | [Phase 11.1](docs/phase11-1-dynamic-oracles.md) |
-| Understand Phase 12 statistical calibration | [Phase 12](docs/phase12-statistical-calibration.md) |
-| Understand Phase 12.1 independent validation | [Phase 12.1](docs/phase12-1-independent-validation.md) |
-| Understand Phase 13 enterprise hardening | [Phase 13](docs/phase13-enterprise-hardening.md) |
-| Understand Phase 13.1 governance | [Phase 13.1](docs/phase13-1-governance.md) |
-| Understand Phase 14 evaluation platform | [Phase 14](docs/phase14-evaluation-platform.md) |
-| Understand Phase 15 continuous intelligence | [Phase 15](docs/phase15-continuous-benchmark-intelligence.md) |
-| Understand Phase 16 test registry | [Phase 16](docs/phase16-test-registry.md) |
-| Understand Phase 17 hidden evaluation | [Phase 17](docs/phase17-hidden-contamination.md) |
-| Understand Phase 18 agentic evaluation | [Phase 18](docs/phase18-agentic-evaluation.md) |
-| Understand Phase 19 adversarial robustness | [Phase 19](docs/phase19-adversarial-robustness.md) |
-| Understand Phase 20 measurement science | [Phase 20](docs/phase20-measurement-science.md) |
-| Understand Phase 21 evaluation ecosystem | [Phase 21](docs/phase21-evaluation-ecosystem.md) |
-| Contribute code/cases/docs | [CONTRIBUTING.md](CONTRIBUTING.md) |
-| Report vulnerabilities | [SECURITY.md](SECURITY.md) |
-| Get project help | [SUPPORT.md](SUPPORT.md) |
-| Cite the project | [CITATION.cff](CITATION.cff) |
-| See project history | [CHANGELOG.md](CHANGELOG.md) |
+| Benchmark contract | Versioned taxonomy, verdict semantics, evidence model, and comparability rules |
+| Corpus | FAS-001–FAS-020 public cases with structured expected artifacts and deterministic validation |
+| Evidence | Case-relative artifact resolution, structured fact verification, location checks, duplicate detection |
+| Evaluation | Finding, claim, verdict, conditional exploitability, and evidence-integrity evaluation |
+| Graphs | Canonicalization, identity, path extraction, alternate-path discovery, semantic comparison, and diffs |
+| Remediation | Baseline/post-remediation state, alternate-path and regression analysis |
+| Scoring | Decomposable measurements, calibration, uncertainty, stratification, and reporting |
+| Secure execution | Immutable images, network isolation, resource bounds, artifact validation, and fail-closed behavior |
+| Integrity | Content-derived identities, contamination scans, independence audits, reproducible release manifests |
+| Verification | Independent reference checks, tamper tests, certification, and reproducibility contracts |
+| Agentic evaluation | Immutable environments, ordered multi-turn scenarios, and explicit execution-boundary delegation |
+| Adversarial robustness | Attack-class taxonomy, mutation identity, oracle-bound results, and infrastructure-failure semantics |
+| Measurement science | Wilson intervals, deterministic bootstrap, inter-rater agreement, and benchmark-conditioned reliability |
+| Ecosystem contract | Submission, result, provenance, lifecycle, and human-gated release semantics |
 
-A complete documentation index is available at [docs/README.md](docs/README.md).
+## Documentation
+
+- [Documentation index](docs/README.md)
+- [Normative specification](docs/specification.md)
+- [Architecture](docs/architecture.md)
+- [Reproducibility](docs/reproducibility.md)
+- [Trust model](docs/trust-model.md)
+- [Threat model](docs/threat-model.md)
+- [Secure evaluation](docs/phase9-secure-evaluation.md)
+- [Corpus and release](docs/phase10-corpus-release.md)
+- [Independent verification](docs/phase10-2-verification.md)
+- [Measurement science](docs/phase20-measurement-science.md)
+- [Enterprise evaluation ecosystem](docs/phase21-evaluation-ecosystem.md)
+- [Governance](GOVERNANCE.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Support](SUPPORT.md)
+- [Changelog](CHANGELOG.md)
+- [Citation](CITATION.cff)
+- [LLM-oriented project map](llms.txt)
+
+> [!NOTE]
+> `docs/specification.md` is the normative benchmark contract. Other documents explain implementation or operations and must not silently redefine benchmark semantics.
 
 ## Contributing
 
-FAS-Bench is intentionally built so security researchers, benchmark engineers, application-security engineers, AI/agent researchers, and developers can contribute without first understanding the entire repository.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Contributions should preserve benchmark independence, deterministic semantics, evidence integrity, secure execution boundaries, reproducibility, and historical comparability.
 
-Useful contribution paths include:
+## License and acknowledgements
 
-- **New benchmark cases** — add falsifiable security hypotheses with deterministic ground truth.
-- **Evidence improvements** — strengthen deterministic verification and evidence semantics.
-- **Evaluator improvements** — add case-independent finding/verdict logic and adversarial tests.
-- **Graph work** — improve canonicalization, path reasoning, semantic matching, and boundary analysis.
-- **Remediation work** — improve alternate-path and regression analysis.
-- **Measurement science** — validate calibration, uncertainty, stratification, and scoring methodology.
-- **Harness security** — harden isolation, artifact integrity, resource controls, and reproducibility.
-- **Corpus integrity** — improve contamination detection, mutation validation, release manifests, and governance.
-- **Documentation** — improve clarity, examples, tutorials, and contributor onboarding.
+FAS-Bench is licensed under the [Apache License 2.0](LICENSE).
 
-Good first contributions should be small, testable, and tied to an issue or clearly scoped change.
+The project uses JSON Schema, Hatchling, pytest, Ruff, and GitHub Actions. Third-party notices and license obligations remain governed by the applicable upstream licenses.
 
-Before opening a PR, read [CONTRIBUTING.md](CONTRIBUTING.md).
+<details>
+<summary>Roadmap and maturity</summary>
 
-## Design principles
+FAS-Bench currently documents Phases 1–21, with Phase 21 as the current implementation maturity endpoint. Scientific validity remains an empirical question. In particular, the public corpus is not claimed to be statistically representative, public execution is not equivalent to hidden official evaluation, and implementation maturity does not establish model-training contamination freedom.
 
-FAS-Bench is governed by a small set of non-negotiable principles:
+</details>
 
-1. **Evidence before prose.**
-2. **Exploitability before severity.**
-3. **Reachability matters.**
-4. **Effective security boundaries matter.**
-5. **Alternate paths matter.**
-6. **UNKNOWN is a valid result.**
-7. **Ground truth must be independently testable.**
-8. **The evaluator must not depend on the evaluated system.**
-9. **Benchmark inputs are hostile data.**
-10. **Scores must expose failure modes.**
-11. **Empirical claims must be distinguished from architectural commitments.**
-12. **Historical results must remain interpretable through explicit versioning.**
+<details>
+<summary>Troubleshooting</summary>
 
-## Project maturity
+If installation fails, confirm Python 3.12+ and retry inside a clean virtual environment.
 
-FAS-Bench is an active research/engineering benchmark project.
+If corpus validation fails, run `fas-bench benchmark doctor`, then `fas-bench corpus validate` and inspect the first failing case.
 
-Phases 10–15 substantially strengthen corpus integrity, independent verification, statistical analysis, external-validation protocols, enterprise release security, governance, evaluation-platform contracts, and continuous benchmark health. That does **not** mean every scientific question has been solved.
+If secure-execution tests fail, confirm Docker is installed and available to the current user. Do not bypass the isolation provider by executing candidate code directly on the host.
 
-In particular, the project still treats the following as research areas requiring empirical evidence:
+If a documentation statement conflicts with benchmark behavior, treat [docs/specification.md](docs/specification.md) as the normative contract and report the discrepancy.
 
-- statistical representativeness of the case population
-- human-agreement studies
-- empirical benchmark saturation
-- temporal contamination measurement
-- large-scale cross-model evaluation
-- validation of scoring weights
-- independently operated hidden evaluation infrastructure
-- long-term reproducibility across heterogeneous platforms
+</details>
 
-The project deliberately documents these limits instead of turning implementation maturity into unsupported scientific claims.
+<details>
+<summary>Support</summary>
 
-## Enterprise and research boundaries
+Use [SUPPORT.md](SUPPORT.md) for questions and reproducible bugs. Use [SECURITY.md](SECURITY.md) for security or benchmark-integrity vulnerabilities.
 
-Phase 21 is the current advanced implementation maturity endpoint. Scientific validity remains an empirical property: the public corpus is not claimed to be representative, public results are not equivalent to hidden official evaluation, and governance automation cannot replace independent human review.
-
-## License
-
-FAS-Bench is released under the [Apache License 2.0](LICENSE).
-
-## Citation
-
-If FAS-Bench contributes to research, evaluation, or a published benchmark comparison, please cite it using [CITATION.cff](CITATION.cff).
-
----
-
-**FAS-Bench is built around a simple standard: if a security system makes a claim, the benchmark should make it possible to ask, “What evidence proves it?”**
+</details>

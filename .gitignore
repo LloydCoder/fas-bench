@@ -1,32 +1,57 @@
+# Python
 __pycache__/
 *.py[cod]
 *.so
+*.egg-info/
 
+# Virtual environments
 .venv/
 venv/
+env/
+
+# Local configuration and secrets
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+private/
+local/
 
+# Test, coverage and tooling caches
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
 .coverage
+.coverage.*
 htmlcov/
+.pyre/
+.pytype/
 
-dist/
+# Build artifacts
 build/
-*.egg-info/
+dist/
+wheels/
+*.whl
+*.tar.gz
 
-.idea/
-.vscode/
-.DS_Store
-
+# Runtime output
 *.log
 reports/
 artifacts/
 tmp/
 
-local/
-private/
-secrets/
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Local benchmark data
+outputs/
+results/

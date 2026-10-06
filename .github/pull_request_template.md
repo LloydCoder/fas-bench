@@ -1,6 +1,6 @@
 ## Summary
 
-<!-- What changed, and why? -->
+<!-- What changed and why? -->
 
 ## Change type
 
@@ -10,9 +10,11 @@
 - [ ] Finding / verdict evaluator
 - [ ] Graph engine
 - [ ] Remediation / regression
-- [ ] Scoring / analytics
+- [ ] Scoring / measurement
 - [ ] Secure evaluation harness
 - [ ] Corpus / contamination / release
+- [ ] Agentic / adversarial evaluation
+- [ ] Governance / provenance
 - [ ] Documentation
 - [ ] CI / build / maintenance
 
@@ -21,7 +23,8 @@
 - [ ] Tests pass
 - [ ] Formatting passes
 - [ ] Lint passes
-- [ ] Schema/corpus validation passes where applicable
+- [ ] Schema validation passes where applicable
+- [ ] Corpus validation passes where applicable
 - [ ] Documentation reconciled
 - [ ] Changelog updated where appropriate
 
@@ -29,14 +32,14 @@
 
 - [ ] No real credentials or private data added
 - [ ] No hidden evaluation data exposed
-- [ ] No host-execution or sandbox bypass introduced
+- [ ] No host execution or sandbox bypass introduced
 - [ ] FAS-Bench remains independent of evaluated systems
-- [ ] Any security-boundary change includes appropriate tests
+- [ ] Security-boundary changes include appropriate tests
 
-## Benchmark comparability
+## Comparability
 
-<!-- Does this change alter semantics, scoring, case truth, output formats, or historical comparability? If yes, explain the versioning/compatibility impact. -->
+<!-- Does this change alter semantics, scoring, case truth, output formats, or historical comparability? If yes, explain the impact. -->
 
-## Notes for reviewers
+## Reviewer notes
 
 <!-- Key design decisions, known limitations, or follow-up work. -->

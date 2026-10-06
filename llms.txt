@@ -1,0 +1,52 @@
+# FAS-Bench
+
+> FAS-Bench is an evidence-first benchmark for evaluating AI agents, security scanners, SAST/SCA systems, LLM security tools, MCP-aware systems, and hybrid security-analysis pipelines.
+
+FAS-Bench distinguishes signals, claims, evidence, reachability, security boundaries, attack paths, exploitability, impact, remediation, regression, calibration, and efficiency. The public FAS-001–FAS-020 corpus is development/practice data, not a hidden official evaluation set.
+
+## Core documentation
+
+- [Normative specification](docs/specification.md): The authoritative benchmark contract.
+- [Architecture](docs/architecture.md): Repository and component architecture.
+- [Documentation index](docs/README.md): Technical, operational, research, and community map.
+- [Reproducibility contract](docs/reproducibility.md): Reproduction requirements and environment identity.
+- [Trust model](docs/trust-model.md): Trusted computing base and evidence boundaries.
+- [Threat model](docs/threat-model.md): Threats against validators, evaluators, harnesses, corpus integrity, and releases.
+
+## Evaluation and security
+
+- [Evidence engine](docs/evidence-engine.md): Deterministic evidence validation.
+- [Graph engine](docs/graph-engine.md): Canonical graph processing and path analysis.
+- [Secure evaluation](docs/phase9-secure-evaluation.md): Fail-closed candidate execution.
+- [Corpus and release](docs/phase10-corpus-release.md): Content identity, contamination, and release controls.
+- [Independent verification](docs/phase10-2-verification.md): Independent verification and certification.
+- [Hidden evaluation](docs/phase17-hidden-contamination.md): Public/hidden corpus separation.
+- [Agentic evaluation](docs/phase18-agentic-evaluation.md): Scenario and interaction contracts.
+- [Adversarial robustness](docs/phase19-adversarial-robustness.md): Attack classes and oracle-bound results.
+- [Measurement science](docs/phase20-measurement-science.md): Uncertainty and reliability primitives.
+- [Evaluation ecosystem](docs/phase21-evaluation-ecosystem.md): Submission, result, provenance, lifecycle, and release contracts.
+
+## Community and operations
+
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Support](SUPPORT.md)
+- [Governance](GOVERNANCE.md)
+- [Changelog](CHANGELOG.md)
+- [Citation](CITATION.cff)
+
+## Project constraints
+
+- FAS-Bench MUST remain independent of evaluated products.
+- Submitted evidence MUST be treated as untrusted data.
+- Candidate code MUST NOT execute directly on the host.
+- Hidden official evaluation material MUST remain outside public artifacts.
+- Public results MUST NOT be represented as statistically representative without supporting evidence.
+- Automation MUST NOT manufacture human release approval or silently rewrite historical benchmark identity.
+
+## Canonical entry points
+
+- [README](README.md)
+- [Python package configuration](pyproject.toml)
+- [CI workflow](.github/workflows/ci.yml)
+- [Security workflow](.github/workflows/security.yml)
