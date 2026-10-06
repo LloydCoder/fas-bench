@@ -1,0 +1,9 @@
+# FAS-Bench repository ownership
+/.github/ @LloydCoder
+/.github/workflows/ @LloydCoder
+/cases/ @LloydCoder
+/schemas/ @LloydCoder
+/src/ @LloydCoder
+/tests/ @LloydCoder
+/docs/ @LloydCoder
+* @LloydCoder
